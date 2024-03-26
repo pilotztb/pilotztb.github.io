@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="关键是全概率公式和贝叶斯公式这两大公式的使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随机事件与概率">
+<meta property="og:url" content="http://example.com/posts/becb01a7.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="关键是全概率公式和贝叶斯公式这两大公式的使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-26T10:50:54.328Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/becb01a7.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>随机事件与概率 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">心有所向，无问西东</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/becb01a7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          随机事件与概率
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-15 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-15T00:00:00+08:00">2024-01-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A6%82%E7%8E%87%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">概率论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/becb01a7.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/becb01a7.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+            <div class="post-description">关键是全概率公式和贝叶斯公式这两大公式的使用</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="随机事件与概率">随机事件与概率</h1>
+<h2 id="事件的关系与运算">事件的关系与运算</h2>
+<h3 id="一关系">一：关系</h3>
+<h4 id="包含">1 包含</h4>
+<h4 id="相等">2 相等</h4>
+<h4 id="相容ab-not-emptyset">3 相容：AB <span
+class="math inline">\(\not=\)</span> <span
+class="math inline">\(\emptyset\)</span></h4>
+<h4 id="互斥ab-emptyset">4 互斥：AB = <span
+class="math inline">\(\emptyset\)</span></h4>
+<h4 id="对立overlinea">5 对立：<span
+class="math inline">\(\overline{A}\)</span></h4>
+<p>举例</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210110051.jpg" /></p>
+<h3 id="二运算">二：运算</h3>
+<h4 id="运算类型">运算类型</h4>
+<h5 id="并">1 并</h5>
+<h5 id="交">2 交</h5>
+<h5 id="差">3 差</h5>
+<h5 id="section"><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210110517.jpg" /></h5>
+<h4 id="运算律均只针对交并运算">运算律(均只针对交并运算)</h4>
+<h5 id="吸收若asubsetb则abigcupb-b-abigcapb-a">1 吸收：若A<span
+class="math inline">\(\subset\)</span>B,则A<span
+class="math inline">\(\bigcup\)</span>B = B, A<span
+class="math inline">\(\bigcap\)</span>B = A</h5>
+<h5 id="交换">2 交换</h5>
+<h5 id="结合">3 结合</h5>
+<h5 id="分配">4 分配</h5>
+<h5 id="德摩根长杠变短杠开口换方向">5
+德摩根:长杠变短杠，开口换方向、</h5>
+<h3 id="题型">题型</h3>
+<h4 id="题型一判断命题是否成立">题型一：判断命题是否成立</h4>
+<h5 id="法一画文氏图">法一：画文氏图</h5>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231113154301.jpg"
+alt="微信图片_20231113154301" />
+<figcaption aria-hidden="true">微信图片_20231113154301</figcaption>
+</figure>
+<h5 id="法二公式推理">法二：公式推理</h5>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231113154944.jpg"
+alt="微信图片_20231113154944" />
+<figcaption aria-hidden="true">微信图片_20231113154944</figcaption>
+</figure>
+<h4 id="题型二关于至少这个事件">题型二：关于“至少”这个事件</h4>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231119152722.jpg"
+alt="微信图片_20231119152722" />
+<figcaption aria-hidden="true">微信图片_20231119152722</figcaption>
+</figure>
+<h5 id="ab中至少有一个发生leftrightarrowab">A，B中至少有一个发生<span
+class="math inline">\(\Leftrightarrow\)</span>A∪B</h5>
+<h5 id="a---b-aoverlineb-a---ab">A - B ↔︎ A<span
+class="math inline">\(\overline{B}\)</span> ↔︎ A - AB</h5>
+<h2 id="古典概型和几何概型">古典概型和几何概型</h2>
+<h3 id="一-古典概型">一 古典概型</h3>
+<h4
+id="排列从n个元素中取出m个排成一列所有排列的个数-p第一个有n种取法第二个有n---1种取法第m个前面已经选了m---1个还剩n---m---1个所以有n---m-1种取法">1
+排列：从n个元素中取出m个排成一列，所有排列的个数
+P，第一个有n种取法，第二个有n - 1种取法……第m个,前面已经选了(m -
+1)个，还剩n - (m - 1)个，所以有n - m + 1种取法</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210113017.jpg" /></p>
+<h4
+id="组合从n个元素里挑m个成一种组合因为m个元素有m中排列方式而组合只选择其中一种">2
+组合：从n个元素里挑m个成一种组合，因为m个元素有m!中排列方式，而组合只选择其中一种</h4>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210113408.jpg"
+alt="微信图片_20231210113408" />
+<figcaption aria-hidden="true">微信图片_20231210113408</figcaption>
+</figure>
+<h4 id="题型-1">3 题型</h4>
+<h5 id="随机分配将n个质点放到n个盒子里">3.1
+随机分配：将n个质点放到N个盒子里</h5>
+<h6 id="盒子容量不限制每个质点有n个选择分法总数-nn">(1)
+盒子容量不限制：每个质点有N个选择，分法总数 = n<sup>N</sup></h6>
+<h6
+id="盒子最多放一个第一个质点有n种选择第二个质点有n-1种选择最后一个前面已经选了n---1个盒子剩下n---n---1个盒子的选择即是pnm">(2)
+盒子最多放一个：第一个质点有N种选择，第二个质点有N-1种选择，……最后一个前面已经选了n
+- 1个盒子，剩下N - (n -
+1)个盒子的选择，即是P<sub>n</sub><sup>m</sup></h6>
+<h5 id="简单随机抽样从盒子n个里抽n个">3.2
+简单随机抽样：从盒子N个里抽n个</h5>
+<h6 id="有放回每次都有n个选择一共nn">(1)
+有放回：每次都有N个选择，一共n<sup>N</sup></h6>
+<h6
+id="无放回第一次有n种选择第二次有n-1种选择最后一个前面已经选了n---1个剩下n---n---1个的选择即是pnm">(2)
+无放回：第一次有N种选择，第二次有N-1种选择，……最后一个前面已经选了n -
+1个，剩下N - (n - 1)个的选择，即是P<sub>n</sub><sup>m</sup></h6>
+<h6 id="一口气取无放回的是排列一口气取的是组合">(3)
+一口气取：无放回的是排列，一口气取的是组合</h6>
+<h3 id="二-几何概型常见面积问题">二 几何概型：常见面积问题</h3>
+<h2 id="概率的基本性质与公式">概率的基本性质与公式</h2>
+<h3 id="一-性质">一 性质</h3>
+<h4 id="有界性任何一个时间的概率在010与1都能取得到">1
+有界性：任何一个时间的概率在0~1(0与1都能取得到)</h4>
+<h4 id="单调性若asubsetb则pb--a-pb---pa">2 单调性：若A<span
+class="math inline">\(\subset\)</span>B,则P(B- A) = P(B) - P(A)</h4>
+<h4 id="逆概率公式poverlinea-1---pa">3 逆概率公式：P(<span
+class="math inline">\(\overline{A}\)</span>) = 1 - P(A)</h4>
+<h3 id="二-公式">二 公式</h3>
+<h4
+id="加法公式多个字母的并事件奇数个字母前面是正号偶数个字母前面是负号然后组合排列出所有情况">1
+加法公式(多个字母的并事件)：奇数个字母前面是正号，偶数个字母前面是负号，然后组合排列出所有情况</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210150120.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210150328.jpg" /></p>
+<h4 id="减法公式pa---b-pa---pab">2 减法公式：P(A - B) = P(A) -
+P(AB)</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210141229.jpg" /></p>
+<p>题型： (1) 常在AB 和 A<span
+class="math inline">\(\bigcup\)</span>B上做文章</p>
+<ol start="2" type="1">
+<li>前面公式要熟记</li>
+</ol>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210144150.jpg" /></p>
+<figure>
+<img
+src="C:\Users\piolet\AppData\Roaming\Typora\typora-user-images\微信图片_20231210144201.jpg"
+alt="微信图片_20231210144201" />
+<figcaption aria-hidden="true">微信图片_20231210144201</figcaption>
+</figure>
+<h4 id="条件概率公式">3 条件概率公式</h4>
+<h4 id="全概率公式由因推果多重因素ai导致事件b发生求事件b发生的概率">4
+全概率公式(由因推果，多重因素A<sub>i</sub>导致事件B发生，求事件B发生的概率)</h4>
+<h5 id="完备事件组的全集分解">4.1 完备事件组的全集分解</h5>
+<h5 id="加法公式的互斥">4.2 加法公式的互斥</h5>
+<h5 id="条件概率公式-1">4.3 条件概率公式</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210141537.jpg" /></p>
+<p>举例：</p>
+<p>嵌套：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210153433.jpg" /></p>
+<h4 id="贝叶斯公式由果索因已知事件b发生求是因素ai导致其发生的概率">5
+贝叶斯公式(由果索因，已知事件B发生，求是因素A<sub>i</sub>导致其发生的概率)</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210142447.jpg" /></p>
+<p>举例：</p>
+<p>结合全概率公式使用</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210154248.jpg" /></p>
+<h2 id="事件的独立性">事件的独立性</h2>
+<h3 id="两两独立与相互独立">两两独立与相互独立</h3>
+<h4 id="定义">定义</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210155554.jpg" />
+题型</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210155705.jpg" /></p>
+<h4
+id="性质如果若干个事件相互独立则其中一部分事件与另一部分事件的运算生成的新事件与另一部分事件运算生成的新事件仍然相互独立">性质：如果若干个事件相互独立，则其中一部分事件与另一部分事件的运算生成的新事件与另一部分事件运算生成的新事件仍然相互独立</h4>
+<p>题型</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210163747.jpg" /></p>
+<p>​</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/becb01a7.html" title="随机事件与概率">http://example.com/posts/becb01a7.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/4583997a.html" rel="prev" title="一维随机变量及其分布">
+      <i class="fa fa-chevron-left"></i> 一维随机变量及其分布
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/1f6e1eb2.html" rel="next" title="python数据类型常见操作">
+      python数据类型常见操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%A6%82%E7%8E%87"><span class="nav-number">1.</span> <span class="nav-text">随机事件与概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%85%B3%E7%B3%BB%E4%B8%8E%E8%BF%90%E7%AE%97"><span class="nav-number">1.1.</span> <span class="nav-text">事件的关系与运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">一：关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%85%E5%90%AB"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1 包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E7%AD%89"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">2 相等</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%AE%B9ab-not-emptyset"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">3 相容：AB \(\not&#x3D;\) \(\emptyset\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%92%E6%96%A5ab-emptyset"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">4 互斥：AB &#x3D; \(\emptyset\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E7%AB%8Boverlinea"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">5 对立：\(\overline{A}\)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E8%BF%90%E7%AE%97"><span class="nav-number">1.1.2.</span> <span class="nav-text">二：运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">运算类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B6"><span class="nav-number">1.1.2.1.1.</span> <span class="nav-text">1 并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%A4"><span class="nav-number">1.1.2.1.2.</span> <span class="nav-text">2 交</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B7%AE"><span class="nav-number">1.1.2.1.3.</span> <span class="nav-text">3 差</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#section"><span class="nav-number">1.1.2.1.4.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E5%BE%8B%E5%9D%87%E5%8F%AA%E9%92%88%E5%AF%B9%E4%BA%A4%E5%B9%B6%E8%BF%90%E7%AE%97"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">运算律(均只针对交并运算)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%B8%E6%94%B6%E8%8B%A5asubsetb%E5%88%99abigcupb-b-abigcapb-a"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">1 吸收：若A\(\subset\)B,则A\(\bigcup\)B &#x3D; B, A\(\bigcap\)B &#x3D; A</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">2 交换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%93%E5%90%88"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">3 结合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E9%85%8D"><span class="nav-number">1.1.2.2.4.</span> <span class="nav-text">4 分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%B7%E6%91%A9%E6%A0%B9%E9%95%BF%E6%9D%A0%E5%8F%98%E7%9F%AD%E6%9D%A0%E5%BC%80%E5%8F%A3%E6%8D%A2%E6%96%B9%E5%90%91"><span class="nav-number">1.1.2.2.5.</span> <span class="nav-text">5
+德摩根:长杠变短杠，开口换方向、</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E5%9E%8B"><span class="nav-number">1.1.3.</span> <span class="nav-text">题型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E5%9E%8B%E4%B8%80%E5%88%A4%E6%96%AD%E5%91%BD%E9%A2%98%E6%98%AF%E5%90%A6%E6%88%90%E7%AB%8B"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">题型一：判断命题是否成立</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%95%E4%B8%80%E7%94%BB%E6%96%87%E6%B0%8F%E5%9B%BE"><span class="nav-number">1.1.3.1.1.</span> <span class="nav-text">法一：画文氏图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%95%E4%BA%8C%E5%85%AC%E5%BC%8F%E6%8E%A8%E7%90%86"><span class="nav-number">1.1.3.1.2.</span> <span class="nav-text">法二：公式推理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E5%9E%8B%E4%BA%8C%E5%85%B3%E4%BA%8E%E8%87%B3%E5%B0%91%E8%BF%99%E4%B8%AA%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">题型二：关于“至少”这个事件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ab%E4%B8%AD%E8%87%B3%E5%B0%91%E6%9C%89%E4%B8%80%E4%B8%AA%E5%8F%91%E7%94%9Fleftrightarrowab"><span class="nav-number">1.1.3.2.1.</span> <span class="nav-text">A，B中至少有一个发生\(\Leftrightarrow\)A∪B</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a---b-aoverlineb-a---ab"><span class="nav-number">1.1.3.2.2.</span> <span class="nav-text">A - B ↔︎ A\(\overline{B}\) ↔︎ A - AB</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%A4%E5%85%B8%E6%A6%82%E5%9E%8B%E5%92%8C%E5%87%A0%E4%BD%95%E6%A6%82%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">古典概型和几何概型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80-%E5%8F%A4%E5%85%B8%E6%A6%82%E5%9E%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">一 古典概型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%92%E5%88%97%E4%BB%8En%E4%B8%AA%E5%85%83%E7%B4%A0%E4%B8%AD%E5%8F%96%E5%87%BAm%E4%B8%AA%E6%8E%92%E6%88%90%E4%B8%80%E5%88%97%E6%89%80%E6%9C%89%E6%8E%92%E5%88%97%E7%9A%84%E4%B8%AA%E6%95%B0-p%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%9C%89n%E7%A7%8D%E5%8F%96%E6%B3%95%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%9C%89n---1%E7%A7%8D%E5%8F%96%E6%B3%95%E7%AC%ACm%E4%B8%AA%E5%89%8D%E9%9D%A2%E5%B7%B2%E7%BB%8F%E9%80%89%E4%BA%86m---1%E4%B8%AA%E8%BF%98%E5%89%A9n---m---1%E4%B8%AA%E6%89%80%E4%BB%A5%E6%9C%89n---m-1%E7%A7%8D%E5%8F%96%E6%B3%95"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">1
+排列：从n个元素中取出m个排成一列，所有排列的个数
+P，第一个有n种取法，第二个有n - 1种取法……第m个,前面已经选了(m -
+1)个，还剩n - (m - 1)个，所以有n - m + 1种取法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E4%BB%8En%E4%B8%AA%E5%85%83%E7%B4%A0%E9%87%8C%E6%8C%91m%E4%B8%AA%E6%88%90%E4%B8%80%E7%A7%8D%E7%BB%84%E5%90%88%E5%9B%A0%E4%B8%BAm%E4%B8%AA%E5%85%83%E7%B4%A0%E6%9C%89m%E4%B8%AD%E6%8E%92%E5%88%97%E6%96%B9%E5%BC%8F%E8%80%8C%E7%BB%84%E5%90%88%E5%8F%AA%E9%80%89%E6%8B%A9%E5%85%B6%E4%B8%AD%E4%B8%80%E7%A7%8D"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2
+组合：从n个元素里挑m个成一种组合，因为m个元素有m!中排列方式，而组合只选择其中一种</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E5%9E%8B-1"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">3 题型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E5%88%86%E9%85%8D%E5%B0%86n%E4%B8%AA%E8%B4%A8%E7%82%B9%E6%94%BE%E5%88%B0n%E4%B8%AA%E7%9B%92%E5%AD%90%E9%87%8C"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">3.1
+随机分配：将n个质点放到N个盒子里</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%9B%92%E5%AD%90%E5%AE%B9%E9%87%8F%E4%B8%8D%E9%99%90%E5%88%B6%E6%AF%8F%E4%B8%AA%E8%B4%A8%E7%82%B9%E6%9C%89n%E4%B8%AA%E9%80%89%E6%8B%A9%E5%88%86%E6%B3%95%E6%80%BB%E6%95%B0-nn"><span class="nav-number">1.2.1.3.1.1.</span> <span class="nav-text">(1)
+盒子容量不限制：每个质点有N个选择，分法总数 &#x3D; nN</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%9B%92%E5%AD%90%E6%9C%80%E5%A4%9A%E6%94%BE%E4%B8%80%E4%B8%AA%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%B4%A8%E7%82%B9%E6%9C%89n%E7%A7%8D%E9%80%89%E6%8B%A9%E7%AC%AC%E4%BA%8C%E4%B8%AA%E8%B4%A8%E7%82%B9%E6%9C%89n-1%E7%A7%8D%E9%80%89%E6%8B%A9%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%89%8D%E9%9D%A2%E5%B7%B2%E7%BB%8F%E9%80%89%E4%BA%86n---1%E4%B8%AA%E7%9B%92%E5%AD%90%E5%89%A9%E4%B8%8Bn---n---1%E4%B8%AA%E7%9B%92%E5%AD%90%E7%9A%84%E9%80%89%E6%8B%A9%E5%8D%B3%E6%98%AFpnm"><span class="nav-number">1.2.1.3.1.2.</span> <span class="nav-text">(2)
+盒子最多放一个：第一个质点有N种选择，第二个质点有N-1种选择，……最后一个前面已经选了n
+- 1个盒子，剩下N - (n -
+1)个盒子的选择，即是Pnm</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E9%9A%8F%E6%9C%BA%E6%8A%BD%E6%A0%B7%E4%BB%8E%E7%9B%92%E5%AD%90n%E4%B8%AA%E9%87%8C%E6%8A%BDn%E4%B8%AA"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">3.2
+简单随机抽样：从盒子N个里抽n个</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%89%E6%94%BE%E5%9B%9E%E6%AF%8F%E6%AC%A1%E9%83%BD%E6%9C%89n%E4%B8%AA%E9%80%89%E6%8B%A9%E4%B8%80%E5%85%B1nn"><span class="nav-number">1.2.1.3.2.1.</span> <span class="nav-text">(1)
+有放回：每次都有N个选择，一共nN</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%97%A0%E6%94%BE%E5%9B%9E%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%9C%89n%E7%A7%8D%E9%80%89%E6%8B%A9%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%9C%89n-1%E7%A7%8D%E9%80%89%E6%8B%A9%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%89%8D%E9%9D%A2%E5%B7%B2%E7%BB%8F%E9%80%89%E4%BA%86n---1%E4%B8%AA%E5%89%A9%E4%B8%8Bn---n---1%E4%B8%AA%E7%9A%84%E9%80%89%E6%8B%A9%E5%8D%B3%E6%98%AFpnm"><span class="nav-number">1.2.1.3.2.2.</span> <span class="nav-text">(2)
+无放回：第一次有N种选择，第二次有N-1种选择，……最后一个前面已经选了n -
+1个，剩下N - (n - 1)个的选择，即是Pnm</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%80%E5%8F%A3%E6%B0%94%E5%8F%96%E6%97%A0%E6%94%BE%E5%9B%9E%E7%9A%84%E6%98%AF%E6%8E%92%E5%88%97%E4%B8%80%E5%8F%A3%E6%B0%94%E5%8F%96%E7%9A%84%E6%98%AF%E7%BB%84%E5%90%88"><span class="nav-number">1.2.1.3.2.3.</span> <span class="nav-text">(3)
+一口气取：无放回的是排列，一口气取的是组合</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C-%E5%87%A0%E4%BD%95%E6%A6%82%E5%9E%8B%E5%B8%B8%E8%A7%81%E9%9D%A2%E7%A7%AF%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.2.</span> <span class="nav-text">二 几何概型：常见面积问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8%E4%B8%8E%E5%85%AC%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">概率的基本性质与公式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80-%E6%80%A7%E8%B4%A8"><span class="nav-number">1.3.1.</span> <span class="nav-text">一 性质</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E7%95%8C%E6%80%A7%E4%BB%BB%E4%BD%95%E4%B8%80%E4%B8%AA%E6%97%B6%E9%97%B4%E7%9A%84%E6%A6%82%E7%8E%87%E5%9C%A8010%E4%B8%8E1%E9%83%BD%E8%83%BD%E5%8F%96%E5%BE%97%E5%88%B0"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">1
+有界性：任何一个时间的概率在0~1(0与1都能取得到)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E6%80%A7%E8%8B%A5asubsetb%E5%88%99pb--a-pb---pa"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">2 单调性：若A\(\subset\)B,则P(B- A) &#x3D; P(B) - P(A)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%86%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8Fpoverlinea-1---pa"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">3 逆概率公式：P(\(\overline{A}\)) &#x3D; 1 - P(A)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C-%E5%85%AC%E5%BC%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">二 公式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95%E5%85%AC%E5%BC%8F%E5%A4%9A%E4%B8%AA%E5%AD%97%E6%AF%8D%E7%9A%84%E5%B9%B6%E4%BA%8B%E4%BB%B6%E5%A5%87%E6%95%B0%E4%B8%AA%E5%AD%97%E6%AF%8D%E5%89%8D%E9%9D%A2%E6%98%AF%E6%AD%A3%E5%8F%B7%E5%81%B6%E6%95%B0%E4%B8%AA%E5%AD%97%E6%AF%8D%E5%89%8D%E9%9D%A2%E6%98%AF%E8%B4%9F%E5%8F%B7%E7%84%B6%E5%90%8E%E7%BB%84%E5%90%88%E6%8E%92%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E6%83%85%E5%86%B5"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">1
+加法公式(多个字母的并事件)：奇数个字母前面是正号，偶数个字母前面是负号，然后组合排列出所有情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E6%B3%95%E5%85%AC%E5%BC%8Fpa---b-pa---pab"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2 减法公式：P(A - B) &#x3D; P(A) -
+P(AB)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">3 条件概率公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F%E7%94%B1%E5%9B%A0%E6%8E%A8%E6%9E%9C%E5%A4%9A%E9%87%8D%E5%9B%A0%E7%B4%A0ai%E5%AF%BC%E8%87%B4%E4%BA%8B%E4%BB%B6b%E5%8F%91%E7%94%9F%E6%B1%82%E4%BA%8B%E4%BB%B6b%E5%8F%91%E7%94%9F%E7%9A%84%E6%A6%82%E7%8E%87"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">4
+全概率公式(由因推果，多重因素Ai导致事件B发生，求事件B发生的概率)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%8C%E5%A4%87%E4%BA%8B%E4%BB%B6%E7%BB%84%E7%9A%84%E5%85%A8%E9%9B%86%E5%88%86%E8%A7%A3"><span class="nav-number">1.3.2.4.1.</span> <span class="nav-text">4.1 完备事件组的全集分解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95%E5%85%AC%E5%BC%8F%E7%9A%84%E4%BA%92%E6%96%A5"><span class="nav-number">1.3.2.4.2.</span> <span class="nav-text">4.2 加法公式的互斥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F-1"><span class="nav-number">1.3.2.4.3.</span> <span class="nav-text">4.3 条件概率公式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F%E7%94%B1%E6%9E%9C%E7%B4%A2%E5%9B%A0%E5%B7%B2%E7%9F%A5%E4%BA%8B%E4%BB%B6b%E5%8F%91%E7%94%9F%E6%B1%82%E6%98%AF%E5%9B%A0%E7%B4%A0ai%E5%AF%BC%E8%87%B4%E5%85%B6%E5%8F%91%E7%94%9F%E7%9A%84%E6%A6%82%E7%8E%87"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">5
+贝叶斯公式(由果索因，已知事件B发生，求是因素Ai导致其发生的概率)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.4.</span> <span class="nav-text">事件的独立性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%A4%E7%8B%AC%E7%AB%8B%E4%B8%8E%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B"><span class="nav-number">1.4.1.</span> <span class="nav-text">两两独立与相互独立</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8%E5%A6%82%E6%9E%9C%E8%8B%A5%E5%B9%B2%E4%B8%AA%E4%BA%8B%E4%BB%B6%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B%E5%88%99%E5%85%B6%E4%B8%AD%E4%B8%80%E9%83%A8%E5%88%86%E4%BA%8B%E4%BB%B6%E4%B8%8E%E5%8F%A6%E4%B8%80%E9%83%A8%E5%88%86%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%BF%90%E7%AE%97%E7%94%9F%E6%88%90%E7%9A%84%E6%96%B0%E4%BA%8B%E4%BB%B6%E4%B8%8E%E5%8F%A6%E4%B8%80%E9%83%A8%E5%88%86%E4%BA%8B%E4%BB%B6%E8%BF%90%E7%AE%97%E7%94%9F%E6%88%90%E7%9A%84%E6%96%B0%E4%BA%8B%E4%BB%B6%E4%BB%8D%E7%84%B6%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">性质：如果若干个事件相互独立，则其中一部分事件与另一部分事件的运算生成的新事件与另一部分事件运算生成的新事件仍然相互独立</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-06 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">282k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

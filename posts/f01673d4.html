@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="据说这是每个做Deepfake都必须读的文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FaceXray论文阅读">
+<meta property="og:url" content="http://example.com/posts/f01673d4.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="据说这是每个做Deepfake都必须读的文章">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-23T22:20:01.000Z">
+<meta property="article:modified_time" content="2024-03-26T10:50:54.278Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/f01673d4.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>FaceXray论文阅读 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">心有所向，无问西东</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f01673d4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FaceXray论文阅读
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-24 06:20:01" itemprop="dateCreated datePublished" datetime="2024-01-24T06:20:01+08:00">2024-01-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deepfake/" itemprop="url" rel="index"><span itemprop="name">Deepfake</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deepfake/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/f01673d4.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/f01673d4.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">据说这是每个做Deepfake都必须读的文章</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="face-x-ray实验">Face X-ray实验</h1>
+<h1 id="流程图及公式">1 流程图及公式</h1>
+<h2 id="流程图">1 流程图</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20231108210731.png" /></p>
+<h2 id="公式1-混合">2 公式1 混合</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20231108210822.png" /></p>
+<h2 id="点积不是矩阵乘法">2.1 点积不是矩阵乘法</h2>
+<h2 id="if是前脸">2.2 IF是前脸</h2>
+<h2 id="ib是背景">2.3 IB是背景</h2>
+<h2 id="m-是划定被操纵区域的面具每个像素点的值被限制在01">2.4 M
+是划定被操纵区域的面具，每个像素点的值被限制在0~1</h2>
+<h2 id="混合前要colortransfor">2.5 混合前要colortransfor！</h2>
+<h2 id="公式2">3 公式2</h2>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20231108211101.png"
+alt="微信截图_20231108211101" />
+<figcaption aria-hidden="true">微信截图_20231108211101</figcaption>
+</figure>
+<h1 id="具体实验步骤">具体实验步骤</h1>
+<p>使用HRNet网络</p>
+<p>将来自所有四种不同分辨率的表示拼接到相同大小的 64x64</p>
+<p>经过一个输出通道为 1x1 卷积层</p>
+<p>一个输出大小为 256x256 的双线性上采样层</p>
+<p>一个 sigmoid 函数。</p>
+<p>训练过程</p>
+<p>batch_size设置为32</p>
+<p>总迭代轮数设置为200,000</p>
+<p>热启动</p>
+<p>前50,000次迭代用ImgNet训练HRNet（可以直接找现成的权重）</p>
+<p>后150,000微调，用bi数据集</p>
+<p>学习率一开始设置成0.002，使用Adam优化器，在最后的 50,000
+次迭代中线性衰减为 0。</p>
+<p>For the fully convolutional neural network NNb in our framework, we
+adopt the recent ad- vanced neural network architecture, i.e., HRNet
+[42, 43], and then concatenate representations from all four different
+resolutions to the same size 64 ⇥ 64, followed by a 1 ⇥ 1 convolutional
+layer with one output channel, a bilinear up- sampling layer with 256 ⇥
+256 output size and a sigmoid function. In the training process, the
+batch size is set to 32 and the total number of iterations is set to
+200, 000. To ease the training process of our framework, we warm start
+the re- maining layers with fixed ImageNet pre-trained HRNet for the
+first 50, 000 iterations and then finetune all layers to- gether for the
+rest 150, 000 iterations. The learning rate is set as 0.0002 using Adam
+[20] optimizer at first and then is linearly decayed to 0 for the last
+50, 000 iterations.</p>
+<h1 id="具体步骤">2 具体步骤</h1>
+<h1 id="json文件读取">json文件读取</h1>
+<p>首先要产生BI数据集</p>
+<p>将数据集保存到json文件中，json文件是以字典形式存储</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;pre_computed_landmarks.json&quot;</span>, <span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    self.landmarks_record_dic = json.load(f)</span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> self.landmarks_record_dic.items():</span><br><span class="line">        landmarks_record_dic[k] = np.array(v)</span><br></pre></td></tr></table></figure>
+<h1 id="图片读取与存取">图片读取与存取</h1>
+<h2 id="利用skimage中io读取图片">利用skimage中io读取图片</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> skimage <span class="keyword">import</span> io</span><br><span class="line">face_img = io.imread(background_face_path)</span><br></pre></td></tr></table></figure>
+<p><code>skimage.io.imread</code> 返回的 NumPy 数组的默认格式是
+HWC（Height, Width,
+Channels），即图像的高度、宽度和通道信息，通道顺序是RGB</p>
+<p>以张量形式读取图片</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read_image</span><br></pre></td></tr></table></figure>
+<h1 id="图片对象与数组对象的转换">图片对象与数组对象的转换</h1>
+<h2 id="numpy">numpy</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">face_img = np.array(face_img)</span><br></pre></td></tr></table></figure>
+<h2 id="pil">PIL</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="comment"># 将数组对象读取成图片</span></span><br><span class="line">face_img = Image.fromarray(face_img)</span><br><span class="line"><span class="comment"># </span></span><br></pre></td></tr></table></figure>
+<h1
+id="增加图片多样性或者叫图片增广">增加图片多样性（或者叫图片增广）</h1>
+<h2 id="上采样">上采样</h2>
+<h3 id="最近邻插值">最近邻插值</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">face_img = face_img.resize((aug_size, aug_size), Image.NEAREST)</span><br></pre></td></tr></table></figure>
+<h3 id="双线性插值">双线性插值</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">face_img = face_img.resize((aug_size, aug_size), Image.BILINEAR)</span><br></pre></td></tr></table></figure>
+<h2 id="图片压缩">图片压缩</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随意生成压缩尺寸 使用 OpenCV 中的 cv2.IMWRITE_JPEG_QUALITY 常量来指定 JPEG 图像的编码质量参数，并将其与具体的质量值 quality 组成一个列表 encode_param。</span></span><br><span class="line">encode_param = [<span class="built_in">int</span>(cv2.IMWRITE_JPEG_QUALITY), quality]</span><br><span class="line"><span class="comment"># 使用 OpenCV 的 cv2.imencode 函数将图像编码为指定格式（这里是 PNG 格式）。函数的参数包括要保存的图像格式、图像数据和编码参数。结果是一个包含两个元素的元组，其中第一个元素表示是否成功编码，第二个元素是包含编码后的二进制数据的 NumPy 数组。</span></span><br><span class="line">face_img_encode = cv2.imencode(<span class="string">&#x27;.png&#x27;</span>, face_img, encode_param)[<span class="number">1</span>]</span><br><span class="line"><span class="comment"># 使用 OpenCV 的 cv2.imdecode 函数，该函数接受两个参数：编码后的二进制数据（face_img_encode）和读取图像的标志（这里是 cv2.IMREAD_COLOR，表示以彩色图像的方式读取）。</span></span><br><span class="line">face_img = cv2.imdecode(face_img_encode, cv2.IMREAD_COLOR)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="图片裁剪就是切片">图片裁剪：就是切片</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">face_img = face_img[<span class="number">60</span>:<span class="number">317</span>, <span class="number">30</span>:<span class="number">287</span>, :]</span><br><span class="line">mask = mask[<span class="number">60</span>:<span class="number">317</span>, <span class="number">30</span>:<span class="number">287</span>, :]</span><br></pre></td></tr></table></figure>
+<h2 id="图像反转">图像反转</h2>
+<h3 id="水平翻转">水平翻转</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">face_img = np.flip(face_img, <span class="number">1</span>)</span><br><span class="line">mask = np.flip(mask, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="垂直翻转">垂直翻转</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">face_img = np.flip(face_img, <span class="number">0</span>)</span><br><span class="line">mask = np.flip(mask, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h1
+id="定义计算人脸图片的68个数据点也可以封装成一个类">定义计算人脸图片的68个数据点（也可以封装成一个类）</h1>
+<p>核心</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读入图片，一般用cv2的库</span></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> dlib</span><br><span class="line">img = cv2.imread(img_path)</span><br><span class="line"><span class="comment"># 加载模型文件</span></span><br><span class="line">predictor = dlib.shape_predictor(<span class="string">&#x27;shape_predictor_68_face_landmarks.dat&#x27;</span>)</span><br><span class="line"><span class="comment"># 定义人脸检测器</span></span><br><span class="line">detector = dlib.get_frontal_face_detector()</span><br><span class="line"><span class="comment"># 检测人脸, 其中1可以理解位定义的计算开销,用faces是因为可能检测到不止一个脸</span></span><br><span class="line">faces = detector(img, <span class="number">1</span>)</span><br><span class="line"><span class="comment"># 遍历每一个检测到的人脸</span></span><br><span class="line"><span class="keyword">for</span> face <span class="keyword">in</span> faces:</span><br><span class="line">    <span class="comment"># 获得68个人脸数据点</span></span><br><span class="line">    landmarks = predictor(img, face)</span><br></pre></td></tr></table></figure>
+<p>如果想将读取的68个人脸数据点保存成如下格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;000_0000.png&quot;: [[56, 143], [57, 168], [61, 192], [67, 216], [76, 238], [93, 257], [112, 273], [133, 288], [156, 291], [178, 287], [198, 271], [219, 256], [236, 237], [246, 216], [250, 192], [252, 167], [252, 142], [69, 131], [84, 123], [102, 123], [119, 126], [137, 132], [178, 130], [195, 122], [213, 119], [230, 119], [244, 126], [158, 149], [158, 168], [158, 186], [159, 205], [140, 211], [148, 214], [158, 219], [168, 214], [176, 210], [91, 150], [102, 143], [116, 144], [127, 154], [115, 156], [101, 156], [188, 152], [199, 142], [213, 141], [224, 148], [214, 153], [201, 154], [117, 232], [134, 229], [148, 228], [158, 231], [168, 228], [181, 229], [195, 232], [182, 246], [169, 253], [158, 254], [147, 254], [132, 247], [125, 234], [147, 238], [158, 239], [168, 237], [188, 234], [168, 237], [158, 239], [147, 238]], &quot;001_0000.png&quot;: [[56, 143], [57, 168], [61, 192], [67, 216], [76, 238], [93, 257], [112, 273], [133, 288], [156, 291], [178, 287], [198, 271], [219, 256], [236, 237], [246, 216], [250, 192], [252, 167], [252, 142], [69, 131], [84, 123], [102, 123], [119, 126], [137, 132], [178, 130], [195, 122], [213, 119], [230, 119], [244, 126], [158, 149], [158, 168], [158, 186], [159, 205], [140, 211], [148, 214], [158, 219], [168, 214], [176, 210], [91, 150], [102, 143], [116, 144], [127, 154], [115, 156], [101, 156], [188, 152], [199, 142], [213, 141], [224, 148], [214, 153], [201, 154], [117, 232], [134, 229], [148, 228], [158, 231], [168, 228], [181, 229], [195, 232], [182, 246], [169, 253], [158, 254], [147, 254], [132, 247], [125, 234], [147, 238], [158, 239], [168, 237], [188, 234], [168, 237], [158, 239], [147, 238]]&#125;</span><br><span class="line">结构</span><br><span class="line">(字典)&#123;&quot;图片路径&quot;:[[x, y](每个点坐标),[]](68个数据点), &quot;&quot;:[[],[],……], …… &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">landmarks_dic = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> _, face <span class="keyword">in</span> <span class="built_in">enumerate</span>(faces):</span><br><span class="line">    landmarks = predictor(img, face)</span><br><span class="line">    <span class="comment"># 提前声明二维列表</span></span><br><span class="line">    landmarks_list = [[i.x, i.y] <span class="keyword">for</span> i <span class="keyword">in</span> landmarks.parts()]</span><br><span class="line">    landmark_dic[<span class="string">&quot;pic_path&quot;</span>] = landmarks_list</span><br></pre></td></tr></table></figure>
+<h1 id="定义生成bi数据集的类">定义生成BI数据集的类</h1>
+<h2 id="初始化">初始化</h2>
+<h3 id="读取json文件到内存字典中">读取json文件到内存字典中</h3>
+<p>json文件中key是图片路径，value是68个数据点</p>
+<p>如何计算：</p>
+<h3 id="定义只包含图片路径的列表">定义只包含图片路径的列表</h3>
+<h3 id="定义生成遮罩时的仿射变换">定义生成遮罩时的仿射变换</h3>
+<h2
+id="生成一个数据点包括backgroundfaceforegroundface类型fake-or-real-mask">生成一个“数据点”，包括backgroundface，foregroundface，类型（fake
+or real）， mask</h2>
+<h3
+id="从图片路径列表中随机选择一个图片的路径">从图片路径列表中随机选择一个图片的路径</h3>
+<h3 id="按50随机生成图片类型fake-or-real">按50%随机生成图片类型（fake or
+real）</h3>
+<h3
+id="如果是fake生成混合后的图片并利用公式2将得到的mask转换成facexray">如果是fake，生成混合后的图片并利用公式2将得到的mask转换成FaceXray</h3>
+<h4
+id="根据给定的backgroundface路径读取图片对象和对应的68个数据点">根据给定的backgroundface路径读取图片对象和对应的68个数据点</h4>
+<h4
+id="在数据集中搜索相似的脸作为前脸">在数据集中搜索相似的脸作为前脸</h4>
+<p>先随机选取1000个图片路径，并且剔除和backgroundface来自同一个视频（数据集里保存在同一个文件夹下的）</p>
+<p>通过计算两张图片的68个数据点的欧氏距离来判断相似度，找到欧式距离最小的那个作为frontface</p>
+<h4
+id="根据backgroundface和其landmark生成4种mask">根据backgroundface和其landmark生成4种mask</h4>
+<p>将mask进行仿射变换，随机腐蚀和膨胀来增强mask的多样性<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/alw_123/article/details/83868878">可以参考这篇文章</a></p>
+<h4
+id="混合前对foregroundface进行颜色变换以适应backgroundface">混合前对foregroundface进行颜色变换以适应backgroundface</h4>
+<h4
+id="将maskforegroundface和backgroundface混合">将mask，foregroundface和backgroundface混合</h4>
+<h3
+id="如果是real直接读取图片并且生成mask的灰度图">如果是real，直接读取图片，并且生成mask的灰度图</h3>
+<p>注：所有图片的大小都是317 * 717</p>
+<p>最终生成bi数据集的结构</p>
+<p>影响：MyGetBIDataset 271行save_bi_dataset</p>
+<p>bi_dataset</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">| —— true</span><br><span class="line">|   | —— face</span><br><span class="line">|   |   | —— 1.png</span><br><span class="line">|   |   | —— 2.png</span><br><span class="line">|	| —— mask</span><br><span class="line">|   |   | —— 1.png</span><br><span class="line">|   |   | —— 2.png</span><br><span class="line">|   | —— fake</span><br></pre></td></tr></table></figure>
+<p>获得当时数据集最后格式的方法：切片+解包</p>
+<p>比如对于your/file/000/background_face.jpg，要获取000/background_face.jpg，用如下写法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">background_face_path = <span class="string">&quot;your/file/000/background_face.jpg&quot;</span></span><br><span class="line"><span class="comment"># 拆分路径为目录和文件名</span></span><br><span class="line">final_two = os.path.join(*<span class="built_in">list</span>(background_face_path.split(<span class="string">&#x27;/&#x27;</span>))[-<span class="number">2</span>::])</span><br><span class="line"><span class="built_in">print</span>(final_two)</span><br></pre></td></tr></table></figure>
+<p>命名的时候用是第几张图片命名</p>
+<p>如何优雅地用一行代码计算一个文件夹里所有文件的数量</p>
+<p>利用列表推导式和匿名函数实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count_files = <span class="keyword">lambda</span> folder_path : <span class="built_in">len</span>([f <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(foler_path) <span class="keyword">if</span> os.path.isfile(os.path.join(folder_path, f))])</span><br></pre></td></tr></table></figure>
+<p>computer_landmarksbug修复</p>
+<p>用try-except</p>
+<p>直接往文件里面写</p>
+<p>处理错误</p>
+<p>定义保存错误信息的文件位置</p>
+<p>配置错误函数</p>
+<p>将错误写入错误函数指向的文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    logging.basicConfig(filename=<span class="string">&quot;ErrorLogs&quot;</span>, level=logging.ERROR)</span><br><span class="line">    <span class="comment"># logging.basicConfig: 这是一个配置基础日志系统的函数，用于配置日志记录的基本设置。在这里，它指定了将日志写入文件，而不是默认的控制台输出 </span></span><br><span class="line">    <span class="comment"># filename=GETBIERRORLOG: 这部分指定了日志文件的路径和名称。 GETBIERRORLOG 是一个变量，它应该在这一行代码之前定义，并包含了日志文件的完整路径。</span></span><br><span class="line">    <span class="comment"># level=logging.ERROR: 这设置了日志记录的级别。在这里，设置为ERROR，表示只记录错误级别的日志消息，包括错误和更严重的消息。这有助于筛选并专注于捕捉代码中的潜在问题。</span></span><br><span class="line">    logging.error(<span class="string">f&quot;<span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="comment"># 将错误信息写入上面配置的错误函数指向的文件</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<h1
+id="定义数据集dataset封装成一个类">定义数据集dataset（封装成一个类）</h1>
+<p>需要写入h5文件</p>
+<p>h5文件里面要包含些什么？</p>
+<h1 id="hrnet网络的使用">HRNet网络的使用</h1>
+<p>HRNet网络介绍</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240128070003428.png" /></p>
+<p>从官方下载HRNet的网络</p>
+<p>其中加载预训练模型的位置</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240128063426079.png" /></p>
+<p>default中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">common params for NETWORK</span><br></pre></td></tr></table></figure>
+<p>default作用说明里有这句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">定义模型配置,_C.MODEL:</span><br></pre></td></tr></table></figure>
+<p>在default搜索_C.MODEL,发现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.MODEL.PRETRAINED = &#x27;&#x27;</span><br></pre></td></tr></table></figure>
+<p>修改为之前下载的预训练函数位置</p>
+<p>default.py中输出种类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.MODEL.NUM_CLASSES = 2</span><br></pre></td></tr></table></figure>
+<p>default.py中修改传入的图片大小</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.MODEL.IMAGE_SIZE</span><br></pre></td></tr></table></figure>
+<p>修改传入的图片种类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.DATASET.DATA_FORMAT = &#x27;png&#x27;</span><br></pre></td></tr></table></figure>
+<p>default中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DATASET related params</span><br></pre></td></tr></table></figure>
+<p>传入的图片种类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.DATASET.DATA_FORMAT = &#x27;png&#x27;</span><br></pre></td></tr></table></figure>
+<p>数据集根路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.DATASET.ROOT = &#x27;&#x27;</span><br></pre></td></tr></table></figure>
+<p>default中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># train</span><br></pre></td></tr></table></figure>
+<p>迭代轮数 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.TRAIN.END_EPOCH = 150000</span><br></pre></td></tr></table></figure></p>
+<p>batch_size设置为32</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.TRAIN.LR = 0.002</span><br></pre></td></tr></table></figure>
+<p>总迭代轮数设置为200,000</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.TRAIN.END_EPOCH = 200000</span><br></pre></td></tr></table></figure>
+<p>学习率一开始设置成0.002</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.TRAIN.LR = 0.002</span><br></pre></td></tr></table></figure>
+<p>使用Adam优化器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_C.TRAIN.OPTIMIZER = &#x27;adam&#x27;</span><br></pre></td></tr></table></figure>
+<p>在最后的 50,000 次迭代中线性衰减为 0。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在tools/train.py中找到data_loader</p>
+<p>lib/core/function.py中定义了训练函数</p>
+<p>我还是有点懵，这到底怎么传文件啊</p>
+<p>我现在就是按它哪个要求修改了分类的参数，但还是迷糊</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/f01673d4.html" title="FaceXray论文阅读">http://example.com/posts/f01673d4.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/ea79def.html" rel="prev" title="第三周-模块文件操作">
+      <i class="fa fa-chevron-left"></i> 第三周-模块文件操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/c2a0da7c.html" rel="next" title="图像增广">
+      图像增广 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#face-x-ray%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.</span> <span class="nav-text">Face X-ray实验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE%E5%8F%8A%E5%85%AC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">1 流程图及公式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">2.1.</span> <span class="nav-text">1 流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E5%BC%8F1-%E6%B7%B7%E5%90%88"><span class="nav-number">2.2.</span> <span class="nav-text">2 公式1 混合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E7%A7%AF%E4%B8%8D%E6%98%AF%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">2.1 点积不是矩阵乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if%E6%98%AF%E5%89%8D%E8%84%B8"><span class="nav-number">2.4.</span> <span class="nav-text">2.2 IF是前脸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ib%E6%98%AF%E8%83%8C%E6%99%AF"><span class="nav-number">2.5.</span> <span class="nav-text">2.3 IB是背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#m-%E6%98%AF%E5%88%92%E5%AE%9A%E8%A2%AB%E6%93%8D%E7%BA%B5%E5%8C%BA%E5%9F%9F%E7%9A%84%E9%9D%A2%E5%85%B7%E6%AF%8F%E4%B8%AA%E5%83%8F%E7%B4%A0%E7%82%B9%E7%9A%84%E5%80%BC%E8%A2%AB%E9%99%90%E5%88%B6%E5%9C%A801"><span class="nav-number">2.6.</span> <span class="nav-text">2.4 M
+是划定被操纵区域的面具，每个像素点的值被限制在0~1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E5%89%8D%E8%A6%81colortransfor"><span class="nav-number">2.7.</span> <span class="nav-text">2.5 混合前要colortransfor！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E5%BC%8F2"><span class="nav-number">2.8.</span> <span class="nav-text">3 公式2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">具体实验步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.</span> <span class="nav-text">2 具体步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#json%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96"><span class="nav-number">5.</span> <span class="nav-text">json文件读取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E8%AF%BB%E5%8F%96%E4%B8%8E%E5%AD%98%E5%8F%96"><span class="nav-number">6.</span> <span class="nav-text">图片读取与存取</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8skimage%E4%B8%ADio%E8%AF%BB%E5%8F%96%E5%9B%BE%E7%89%87"><span class="nav-number">6.1.</span> <span class="nav-text">利用skimage中io读取图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%AF%B9%E8%B1%A1%E4%B8%8E%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">7.</span> <span class="nav-text">图片对象与数组对象的转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy"><span class="nav-number">7.1.</span> <span class="nav-text">numpy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pil"><span class="nav-number">7.2.</span> <span class="nav-text">PIL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E5%9B%BE%E7%89%87%E5%A4%9A%E6%A0%B7%E6%80%A7%E6%88%96%E8%80%85%E5%8F%AB%E5%9B%BE%E7%89%87%E5%A2%9E%E5%B9%BF"><span class="nav-number">8.</span> <span class="nav-text">增加图片多样性（或者叫图片增广）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E9%87%87%E6%A0%B7"><span class="nav-number">8.1.</span> <span class="nav-text">上采样</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E8%BF%91%E9%82%BB%E6%8F%92%E5%80%BC"><span class="nav-number">8.1.1.</span> <span class="nav-text">最近邻插值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%8F%92%E5%80%BC"><span class="nav-number">8.1.2.</span> <span class="nav-text">双线性插值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9"><span class="nav-number">8.2.</span> <span class="nav-text">图片压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E8%A3%81%E5%89%AA%E5%B0%B1%E6%98%AF%E5%88%87%E7%89%87"><span class="nav-number">8.3.</span> <span class="nav-text">图片裁剪：就是切片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%8F%8D%E8%BD%AC"><span class="nav-number">8.4.</span> <span class="nav-text">图像反转</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E7%BF%BB%E8%BD%AC"><span class="nav-number">8.4.1.</span> <span class="nav-text">水平翻转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E7%BF%BB%E8%BD%AC"><span class="nav-number">8.4.2.</span> <span class="nav-text">垂直翻转</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E8%AE%A1%E7%AE%97%E4%BA%BA%E8%84%B8%E5%9B%BE%E7%89%87%E7%9A%8468%E4%B8%AA%E6%95%B0%E6%8D%AE%E7%82%B9%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%B0%81%E8%A3%85%E6%88%90%E4%B8%80%E4%B8%AA%E7%B1%BB"><span class="nav-number">9.</span> <span class="nav-text">定义计算人脸图片的68个数据点（也可以封装成一个类）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%94%9F%E6%88%90bi%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E7%B1%BB"><span class="nav-number">10.</span> <span class="nav-text">定义生成BI数据集的类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">10.1.</span> <span class="nav-text">初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96json%E6%96%87%E4%BB%B6%E5%88%B0%E5%86%85%E5%AD%98%E5%AD%97%E5%85%B8%E4%B8%AD"><span class="nav-number">10.1.1.</span> <span class="nav-text">读取json文件到内存字典中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%8F%AA%E5%8C%85%E5%90%AB%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E7%9A%84%E5%88%97%E8%A1%A8"><span class="nav-number">10.1.2.</span> <span class="nav-text">定义只包含图片路径的列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%94%9F%E6%88%90%E9%81%AE%E7%BD%A9%E6%97%B6%E7%9A%84%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2"><span class="nav-number">10.1.3.</span> <span class="nav-text">定义生成遮罩时的仿射变换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E7%82%B9%E5%8C%85%E6%8B%ACbackgroundfaceforegroundface%E7%B1%BB%E5%9E%8Bfake-or-real-mask"><span class="nav-number">10.2.</span> <span class="nav-text">生成一个“数据点”，包括backgroundface，foregroundface，类型（fake
+or real）， mask</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E5%88%97%E8%A1%A8%E4%B8%AD%E9%9A%8F%E6%9C%BA%E9%80%89%E6%8B%A9%E4%B8%80%E4%B8%AA%E5%9B%BE%E7%89%87%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="nav-number">10.2.1.</span> <span class="nav-text">从图片路径列表中随机选择一个图片的路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%8950%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E5%9B%BE%E7%89%87%E7%B1%BB%E5%9E%8Bfake-or-real"><span class="nav-number">10.2.2.</span> <span class="nav-text">按50%随机生成图片类型（fake or
+real）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%98%AFfake%E7%94%9F%E6%88%90%E6%B7%B7%E5%90%88%E5%90%8E%E7%9A%84%E5%9B%BE%E7%89%87%E5%B9%B6%E5%88%A9%E7%94%A8%E5%85%AC%E5%BC%8F2%E5%B0%86%E5%BE%97%E5%88%B0%E7%9A%84mask%E8%BD%AC%E6%8D%A2%E6%88%90facexray"><span class="nav-number">10.2.3.</span> <span class="nav-text">如果是fake，生成混合后的图片并利用公式2将得到的mask转换成FaceXray</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E7%BB%99%E5%AE%9A%E7%9A%84backgroundface%E8%B7%AF%E5%BE%84%E8%AF%BB%E5%8F%96%E5%9B%BE%E7%89%87%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%AF%B9%E5%BA%94%E7%9A%8468%E4%B8%AA%E6%95%B0%E6%8D%AE%E7%82%B9"><span class="nav-number">10.2.3.1.</span> <span class="nav-text">根据给定的backgroundface路径读取图片对象和对应的68个数据点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%AD%E6%90%9C%E7%B4%A2%E7%9B%B8%E4%BC%BC%E7%9A%84%E8%84%B8%E4%BD%9C%E4%B8%BA%E5%89%8D%E8%84%B8"><span class="nav-number">10.2.3.2.</span> <span class="nav-text">在数据集中搜索相似的脸作为前脸</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AEbackgroundface%E5%92%8C%E5%85%B6landmark%E7%94%9F%E6%88%904%E7%A7%8Dmask"><span class="nav-number">10.2.3.3.</span> <span class="nav-text">根据backgroundface和其landmark生成4种mask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E5%89%8D%E5%AF%B9foregroundface%E8%BF%9B%E8%A1%8C%E9%A2%9C%E8%89%B2%E5%8F%98%E6%8D%A2%E4%BB%A5%E9%80%82%E5%BA%94backgroundface"><span class="nav-number">10.2.3.4.</span> <span class="nav-text">混合前对foregroundface进行颜色变换以适应backgroundface</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%86maskforegroundface%E5%92%8Cbackgroundface%E6%B7%B7%E5%90%88"><span class="nav-number">10.2.3.5.</span> <span class="nav-text">将mask，foregroundface和backgroundface混合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%98%AFreal%E7%9B%B4%E6%8E%A5%E8%AF%BB%E5%8F%96%E5%9B%BE%E7%89%87%E5%B9%B6%E4%B8%94%E7%94%9F%E6%88%90mask%E7%9A%84%E7%81%B0%E5%BA%A6%E5%9B%BE"><span class="nav-number">10.2.4.</span> <span class="nav-text">如果是real，直接读取图片，并且生成mask的灰度图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86dataset%E5%B0%81%E8%A3%85%E6%88%90%E4%B8%80%E4%B8%AA%E7%B1%BB"><span class="nav-number">11.</span> <span class="nav-text">定义数据集dataset（封装成一个类）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hrnet%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">12.</span> <span class="nav-text">HRNet网络的使用</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-06 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">282k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="基于pytorch框架的对于softmax的定义和实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="softmax的定义与实现">
+<meta property="og:url" content="http://example.com/posts/ebe4d421.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="基于pytorch框架的对于softmax的定义和实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-26T10:50:54.314Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/ebe4d421.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>softmax的定义与实现 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">心有所向，无问西东</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ebe4d421.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          softmax的定义与实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-14 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-14T00:00:00+08:00">2024-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/ebe4d421.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/ebe4d421.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+            <div class="post-description">基于pytorch框架的对于softmax的定义和实现</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="基本术语的介绍">基本术语的介绍</h1>
+<h2 id="特征feature">特征：（feature）：</h2>
+<h3
+id="描述一件事物的特性如一个人的身高体重年龄和五官">描述一件事物的特性，如一个人的身高、体重、年龄和五官。</h3>
+<h3
+id="代码里就是用来表示某样事物的矩阵">代码里就是用来表示某样事物的矩阵</h3>
+<h2 id="样本sample">样本（sample）：</h2>
+<h3
+id="由一个人的特征组成的数据如1807019精致1807019精致">由一个人的特征组成的数据，如{180,70,19,精致}{180,70,19,精致}。</h3>
+<h3
+id="代码里就是从整个数据集里抽取的一部分">代码里就是从整个数据集里抽取的一部分</h3>
+<h2 id="标签label">标签（label）：</h2>
+<h3
+id="描述一件事物的特性如一个人帅或丑一个人的财富数量注特征和标记没有明确的划分由于问题的不同可能导致">描述一件事物的特性，如一个人帅或丑、一个人的财富数量。<strong>注：特征和标记没有明确的划分，由于问题的不同可能导致</strong></h3>
+<h3
+id="a问题的特征是b问题的标记b问题的标记是a问题的特征"><strong>A问题的特征是B问题的标记，B问题的标记是A问题的特征。</strong></h3>
+<h3
+id="在代码里面往往表示的是真正的结果">在代码里面往往表示的是真正的结果</h3>
+<h2 id="样例example">样例（example）：</h2>
+<h3
+id="由一个人的特征和标记组成的数据如1807019精致帅1807019精致帅">由一个人的特征和标记组成的数据，如{180,70,19,精致,帅}{180,70,19,精致,帅}。</h3>
+<h2 id="特征空间feature-space">特征空间（feature space）：</h2>
+<h2
+id="特征向量feature-vector特征空间内的某一个具体的向量">特征向量（feature
+vector）：特征空间内的某一个具体的向量</h2>
+<h1 id="softmax回归">softmax回归</h1>
+<h2 id="要解决的问题-分类问题">要解决的问题: 分类问题</h2>
+<p>从一个图像分类问题开始。 假设每次输入是一个2×2的灰度图像。
+我们可以用一个标量表示每个像素值，每个图像对应四个特征<span
+class="math inline">\(x1,x2,x3,x4\)</span>。
+此外，假设每个图像属于类别“猫”“鸡”和“狗”中的一个。</p>
+<p>独热编码： （1）一个向量，它的分量和类别一样多
+（2）类别对应的分量设置为1，其他所有分量设置为0。
+（3）举例：标签y将是一个三维向量，
+其中(1,0,0)对应于“猫”、(0,1,0)对应于“鸡”、(0,0,1)对应于“狗”：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240114211802509.png" /></p>
+<h2
+id="优点softmax函数能够将未规范化的预测变换为非负数并且总和为1同时让模型保持可导的性质">优点：softmax函数能够将未规范化的预测变换为非负数并且总和为1，同时让模型保持可导的性质</h2>
+<h2 id="形成的网络架构">形成的网络架构</h2>
+<p>（1）估计所有可能类别的条件概率，我们需要一个有多个输出的模型，每个类别对应一个输出</p>
+<p>（2）所以需要和输出一样多的<em>仿射函数</em>（affine
+function）(没那么高大上，就是实现映射关系的函数)，
+每个输出对应于它自己的仿射函数</p>
+<p>（3）有4个特征(因为前面说的灰度图有4个像素点）和3个可能的输出类别（猫，鸡，狗）</p>
+<p>（4）所以需要12个标量来表示权重（带下标的<span
+class="math inline">\(w\)</span>）， 3个标量来表示偏置（带下标的<span
+class="math inline">\(b\)</span>），每个输入计算三个**（logit）：<span
+class="math inline">\(o1、o2和o3\)</span>。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240114213059124.png" /></p>
+<p>（5）所以softmax回归是一个单层神经网络。softmax回归的输出层也是全连接层</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240114213251337.png" /></p>
+<h2 id="运算">运算</h2>
+<h3 id="对每个项求幂使用exp">1.
+对每个项求幂（使用<code>exp</code>）；</h3>
+<h3 id="对每一行求和小批量中每个样本是一行得到每个样本的规范化常数">2.
+对每一行求和（小批量中每个样本是一行），得到每个样本的规范化常数；</h3>
+<h3 id="将每一行除以其规范化常数确保结果的和为1">3.
+将每一行除以其规范化常数，确保结果的和为1。</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240115162440275.png" /></p>
+<h1 id="实现">实现</h1>
+<h2 id="读取数据集">读取数据集</h2>
+<p>练模型时要对数据集进行遍历，每次抽取一小批量样本，并使用它们来更新我们的模型</p>
+<p>打乱数据集中的样本并以小批量方式获取数据</p>
+<p>接收批量大小、特征矩阵和标签向量作为输入</p>
+<p>生成大小为<code>batch_size</code>的小批量。
+每个小批量包含一组特征和标签。</p>
+<p>读取第一个小批量数据样本并打印。
+每个批量的特征维度显示批量大小和输入特征数。
+同样的，批量的标签形状与<code>batch_size</code>相等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">data_iter</span>(<span class="params">batch_size, features, labels</span>):</span><br><span class="line">    num_examples = <span class="built_in">len</span>(features)</span><br><span class="line">    indices = <span class="built_in">list</span>(<span class="built_in">range</span>(num_examples))</span><br><span class="line">    <span class="comment"># 这些样本是随机读取的，没有特定的顺序</span></span><br><span class="line">    random.shuffle(indices)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, num_examples, batch_size):</span><br><span class="line">        batch_indices = torch.tensor(</span><br><span class="line">            indices[i: <span class="built_in">min</span>(i + batch_size, num_examples)])</span><br><span class="line">        <span class="keyword">yield</span> features[batch_indices], labels[batch_indices]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[[-0.594405    0.7975923 ]</span><br><span class="line"> [ 0.5477517   0.15074243]</span><br><span class="line"> [-0.34835348  0.929739  ]</span><br><span class="line"> [-1.5249145   0.701587  ]</span><br><span class="line"> [-2.298264    0.10911477]</span><br><span class="line"> [ 1.6356094   0.14286116]</span><br><span class="line"> [-0.19882555 -0.85171705]</span><br><span class="line"> [ 1.2024101  -1.7029836 ]</span><br><span class="line"> [-0.60534513 -0.39319903]</span><br><span class="line"> [-1.771029   -0.5459446 ]]</span><br><span class="line"> [[ 0.30207413]</span><br><span class="line"> [ 4.786745  ]</span><br><span class="line"> [ 0.33858034]</span><br><span class="line"> [-1.2297847 ]</span><br><span class="line"> [-0.75900215]</span><br><span class="line"> [ 6.979927  ]</span><br><span class="line"> [ 6.7001796 ]</span><br><span class="line"> [12.39533   ]</span><br><span class="line"> [ 4.3220677 ]</span><br><span class="line"> [ 2.517848  ]]</span><br></pre></td></tr></table></figure>
+<h2 id="定义模型">定义模型</h2>
+<h3 id="手搓版本">手搓版本</h3>
+<h4 id="初始化模型参数">初始化模型参数</h4>
+<h5 id="展平">展平</h5>
+<p>每个样本都将用固定长度的向量表示。 原始数据集中的每个样本都是28×28 =
+784的图像。 展平每个图像，把它们看作长度为784的向量</p>
+<h5 id="输出维度">输出维度</h5>
+<p>输出与类别一样多。
+因为我们的数据集有10个类别，所以网络输出维度为10</p>
+<h5 id="权重矩阵和偏置矩阵">权重矩阵和偏置矩阵</h5>
+<h6 id="大小">大小</h6>
+<p>因此，权重将构成一个784×10（每个数据由一维列向量构成，这个一维向量由784个数字构成，一共有10个输出，每个输出对应的每一行就是一个公式)的权重矩阵，
+偏置将构成一个1×10的<strong>行向量</strong>（每个输出对应一个偏置，一共10个输出），注意这里是<strong>“立”</strong>着来，从上往下计算，不像前面提到和一般从左到右</p>
+<h6 id="初始化">初始化</h6>
+<p>使用正态分布初始化我们的权重<code>W</code>，偏置初始化为0。</p>
+<h5 id="代码">代码</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">num_inputs = <span class="number">784</span></span><br><span class="line">num_outputs = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">W = torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, size=(num_inputs, num_outputs), requires_grad=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 使用 PyTorch 的 torch.normal 函数生成行数为 num_inputs，列数为 num_outputs的二维矩阵，并且服从正态分布（均值为0，标准差为0.01），并设置 requires_grad=True</span></span><br><span class="line">b = torch.zeros(num_outputs, requires_grad=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="定义softmax操作">定义softmax操作</h4>
+<h5 id="对每个项求幂使用exp-1">1.
+对每个项求幂（使用<code>exp</code>）；</h5>
+<h5 id="对每一行求和小批量中每个样本是一行得到每个样本的规范化常数-1">2.
+对每一行求和（小批量中每个样本是一行），得到每个样本的规范化常数；</h5>
+<h5 id="将每一行除以其规范化常数确保结果的和为1-1">3.
+将每一行除以其规范化常数，确保结果的和为1。</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240115162440275.png" />
+##### 代码 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">softmax</span>(<span class="params">X</span>):</span><br><span class="line">    X_exp = torch.exp(X)</span><br><span class="line">    partition = X_exp.<span class="built_in">sum</span>(<span class="number">1</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span> X_exp / partition  <span class="comment"># 这里应用了广播机制</span></span><br></pre></td></tr></table></figure></p>
+<p>其中sum操作，如果指定在一个轴（同一列（轴0）或同一行（轴1））上求和，</p>
+<p>如果<code>X</code>是一个形状为<code>(2, 3)</code>的张量，我们对列进行求和</p>
+<p>默认情况会降维，得到一个形状<code>(3,)</code>的向量</p>
+<p>但keepdim=True指定保持在原始张量的轴数，将产生一个具有形状<code>(1, 3)</code>的二维张量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X = torch.tensor([[<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>], [<span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>]])</span><br><span class="line">X.<span class="built_in">sum</span>(<span class="number">0</span>, keepdim=<span class="literal">True</span>), X.<span class="built_in">sum</span>(<span class="number">1</span>, keepdim=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>输出结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(tensor([[5., 7., 9.]]),</span><br><span class="line"> tensor([[ 6.],</span><br><span class="line">         [15.]]))</span><br></pre></td></tr></table></figure>
+<h4 id="合并">合并</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">net</span>(<span class="params">X</span>):</span><br><span class="line">    <span class="keyword">return</span> softmax(torch.matmul(X.reshape((-<span class="number">1</span>, W.shape[<span class="number">0</span>])), W) + b)</span><br></pre></td></tr></table></figure>
+<p><code>X.reshape((-1, W.shape[0]))</code>：这一步将输入 <code>X</code>
+重塑为一个二维张量，其形状的第二个维度与权重 <code>W</code>
+的第一个维度相同。<code>-1</code> 表示该维度的大小会自动计算，以保持
+<code>X</code> 中元素的总数不变</p>
+<p><code>torch.matmul(X.reshape((-1, W.shape[0])), W)</code>：这一步执行矩阵乘法，将重塑后的
+<code>X</code> 与权重 <code>W</code> 相乘</p>
+<p>。<code>torch.matmul(X.reshape((-1, W.shape[0])), W) + b</code>：这一步将偏置
+<code>b</code>
+加到矩阵乘法的结果上。注意，由于广播（broadcasting）机制，即使
+<code>b</code> 的形状与矩阵乘法的结果不同，这一步也能正确执行。</p>
+<p><code>softmax(torch.matmul(X.reshape((-1, W.shape[0])), W) + b)</code>：最后，这一步将
+softmax 函数应用到加上偏置的结果上。softmax 函数能将其输入（通常被称为
+logits 或分数）转换为正值且和为 1 的概率分布。</p>
+<h3 id="导包版本">导包版本</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PyTorch不会隐式地调整输入的形状,我们在线性层前定义了展平层（flatten），来调整网络输入的形状</span></span><br><span class="line">net = nn.Sequential(nn.Flatten(), nn.Linear(<span class="number">784</span>, <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">init_weights</span>(<span class="params">m</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">type</span>(m) == nn.Linear:</span><br><span class="line">        nn.init.normal_(m.weight, std=<span class="number">0.01</span>)</span><br><span class="line"></span><br><span class="line">net.apply(init_weights);</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接将模型定义和损失函数合并到一起去了</span></span><br><span class="line">loss = nn.CrossEntropyLoss(reduction=<span class="string">&#x27;none&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="定义损失函数">定义损失函数</h2>
+<h3 id="损失函数是什么">损失函数是什么</h3>
+<p>量化目标的<em>实际</em>值与<em>预测</em>值之间的差距</p>
+<p>选择非负数作为损失，且数值越小表示损失越小，完美预测时的损失为0</p>
+<p>回归问题中最常用的损失函数是平方误差函数 ###
+对数似然(就是大二上学的概率论里的第六章的最大似然估计，与矩估计并列)</p>
+<h3 id="交叉熵损失">交叉熵损失</h3>
+<p>观察到的不仅仅是一个结果，现在用一个概率向量表示，如(0.1,0.2,0.7)，
+而不是仅包含二元项的向量(0,0,1)。使用下面这个公式定义损失，它是所有标签分布的预期损失值。称为<em>交叉熵损失</em>（cross-entropy
+loss）</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/11.png" />
+实现交叉熵损失函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">cross_entropy</span>(<span class="params">y_hat, y</span>):</span><br><span class="line">    <span class="keyword">return</span> - torch.log(y_hat[<span class="built_in">range</span>(<span class="built_in">len</span>(y_hat)), y])</span><br><span class="line"></span><br><span class="line">cross_entropy(y_hat, y)</span><br></pre></td></tr></table></figure>
+<h2 id="定义优化算法">定义优化算法</h2>
+<p>每一步中，使用从数据集中随机抽取的一个小批量，然后根据参数计算损失的梯度。
+接下来，朝着减少损失的方向更新我们的参数</p>
+<p>接受模型参数集合、学习速率和批量大小作为输入。</p>
+<p>每 一步更新的大小由学习速率<code>lr</code>决定</p>
+<p>计算的损失是一个批量样本的总和，所以我们用批量大小（<code>batch_size</code>）
+来规范化步长，这样步长大小就不会取决于我们对批量大小的选择。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sgd</span>(<span class="params">params, lr, batch_size</span>):  <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;小批量随机梯度下降&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">            param -= lr * param.grad / batch_size</span><br><span class="line">            param.grad.zero_()</span><br></pre></td></tr></table></figure>
+<h2
+id="分类精度确预测数量与总预测数量之比">分类精度：确预测数量与总预测数量之比</h2>
+<p>须输出硬预测（hard prediction）时，
+我们通常选择<strong>预测概率最高</strong>的类</p>
+<p>当预测与标签分类<code>y</code>一致时，即是正确的。</p>
+<p>计算方法：</p>
+<p>如果<code>y_hat</code>是矩阵，那么假定第二个维度存储每个类的预测分数。
+我们使用<code>argmax</code>获得每行中最大元素的索引来获得预测类别。
+然后我们将预测类别与真实<code>y</code>元素进行比较。
+由于等式运算符“<code>==</code>”对数据类型很敏感，
+因此我们将<code>y_hat</code>的数据类型转换为与<code>y</code>的数据类型一致。
+结果是一个包含0（错）和1（对）的张量。
+最后，我们求和会得到正确预测的数量。</p>
+<p>举例说明</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">y = torch.tensor([<span class="number">0</span>, <span class="number">2</span>])</span><br><span class="line"><span class="comment"># 标签y, 在第一个样本中，第一类是正确的预测； 而在第二个样本中，第三类是正确的预测</span></span><br><span class="line">y_hat = torch.tensor([[<span class="number">0.1</span>, <span class="number">0.3</span>, <span class="number">0.6</span>], [<span class="number">0.3</span>, <span class="number">0.2</span>, <span class="number">0.5</span>]])</span><br><span class="line"><span class="comment"># y_hat包含2个样本在3个类别的预测概率， 以及它们对应的标签y</span></span><br><span class="line">y_hat[[<span class="number">0</span>, <span class="number">1</span>], y]</span><br><span class="line"><span class="comment"># 对一个二维张量 y_hat 进行索引。具体来说，它选择了 y_hat 的第 0 行和第 1 行中，由 y 指定的列</span></span><br></pre></td></tr></table></figure>
+<p>输出 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor([0.1000, 0.5000])</span><br></pre></td></tr></table></figure> 定义计算精度的函数 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">accuracy</span>(<span class="params">y_hat, y</span>):  <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算预测正确的数量&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(y_hat.shape) &gt; <span class="number">1</span> <span class="keyword">and</span> y_hat.shape[<span class="number">1</span>] &gt; <span class="number">1</span>:</span><br><span class="line">        y_hat = y_hat.argmax(axis=<span class="number">1</span>)</span><br><span class="line">    cmp = y_hat.<span class="built_in">type</span>(y.dtype) == y</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">float</span>(cmp.<span class="built_in">type</span>(y.dtype).<span class="built_in">sum</span>())</span><br></pre></td></tr></table></figure></p>
+<p>使用之前定义的变量<code>y_hat</code>和<code>y</code>分别作为预测的概率分布和标签，第一个样本的预测类别是2（该行的最大元素为0.6，索引为2），这与实际标签0不一致。
+第二个样本的预测类别是2（该行的最大元素为0.5，索引为2），这与实际标签2一致。
+因此，这两个样本的分类精度率为0.5。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accuracy(y_hat, y) / <span class="built_in">len</span>(y)</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.5</span><br></pre></td></tr></table></figure>
+<h2 id="训练">训练</h2>
+<h3
+id="在每次迭代中我们读取一小批量训练样本">在每次迭代中，我们读取一小批量训练样本</h3>
+<h3
+id="通过调用模型来获得一组预测并计算损失l前向传播">通过调用模型来获得一组预测并计算损失l（前向传播）</h3>
+<h3
+id="计算完损失后开始反向传播来计算每个参数的梯度">计算完损失后，开始反向传播来计算每个参数的梯度。</h3>
+<h3
+id="最后我们调用优化器比如sgd来更新模型参数">最后，我们调用优化器(比如sgd)来更新模型参数。</h3>
+<h2 id="预测">预测</h2>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/ebe4d421.html" title="softmax的定义与实现">http://example.com/posts/ebe4d421.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/d779deea.html" rel="prev" title="枚举-安全区">
+      <i class="fa fa-chevron-left"></i> 枚举-安全区
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/2865530f.html" rel="next" title="python基本数据结构，条件语句，循环语句">
+      python基本数据结构，条件语句，循环语句 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%9C%AF%E8%AF%AD%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">基本术语的介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%BE%81feature"><span class="nav-number">1.1.</span> <span class="nav-text">特征：（feature）：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%BB%B6%E4%BA%8B%E7%89%A9%E7%9A%84%E7%89%B9%E6%80%A7%E5%A6%82%E4%B8%80%E4%B8%AA%E4%BA%BA%E7%9A%84%E8%BA%AB%E9%AB%98%E4%BD%93%E9%87%8D%E5%B9%B4%E9%BE%84%E5%92%8C%E4%BA%94%E5%AE%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">描述一件事物的特性，如一个人的身高、体重、年龄和五官。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%87%8C%E5%B0%B1%E6%98%AF%E7%94%A8%E6%9D%A5%E8%A1%A8%E7%A4%BA%E6%9F%90%E6%A0%B7%E4%BA%8B%E7%89%A9%E7%9A%84%E7%9F%A9%E9%98%B5"><span class="nav-number">1.1.2.</span> <span class="nav-text">代码里就是用来表示某样事物的矩阵</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E6%9C%ACsample"><span class="nav-number">1.2.</span> <span class="nav-text">样本（sample）：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B1%E4%B8%80%E4%B8%AA%E4%BA%BA%E7%9A%84%E7%89%B9%E5%BE%81%E7%BB%84%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%A6%821807019%E7%B2%BE%E8%87%B41807019%E7%B2%BE%E8%87%B4"><span class="nav-number">1.2.1.</span> <span class="nav-text">由一个人的特征组成的数据，如{180,70,19,精致}{180,70,19,精致}。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%87%8C%E5%B0%B1%E6%98%AF%E4%BB%8E%E6%95%B4%E4%B8%AA%E6%95%B0%E6%8D%AE%E9%9B%86%E9%87%8C%E6%8A%BD%E5%8F%96%E7%9A%84%E4%B8%80%E9%83%A8%E5%88%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">代码里就是从整个数据集里抽取的一部分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BElabel"><span class="nav-number">1.3.</span> <span class="nav-text">标签（label）：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%BB%B6%E4%BA%8B%E7%89%A9%E7%9A%84%E7%89%B9%E6%80%A7%E5%A6%82%E4%B8%80%E4%B8%AA%E4%BA%BA%E5%B8%85%E6%88%96%E4%B8%91%E4%B8%80%E4%B8%AA%E4%BA%BA%E7%9A%84%E8%B4%A2%E5%AF%8C%E6%95%B0%E9%87%8F%E6%B3%A8%E7%89%B9%E5%BE%81%E5%92%8C%E6%A0%87%E8%AE%B0%E6%B2%A1%E6%9C%89%E6%98%8E%E7%A1%AE%E7%9A%84%E5%88%92%E5%88%86%E7%94%B1%E4%BA%8E%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%8D%E5%90%8C%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4"><span class="nav-number">1.3.1.</span> <span class="nav-text">描述一件事物的特性，如一个人帅或丑、一个人的财富数量。注：特征和标记没有明确的划分，由于问题的不同可能导致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#a%E9%97%AE%E9%A2%98%E7%9A%84%E7%89%B9%E5%BE%81%E6%98%AFb%E9%97%AE%E9%A2%98%E7%9A%84%E6%A0%87%E8%AE%B0b%E9%97%AE%E9%A2%98%E7%9A%84%E6%A0%87%E8%AE%B0%E6%98%AFa%E9%97%AE%E9%A2%98%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-number">1.3.2.</span> <span class="nav-text">A问题的特征是B问题的标记，B问题的标记是A问题的特征。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%BB%A3%E7%A0%81%E9%87%8C%E9%9D%A2%E5%BE%80%E5%BE%80%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%98%AF%E7%9C%9F%E6%AD%A3%E7%9A%84%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.3.</span> <span class="nav-text">在代码里面往往表示的是真正的结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8Bexample"><span class="nav-number">1.4.</span> <span class="nav-text">样例（example）：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B1%E4%B8%80%E4%B8%AA%E4%BA%BA%E7%9A%84%E7%89%B9%E5%BE%81%E5%92%8C%E6%A0%87%E8%AE%B0%E7%BB%84%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%A6%821807019%E7%B2%BE%E8%87%B4%E5%B8%851807019%E7%B2%BE%E8%87%B4%E5%B8%85"><span class="nav-number">1.4.1.</span> <span class="nav-text">由一个人的特征和标记组成的数据，如{180,70,19,精致,帅}{180,70,19,精致,帅}。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E7%A9%BA%E9%97%B4feature-space"><span class="nav-number">1.5.</span> <span class="nav-text">特征空间（feature space）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8Ffeature-vector%E7%89%B9%E5%BE%81%E7%A9%BA%E9%97%B4%E5%86%85%E7%9A%84%E6%9F%90%E4%B8%80%E4%B8%AA%E5%85%B7%E4%BD%93%E7%9A%84%E5%90%91%E9%87%8F"><span class="nav-number">1.6.</span> <span class="nav-text">特征向量（feature
+vector）：特征空间内的某一个具体的向量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#softmax%E5%9B%9E%E5%BD%92"><span class="nav-number">2.</span> <span class="nav-text">softmax回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98-%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">要解决的问题: 分类问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%82%B9softmax%E5%87%BD%E6%95%B0%E8%83%BD%E5%A4%9F%E5%B0%86%E6%9C%AA%E8%A7%84%E8%8C%83%E5%8C%96%E7%9A%84%E9%A2%84%E6%B5%8B%E5%8F%98%E6%8D%A2%E4%B8%BA%E9%9D%9E%E8%B4%9F%E6%95%B0%E5%B9%B6%E4%B8%94%E6%80%BB%E5%92%8C%E4%B8%BA1%E5%90%8C%E6%97%B6%E8%AE%A9%E6%A8%A1%E5%9E%8B%E4%BF%9D%E6%8C%81%E5%8F%AF%E5%AF%BC%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">2.2.</span> <span class="nav-text">优点：softmax函数能够将未规范化的预测变换为非负数并且总和为1，同时让模型保持可导的性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%A2%E6%88%90%E7%9A%84%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number">2.3.</span> <span class="nav-text">形成的网络架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97"><span class="nav-number">2.4.</span> <span class="nav-text">运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%8F%E4%B8%AA%E9%A1%B9%E6%B1%82%E5%B9%82%E4%BD%BF%E7%94%A8exp"><span class="nav-number">2.4.1.</span> <span class="nav-text">1.
+对每个项求幂（使用exp）；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%8F%E4%B8%80%E8%A1%8C%E6%B1%82%E5%92%8C%E5%B0%8F%E6%89%B9%E9%87%8F%E4%B8%AD%E6%AF%8F%E4%B8%AA%E6%A0%B7%E6%9C%AC%E6%98%AF%E4%B8%80%E8%A1%8C%E5%BE%97%E5%88%B0%E6%AF%8F%E4%B8%AA%E6%A0%B7%E6%9C%AC%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E5%B8%B8%E6%95%B0"><span class="nav-number">2.4.2.</span> <span class="nav-text">2.
+对每一行求和（小批量中每个样本是一行），得到每个样本的规范化常数；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E6%AF%8F%E4%B8%80%E8%A1%8C%E9%99%A4%E4%BB%A5%E5%85%B6%E8%A7%84%E8%8C%83%E5%8C%96%E5%B8%B8%E6%95%B0%E7%A1%AE%E4%BF%9D%E7%BB%93%E6%9E%9C%E7%9A%84%E5%92%8C%E4%B8%BA1"><span class="nav-number">2.4.3.</span> <span class="nav-text">3.
+将每一行除以其规范化常数，确保结果的和为1。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">读取数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">定义模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E6%90%93%E7%89%88%E6%9C%AC"><span class="nav-number">3.2.1.</span> <span class="nav-text">手搓版本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">初始化模型参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B1%95%E5%B9%B3"><span class="nav-number">3.2.1.1.1.</span> <span class="nav-text">展平</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E7%BB%B4%E5%BA%A6"><span class="nav-number">3.2.1.1.2.</span> <span class="nav-text">输出维度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%87%8D%E7%9F%A9%E9%98%B5%E5%92%8C%E5%81%8F%E7%BD%AE%E7%9F%A9%E9%98%B5"><span class="nav-number">3.2.1.1.3.</span> <span class="nav-text">权重矩阵和偏置矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A4%A7%E5%B0%8F"><span class="nav-number">3.2.1.1.3.1.</span> <span class="nav-text">大小</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.2.1.1.3.2.</span> <span class="nav-text">初始化</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.2.1.1.4.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89softmax%E6%93%8D%E4%BD%9C"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">定义softmax操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E6%AF%8F%E4%B8%AA%E9%A1%B9%E6%B1%82%E5%B9%82%E4%BD%BF%E7%94%A8exp-1"><span class="nav-number">3.2.1.2.1.</span> <span class="nav-text">1.
+对每个项求幂（使用exp）；</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E6%AF%8F%E4%B8%80%E8%A1%8C%E6%B1%82%E5%92%8C%E5%B0%8F%E6%89%B9%E9%87%8F%E4%B8%AD%E6%AF%8F%E4%B8%AA%E6%A0%B7%E6%9C%AC%E6%98%AF%E4%B8%80%E8%A1%8C%E5%BE%97%E5%88%B0%E6%AF%8F%E4%B8%AA%E6%A0%B7%E6%9C%AC%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E5%B8%B8%E6%95%B0-1"><span class="nav-number">3.2.1.2.2.</span> <span class="nav-text">2.
+对每一行求和（小批量中每个样本是一行），得到每个样本的规范化常数；</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86%E6%AF%8F%E4%B8%80%E8%A1%8C%E9%99%A4%E4%BB%A5%E5%85%B6%E8%A7%84%E8%8C%83%E5%8C%96%E5%B8%B8%E6%95%B0%E7%A1%AE%E4%BF%9D%E7%BB%93%E6%9E%9C%E7%9A%84%E5%92%8C%E4%B8%BA1-1"><span class="nav-number">3.2.1.2.3.</span> <span class="nav-text">3.
+将每一行除以其规范化常数，确保结果的和为1。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%88%E5%B9%B6"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">合并</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%8C%85%E7%89%88%E6%9C%AC"><span class="nav-number">3.2.2.</span> <span class="nav-text">导包版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">定义损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.3.1.</span> <span class="nav-text">损失函数是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1"><span class="nav-number">3.3.2.</span> <span class="nav-text">交叉熵损失</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="nav-number">3.4.</span> <span class="nav-text">定义优化算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E7%B2%BE%E5%BA%A6%E7%A1%AE%E9%A2%84%E6%B5%8B%E6%95%B0%E9%87%8F%E4%B8%8E%E6%80%BB%E9%A2%84%E6%B5%8B%E6%95%B0%E9%87%8F%E4%B9%8B%E6%AF%94"><span class="nav-number">3.5.</span> <span class="nav-text">分类精度：确预测数量与总预测数量之比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83"><span class="nav-number">3.6.</span> <span class="nav-text">训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%AF%8F%E6%AC%A1%E8%BF%AD%E4%BB%A3%E4%B8%AD%E6%88%91%E4%BB%AC%E8%AF%BB%E5%8F%96%E4%B8%80%E5%B0%8F%E6%89%B9%E9%87%8F%E8%AE%AD%E7%BB%83%E6%A0%B7%E6%9C%AC"><span class="nav-number">3.6.1.</span> <span class="nav-text">在每次迭代中，我们读取一小批量训练样本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E8%B0%83%E7%94%A8%E6%A8%A1%E5%9E%8B%E6%9D%A5%E8%8E%B7%E5%BE%97%E4%B8%80%E7%BB%84%E9%A2%84%E6%B5%8B%E5%B9%B6%E8%AE%A1%E7%AE%97%E6%8D%9F%E5%A4%B1l%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">3.6.2.</span> <span class="nav-text">通过调用模型来获得一组预测并计算损失l（前向传播）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%AE%8C%E6%8D%9F%E5%A4%B1%E5%90%8E%E5%BC%80%E5%A7%8B%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E6%9D%A5%E8%AE%A1%E7%AE%97%E6%AF%8F%E4%B8%AA%E5%8F%82%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6"><span class="nav-number">3.6.3.</span> <span class="nav-text">计算完损失后，开始反向传播来计算每个参数的梯度。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E6%88%91%E4%BB%AC%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96%E5%99%A8%E6%AF%94%E5%A6%82sgd%E6%9D%A5%E6%9B%B4%E6%96%B0%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0"><span class="nav-number">3.6.4.</span> <span class="nav-text">最后，我们调用优化器(比如sgd)来更新模型参数。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B"><span class="nav-number">3.7.</span> <span class="nav-text">预测</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-06 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">282k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

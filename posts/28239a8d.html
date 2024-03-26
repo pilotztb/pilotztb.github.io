@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="面向对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象">
+<meta property="og:url" content="http://example.com/posts/28239a8d.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="面向对象">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://stepimagewm.how2j.cn/605.png">
+<meta property="og:image" content="https://stepimagewm.how2j.cn/609.png">
+<meta property="og:image" content="https://stepimagewm.how2j.cn/610.png">
+<meta property="og:image" content="https://stepimagewm.how2j.cn/611.png">
+<meta property="article:published_time" content="2024-03-21T06:19:23.000Z">
+<meta property="article:modified_time" content="2024-03-26T10:50:54.285Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://stepimagewm.how2j.cn/605.png">
+
+<link rel="canonical" href="http://example.com/posts/28239a8d.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>面向对象 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">心有所向，无问西东</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/28239a8d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面向对象
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-21 14:19:23" itemprop="dateCreated datePublished" datetime="2024-03-21T14:19:23+08:00">2024-03-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/28239a8d.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/28239a8d.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="面向对象">面向对象</h1>
+<span id="more"></span>
+<h2 id="继承">继承</h2>
+<p>举例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Object_oriented.inheritance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Weapon</span> <span class="keyword">extends</span> <span class="title class_">Item</span>&#123;</span><br><span class="line">    <span class="type">int</span> damage;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Weapon</span> <span class="variable">infinityEdge</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Weapon</span>();</span><br><span class="line">        infinityEdge.damage = <span class="number">65</span>;</span><br><span class="line">        infinityEdge.name = <span class="string">&quot;无尽之刃&quot;</span>;</span><br><span class="line">        infinityEdge.price = <span class="number">3600</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2
+id="方法重载方法名一样但是参数类型不一样">方法重载:方法名一样，但是参数类型不一样</h2>
+<p>采用可变数量的参数 <strong>只需要设计一个方法</strong> public void
+attack(Hero <strong>...</strong>heros) 即可代表上述所有的方法了
+在方法里，使用操作数组的方式处理参数heros即可</p>
+<p>举例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ADHero</span> <span class="keyword">extends</span> <span class="title class_">Hero</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">attack</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(name + <span class="string">&quot; 进行了一次攻击 ，但是不确定打中谁了&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 可变数量的参数</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">attack</span><span class="params">(Hero... heros)</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; heros.length; i++) &#123;</span><br><span class="line">			System.out.println(name + <span class="string">&quot; 攻击了 &quot;</span> + heros[i].name);</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">ADHero</span> <span class="variable">bh</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ADHero</span>();</span><br><span class="line">		bh.name = <span class="string">&quot;赏金猎人&quot;</span>;</span><br><span class="line"></span><br><span class="line">		<span class="type">Hero</span> <span class="variable">h1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Hero</span>();</span><br><span class="line">		h1.name = <span class="string">&quot;盖伦&quot;</span>;</span><br><span class="line">		<span class="type">Hero</span> <span class="variable">h2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Hero</span>();</span><br><span class="line">		h2.name = <span class="string">&quot;提莫&quot;</span>;</span><br><span class="line"></span><br><span class="line">		bh.attack(h1);</span><br><span class="line">		bh.attack(h1, h2);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="构造方法">构造方法</h2>
+<p>通过一个类创建一个对象，这个过程叫做<strong>实例化</strong></p>
+<p>实例化是通过调用<strong>构造方法</strong>(又叫做<strong>构造器</strong>)实现的</p>
+<h3 id="定义">定义：</h3>
+<p>方法名和类名一样（包括大小写） <strong>没有返回类型</strong>
+实例化一个对象的时候，必然调用构造方法</p>
+<h3 id="隐式的构造方法">隐式的构造方法</h3>
+<p>无参的构造方法，如果不写，就会默认提供一个</p>
+<p>如果提供了一个有参的构造方法，同时又<strong>没有显式</strong>的提供一个无参的构造方法那么默认的无参的构造方法，就“木有了“</p>
+<h3 id="构造方法的重载">构造方法的重载</h3>
+<h2 id="this的使用">this的使用</h2>
+<p>this这个关键字，相当于普通话里的“我” this即代表当前对象</p>
+<h3 id="this代表当前对象">this代表当前对象</h3>
+<p>举例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hero</span> &#123;</span><br><span class="line">	</span><br><span class="line">	String name; <span class="comment">//姓名</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">float</span> hp; <span class="comment">//血量</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">float</span> armor; <span class="comment">//护甲</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> moveSpeed; <span class="comment">//移动速度</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//打印内存中的虚拟地址</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">showAddressInMemory</span><span class="params">()</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;打印this看到的虚拟地址：&quot;</span>+<span class="built_in">this</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Hero</span> <span class="variable">garen</span> <span class="operator">=</span>  <span class="keyword">new</span> <span class="title class_">Hero</span>();</span><br><span class="line">		garen.name = <span class="string">&quot;盖伦&quot;</span>;</span><br><span class="line">		<span class="comment">//直接打印对象，会显示该对象在内存中的虚拟地址</span></span><br><span class="line">		<span class="comment">//格式：Hero@c17164 c17164即虚拟地址，每次执行，得到的地址不一定一样</span></span><br><span class="line"></span><br><span class="line">		System.out.println(<span class="string">&quot;打印对象看到的虚拟地址：&quot;</span>+garen);</span><br><span class="line">		<span class="comment">//调用showAddressInMemory，打印该对象的this，显示相同的虚拟地址</span></span><br><span class="line">		garen.showAddressInMemory();</span><br><span class="line">		</span><br><span class="line">        <span class="type">Hero</span> <span class="variable">teemo</span> <span class="operator">=</span>  <span class="keyword">new</span> <span class="title class_">Hero</span>();</span><br><span class="line">        teemo.name = <span class="string">&quot;提莫&quot;</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;打印对象看到的虚拟地址：&quot;</span>+teemo);</span><br><span class="line">		teemo.showAddressInMemory();</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">打印对象看到的虚拟地址：Object_oriented.reload.Hero@1b6d3586(和下面<span class="built_in">this</span>引用的一样)</span><br><span class="line">打印<span class="built_in">this</span>看到的虚拟地址：Object_oriented.reload.Hero@1b6d3586</span><br><span class="line">打印对象看到的虚拟地址：Object_oriented.reload.Hero@4554617c</span><br><span class="line">打印<span class="built_in">this</span>看到的虚拟地址：Object_oriented.reload.Hero@4554617c</span><br></pre></td></tr></table></figure>
+<h3 id="通过this访问属性">通过this访问属性</h3>
+<p>关键代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName3</span><span class="params">(String name)</span>&#123;</span><br><span class="line">    <span class="comment">//name代表的是参数name</span></span><br><span class="line">    <span class="comment">//this.name代表的是属性name</span></span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hero</span> &#123;</span><br><span class="line">	</span><br><span class="line">	String name; <span class="comment">//姓名</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">float</span> hp; <span class="comment">//血量</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">float</span> armor; <span class="comment">//护甲</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> moveSpeed; <span class="comment">//移动速度</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//参数名和属性名一样</span></span><br><span class="line">	<span class="comment">//在方法体中，只能访问到参数name</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName1</span><span class="params">(String name)</span>&#123;</span><br><span class="line">		name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//为了避免setName1中的问题，参数名不得不使用其他变量名</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName2</span><span class="params">(String heroName)</span>&#123;</span><br><span class="line">		name = heroName;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//通过this访问属性</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName3</span><span class="params">(String name)</span>&#123;</span><br><span class="line">		<span class="comment">//name代表的是参数name</span></span><br><span class="line">		<span class="comment">//this.name代表的是属性name</span></span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Hero</span>  <span class="variable">h</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">Hero</span>();</span><br><span class="line">		</span><br><span class="line">		h.setName1(<span class="string">&quot;teemo&quot;</span>);</span><br><span class="line">		System.out.println(h.name);</span><br><span class="line">		</span><br><span class="line">		h.setName2(<span class="string">&quot;garen&quot;</span>);</span><br><span class="line">		System.out.println(h.name);		</span><br><span class="line">		</span><br><span class="line">		h.setName3(<span class="string">&quot;死歌&quot;</span>);</span><br><span class="line">		System.out.println(h.name);		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">null</span><br><span class="line">garen</span><br><span class="line">死歌</span><br></pre></td></tr></table></figure>
+<h3 id="通过this调用其他的构造方法">通过this调用其他的构造方法</h3>
+<p>关键代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Hero</span><span class="params">(String name,<span class="type">float</span> hp)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>(name);</span><br><span class="line">    System.out.println(<span class="string">&quot;两个参数的构造方法&quot;</span>);</span><br><span class="line">    <span class="built_in">this</span>.hp = hp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package Object_oriented.reload;</span><br><span class="line"></span><br><span class="line">public class Hero &#123;</span><br><span class="line"></span><br><span class="line">    String name; //姓名</span><br><span class="line"></span><br><span class="line">    float hp; //血量</span><br><span class="line"></span><br><span class="line">    float armor; //护甲</span><br><span class="line"></span><br><span class="line">    int moveSpeed; //移动速度</span><br><span class="line"></span><br><span class="line">    //带一个参数的构造方法</span><br><span class="line">    public Hero(String name)&#123;</span><br><span class="line">        System.out.println(&quot;一个参数的构造方法&quot;);</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //带两个参数的构造方法</span><br><span class="line">    public Hero(String name,float hp)&#123;</span><br><span class="line">        this(name);</span><br><span class="line">        System.out.println(&quot;两个参数的构造方法&quot;);</span><br><span class="line">        this.hp = hp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Hero teemo =  new Hero(&quot;提莫&quot;,383);</span><br><span class="line">        System.out.println(teemo.name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="传参">传参</h2>
+<h3 id="基本类型传参">基本类型传参</h3>
+<p>基本类型传参 在方法内，无法修改方法外的基本类型参数</p>
+<p>关键代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">xueping</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//提莫通过这个血瓶回血</span></span><br><span class="line"></span><br><span class="line">teemo.huixue(xueping);</span><br><span class="line"></span><br><span class="line">System.out.println(xueping);</span><br></pre></td></tr></table></figure>
+<p>完整代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hero</span> &#123;</span><br><span class="line">       </span><br><span class="line">    String name; <span class="comment">//姓名</span></span><br><span class="line">       </span><br><span class="line">    <span class="type">float</span> hp; <span class="comment">//血量</span></span><br><span class="line">       </span><br><span class="line">    <span class="type">float</span> armor; <span class="comment">//护甲</span></span><br><span class="line">       </span><br><span class="line">    <span class="type">int</span> moveSpeed; <span class="comment">//移动速度</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Hero</span><span class="params">()</span>&#123;</span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//回血</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">huixue</span><span class="params">(<span class="type">int</span> xp)</span>&#123;</span><br><span class="line">    	hp = hp + xp;</span><br><span class="line">    	<span class="comment">//回血完毕后，血瓶=0</span></span><br><span class="line">    	xp=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Hero</span><span class="params">(String name,<span class="type">float</span> hp)</span>&#123;</span><br><span class="line">    	<span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.hp = hp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Hero</span> <span class="variable">teemo</span> <span class="operator">=</span>  <span class="keyword">new</span> <span class="title class_">Hero</span>(<span class="string">&quot;提莫&quot;</span>,<span class="number">383</span>);</span><br><span class="line">        <span class="comment">//血瓶，其值是100</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">xueping</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//提莫通过这个血瓶回血</span></span><br><span class="line">        </span><br><span class="line">        teemo.huixue(xueping);</span><br><span class="line">        </span><br><span class="line">        System.out.println(xueping);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">100</span><br><span class="line">(按理说不应该是100，因为已经回血后按理说血瓶废了，说明方法没有修改方法外参数)</span><br></pre></td></tr></table></figure>
+<h3 id="引用与">引用与=</h3>
+<p>如果一个变量是基本类型 比如 int hp = 50; 我们就直接管hp叫变量
+<strong>=表示赋值的意思</strong>。 如果一个变量是类类型 比如 Hero h =
+new Hero(); 我们就管h叫做<strong>引用</strong>。
+<strong>=不再是赋值的意思</strong> <strong>=表示指向的意思</strong> 比如
+Hero h = new Hero(); 这句话的意思是 引用h，指向一个Hero对象</p>
+<h3 id="类类型传参">类类型传参</h3>
+<p>关键代码</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240322150201788.png" /></p>
+<p>传递给方法里的如果是类类型那么就可以在方法内修改方法外的变量</p>
+<p>完整代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hero</span> &#123;</span><br><span class="line"></span><br><span class="line">	String name; <span class="comment">// 姓名</span></span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> hp; <span class="comment">// 血量</span></span><br><span class="line"></span><br><span class="line">	<span class="type">float</span> armor; <span class="comment">// 护甲</span></span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> moveSpeed; <span class="comment">// 移动速度</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Hero</span><span class="params">(String name, <span class="type">float</span> hp)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		<span class="built_in">this</span>.hp = hp;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 攻击一个英雄，并让他掉damage点血</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">attack</span><span class="params">(Hero hero, <span class="type">int</span> damage)</span> &#123;</span><br><span class="line">		hero.hp = hero.hp - damage;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Hero</span> <span class="variable">teemo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Hero</span>(<span class="string">&quot;提莫&quot;</span>, <span class="number">383</span>);</span><br><span class="line">		<span class="type">Hero</span> <span class="variable">garen</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Hero</span>(<span class="string">&quot;盖伦&quot;</span>, <span class="number">616</span>);</span><br><span class="line">		garen.attack(teemo, <span class="number">100</span>);</span><br><span class="line">		System.out.println(teemo.hp);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">283.0</span><br></pre></td></tr></table></figure>
+<h2 id="四种访问修饰符">四种访问修饰符</h2>
+<p>成员变量有四种修饰符 <strong>private</strong> 私有的
+<strong>package</strong>/friendly/default 不写
+<strong>protected</strong> 受保护的 <strong>public</strong> 公共的</p>
+<h3 id="类之间的关系">类之间的关系</h3>
+<p>类和类之间的关系有如下几种: 以Hero为例
+<strong>自身：</strong>指的是Hero自己
+<strong>同包子类：</strong>ADHero这个类是Hero的子类，并且和Hero处于<strong>同一个包下</strong>
+<strong>不同包子类：</strong>Support这个类是Hero的子类，但是在<strong>另一个包下</strong>
+<strong>同包类：</strong> GiantDragon
+这个类和Hero是<strong>同一个包</strong>，但是彼此<strong>没有继承关系</strong>
+<strong>其他类：</strong>Item这个类，<strong>在不同包</strong>，也没有继承关系的类</p>
+<p><img src="https://stepimagewm.how2j.cn/605.png" /></p>
+<h3 id="private-私有的">private 私有的</h3>
+<p><font color = "red">只能自己用</font></p>
+<p>自身：是可以访问的 同包子类：不能继承 不同包子类：不能继承
+同包类：不能访问 其他包类：不能访问</p>
+<h3 id="packagefriendlydefault-不写">package/friendly/default 不写</h3>
+<p><font color = "red">只能在同一个包里用</font></p>
+<p><img src="https://stepimagewm.how2j.cn/609.png" /></p>
+<p>### protected 受保护的</p>
+<p><font color = "red">同一个包里和是它的子类都能用</font></p>
+<p><img src="https://stepimagewm.how2j.cn/610.png" /></p>
+<h3 id="public-公共的">public 公共的</h3>
+<p><font color = "red">谁都可以用</font></p>
+<p><img src="https://stepimagewm.how2j.cn/611.png" /></p>
+<h3 id="选择依据">选择依据</h3>
+<ol type="1">
+<li>属性通常使用private封装起来</li>
+<li>方法一般使用public用于被调用</li>
+<li>会被子类继承的方法，通常使用protected</li>
+<li>package用的不多，一般新手会用package,因为还不知道有修饰符这个东西</li>
+</ol>
+<p>再就是<strong>作用范围最小原则</strong>
+简单说，能用private就用private，不行就放大一级，用package,再不行就用protected，最后用public。
+这样就能把数据尽量的封装起来，没有必要<strong>露出来的</strong>，就不用<strong>露出来</strong>了</p>
+<h2 id="类属性静态属性">类属性、静态属性</h2>
+<p>当一个属性被<strong>static</strong>修饰的时候，就叫做<strong>类属性</strong>，又叫做<strong>静态属性</strong>
+当一个属性被声明成类属性，那么<strong>所有的对象，都共享一个值</strong>
+与对象属性对比： 不同对象的 对象属性 的值都可能不一样。 比如盖伦的hp 和
+提莫的hp 是不一样的。
+<font color = "red">但是所有对象的类属性的值，都是一样的</font></p>
+<h3 id="类属性">类属性</h3>
+<p><strong>类属性：</strong> 又叫做静态属性 <strong>对象属性：</strong>
+又叫实例属性，非静态属性
+<font color = "red">如果一个属性声明成类属性，那么所有的对象，都共享这么一个值</font></p>
+<p>举例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public String name; //实例属性，对象属性，非静态属性</span><br><span class="line">protected float hp;</span><br><span class="line">static String copyright;//类属性,静态属性</span><br></pre></td></tr></table></figure>
+<h3 id="访问类属性">访问类属性</h3>
+<ol type="1">
+<li><p>对象.类属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">teemo.copyright</span><br></pre></td></tr></table></figure></li>
+<li><p>类.类属性</p></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hero.copyright</span><br></pre></td></tr></table></figure>
+<h2 id="类方法">类方法</h2>
+<p><strong>类方法：</strong> 又叫做静态方法</p>
+<p><strong>对象方法：</strong> 又叫实例方法，非静态方法</p>
+<p>访问一个对象方法，必须<strong>建立在有一个对象</strong>的前提的基础上
+访问类方法，<strong>不需要对象</strong>的存在，直接就访问</p>
+<h3 id="类方法-1">类方法</h3>
+<p>举例</p>
+<p>关键代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//实例方法,对象方法，非静态方法</span><br><span class="line">//必须有对象才能够调用</span><br><span class="line">public void die()&#123;</span><br><span class="line">    hp = 0;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">//类方法，静态方法</span><br><span class="line">//通过类就可以直接调用</span><br><span class="line">public static void battleWin()&#123;</span><br><span class="line">    System.out.println(&quot;battle win&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"> </span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;</span><br><span class="line"> </span><br><span class="line">    //实例方法,对象方法，非静态方法</span><br><span class="line">    //必须有对象才能够调用</span><br><span class="line">    public void die()&#123;</span><br><span class="line">        hp = 0;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    //类方法，静态方法</span><br><span class="line">    //通过类就可以直接调用</span><br><span class="line">    public static void battleWin()&#123;</span><br><span class="line">        System.out.println(&quot;battle win&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">           Hero garen =  new Hero();</span><br><span class="line">           garen.name = &quot;盖伦&quot;;</span><br><span class="line">           //必须有一个对象才能调用</span><br><span class="line">           garen.die();</span><br><span class="line">            </span><br><span class="line">           Hero teemo =  new Hero();</span><br><span class="line">           teemo.name = &quot;提莫&quot;;</span><br><span class="line">            </span><br><span class="line">           //无需对象，直接通过类调用</span><br><span class="line">           Hero.battleWin();</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="调用类方法">调用类方法</h3>
+<ol type="1">
+<li><p>对象.类方法</p></li>
+<li><p>类.类方法</p></li>
+</ol>
+<h2 id="属性初始化">属性初始化</h2>
+<h3 id="对象属性初始化">对象属性初始化</h3>
+<ol type="1">
+<li>声明该属性的时候初始化</li>
+<li>构造方法中初始化</li>
+<li>初始化块</li>
+</ol>
+<p><font color = "red">初始化块中的代码会先执行，接着是构造方法中的代码，最后是在属性声明时直接赋值的代码。</font></p>
+<p>举例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"></span><br><span class="line">public class Hero &#123;</span><br><span class="line">	public String name = &quot;some hero&quot;; //声明该属性的时候初始化 </span><br><span class="line">	protected float hp;</span><br><span class="line">	float maxHP;</span><br><span class="line">	</span><br><span class="line">	&#123;</span><br><span class="line">		maxHP = 200; //初始化块</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	public Hero()&#123;</span><br><span class="line">		hp = 100; //构造方法中初始化</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="类属性初始化">类属性初始化</h3>
+<ol type="1">
+<li>声明该属性的时候初始化</li>
+<li>静态初始化块</li>
+</ol>
+<p>举例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"></span><br><span class="line">public class Hero &#123;</span><br><span class="line">	public String name; </span><br><span class="line">	protected float hp;</span><br><span class="line">	float maxHP;</span><br><span class="line">	</span><br><span class="line">	//物品栏的容量</span><br><span class="line">	public static int itemCapacity=8; //声明的时候 初始化</span><br><span class="line">	</span><br><span class="line">	static&#123;</span><br><span class="line">		itemCapacity = 6;//静态初始化块 初始化</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public Hero()&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		System.out.println(Hero.itemCapacity);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="单例模式">单例模式</h2>
+<p>单例模式又叫做
+Singleton模式，<font color = "red">指的是一个类，在一个JVM里，只有一个实例存在。</font></p>
+<h3 id="饿汉式单例模式">饿汉式单例模式</h3>
+<ol type="1">
+<li>通过<font color = "red">私有化其构造方法</font>，使得外部无法通过new
+得到新的实例。</li>
+<li><font color = "red">私有实例化一个对象</font></li>
+<li><font color = "red">定义一个公共的类方法用于返回之前创建的对象</font></li>
+</ol>
+<p>关键：<font color = "red">无论如何都会创建一个实例</font></p>
+<p>举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"> </span><br><span class="line">public class GiantDragon &#123;</span><br><span class="line"> </span><br><span class="line">    //私有化构造方法使得该类无法在外部通过new 进行实例化</span><br><span class="line">    private GiantDragon()&#123;</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    //准备一个类属性，指向一个实例化对象。 因为是类属性，所以只有一个</span><br><span class="line"> </span><br><span class="line">    private static GiantDragon instance = new GiantDragon();</span><br><span class="line">     </span><br><span class="line">    //public static 方法，提供给调用者获取12行定义的对象</span><br><span class="line">    public static GiantDragon getInstance()&#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="懒汉式单例模式">懒汉式单例模式</h3>
+<p>使用：</p>
+<ol type="1">
+<li><font color = "red">私有化构造方法</font></li>
+<li>准备一个私有的类属性，<font color = "red">但是暂时只想NULL</font></li>
+<li>定义一个<font color = "red">公共的类方法</font>，如果之前私有的类属性指向空，就实例化一个对象，否则就不用</li>
+</ol>
+<p>举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"> </span><br><span class="line">public class GiantDragon &#123;</span><br><span class="line">  </span><br><span class="line">    //私有化构造方法使得该类无法在外部通过new 进行实例化</span><br><span class="line">    private GiantDragon()&#123;       </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    //准备一个类属性，用于指向一个实例化对象，但是暂时指向null</span><br><span class="line">    private static GiantDragon instance;</span><br><span class="line">      </span><br><span class="line">    //public static 方法，返回实例对象</span><br><span class="line">    public static GiantDragon getInstance()&#123;</span><br><span class="line">        //第一次访问的时候，发现instance没有指向任何对象，这时实例化一个对象</span><br><span class="line">        if(null==instance)&#123;</span><br><span class="line">            instance = new GiantDragon();</span><br><span class="line">        &#125;</span><br><span class="line">        //返回 instance指向的对象</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>单例模式三元素</p>
+<ol type="1">
+<li>构造方法私有化</li>
+<li>静态属性指向实例</li>
+<li>public static的 getInstance方法，返回第二步的静态属性</li>
+</ol>
+<h2 id="枚举类型">枚举类型</h2>
+<h3 id="预先定义的常量">预先定义的常量</h3>
+<p><strong>注：</strong>因为是常量，所以一般都是全大写</p>
+<p>举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public enum Season &#123;</span><br><span class="line">    SPRING,SUMMER,AUTUMN,WINTER</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class HelloWorld &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Season season = Season.SPRING;</span><br><span class="line">        switch (season) &#123;</span><br><span class="line">        case SPRING:</span><br><span class="line">            System.out.println(&quot;春天&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case SUMMER:</span><br><span class="line">            System.out.println(&quot;夏天&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case AUTUMN:</span><br><span class="line">            System.out.println(&quot;秋天&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case WINTER:</span><br><span class="line">            System.out.println(&quot;冬天&quot;);</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="遍历枚举">遍历枚举</h3>
+<p>增强型for循环</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class HelloWorld &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        for (Season s : Season.values()) &#123;</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/28239a8d.html" title="面向对象">http://example.com/posts/28239a8d.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/41f2a6b9.html" rel="prev" title="有序遍历文件夹">
+      <i class="fa fa-chevron-left"></i> 有序遍历文件夹
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/f42d18b1.html" rel="next" title="8086的指令系统">
+      8086的指令系统 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF"><span class="nav-number">1.1.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%E6%96%B9%E6%B3%95%E5%90%8D%E4%B8%80%E6%A0%B7%E4%BD%86%E6%98%AF%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E4%B8%8D%E4%B8%80%E6%A0%B7"><span class="nav-number">1.2.</span> <span class="nav-text">方法重载:方法名一样，但是参数类型不一样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">构造方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">隐式的构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E7%9A%84%E9%87%8D%E8%BD%BD"><span class="nav-number">1.3.3.</span> <span class="nav-text">构造方法的重载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">this的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#this%E4%BB%A3%E8%A1%A8%E5%BD%93%E5%89%8D%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.4.1.</span> <span class="nav-text">this代表当前对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87this%E8%AE%BF%E9%97%AE%E5%B1%9E%E6%80%A7"><span class="nav-number">1.4.2.</span> <span class="nav-text">通过this访问属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87this%E8%B0%83%E7%94%A8%E5%85%B6%E4%BB%96%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.3.</span> <span class="nav-text">通过this调用其他的构造方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E5%8F%82"><span class="nav-number">1.5.</span> <span class="nav-text">传参</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E4%BC%A0%E5%8F%82"><span class="nav-number">1.5.1.</span> <span class="nav-text">基本类型传参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E4%B8%8E"><span class="nav-number">1.5.2.</span> <span class="nav-text">引用与&#x3D;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%B1%BB%E5%9E%8B%E4%BC%A0%E5%8F%82"><span class="nav-number">1.5.3.</span> <span class="nav-text">类类型传参</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">1.6.</span> <span class="nav-text">四种访问修饰符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.6.1.</span> <span class="nav-text">类之间的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#private-%E7%A7%81%E6%9C%89%E7%9A%84"><span class="nav-number">1.6.2.</span> <span class="nav-text">private 私有的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#packagefriendlydefault-%E4%B8%8D%E5%86%99"><span class="nav-number">1.6.3.</span> <span class="nav-text">package&#x2F;friendly&#x2F;default 不写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#public-%E5%85%AC%E5%85%B1%E7%9A%84"><span class="nav-number">1.6.4.</span> <span class="nav-text">public 公共的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E4%BE%9D%E6%8D%AE"><span class="nav-number">1.6.5.</span> <span class="nav-text">选择依据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%B1%9E%E6%80%A7%E9%9D%99%E6%80%81%E5%B1%9E%E6%80%A7"><span class="nav-number">1.7.</span> <span class="nav-text">类属性、静态属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%B1%9E%E6%80%A7"><span class="nav-number">1.7.1.</span> <span class="nav-text">类属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E7%B1%BB%E5%B1%9E%E6%80%A7"><span class="nav-number">1.7.2.</span> <span class="nav-text">访问类属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.8.</span> <span class="nav-text">类方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E6%96%B9%E6%B3%95-1"><span class="nav-number">1.8.1.</span> <span class="nav-text">类方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.8.2.</span> <span class="nav-text">调用类方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.9.</span> <span class="nav-text">属性初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.9.1.</span> <span class="nav-text">对象属性初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.9.2.</span> <span class="nav-text">类属性初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.10.</span> <span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A5%BF%E6%B1%89%E5%BC%8F%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.10.1.</span> <span class="nav-text">饿汉式单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%87%92%E6%B1%89%E5%BC%8F%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.10.2.</span> <span class="nav-text">懒汉式单例模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.11.</span> <span class="nav-text">枚举类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E5%85%88%E5%AE%9A%E4%B9%89%E7%9A%84%E5%B8%B8%E9%87%8F"><span class="nav-number">1.11.1.</span> <span class="nav-text">预先定义的常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.11.2.</span> <span class="nav-text">遍历枚举</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-06 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">282k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

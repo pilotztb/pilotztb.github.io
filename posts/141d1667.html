@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="关于注意力一些浅薄的认知">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注意力机制">
+<meta property="og:url" content="http://example.com/posts/141d1667.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="关于注意力一些浅薄的认知">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zh.d2l.ai/_images/transformer.svg">
+<meta property="article:published_time" content="2024-01-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-26T10:50:54.322Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zh.d2l.ai/_images/transformer.svg">
+
+<link rel="canonical" href="http://example.com/posts/141d1667.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>注意力机制 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">心有所向，无问西东</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/141d1667.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          注意力机制
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-19 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-19T00:00:00+08:00">2024-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/141d1667.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/141d1667.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+            <div class="post-description">关于注意力一些浅薄的认知</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="注意力提示">注意力提示</h1>
+<h2 id="查询键和值">查询、键和值</h2>
+<p>（参照下图理解定义）</p>
+<p>是否包含自主性提示”将注意力机制与全连接层或汇聚层区别开来。
+在注意力机制的背景下，自主性提示被称为<em>查询</em>（query）</p>
+<p>给定任何查询，注意力机制通过<em>注意力汇聚</em>（attention pooling）
+将选择引导至<em>感官输入</em>（sensory inputs，例如中间特征表示）。</p>
+<p>在注意力机制中，这些感官输入被称为<em>值</em>（value）
+更通俗的解释，每个值都与一个<em>键</em>（key）配对，
+这可以想象为感官输入的非自主提示。</p>
+<p>如下图，可以通过设计注意力汇聚的方式，
+便于给定的查询（自主性提示）与键（非自主性提示）进行匹配，
+这将引导得出最匹配的值（感官输入）。或者说通过注意力汇聚将<em>查询</em>（自主性提示）和<em>键</em>（非自主性提示）结合在一起，实现对<em>值</em>（感官输入）的选择倾向</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/qkv.svg" /></p>
+<h2 id="注意力的可视化">注意力的可视化</h2>
+<p>平均汇聚层可以被视为输入的加权平均值， 其中各输入的权重是一样的</p>
+<p>实际上，注意力汇聚得到的是加权平均的总和值，
+其中权重是在给定的查询和不同的键之间计算得出的。</p>
+<p>下图当且仅当查询和键相同时，注意力权重为1，否则为0。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/output_attention-cues_054b1a_36_0.svg" /></p>
+<h2 id="注意力汇聚nadaraya-watson-核回归">注意力汇聚：Nadaraya-Watson
+核回归</h2>
+<p><strong>查询（自主提示）</strong>和<strong>键（非自主提示）</strong>之间的交互形成了<strong>注意力汇聚</strong></p>
+<h3 id="非参数注意力汇聚">非参数注意力汇聚</h3>
+<p><em>注意力汇聚</em>（attention pooling）公式：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240119152405466.png" /></p>
+<p>注意力汇聚是输出<span class="math inline">\(y_i\)</span>的加权平均。
+将<strong>查询<span class="math inline">\(x\)</span>和键<span
+class="math inline">\(x_i\)</span>之间的关系建模为
+<em>注意力权重</em>（attention weight）<span
+class="math inline">\(\alpha(x,x_i)\)</span></strong>，
+<strong>这个权重将被分配给每一个对应值<span
+class="math inline">\(y_i\)</span></strong>。 如果一个键<span
+class="math inline">\(x_i\)</span>越是接近给定的查询x，
+那么分配给这个键对应值<span
+class="math inline">\(y_i\)</span>的注意力权重就会越大，
+也就“获得了更多的注意力”。</p>
+<p>对于任何查询，模型在所有键值对注意力权重都是一个有效的概率分布：
+它们是非负的，并且总和为1。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成数据集</span></span><br><span class="line">n_train = <span class="number">50</span>  <span class="comment"># 训练样本数</span></span><br><span class="line">x_train, _ = torch.sort(torch.rand(n_train) * <span class="number">5</span>)   <span class="comment"># 排序后的训练样本</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * torch.sin(x) + x**<span class="number">0.8</span></span><br><span class="line"></span><br><span class="line">y_train = f(x_train) + torch.normal(<span class="number">0.0</span>, <span class="number">0.5</span>, (n_train,))  <span class="comment"># 训练样本的输出</span></span><br><span class="line">x_test = torch.arange(<span class="number">0</span>, <span class="number">5</span>, <span class="number">0.1</span>)  <span class="comment"># 测试样本</span></span><br><span class="line">y_truth = f(x_test)  <span class="comment"># 测试样本的真实输出</span></span><br><span class="line">n_test = <span class="built_in">len</span>(x_test)  <span class="comment"># 测试样本数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># X_repeat的形状:(n_test,n_train),</span></span><br><span class="line"><span class="comment"># 每一行都包含着相同的测试输入（例如：同样的查询）</span></span><br><span class="line">X_repeat = x_test.repeat_interleave(n_train).reshape((-<span class="number">1</span>, n_train))</span><br><span class="line"><span class="comment"># x_train包含着键。attention_weights的形状：(n_test,n_train),</span></span><br><span class="line"><span class="comment"># 每一行都包含着要在给定的每个查询的值（y_train）之间分配的注意力权重</span></span><br><span class="line">attention_weights = nn.functional.softmax(-(X_repeat - x_train)**<span class="number">2</span> / <span class="number">2</span>, dim=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># y_hat的每个元素都是值的加权平均值，其中的权重是注意力权重</span></span><br><span class="line">y_hat = torch.matmul(attention_weights, y_train)</span><br><span class="line">plot_kernel_reg(y_hat)</span><br></pre></td></tr></table></figure>
+<h3 id="带参数注意力汇聚">带参数注意力汇聚</h3>
+<p>带参数的模型加入可学习的参数后，
+曲线在注意力权重较大的区域变得更不平滑。</p>
+<p>在带参数的注意力汇聚模型中，
+任何一个训练样本的输入都会和除自己以外的所有训练样本的“键－值”对进行计算，
+从而得到其对应的预测输出。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NWKernelRegression</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, **kwargs</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(**kwargs)</span><br><span class="line">        self.w = nn.Parameter(torch.rand((<span class="number">1</span>,), requires_grad=<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, queries, keys, values</span>):</span><br><span class="line">        <span class="comment"># queries和attention_weights的形状为(查询个数，“键－值”对个数)</span></span><br><span class="line">        queries = queries.repeat_interleave(keys.shape[<span class="number">1</span>]).reshape((-<span class="number">1</span>, keys.shape[<span class="number">1</span>]))</span><br><span class="line">        self.attention_weights = nn.functional.softmax(</span><br><span class="line">            -((queries - keys) * self.w)**<span class="number">2</span> / <span class="number">2</span>, dim=<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># values的形状为(查询个数，“键－值”对个数)</span></span><br><span class="line">        <span class="keyword">return</span> torch.bmm(self.attention_weights.unsqueeze(<span class="number">1</span>),</span><br><span class="line">                         values.unsqueeze(-<span class="number">1</span>)).reshape(-<span class="number">1</span>)</span><br><span class="line"><span class="comment"># 训练</span></span><br><span class="line"><span class="comment"># X_tile的形状:(n_train，n_train)，每一行都包含着相同的训练输入</span></span><br><span class="line">X_tile = x_train.repeat((n_train, <span class="number">1</span>))</span><br><span class="line"><span class="comment"># Y_tile的形状:(n_train，n_train)，每一行都包含着相同的训练输出</span></span><br><span class="line">Y_tile = y_train.repeat((n_train, <span class="number">1</span>))</span><br><span class="line"><span class="comment"># keys的形状:(&#x27;n_train&#x27;，&#x27;n_train&#x27;-1)</span></span><br><span class="line">keys = X_tile[(<span class="number">1</span> - torch.eye(n_train)).<span class="built_in">type</span>(torch.<span class="built_in">bool</span>)].reshape((n_train, -<span class="number">1</span>))</span><br><span class="line"><span class="comment"># values的形状:(&#x27;n_train&#x27;，&#x27;n_train&#x27;-1)</span></span><br><span class="line">values = Y_tile[(<span class="number">1</span> - torch.eye(n_train)).<span class="built_in">type</span>(torch.<span class="built_in">bool</span>)].reshape((n_train, -<span class="number">1</span>))</span><br><span class="line">net = NWKernelRegression()</span><br><span class="line">loss = nn.MSELoss(reduction=<span class="string">&#x27;none&#x27;</span>)</span><br><span class="line">trainer = torch.optim.SGD(net.parameters(), lr=<span class="number">0.5</span>)</span><br><span class="line">animator = d2l.Animator(xlabel=<span class="string">&#x27;epoch&#x27;</span>, ylabel=<span class="string">&#x27;loss&#x27;</span>, xlim=[<span class="number">1</span>, <span class="number">5</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">    trainer.zero_grad()</span><br><span class="line">    l = loss(net(x_train, keys, values), y_train)</span><br><span class="line">    l.<span class="built_in">sum</span>().backward()</span><br><span class="line">    trainer.step()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;epoch <span class="subst">&#123;epoch + <span class="number">1</span>&#125;</span>, loss <span class="subst">&#123;<span class="built_in">float</span>(l.<span class="built_in">sum</span>()):<span class="number">.6</span>f&#125;</span>&#x27;</span>)</span><br><span class="line">    animator.add(epoch + <span class="number">1</span>, <span class="built_in">float</span>(l.<span class="built_in">sum</span>()))</span><br></pre></td></tr></table></figure>
+<h1 id="注意力评分函数">注意力评分函数</h1>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/attention-output.svg" /></p>
+<p>高斯核指数部分可以视为<em>注意力评分函数</em>（attention scoring
+function）， 简称<em>评分函数</em>（scoring function）</p>
+<p>然后把这个函数的输出结果输入到softmax函数中进行运算。
+通过上述步骤，将得到与键对应的值的概率分布（即注意力权重）</p>
+<p>最后，注意力汇聚的输出就是基于这些注意力权重的值的加权和。</p>
+<p>由于注意力权重是概率分布， 因此加权和其本质上是加权平均值。</p>
+<p>softmax操作用于输出一个概率分布作为注意力权重</p>
+<h1 id="bahdanau-注意力">Bahdanau 注意力</h1>
+<h1 id="自注意力和位置编码">自注意力和位置编码</h1>
+<p>每个查询都会关注所有的键－值对并生成一个注意力输出。
+由于查询、键和值来自同一组输入，因此被称为
+<em>自注意力</em>（self-attention）</p>
+<h1 id="transformer">Transformer</h1>
+<p>Transformer的编码器和解码器是基于自注意力的模块叠加而成的，源（输入）序列和目标（输出）序列的<em>嵌入</em>（embedding）表示将加上<em>位置编码</em>（positional
+encoding），再分别输入到编码器和解码器中。</p>
+<p><img src="https://zh.d2l.ai/_images/transformer.svg" /></p>
+<p>编码器</p>
+<p>从宏观角度来看，Transformer的编码器是由多个相同的层叠加而成的，每个层都有两个子层（子层表示为sublayer）。第一个子层是<em>多头自注意力</em>（multi-head
+self-attention）汇聚；第二个子层是<em>基于位置的前馈网络</em>（positionwise
+feed-forward network）。</p>
+<p>具体来说，在计算编码器的自注意力时，查询、键和值都来自前一个编码器层的输出</p>
+<p>每个子层都采用了<em>残差连接</em>（residual connection）</p>
+<p>在残差连接的加法计算之后，紧接着应用<em>层规范化</em>（layer
+normalization）</p>
+<p>解码器</p>
+<p>由多个相同的层叠加而成的，并且层中使用了残差连接和层规范化。</p>
+<p>除了编码器中描述的两个子层之外，解码器还在这两个子层之间插入了第三个子层，称为<em>编码器－解码器注意力</em>（encoder-decoder
+attention）层</p>
+<p>在编码器－解码器注意力中，查询来自前一个解码器层的输出，而键和值来自整个编码器的输出。在解码器自注意力中，查询、键和值都来自上一个解码器层的输出。</p>
+<p>但是，解码器中的每个位置只能考虑该位置之前的所有位置。这种<em>掩蔽</em>（masked）注意力保留了<em>自回归</em>（auto-regressive）属性，确保预测仅依赖于已生成的输出词元。</p>
+<h2 id="基于位置的前馈网络">基于位置的前馈网络</h2>
+<h2 id="残差连接和层规范化">残差连接和层规范化</h2>
+<h2 id="编码器">编码器</h2>
+<h2 id="解码器">解码器</h2>
+<h1 id="预训练">预训练</h1>
+<p><strong>越浅的层学到的特征越通用（横竖撇捺），越深的层学到的特征和具体任务的关联性越强（人脸-人脸轮廓、汽车-汽车轮廓）</strong></p>
+<p>上述利用网络上现有图片的思想就是预训练的思想，具体做法就是：</p>
+<ol type="1">
+<li>通过 ImageNet 数据集我们训练出一个模型 A</li>
+<li>由于上面提到 CNN 的浅层学到的特征通用性特别强，我们可以对模型 A
+做出一部分改进得到模型 B（两种方法）：
+<ol type="1">
+<li>冻结：浅层参数使用模型 A
+的参数，高层参数随机初始化，<strong>浅层参数一直不变</strong>，然后利用领导给出的
+30 张图片训练参数</li>
+<li>微调：浅层参数使用模型 A
+的参数，高层参数随机初始化，然后利用领导给出的 30
+张图片训练参数，<strong>但是在这里浅层参数会随着任务的训练不断发生变化</strong></li>
+</ol></li>
+</ol>
+<p>对于一个具有少量数据的任务 A，首先通过一个现有的大量数据搭建一个 CNN
+模型 A，由于 CNN的浅层学到的特征通用性特别强，因此在搭建一个 CNN 模型
+B，其中模型 B 的浅层参数使用模型 A 的浅层参数，模型 B
+的高层参数随机初始化，然后通过冻结或微调的方式利用任务 A 的数据训练模型
+B，模型 B 就是对应任务 A 的模型。</p>
+<p>预训练的思想：任务 A 对应的模型 A
+的参数不再是随机初始化的，而是通过任务 B 进行预先训练得到模型
+B，然后利用模型 B 的参数对模型 A 进行初始化，再通过任务 A 的数据对模型 A
+进行训练。</p>
+<p>注：模型 B 的参数是随机初始化的。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/141d1667.html" title="注意力机制">http://example.com/posts/141d1667.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/d17cd37c.html" rel="prev" title="现代卷积神经网络">
+      <i class="fa fa-chevron-left"></i> 现代卷积神经网络
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/6b55376.html" rel="next" title="卷积神经网络理论基础">
+      卷积神经网络理论基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%8F%90%E7%A4%BA"><span class="nav-number">1.</span> <span class="nav-text">注意力提示</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E9%94%AE%E5%92%8C%E5%80%BC"><span class="nav-number">1.1.</span> <span class="nav-text">查询、键和值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">注意力的可视化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%B1%87%E8%81%9Anadaraya-watson-%E6%A0%B8%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.</span> <span class="nav-text">注意力汇聚：Nadaraya-Watson
+核回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%8F%82%E6%95%B0%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%B1%87%E8%81%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">非参数注意力汇聚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%B1%87%E8%81%9A"><span class="nav-number">1.3.2.</span> <span class="nav-text">带参数注意力汇聚</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%AF%84%E5%88%86%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">注意力评分函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bahdanau-%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="nav-number">3.</span> <span class="nav-text">Bahdanau 注意力</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%92%8C%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">自注意力和位置编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#transformer"><span class="nav-number">5.</span> <span class="nav-text">Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BD%8D%E7%BD%AE%E7%9A%84%E5%89%8D%E9%A6%88%E7%BD%91%E7%BB%9C"><span class="nav-number">5.1.</span> <span class="nav-text">基于位置的前馈网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AE%8B%E5%B7%AE%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%B1%82%E8%A7%84%E8%8C%83%E5%8C%96"><span class="nav-number">5.2.</span> <span class="nav-text">残差连接和层规范化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E5%99%A8"><span class="nav-number">5.3.</span> <span class="nav-text">编码器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E7%A0%81%E5%99%A8"><span class="nav-number">5.4.</span> <span class="nav-text">解码器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="nav-number">6.</span> <span class="nav-text">预训练</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-06 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">282k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

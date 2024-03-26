@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="计算机系统概述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一章-汇编语言基础">
+<meta property="og:url" content="http://example.com/posts/cfbc6a45.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="计算机系统概述">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-06T03:13:50.000Z">
+<meta property="article:modified_time" content="2024-03-26T10:50:54.367Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/cfbc6a45.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>第一章-汇编语言基础 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">心有所向，无问西东</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/cfbc6a45.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第一章-汇编语言基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-06 11:13:50" itemprop="dateCreated datePublished" datetime="2024-03-06T11:13:50+08:00">2024-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">汇编语言</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/cfbc6a45.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/cfbc6a45.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="计算机系统概述">计算机系统概述</h1>
+<span id="more"></span>
+<h2 id="硬件">硬件</h2>
+<h3 id="中央处理单元cpu">中央处理单元CPU</h3>
+<ol type="1">
+<li>控制器</li>
+<li>运算器</li>
+<li>寄存器(最重要)</li>
+</ol>
+<h3 id="存储器">存储器</h3>
+<ol type="1">
+<li><p>主存储器：RAM和ROM</p>
+<p>主要关心存储器地址</p>
+<ol type="1">
+<li><p>存储器地址是存储器中存储单元的编号</p></li>
+<li><p>每个存储单元存放一个字节量的数据
+一个字节B（Byte）＝8个二进制位b（bit）</p></li>
+<li><p>采用十六进制数来表达地址</p></li>
+</ol>
+<p>​ ①Intel 8086具有1兆字节（1MB）存储器容量 ​ ②存储器地址表示为：00000H
+～ FFFFFH ​ ③其中大写H（或小写h）表示是十六进制数</p></li>
+<li><p>辅助存储器：磁盘，光盘和U盘</p>
+<p>主要关心端口(I/O地址)</p>
+<ol type="1">
+<li><p>I/O地址是接口电路中寄存器的编号</p></li>
+<li><p>采用十六进制数来表达端口 ①Intel 8086支持64K个8位端口
+②I/O地址可以表示为：0000H ～ FFFFH</p></li>
+</ol></li>
+</ol>
+<h2 id="软件">软件</h2>
+<h3 id="系统软件">系统软件</h3>
+<h3 id="应用软件">应用软件</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240308185821691.png" /></p>
+<h1 id="数据表示">数据表示</h1>
+<h2 id="bcd码">BCD码</h2>
+<p>BCD码在加法运算超过10的时候需要矫正，在原先运算基础上加6</p>
+<p>举例</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/984017b6ecc5d609438bb184f04daf8.jpg" /></p>
+<h2 id="有符号数的表示方法">有符号数的表示方法</h2>
+<h3 id="原码">原码：</h3>
+<p>符号位1表示负数，0表示正数</p>
+<h3 id="反码">反码</h3>
+<p>正数的反码是其本身</p>
+<p>负数的反码是在其原码的基础上, 符号位不变，其余各个位取反.</p>
+<h3 id="补码">补码</h3>
+<p>正数的补码就是其本身</p>
+<p>负数的补码是在反码的基础上+1</p>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/faa3202905066412fde9b3ff0158a5a.jpg" /></p>
+<p>概念判断</p>
+<ol type="1">
+<li>汇编语言是用符号表示的面向机器的语言，因此它是机器语言。 （ ）</li>
+</ol>
+<p>错误</p>
+<p>汇编语言是一种低级别的编程语言，它使用助记符（例如，<code>MOV</code>、<code>ADD</code>）来表示机器指令，这些指令直接对应于计算机的操作码。机器语言是计算机硬件直接能够理解和执行的二进制指令。</p>
+<ol start="2" type="1">
+<li>汇编语言是一种高级语言,其程序源代码必须编译成目标代码,程序才能执行。</li>
+</ol>
+<p>错误</p>
+<p>这个说法是<strong>错误的</strong>。汇编语言实际上是一种<strong>低级别的编程语言</strong>，而不是高级语言。让我来解释一下：</p>
+<ol type="1">
+<li><strong>汇编语言</strong>：
+<ul>
+<li>汇编语言是一种<strong>符号化的</strong>机器语言。它使用助记符（例如，<code>MOV</code>、<code>ADD</code>）来表示机器指令，这些指令直接对应于计算机的操作码。</li>
+<li>程序员编写的汇编程序源代码需要经过<strong>汇编器</strong>的处理，将其转换为机器码（目标代码）。这个过程称为<strong>汇编</strong>。</li>
+<li>汇编语言程序不需要像高级语言那样进行完整的编译过程，因为它们已经接近于底层的机器指令。</li>
+</ul></li>
+<li><strong>高级语言</strong>：
+<ul>
+<li>高级语言（例如C、Java、Python）是相对于汇编语言的概念。它们更接近人类自然语言，具有更高的抽象级别。</li>
+<li>高级语言的程序源代码需要经过<strong>编译器</strong>的处理，将其转换为机器码。这个过程称为<strong>编译</strong>。</li>
+<li>高级语言程序的执行不需要直接生成机器码，而是通过解释器或虚拟机来执行。</li>
+</ul></li>
+</ol>
+<p>因此，汇编语言不是高级语言，它不需要完整的编译过程，而是通过汇编器将源代码转换为机器码。高级语言的编译过程更复杂，需要将源代码转换为目标代码，然后再执行。</p>
+<ol start="3" type="1">
+<li>汇编语言是最快最有效的计算机语言,在自动控制、通信与接口中是必不可少的。
+（ ）</li>
+</ol>
+<p>正确</p>
+<ol start="4" type="1">
+<li>汇编语言与机器低层关系不大,所以它具有很好的移植性。 ( )</li>
+</ol>
+<p>错误</p>
+<p>虽然汇编语言相对于高级语言来说较低级，但它与机器的关系非常密切，因此移植性并不总是很好</p>
+<ol start="5" type="1">
+<li>将汇编语言源代码转换成机器目标代码的过程称为编译。 ( )</li>
+</ol>
+<p>错误</p>
+<p><font color = "red">将汇编语言源代码转换成机器目标代码的过程称为<strong>汇编</strong>，而不是编译。</font>让我来解释一下：</p>
+<ul>
+<li><strong>编译</strong>：
+<ul>
+<li>编译是将高级语言（例如C、Java）源代码转换为机器目标代码的过程。</li>
+<li>编译器将高级语言源代码分析、优化，并生成与目标平台（计算机体系结构和操作系统）兼容的目标代码。</li>
+<li>目标代码可以直接在目标平台上执行，而不需要进一步的转换。</li>
+</ul></li>
+<li><strong>汇编</strong>：
+<ul>
+<li>汇编是将汇编语言源代码转换为机器目标代码的过程。</li>
+<li>汇编器将汇编语言源代码翻译成机器码（操作码），这些指令直接对应于计算机硬件的操作。</li>
+<li>汇编语言程序员编写的源代码需要经过汇编器处理，生成可执行的目标代码。</li>
+</ul></li>
+</ul>
+<p>因此，编译是高级语言到目标代码的过程，而汇编是汇编语言到目标代码的过程。</p>
+<h1 id="寄存器">8086寄存器</h1>
+<p>下面这张图要能背下来</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240309105501021.png" /></p>
+<h2 id="通用寄存器">通用寄存器</h2>
+<h3
+id="数据寄存器保存操作数或运算结果">数据寄存器(保存操作数或运算结果)</h3>
+<h5 id="累加器ax">累加器AX</h5>
+<h5 id="基址寄存器bx">基址寄存器BX</h5>
+<h5 id="计数器cx">计数器CX</h5>
+<h5 id="数据寄存器dx">数据寄存器DX</h5>
+<h3
+id="指针寄存器存放某个存储单元的偏移地址">指针寄存器(存放某个存储单元的偏移地址)</h3>
+<h4
+id="sp堆栈指针寄存器存放堆栈段中栈顶的偏移地址">SP堆栈指针寄存器(存放堆栈段中栈顶的偏移地址)</h4>
+<h4
+id="bp基址指针寄存器存放堆栈段中某一存储单元的偏移地址">BP基址指针寄存器(存放堆栈段中某一存储单元的偏移地址)</h4>
+<h3
+id="变址寄存器存放某个存储单元的偏移地址">变址寄存器(存放某个存储单元的偏移地址)</h3>
+<h4 id="si源地址变址指针寄存器">SI源地址变址指针寄存器</h4>
+<p>####DI目标地址变址寄存器</p>
+<h2 id="控制寄存器">控制寄存器</h2>
+<h3 id="ip指令指针寄存器">IP指令指针寄存器</h3>
+<h3 id="flags标志寄存器">FLAGS标志寄存器</h3>
+<h4 id="状态标志">状态标志</h4>
+<h5 id="afauxiliary-carry-flag辅助进位标志">AF(Auxiliary carry
+Flag)辅助进位标志</h5>
+<h5 id="cfcarry-flag进位标志">CF：（Carry Flag）进位标志</h5>
+<h5 id="ofoverflow-flag溢出标志">OF（Overflow Flag）溢出标志</h5>
+<h5 id="pfparity-flag奇偶标志">PF：（Parity Flag）奇偶标志</h5>
+<h5 id="sfsign-flag符号标志">SF（Sign Flag）符号标志</h5>
+<h5 id="zfzero-flag零标志">ZF（Zero Flag）零标志</h5>
+<h2 id="段寄存器">段寄存器</h2>
+<h3 id="cs代码段段寄存器">CS代码段段寄存器</h3>
+<h3 id="ds数据段段寄存器">DS数据段段寄存器</h3>
+<h3 id="es附加段段寄存器">ES附加段段寄存器</h3>
+<h3 id="ss堆栈段段寄存器">SS堆栈段段寄存器</h3>
+<h1 id="的存储器组织">8086的存储器组织</h1>
+<h2 id="存储单元的地址">存储单元的地址</h2>
+<p>每一个字节单元都有一个与之对应的单元地址。</p>
+<p>对于<font color = "red">多字节单元（字，双字，4字等），其地址同样是采用最低位字节地址</font>来表示的。</p>
+<h2 id="存储单元内容">存储单元内容</h2>
+<p>如果X是地址，(X)表示从X地址从取内容</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/3ce32cf4927c2ff47e2c099d44e73ec.jpg" /></p>
+<p>如果X是地址的地址，取内容用((X))</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/9797900060a9c41f8aed43cee8b8465.jpg" /></p>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240308210519536.png" /></p>
+<h2 id="存储器地址的分段">存储器地址的分段</h2>
+<h3
+id="分段基本规则从0地址开始每16个字节为一小段">分段基本规则：从0地址开始，每16个字节为一小段。</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/98860d01c0511f26de2dfa18b5e9051.jpg" /></p>
+<h3 id="段地址和偏移地址">段地址和偏移地址</h3>
+<p>段地址：表示一个段的开始</p>
+<p>偏移地址：在段内相对于段起始地址的偏移值。如当偏移量为‘0’时，就在这个段的起始单元，当偏移量为0FFFFH时，就是这个段（最大）最末一个字节单元。</p>
+<h3 id="物理地址和逻辑地址的关系">物理地址和逻辑地址的关系</h3>
+<p><font color = "red">物理地址=段地址×10H+偏移地址</font></p>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240309093717036.png" /></p>
+<h3 id="段地址与段寄存器">段地址与段寄存器</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/685f27bbbf97e9c4ca1d29071730ad2.jpg" /></p>
+<h3 id="段分配"><font color = "red">段分配</font></h3>
+<p>举例1</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/32bbea229e905b0430279f328aaa050.jpg" /></p>
+<p>举例2</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/316ac3958e20793b38dea949f3d5969.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/354ddb143d764b0e56bb9d6b116a99d.jpg" /></p>
+<h3 id="隐含段和偏移寄存器">隐含段和偏移寄存器</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240309105258368.png" /></p>
+<p>本章小结</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240309110053694.png" /></p>
+<p>一图以释之</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/b54e8199a208f025c45f807db50839f.jpg" /></p>
+<h1 id="的寻址方式">8086的寻址方式</h1>
+<h2 id="寻址方式">寻址方式</h2>
+<h3 id="基本格式">基本格式</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240321105752191.png" /></p>
+<p>操作数字段可以为0个、一个、二个或三个。对应的称为零地址指令、一地址指令、二地址指令或三地址指令</p>
+<p>典型二地址指令，源操作数和目标操作数</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240321111124457.png" /></p>
+<p>执行的操作： （DST）←（SRC）</p>
+<h2 id="数据寻址方式">数据寻址方式</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240321105958351.png" /></p>
+<h3
+id="立即寻址方式形如ax寄存器名称3064h-直接的数">立即寻址方式：（形如AX(寄存器名称)，3064H
+直接的数）</h3>
+<p>操作数直接存放在指令中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV  AL, 5</span><br><span class="line">MOV  AX, 3064H</span><br><span class="line">MOV  EBX,12345678H</span><br></pre></td></tr></table></figure>
+<p><font color = "yellow">其中AL表示的意思是数据寄存器中累加器的低八位</font></p>
+<p><font color = "yellow">AX表示数据寄存器中累加器</font></p>
+<p><font color = "yellow">EBX表示比8086更高级寄存器中拓展的累加器，8086是16位，拓展后是32位</font></p>
+<p>注意： ●
+<font color = "red">该寻址方式只能用在SRC（即源操作数）的寻址上，不能用于DST。</font>
+● SRC 和 DST 的字长（位数）要一致。</p>
+<p>错误指令事例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">错误的指令：</span><br><span class="line">       MOV    2000H，AX     源操作数和目标操作数位置反了</span><br><span class="line">       MOV    DL，300H      DL是低8位，两个字节，300H，一个数字由4个字节组成，所以说是16进制，3个数字说明是3个字节，长度不等</span><br><span class="line">       MOV    AH，257       AH是累加器中高八位，最大可以放大数字在不考虑符号情况下是255(2^8 = 256)</span><br></pre></td></tr></table></figure>
+<p>执行指令举例</p>
+<p>【例】：执行指令 MOV AX，5678H</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240321112102379.png" /></p>
+<h3
+id="寄存器寻址方式形如ax目标地址寄存器名称-bx源地址寄存器名称">寄存器寻址方式:(形如AX（目标地址寄存器名称）,
+BX（源地址寄存器名称）)</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV  AL, CL</span><br><span class="line">MOV  CX, DX</span><br><span class="line">MOV  EAX,EBX </span><br></pre></td></tr></table></figure>
+<p>注意： ● SRC 和 DST 的字长（位数）要一致。 ●
+<font color = "red">DST不能为CS（代码段寄存器）</font></p>
+<p>错误举例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">错误的指令：</span><br><span class="line">       MOV    CS，AX  		CS不能作为目标操作数</span><br><span class="line">       MOV    DL，BX			长度不等</span><br><span class="line">       MOV    SI，EAX		长度不等</span><br></pre></td></tr></table></figure>
+<h3
+id="直接寻址方式形如ax寄存器名称-2000h内存中保存的数是一个偏移量前面有段就看段没有就默认ds">直接寻址方式（形如AX(寄存器名称)，
+[2000H](内存中保存的数，是一个偏移量，前面有段就看段，没有就默认DS）)</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240321114357850.png" /></p>
+<p>默认情况： 物理地址=DS×10H+EA</p>
+<p>举例</p>
+<pre><code>例如，若指令为  MOV  AX，ES：[VALUE]
+则对应该SRC的物理地址为 ES×10H+EA</code></pre>
+<p>例题</p>
+<p>【例】： 指令 MOV AX, [ 2000H ] ，其中DS=3000H。（32000H） =
+3050，该指令执行完后，AX的值。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240321115541141.png" /></p>
+<p><font color = "red">一种比较容易犯的经典错误</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ce90479ea367fbeef3267fd2ff0b770.jpg" /></p>
+<h3
+id="寄存器间接寻址方式形如ax寄存器名称-bx作为偏移量的寄存器名称">寄存器间接寻址方式：（形如AX(寄存器名称)，
+[BX](作为偏移量的寄存器名称))</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240321205557045.png" /></p>
+<p>计算物理地址公式：</p>
+<p>指令中指定的寄存器是BX、SI、DI，<font color = "red">没有指出段跨越前缀</font>，则操作数默认放在数据段中，所以用DS寄存器的内容作为段地址，即操作数的物理地址（PA）为：
+<font color = "red">PA=DS×10H十BX或SI或DI </font></p>
+<p>如果<font color = "red">指令指定BP寄存器</font>，则操作数默认放在堆栈段中，段地址在SS中，即操作数的物理地址为：
+<font color = "red">PA=SS×10H十BP</font></p>
+<p>与直接寻址方式一样，寄存器间接寻址指令也可<font color = "red">指定段跨越前缀</font>来取得其它段中的数据。对于指定段跨越前缀（如使用ES），则操作数的物理地址为：
+<font color = "red">PA=ES×10H十BX或SI或DI </font></p>
+<p>举例：</p>
+<p>【例】: 分析指令① MOV AX，ES：[BX] ② MOV AX，[BX]<br />
+执行后AX的值各是多少？ 已知 DS=2000H，
+ES=4000H，BX=0300H，(40300H)=0DE10H ，（20300H）=27ABH 【解】： ①
+（确定是ES）源操作数对应的物理地址 =4000H×10H十0300H = 40300H
+则执行指令后， AX=0DE10H。 ② （默认是DS）源操作数对应的物理地址
+=2000H×10H十0300H = 20300H 则执行指令后， AX=27ABH。</p>
+<p>【例】: ADD AX，[BP]<br />
+指令执行前： AX=50A0H，BP=0025H， SS=3000H，（30025H）=471AH。
+<font color = "red">源操作数对应的物理地址</font> =SS× 10H 十 BP
+=3000H×10H十0025H =30025H
+<font color = "red">执行指令:(注意，是ADD，要将之前计算出的物理地址内存储的数取出与目标地址原来保存的数相加)</font>
+（30025H）+ AX<br />
+=471AH+50A0H =97BAH 则指令执行完后，AX=97BAH。</p>
+<h3
+id="寄存器相对寻址方式形如ax目标寄存器名称disp偏移量1di偏移量2">寄存器相对寻址方式:(形如AX(目标寄存器名称)，DISP(偏移量1)[DI](偏移量2))</h3>
+<p><font color = "red">注意：对于8位位移量，计算时要扩展到16位（带符号）。即：对于00H---7FH的数，扩展成16位带符号数时，高8位直接填零，为：0000H---007FH；若为8XH以上的数，扩展后为0FF8XH。</font></p>
+<p>举例：</p>
+<p>【例】 分析指令 MOV AX，DISP[DI] （或写成MOV AX，[DI+DISP]）
+执行后，AX的值。 已知 DS=4000H，DI=2000H，DISP=1000H；设指令执行前：
+AX=7C69H，（43000H）=55H，（43001H）=66H。</p>
+<p><font color = "red">计算有效地址EA：</font> EA=2000H+1000H=3000H
+<font color = "red">对应物理地址=DS×10H+EA</font> =40000H+3000H=43000H。
+指令执行后： AX=6655H，（43000H）=55H，（43001H）=66H，
+DS=4000H，DI=2000H。</p>
+<h3
+id="基址变址寻址方式形如ax目标寄存器名称-bx基址寄存器名称di变址寄存器名称">基址变址寻址方式：（形如AX（目标寄存器名称），
+[BX](基址寄存器名称)[DI](变址寄存器名称)</h3>
+<p>基址2个：BP和BX</p>
+<p><font color = "red">其中BP指针寄存器默认对应SS段寄存器，BX指针寄存器默认对应BS段寄存器</font></p>
+<p>变址2个：SI和DI</p>
+<pre><code>      EA=(RB)+(RI)</code></pre>
+<p>RB为基址寄存器,RI为变址寄存器.</p>
+<p>【例】分析指令MOV DX，[BP+DI] （ MOV DX，[BP][DI]）指令执行结果。
+设SS=3000H，DS=2000H，BP=2000H，DI=0500H；指令执行前：DX=1234H，（32500H）=78H，(32501H)=56H</p>
+<p>【解】：源操作数有效地址： EA=BP+DI=2000H+0500H=2500H；
+源操作数的物理地址 PA=SS×10H+EA=30000H+2500H=32500H。 指令执行后：
+DX=5678H</p>
+<h3 id="相对基址变址寻址方式">相对基址变址寻址方式</h3>
+<p><font color = "red">物理地址表示：若无段前缀，使用BX时，默认使用段寄存器为DS，使用BP时，默认使用的段寄存器为SS。</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240321215207910.png" /></p>
+<h2 id="程序存储器寻址方式">程序存储器寻址方式</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240321224843342.png" /></p>
+<h3 id="段内直接寻址">段内直接寻址</h3>
+<p>目标转移地址中的有效地址是当前IP寄存器内容和指令中指定的8位或16位位移量之和。计算公式为：
+<font color = "red">IP目标=IP当前+DISP</font><br />
+当前IP总是指向下一条指令的首地址。
+1．当位移量为8位时，称为短转移，指令格式为： JMP SHORT DISP
+其转移范围相对于当前IP： -128 ~ +127
+2．当位移量为16位时，称为近转移，指令格式为： JMP NEAR PTR DISP
+其转移范围相对于当前IP： -32768 ~ +32767</p>
+<p>举例</p>
+<p>题1：短转移</p>
+<p>【例】：已知DISP=0E9H，JMP指令存放在代码段首地址为2186H的两个连续字节单元中。求其有效转移地址</p>
+<p><font color = "red">短转移需要考虑拓展，如果将16进制改写成二进制后高位是0就补0，高位是1就补1</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/fd67f89aa19dd525ffb81eef3bda16d.jpg" /></p>
+<h3 id="段内间接寻址">段内间接寻址</h3>
+<h4 id="形式jmp-table偏移量1bx寄存器名称">形式：JMP
+(TABLE)(偏移量1)[BX](寄存器名称)</h4>
+<pre><code> 【例】：已知 TABLE = 20A2H  ， (BX) = 1256H，    (SI) = 528EH， (DS) = 2000H，  (232F8H) = 3280H ， (264E4H) = 2450H。试分析下列指令执行完后，对应的有效转移地址。
+（1）JMP BX；
+（2）JMP TABLE[BX]  ( JMP WORD PTR TABLE[BX] )；
+（3）JMP  [BX][SI]   （   JMP  WORD PTR  [BX][SI]   ）。</code></pre>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0a969e4c6efd9aecbb03519ec0b9fcd.jpg" /></p>
+<h3 id="段间直接寻址">段间直接寻址</h3>
+<h3 id="段间间接寻址">段间间接寻址</h3>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/cfbc6a45.html" title="第一章-汇编语言基础">http://example.com/posts/cfbc6a45.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/5b87369e.html" rel="prev" title="配置带参数的远程调试">
+      <i class="fa fa-chevron-left"></i> 配置带参数的远程调试
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/2ba40472.html" rel="next" title="操作系统概述">
+      操作系统概述 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">计算机系统概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">硬件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%8D%95%E5%85%83cpu"><span class="nav-number">1.1.1.</span> <span class="nav-text">中央处理单元CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">存储器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">软件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">系统软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">应用软件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.</span> <span class="nav-text">数据表示</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bcd%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">BCD码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">有符号数的表示方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81"><span class="nav-number">2.2.1.</span> <span class="nav-text">原码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E7%A0%81"><span class="nav-number">2.2.2.</span> <span class="nav-text">反码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81"><span class="nav-number">2.2.3.</span> <span class="nav-text">补码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">8086寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">通用寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%84%E5%AD%98%E5%99%A8%E4%BF%9D%E5%AD%98%E6%93%8D%E4%BD%9C%E6%95%B0%E6%88%96%E8%BF%90%E7%AE%97%E7%BB%93%E6%9E%9C"><span class="nav-number">3.1.1.</span> <span class="nav-text">数据寄存器(保存操作数或运算结果)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B4%AF%E5%8A%A0%E5%99%A8ax"><span class="nav-number">3.1.1.0.1.</span> <span class="nav-text">累加器AX</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8bx"><span class="nav-number">3.1.1.0.2.</span> <span class="nav-text">基址寄存器BX</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A1%E6%95%B0%E5%99%A8cx"><span class="nav-number">3.1.1.0.3.</span> <span class="nav-text">计数器CX</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%84%E5%AD%98%E5%99%A8dx"><span class="nav-number">3.1.1.0.4.</span> <span class="nav-text">数据寄存器DX</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E9%92%88%E5%AF%84%E5%AD%98%E5%99%A8%E5%AD%98%E6%94%BE%E6%9F%90%E4%B8%AA%E5%AD%98%E5%82%A8%E5%8D%95%E5%85%83%E7%9A%84%E5%81%8F%E7%A7%BB%E5%9C%B0%E5%9D%80"><span class="nav-number">3.1.2.</span> <span class="nav-text">指针寄存器(存放某个存储单元的偏移地址)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sp%E5%A0%86%E6%A0%88%E6%8C%87%E9%92%88%E5%AF%84%E5%AD%98%E5%99%A8%E5%AD%98%E6%94%BE%E5%A0%86%E6%A0%88%E6%AE%B5%E4%B8%AD%E6%A0%88%E9%A1%B6%E7%9A%84%E5%81%8F%E7%A7%BB%E5%9C%B0%E5%9D%80"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">SP堆栈指针寄存器(存放堆栈段中栈顶的偏移地址)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bp%E5%9F%BA%E5%9D%80%E6%8C%87%E9%92%88%E5%AF%84%E5%AD%98%E5%99%A8%E5%AD%98%E6%94%BE%E5%A0%86%E6%A0%88%E6%AE%B5%E4%B8%AD%E6%9F%90%E4%B8%80%E5%AD%98%E5%82%A8%E5%8D%95%E5%85%83%E7%9A%84%E5%81%8F%E7%A7%BB%E5%9C%B0%E5%9D%80"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">BP基址指针寄存器(存放堆栈段中某一存储单元的偏移地址)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8%E5%AD%98%E6%94%BE%E6%9F%90%E4%B8%AA%E5%AD%98%E5%82%A8%E5%8D%95%E5%85%83%E7%9A%84%E5%81%8F%E7%A7%BB%E5%9C%B0%E5%9D%80"><span class="nav-number">3.1.3.</span> <span class="nav-text">变址寄存器(存放某个存储单元的偏移地址)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#si%E6%BA%90%E5%9C%B0%E5%9D%80%E5%8F%98%E5%9D%80%E6%8C%87%E9%92%88%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">SI源地址变址指针寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">控制寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ip%E6%8C%87%E4%BB%A4%E6%8C%87%E9%92%88%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.2.1.</span> <span class="nav-text">IP指令指针寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flags%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.2.2.</span> <span class="nav-text">FLAGS标志寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%A0%87%E5%BF%97"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">状态标志</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#afauxiliary-carry-flag%E8%BE%85%E5%8A%A9%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97"><span class="nav-number">3.2.2.1.1.</span> <span class="nav-text">AF(Auxiliary carry
+Flag)辅助进位标志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cfcarry-flag%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97"><span class="nav-number">3.2.2.1.2.</span> <span class="nav-text">CF：（Carry Flag）进位标志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ofoverflow-flag%E6%BA%A2%E5%87%BA%E6%A0%87%E5%BF%97"><span class="nav-number">3.2.2.1.3.</span> <span class="nav-text">OF（Overflow Flag）溢出标志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pfparity-flag%E5%A5%87%E5%81%B6%E6%A0%87%E5%BF%97"><span class="nav-number">3.2.2.1.4.</span> <span class="nav-text">PF：（Parity Flag）奇偶标志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sfsign-flag%E7%AC%A6%E5%8F%B7%E6%A0%87%E5%BF%97"><span class="nav-number">3.2.2.1.5.</span> <span class="nav-text">SF（Sign Flag）符号标志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#zfzero-flag%E9%9B%B6%E6%A0%87%E5%BF%97"><span class="nav-number">3.2.2.1.6.</span> <span class="nav-text">ZF（Zero Flag）零标志</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.3.</span> <span class="nav-text">段寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cs%E4%BB%A3%E7%A0%81%E6%AE%B5%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.3.1.</span> <span class="nav-text">CS代码段段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ds%E6%95%B0%E6%8D%AE%E6%AE%B5%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.3.2.</span> <span class="nav-text">DS数据段段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#es%E9%99%84%E5%8A%A0%E6%AE%B5%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.3.3.</span> <span class="nav-text">ES附加段段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ss%E5%A0%86%E6%A0%88%E6%AE%B5%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">3.3.4.</span> <span class="nav-text">SS堆栈段段寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9A%84%E5%AD%98%E5%82%A8%E5%99%A8%E7%BB%84%E7%BB%87"><span class="nav-number">4.</span> <span class="nav-text">8086的存储器组织</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%8D%95%E5%85%83%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-number">4.1.</span> <span class="nav-text">存储单元的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%8D%95%E5%85%83%E5%86%85%E5%AE%B9"><span class="nav-number">4.2.</span> <span class="nav-text">存储单元内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E5%9C%B0%E5%9D%80%E7%9A%84%E5%88%86%E6%AE%B5"><span class="nav-number">4.3.</span> <span class="nav-text">存储器地址的分段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%E5%9F%BA%E6%9C%AC%E8%A7%84%E5%88%99%E4%BB%8E0%E5%9C%B0%E5%9D%80%E5%BC%80%E5%A7%8B%E6%AF%8F16%E4%B8%AA%E5%AD%97%E8%8A%82%E4%B8%BA%E4%B8%80%E5%B0%8F%E6%AE%B5"><span class="nav-number">4.3.1.</span> <span class="nav-text">分段基本规则：从0地址开始，每16个字节为一小段。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%9C%B0%E5%9D%80%E5%92%8C%E5%81%8F%E7%A7%BB%E5%9C%B0%E5%9D%80"><span class="nav-number">4.3.2.</span> <span class="nav-text">段地址和偏移地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%E5%92%8C%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">4.3.3.</span> <span class="nav-text">物理地址和逻辑地址的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%9C%B0%E5%9D%80%E4%B8%8E%E6%AE%B5%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">4.3.4.</span> <span class="nav-text">段地址与段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%88%86%E9%85%8D"><span class="nav-number">4.3.5.</span> <span class="nav-text">段分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%90%E5%90%AB%E6%AE%B5%E5%92%8C%E5%81%8F%E7%A7%BB%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">4.3.6.</span> <span class="nav-text">隐含段和偏移寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9A%84%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">8086的寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">5.1.</span> <span class="nav-text">寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="nav-number">5.1.1.</span> <span class="nav-text">基本格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">5.2.</span> <span class="nav-text">数据寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%8B%E5%8D%B3%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%BD%A2%E5%A6%82ax%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B03064h-%E7%9B%B4%E6%8E%A5%E7%9A%84%E6%95%B0"><span class="nav-number">5.2.1.</span> <span class="nav-text">立即寻址方式：（形如AX(寄存器名称)，3064H
+直接的数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%BD%A2%E5%A6%82ax%E7%9B%AE%E6%A0%87%E5%9C%B0%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B0-bx%E6%BA%90%E5%9C%B0%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B0"><span class="nav-number">5.2.2.</span> <span class="nav-text">寄存器寻址方式:(形如AX（目标地址寄存器名称）,
+BX（源地址寄存器名称）)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%BD%A2%E5%A6%82ax%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B0-2000h%E5%86%85%E5%AD%98%E4%B8%AD%E4%BF%9D%E5%AD%98%E7%9A%84%E6%95%B0%E6%98%AF%E4%B8%80%E4%B8%AA%E5%81%8F%E7%A7%BB%E9%87%8F%E5%89%8D%E9%9D%A2%E6%9C%89%E6%AE%B5%E5%B0%B1%E7%9C%8B%E6%AE%B5%E6%B2%A1%E6%9C%89%E5%B0%B1%E9%BB%98%E8%AE%A4ds"><span class="nav-number">5.2.3.</span> <span class="nav-text">直接寻址方式（形如AX(寄存器名称)，
+[2000H](内存中保存的数，是一个偏移量，前面有段就看段，没有就默认DS）)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%BD%A2%E5%A6%82ax%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B0-bx%E4%BD%9C%E4%B8%BA%E5%81%8F%E7%A7%BB%E9%87%8F%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B0"><span class="nav-number">5.2.4.</span> <span class="nav-text">寄存器间接寻址方式：（形如AX(寄存器名称)，
+[BX](作为偏移量的寄存器名称))</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E7%9B%B8%E5%AF%B9%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%BD%A2%E5%A6%82ax%E7%9B%AE%E6%A0%87%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B0disp%E5%81%8F%E7%A7%BB%E9%87%8F1di%E5%81%8F%E7%A7%BB%E9%87%8F2"><span class="nav-number">5.2.5.</span> <span class="nav-text">寄存器相对寻址方式:(形如AX(目标寄存器名称)，DISP(偏移量1)[DI](偏移量2))</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E5%9D%80%E5%8F%98%E5%9D%80%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%BD%A2%E5%A6%82ax%E7%9B%AE%E6%A0%87%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B0-bx%E5%9F%BA%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B0di%E5%8F%98%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B0"><span class="nav-number">5.2.6.</span> <span class="nav-text">基址变址寻址方式：（形如AX（目标寄存器名称），
+[BX](基址寄存器名称)[DI](变址寄存器名称)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E5%9F%BA%E5%9D%80%E5%8F%98%E5%9D%80%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">5.2.7.</span> <span class="nav-text">相对基址变址寻址方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%AD%98%E5%82%A8%E5%99%A8%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">5.3.</span> <span class="nav-text">程序存储器寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%86%85%E7%9B%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="nav-number">5.3.1.</span> <span class="nav-text">段内直接寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E5%86%85%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="nav-number">5.3.2.</span> <span class="nav-text">段内间接寻址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%A2%E5%BC%8Fjmp-table%E5%81%8F%E7%A7%BB%E9%87%8F1bx%E5%AF%84%E5%AD%98%E5%99%A8%E5%90%8D%E7%A7%B0"><span class="nav-number">5.3.2.1.</span> <span class="nav-text">形式：JMP
+(TABLE)(偏移量1)[BX](寄存器名称)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E9%97%B4%E7%9B%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="nav-number">5.3.3.</span> <span class="nav-text">段间直接寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AE%B5%E9%97%B4%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="nav-number">5.3.4.</span> <span class="nav-text">段间间接寻址</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-06 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">282k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

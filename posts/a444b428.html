@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="排序 插入排序 直接插入排序：不断从无序序列中挑选出元素插入有序序列 折半插入排序：先折半查找出待插入位置，再统一移动 希尔排序：每次取不同的步长，按步长从原序列里挑出子序列，直到最后步长为0 举例1：  交换排序 冒泡排序： 每轮排序结果确定1个位置，可以从最后一个开始，也可以从第一个开始 每轮排序过程中比较交换两个相邻的元素 快排：主要思想是分治，pivot前都比它小，p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序">
+<meta property="og:url" content="http://example.com/posts/a444b428.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="排序 插入排序 直接插入排序：不断从无序序列中挑选出元素插入有序序列 折半插入排序：先折半查找出待插入位置，再统一移动 希尔排序：每次取不同的步长，按步长从原序列里挑出子序列，直到最后步长为0 举例1：  交换排序 冒泡排序： 每轮排序结果确定1个位置，可以从最后一个开始，也可以从第一个开始 每轮排序过程中比较交换两个相邻的元素 快排：主要思想是分治，pivot前都比它小，p">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-17T08:26:36.000Z">
+<meta property="article:modified_time" content="2024-03-26T10:50:54.302Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/a444b428.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>排序 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">心有所向，无问西东</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/a444b428.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          排序
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-17 16:26:36" itemprop="dateCreated datePublished" datetime="2024-03-17T16:26:36+08:00">2024-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/a444b428.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/a444b428.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="排序">排序</h1>
+<h2 id="插入排序">插入排序</h2>
+<h3
+id="直接插入排序不断从无序序列中挑选出元素插入有序序列">直接插入排序：不断从无序序列中挑选出元素插入有序序列</h3>
+<h3
+id="折半插入排序先折半查找出待插入位置再统一移动">折半插入排序：先折半查找出待插入位置，再统一移动</h3>
+<h3
+id="希尔排序每次取不同的步长按步长从原序列里挑出子序列直到最后步长为0">希尔排序：每次取不同的步长，按步长从原序列里挑出子序列，直到最后步长为0</h3>
+<p>举例1：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231230195246.jpg" /></p>
+<h2 id="交换排序">交换排序</h2>
+<h3 id="冒泡排序">冒泡排序：</h3>
+<h4
+id="每轮排序结果确定1个位置可以从最后一个开始也可以从第一个开始">每轮排序结果确定1个位置，可以从最后一个开始，也可以从第一个开始</h4>
+<h4
+id="每轮排序过程中比较交换两个相邻的元素">每轮排序过程中比较交换两个相邻的元素</h4>
+<h3
+id="快排主要思想是分治pivot前都比它小pivot后都比它大再对左右子序列继续选pivot分解">快排：主要思想是分治，pivot前都比它小，pivot后都比它大，再对左右子序列继续选pivot，分解</h3>
+<h4
+id="一轮分治过程中high和low依次运行">一轮分治过程中，high和low依次运行</h4>
+<h4
+id="首先high运行当high所指元素小于pivot时high所指元素放到low指的地方认为每次停下来i的那个highlow指向的位置为空">首先high运行，当high所指元素小于pivot时，high所指元素放到low指的地方（认为每次停下来i的那个（high/low）指向的位置为空)</h4>
+<h4
+id="然后low开始运行当low所指元素大于pivot时low所指元素放到high所指位置">然后low开始运行，当low所指元素大于pivot时，low所指元素放到high所指位置</h4>
+<h4
+id="不断循环直到low-high将pivot放到i与j此时指向的位置">不断循环直到low
+== high,将pivot放到i与j此时指向的位置</h4>
+<h4
+id="快排每次分治都有1个元素被放到最终位置">快排每次分治都有1个元素被放到最终位置</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*Partition函数参数是待划分序列，开头位置（low指针指向的位置）结尾位置（high指针指向的位置），返回最终pivot的位置*/</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Partition</span><span class="params">(<span class="type">int</span> data[], <span class="type">int</span> high, <span class="type">int</span> low)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> pivot = data[low];</span><br><span class="line">    <span class="keyword">while</span>(low &lt; high) &#123;</span><br><span class="line">        <span class="keyword">while</span>(low &lt; high &amp;&amp; data[high] &gt;= pivot) high--;</span><br><span class="line">        data[low] = data[high];</span><br><span class="line">        <span class="keyword">while</span>(low &lt; high &amp;&amp; data[low] &lt;= pivot) low++;</span><br><span class="line">        data[high] = data[low];    </span><br><span class="line">    &#125;   </span><br><span class="line">    data[low] = pivot;</span><br><span class="line">    <span class="keyword">return</span> low;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*QuickSort函数参数是待划分序列，开头位置（low指向位置），结尾位置（high指向位置）*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">QuickSort</span><span class="params">(<span class="type">int</span> data[], <span class="type">int</span> low, <span class="type">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(low &lt; high) &#123;</span><br><span class="line">        <span class="type">int</span> pivotPosition = <span class="built_in">Partition</span>(data, low, high);</span><br><span class="line">        <span class="built_in">QuickSort</span>(data, low, pivotPosition - <span class="number">1</span>);    <span class="comment">//对左子表再快排</span></span><br><span class="line">        <span class="built_in">QuickSort</span>(data, pivotPosition + <span class="number">1</span>, high);   <span class="comment">//对右子表再快排</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>举例1：判断排序结果</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231122081638.jpg" />
+1 写出最终排序结果 2
+逐个选项选出已经放到应该排的位置的元素，因为针对每一个子列排序，都会有一个元素排到它应该排的位置，所以排第n趟的时候至少有n个元素已经放到正确位置
+3
+再看每个放到正确位置元素将原序列分成几段，因为如果每趟的pivot恰好放在端的地方，那么就是排第n趟的时候有n个元素归位，但如果分割了原序列，就是n+1</p>
+<h2 id="选择排序">选择排序</h2>
+<h3
+id="简单选择排序每次确定一个元素位置比如确定最后一个就是最大元素比较范围从1n-1确定倒数第二个比较范围从1到n-1以此类推">简单选择排序：每次确定一个元素位置，比如确定最后一个，就是最大元素，比较范围从1~n-1，确定倒数第二个，比较范围从1到n-1……以此类推</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231230213447.jpg" /></p>
+<h3 id="堆排序">堆排序</h3>
+<h4 id="存储与结构">1 存储与结构</h4>
+<h5 id="树形结构">1.1 树形结构</h5>
+<p>堆的最常用结构是二叉树，且一般是完全二叉树</p>
+<h5 id="存储结构">1.2 存储结构</h5>
+<p>堆实际存储一般不用指针，而是使用数组，如下图</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231124085512.jpg" /></p>
+<h5 id="数组下标关系">1.3 数组下标关系</h5>
+<h6 id="起始存储单元为1而不是0-0作为哨兵且也易于从子节点找到父节点">1.
+起始存储单元为1，而不是0, 0作为哨兵，且也易于从子节点找到父节点</h6>
+<h6
+id="对于下标为i的节点父节点下标是i2向下取整反过来对于下标为i的节点左孩子下标是2-i右孩子是-2-i-1">2.
+对于下标为i的节点，父节点下标是i/2向下取整，反过来，对于下标为i的节点，左孩子下标是2
+* i，右孩子是 2 * i + 1</h6>
+<h4 id="操作">2 操作</h4>
+<h5 id="插入">2.1 插入</h5>
+<p>以大顶堆为例</p>
+<h6
+id="先将待插入节点放到数组最后一位">先将<strong>待插入节点</strong>放到<strong>数组最后一位</strong></h6>
+<h6
+id="然后向上上滤寻找插入位置即与父节点比较如果比父节点大那么就把父节点下放-直到找到待插入节点应该插入的位置">然后<strong>向上上滤</strong>寻找插入位置，即与父节点比较，如果比父节点大，那么就把父节点<strong>下放</strong>
+，直到找到待插入节点应该插入的位置</h6>
+<p>但是注意到，如果插入的新节点比原堆中任意元素都大，那么到堆顶（下标为1）的时候又/=2得0，0不断/=2得0陷入死循环，所以如果已知堆中元素范围，可以将下标0设置为大于堆中可能元素，这样循环到0就一定会退出</p>
+<p>代码如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_NUM 1000000</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Insert</span><span class="params">(<span class="type">int</span> data[], <span class="type">int</span> x, <span class="type">int</span> size)</span> &#123;</span><br><span class="line">    <span class="type">int</span> i = ++size;	<span class="comment">//因为要插入元素，所以大顶堆size + 1</span></span><br><span class="line">    <span class="keyword">for</span>(; data[i / <span class="number">2</span>] &lt; x; i /= <span class="number">2</span>) &#123;	<span class="comment">//向上寻找插入位置</span></span><br><span class="line">        data[i] = data[i / <span class="number">2</span>];			<span class="comment">//将父节点下放</span></span><br><span class="line">    &#125;	</span><br><span class="line">    data[i] = x;	<span class="comment">//将新节点插入到应该插入的位置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="删除">2.2 删除</h5>
+<p>以大顶堆为例</p>
+<h6 id="先弹出根节点">先弹出根节点</h6>
+<h6
+id="然后取数组中最后一个元素因为它在大顶堆中必然是叶子节点向下下滤寻找插入位置">然后取数组中最后一个元素（因为它在大顶堆中必然是叶子节点）<strong>向下下滤</strong>寻找插入位置</h6>
+<h6
+id="通过与当前层为根节点此时为空的左右子树中最大值比较如果左右子树中最大值比最后一个元素大就将左右子树中最大值上移接着从上移节点的位置此时为空继续向下比较否则将最后一个元素插入当前层为根节点">通过<strong>与当前层为根节点（此时为空）</strong>的<strong>左右子树中最大值</strong>比较，如果左右子树中最大值比最后一个元素大，就将左右子树中最大值上移，接着从上移节点的位置（此时为空）继续向下比较，否则将最后一个元素插入当前层为根节点</h6>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231124095808.jpg" /></p>
+<p>代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">PopMax</span><span class="params">(MaxHeap maxHeap)</span> &#123;</span><br><span class="line">	<span class="type">int</span> maxData = maxHeap-&gt;Data[<span class="number">1</span>];</span><br><span class="line">    <span class="type">int</span> x = maxHeap-&gt;Data[maxHeap-&gt;Size--];	<span class="comment">//选择原来大顶堆中最后一个存储的元素来下滤</span></span><br><span class="line">    <span class="type">int</span> parent = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> child;</span><br><span class="line">    <span class="keyword">for</span>(; parent * <span class="number">2</span> &lt;= maxHeap-&gt;Size; parent = child) &#123;</span><br><span class="line">        child = parent * <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(child != maxHeap-&gt;Size &amp;&amp; maxHeap-&gt;Data[child] &lt; maxHeap-&gt;Data[child + <span class="number">1</span>]) &#123;</span><br><span class="line">			child = child + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(x &lt; maxHeap-&gt;Data[child]) &#123;	<span class="comment">//将x与child比较，注意这时parent指向的位置为空, 如果小就将child提上来</span></span><br><span class="line">            maxHeap-&gt;Data[parent] = maxHeap-&gt;Data[child];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;	<span class="comment">//如果x比child大就break出循环，注意不能在循环里赋值，具体还不清楚，但在循环里就把x赋给parent会报错</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    maxHeap-&gt;Data[parent] = x;</span><br><span class="line">    <span class="keyword">return</span> maxData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="归并排序">归并排序</h2>
+<h3 id="一-算法思想分治">一 算法思想：分治</h3>
+<p>不过归并分治过程和快排有区别</p>
+<p>快排是先对一个大序列(在一个大序列中找到pivot，利用pivot将大序列分割成左右两个小序列)操作，再分割成小序列</p>
+<p>归并是先分割成小序列(先将大序列分割成小序列)
+，再操作(对将小序列两个两个归并成一个大序列)</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231128090112.jpg" /></p>
+<h4 id="分分割成小序列">1 “分”：分割成小序列</h4>
+<h4 id="治小序列两个两个合并成大序列">2
+治：小序列两个两个合并成大序列</h4>
+<h5 id="开一个辅助数组b">2.1 开一个辅助数组B</h5>
+<h5 id="将待排数组名义上两个但实际上存在一个里面存放到辅助数组里面">2.2
+将待排数组(名义上两个，但实际上存在一个里面)存放到辅助数组里面</h5>
+<h5
+id="这时待排数组为空利用两个指针分别指示待归并的两个数组的起点在辅助数组上移动将其中大的重新拷贝回待排数组">2.3
+这时待排数组为空，利用两个指针(分别指示待归并的两个数组的起点)在辅助数组上移动，将其中大的重新拷贝回待排数组</h5>
+<h5
+id="如果其中一个指针移动的位置超过了原来对应待归并的数组的范围将剩下一个数组里元素全部拷贝回待排数组">2.4
+如果其中一个指针移动的位置超过了原来对应待归并的数组的范围，将剩下一个数组里元素全部拷贝回待排数组</h5>
+<h3 id="二-代码">二 代码</h3>
+<h4 id="merge用来合并两个序列">Merge()(用来合并两个序列)</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> Assistance[MAXNUM];</span><br><span class="line"><span class="type">void</span> <span class="title function_">Merge</span><span class="params">(<span class="type">int</span> data[], <span class="type">int</span> low, <span class="type">int</span> high, <span class="type">int</span> mid)</span> &#123;</span><br><span class="line">    <span class="comment">/*拷贝到辅助数组*/</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; high; i++) &#123;</span><br><span class="line">        Assistance[i] = data[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> p, q, r;</span><br><span class="line">    <span class="keyword">for</span>(p = low, q = mid + <span class="number">1</span>, r = low; p &lt;= mid &amp;&amp; q &lt;= high; ) &#123;</span><br><span class="line">        <span class="keyword">if</span>(Assistance[p] &gt; Assistance[q]) &#123;</span><br><span class="line">            data[r++] = Assistance[q];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            data[r++] = Assistance[p];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(p &lt;= mid) data[r++] = Assistance[p];</span><br><span class="line">    <span class="keyword">while</span>(q &lt;= high) data[r++] = Assistance[q]; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h4 id="mergesort用来分割">MergeSort()(用来分割)</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">MergeSort</span><span class="params">(<span class="type">int</span> data[], <span class="type">int</span> low, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(low &lt; high) &#123;</span><br><span class="line">        <span class="type">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">        MergeSort(data, low, mid);</span><br><span class="line">        MergeSort(data, mid + <span class="number">1</span>, low);</span><br><span class="line">        Merge(data, low, high, mid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="基数排序">基数排序</h2>
+<h3 id="主要思想">主要思想</h3>
+<h4
+id="不基于比较和移动而基于关键字各位的大小">不基于比较和移动，而基于关键字各位的大小</h4>
+<h4 id="分配">分配：</h4>
+<h4 id="收集">收集：</h4>
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231231071221.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231231071233.jpg" /></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/a444b428.html" title="排序">http://example.com/posts/a444b428.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/499231f7.html" rel="prev" title="如何更新github上过期的token">
+      <i class="fa fa-chevron-left"></i> 如何更新github上过期的token
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/340249a9.html" rel="next" title="数组">
+      数组 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-number">1.1.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E4%B8%8D%E6%96%AD%E4%BB%8E%E6%97%A0%E5%BA%8F%E5%BA%8F%E5%88%97%E4%B8%AD%E6%8C%91%E9%80%89%E5%87%BA%E5%85%83%E7%B4%A0%E6%8F%92%E5%85%A5%E6%9C%89%E5%BA%8F%E5%BA%8F%E5%88%97"><span class="nav-number">1.1.1.</span> <span class="nav-text">直接插入排序：不断从无序序列中挑选出元素插入有序序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%98%E5%8D%8A%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E5%85%88%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE%E5%87%BA%E5%BE%85%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE%E5%86%8D%E7%BB%9F%E4%B8%80%E7%A7%BB%E5%8A%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">折半插入排序：先折半查找出待插入位置，再统一移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%E6%AF%8F%E6%AC%A1%E5%8F%96%E4%B8%8D%E5%90%8C%E7%9A%84%E6%AD%A5%E9%95%BF%E6%8C%89%E6%AD%A5%E9%95%BF%E4%BB%8E%E5%8E%9F%E5%BA%8F%E5%88%97%E9%87%8C%E6%8C%91%E5%87%BA%E5%AD%90%E5%BA%8F%E5%88%97%E7%9B%B4%E5%88%B0%E6%9C%80%E5%90%8E%E6%AD%A5%E9%95%BF%E4%B8%BA0"><span class="nav-number">1.1.3.</span> <span class="nav-text">希尔排序：每次取不同的步长，按步长从原序列里挑出子序列，直到最后步长为0</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">交换排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">冒泡排序：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%8F%E8%BD%AE%E6%8E%92%E5%BA%8F%E7%BB%93%E6%9E%9C%E7%A1%AE%E5%AE%9A1%E4%B8%AA%E4%BD%8D%E7%BD%AE%E5%8F%AF%E4%BB%A5%E4%BB%8E%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%BC%80%E5%A7%8B%E4%B9%9F%E5%8F%AF%E4%BB%A5%E4%BB%8E%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BC%80%E5%A7%8B"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">每轮排序结果确定1个位置，可以从最后一个开始，也可以从第一个开始</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%8F%E8%BD%AE%E6%8E%92%E5%BA%8F%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%AF%94%E8%BE%83%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E7%9B%B8%E9%82%BB%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">每轮排序过程中比较交换两个相邻的元素</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E6%8E%92%E4%B8%BB%E8%A6%81%E6%80%9D%E6%83%B3%E6%98%AF%E5%88%86%E6%B2%BBpivot%E5%89%8D%E9%83%BD%E6%AF%94%E5%AE%83%E5%B0%8Fpivot%E5%90%8E%E9%83%BD%E6%AF%94%E5%AE%83%E5%A4%A7%E5%86%8D%E5%AF%B9%E5%B7%A6%E5%8F%B3%E5%AD%90%E5%BA%8F%E5%88%97%E7%BB%A7%E7%BB%AD%E9%80%89pivot%E5%88%86%E8%A7%A3"><span class="nav-number">1.2.2.</span> <span class="nav-text">快排：主要思想是分治，pivot前都比它小，pivot后都比它大，再对左右子序列继续选pivot，分解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%BD%AE%E5%88%86%E6%B2%BB%E8%BF%87%E7%A8%8B%E4%B8%ADhigh%E5%92%8Clow%E4%BE%9D%E6%AC%A1%E8%BF%90%E8%A1%8C"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">一轮分治过程中，high和low依次运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A6%96%E5%85%88high%E8%BF%90%E8%A1%8C%E5%BD%93high%E6%89%80%E6%8C%87%E5%85%83%E7%B4%A0%E5%B0%8F%E4%BA%8Epivot%E6%97%B6high%E6%89%80%E6%8C%87%E5%85%83%E7%B4%A0%E6%94%BE%E5%88%B0low%E6%8C%87%E7%9A%84%E5%9C%B0%E6%96%B9%E8%AE%A4%E4%B8%BA%E6%AF%8F%E6%AC%A1%E5%81%9C%E4%B8%8B%E6%9D%A5i%E7%9A%84%E9%82%A3%E4%B8%AAhighlow%E6%8C%87%E5%90%91%E7%9A%84%E4%BD%8D%E7%BD%AE%E4%B8%BA%E7%A9%BA"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">首先high运行，当high所指元素小于pivot时，high所指元素放到low指的地方（认为每次停下来i的那个（high&#x2F;low）指向的位置为空)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%84%B6%E5%90%8Elow%E5%BC%80%E5%A7%8B%E8%BF%90%E8%A1%8C%E5%BD%93low%E6%89%80%E6%8C%87%E5%85%83%E7%B4%A0%E5%A4%A7%E4%BA%8Epivot%E6%97%B6low%E6%89%80%E6%8C%87%E5%85%83%E7%B4%A0%E6%94%BE%E5%88%B0high%E6%89%80%E6%8C%87%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">然后low开始运行，当low所指元素大于pivot时，low所指元素放到high所指位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E6%96%AD%E5%BE%AA%E7%8E%AF%E7%9B%B4%E5%88%B0low-high%E5%B0%86pivot%E6%94%BE%E5%88%B0i%E4%B8%8Ej%E6%AD%A4%E6%97%B6%E6%8C%87%E5%90%91%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">不断循环直到low
+&#x3D;&#x3D; high,将pivot放到i与j此时指向的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E6%8E%92%E6%AF%8F%E6%AC%A1%E5%88%86%E6%B2%BB%E9%83%BD%E6%9C%891%E4%B8%AA%E5%85%83%E7%B4%A0%E8%A2%AB%E6%94%BE%E5%88%B0%E6%9C%80%E7%BB%88%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">快排每次分治都有1个元素被放到最终位置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E6%AF%8F%E6%AC%A1%E7%A1%AE%E5%AE%9A%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E4%BD%8D%E7%BD%AE%E6%AF%94%E5%A6%82%E7%A1%AE%E5%AE%9A%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%B0%B1%E6%98%AF%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0%E6%AF%94%E8%BE%83%E8%8C%83%E5%9B%B4%E4%BB%8E1n-1%E7%A1%AE%E5%AE%9A%E5%80%92%E6%95%B0%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%AF%94%E8%BE%83%E8%8C%83%E5%9B%B4%E4%BB%8E1%E5%88%B0n-1%E4%BB%A5%E6%AD%A4%E7%B1%BB%E6%8E%A8"><span class="nav-number">1.3.1.</span> <span class="nav-text">简单选择排序：每次确定一个元素位置，比如确定最后一个，就是最大元素，比较范围从1~n-1，确定倒数第二个，比较范围从1到n-1……以此类推</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">堆排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E4%B8%8E%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">1 存储与结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.2.1.1.</span> <span class="nav-text">1.1 树形结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.2.1.2.</span> <span class="nav-text">1.2 存储结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%8B%E6%A0%87%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.2.1.3.</span> <span class="nav-text">1.3 数组下标关系</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%B5%B7%E5%A7%8B%E5%AD%98%E5%82%A8%E5%8D%95%E5%85%83%E4%B8%BA1%E8%80%8C%E4%B8%8D%E6%98%AF0-0%E4%BD%9C%E4%B8%BA%E5%93%A8%E5%85%B5%E4%B8%94%E4%B9%9F%E6%98%93%E4%BA%8E%E4%BB%8E%E5%AD%90%E8%8A%82%E7%82%B9%E6%89%BE%E5%88%B0%E7%88%B6%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.2.1.3.1.</span> <span class="nav-text">1.
+起始存储单元为1，而不是0, 0作为哨兵，且也易于从子节点找到父节点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E4%B8%8B%E6%A0%87%E4%B8%BAi%E7%9A%84%E8%8A%82%E7%82%B9%E7%88%B6%E8%8A%82%E7%82%B9%E4%B8%8B%E6%A0%87%E6%98%AFi2%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E5%8F%8D%E8%BF%87%E6%9D%A5%E5%AF%B9%E4%BA%8E%E4%B8%8B%E6%A0%87%E4%B8%BAi%E7%9A%84%E8%8A%82%E7%82%B9%E5%B7%A6%E5%AD%A9%E5%AD%90%E4%B8%8B%E6%A0%87%E6%98%AF2-i%E5%8F%B3%E5%AD%A9%E5%AD%90%E6%98%AF-2-i-1"><span class="nav-number">1.3.2.1.3.2.</span> <span class="nav-text">2.
+对于下标为i的节点，父节点下标是i&#x2F;2向下取整，反过来，对于下标为i的节点，左孩子下标是2
+* i，右孩子是 2 * i + 1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%92%E5%85%A5"><span class="nav-number">1.3.2.2.1.</span> <span class="nav-text">2.1 插入</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%88%E5%B0%86%E5%BE%85%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9%E6%94%BE%E5%88%B0%E6%95%B0%E7%BB%84%E6%9C%80%E5%90%8E%E4%B8%80%E4%BD%8D"><span class="nav-number">1.3.2.2.1.1.</span> <span class="nav-text">先将待插入节点放到数组最后一位</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%84%B6%E5%90%8E%E5%90%91%E4%B8%8A%E4%B8%8A%E6%BB%A4%E5%AF%BB%E6%89%BE%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE%E5%8D%B3%E4%B8%8E%E7%88%B6%E8%8A%82%E7%82%B9%E6%AF%94%E8%BE%83%E5%A6%82%E6%9E%9C%E6%AF%94%E7%88%B6%E8%8A%82%E7%82%B9%E5%A4%A7%E9%82%A3%E4%B9%88%E5%B0%B1%E6%8A%8A%E7%88%B6%E8%8A%82%E7%82%B9%E4%B8%8B%E6%94%BE-%E7%9B%B4%E5%88%B0%E6%89%BE%E5%88%B0%E5%BE%85%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9%E5%BA%94%E8%AF%A5%E6%8F%92%E5%85%A5%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.3.2.2.1.2.</span> <span class="nav-text">然后向上上滤寻找插入位置，即与父节点比较，如果比父节点大，那么就把父节点下放
+，直到找到待插入节点应该插入的位置</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.2.2.2.</span> <span class="nav-text">2.2 删除</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%88%E5%BC%B9%E5%87%BA%E6%A0%B9%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.2.2.2.1.</span> <span class="nav-text">先弹出根节点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%84%B6%E5%90%8E%E5%8F%96%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E5%9B%A0%E4%B8%BA%E5%AE%83%E5%9C%A8%E5%A4%A7%E9%A1%B6%E5%A0%86%E4%B8%AD%E5%BF%85%E7%84%B6%E6%98%AF%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E5%90%91%E4%B8%8B%E4%B8%8B%E6%BB%A4%E5%AF%BB%E6%89%BE%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.3.2.2.2.2.</span> <span class="nav-text">然后取数组中最后一个元素（因为它在大顶堆中必然是叶子节点）向下下滤寻找插入位置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E4%B8%8E%E5%BD%93%E5%89%8D%E5%B1%82%E4%B8%BA%E6%A0%B9%E8%8A%82%E7%82%B9%E6%AD%A4%E6%97%B6%E4%B8%BA%E7%A9%BA%E7%9A%84%E5%B7%A6%E5%8F%B3%E5%AD%90%E6%A0%91%E4%B8%AD%E6%9C%80%E5%A4%A7%E5%80%BC%E6%AF%94%E8%BE%83%E5%A6%82%E6%9E%9C%E5%B7%A6%E5%8F%B3%E5%AD%90%E6%A0%91%E4%B8%AD%E6%9C%80%E5%A4%A7%E5%80%BC%E6%AF%94%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E5%A4%A7%E5%B0%B1%E5%B0%86%E5%B7%A6%E5%8F%B3%E5%AD%90%E6%A0%91%E4%B8%AD%E6%9C%80%E5%A4%A7%E5%80%BC%E4%B8%8A%E7%A7%BB%E6%8E%A5%E7%9D%80%E4%BB%8E%E4%B8%8A%E7%A7%BB%E8%8A%82%E7%82%B9%E7%9A%84%E4%BD%8D%E7%BD%AE%E6%AD%A4%E6%97%B6%E4%B8%BA%E7%A9%BA%E7%BB%A7%E7%BB%AD%E5%90%91%E4%B8%8B%E6%AF%94%E8%BE%83%E5%90%A6%E5%88%99%E5%B0%86%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E6%8F%92%E5%85%A5%E5%BD%93%E5%89%8D%E5%B1%82%E4%B8%BA%E6%A0%B9%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.2.2.2.3.</span> <span class="nav-text">通过与当前层为根节点（此时为空）的左右子树中最大值比较，如果左右子树中最大值比最后一个元素大，就将左右子树中最大值上移，接着从上移节点的位置（此时为空）继续向下比较，否则将最后一个元素插入当前层为根节点</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">1.4.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80-%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3%E5%88%86%E6%B2%BB"><span class="nav-number">1.4.1.</span> <span class="nav-text">一 算法思想：分治</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%88%86%E5%89%B2%E6%88%90%E5%B0%8F%E5%BA%8F%E5%88%97"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">1 “分”：分割成小序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B2%BB%E5%B0%8F%E5%BA%8F%E5%88%97%E4%B8%A4%E4%B8%AA%E4%B8%A4%E4%B8%AA%E5%90%88%E5%B9%B6%E6%88%90%E5%A4%A7%E5%BA%8F%E5%88%97"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">2
+治：小序列两个两个合并成大序列</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%80%E4%B8%80%E4%B8%AA%E8%BE%85%E5%8A%A9%E6%95%B0%E7%BB%84b"><span class="nav-number">1.4.1.2.1.</span> <span class="nav-text">2.1 开一个辅助数组B</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86%E5%BE%85%E6%8E%92%E6%95%B0%E7%BB%84%E5%90%8D%E4%B9%89%E4%B8%8A%E4%B8%A4%E4%B8%AA%E4%BD%86%E5%AE%9E%E9%99%85%E4%B8%8A%E5%AD%98%E5%9C%A8%E4%B8%80%E4%B8%AA%E9%87%8C%E9%9D%A2%E5%AD%98%E6%94%BE%E5%88%B0%E8%BE%85%E5%8A%A9%E6%95%B0%E7%BB%84%E9%87%8C%E9%9D%A2"><span class="nav-number">1.4.1.2.2.</span> <span class="nav-text">2.2
+将待排数组(名义上两个，但实际上存在一个里面)存放到辅助数组里面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%99%E6%97%B6%E5%BE%85%E6%8E%92%E6%95%B0%E7%BB%84%E4%B8%BA%E7%A9%BA%E5%88%A9%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%8C%87%E9%92%88%E5%88%86%E5%88%AB%E6%8C%87%E7%A4%BA%E5%BE%85%E5%BD%92%E5%B9%B6%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E8%B5%B7%E7%82%B9%E5%9C%A8%E8%BE%85%E5%8A%A9%E6%95%B0%E7%BB%84%E4%B8%8A%E7%A7%BB%E5%8A%A8%E5%B0%86%E5%85%B6%E4%B8%AD%E5%A4%A7%E7%9A%84%E9%87%8D%E6%96%B0%E6%8B%B7%E8%B4%9D%E5%9B%9E%E5%BE%85%E6%8E%92%E6%95%B0%E7%BB%84"><span class="nav-number">1.4.1.2.3.</span> <span class="nav-text">2.3
+这时待排数组为空，利用两个指针(分别指示待归并的两个数组的起点)在辅助数组上移动，将其中大的重新拷贝回待排数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%85%B6%E4%B8%AD%E4%B8%80%E4%B8%AA%E6%8C%87%E9%92%88%E7%A7%BB%E5%8A%A8%E7%9A%84%E4%BD%8D%E7%BD%AE%E8%B6%85%E8%BF%87%E4%BA%86%E5%8E%9F%E6%9D%A5%E5%AF%B9%E5%BA%94%E5%BE%85%E5%BD%92%E5%B9%B6%E7%9A%84%E6%95%B0%E7%BB%84%E7%9A%84%E8%8C%83%E5%9B%B4%E5%B0%86%E5%89%A9%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%E9%87%8C%E5%85%83%E7%B4%A0%E5%85%A8%E9%83%A8%E6%8B%B7%E8%B4%9D%E5%9B%9E%E5%BE%85%E6%8E%92%E6%95%B0%E7%BB%84"><span class="nav-number">1.4.1.2.4.</span> <span class="nav-text">2.4
+如果其中一个指针移动的位置超过了原来对应待归并的数组的范围，将剩下一个数组里元素全部拷贝回待排数组</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C-%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.2.</span> <span class="nav-text">二 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#merge%E7%94%A8%E6%9D%A5%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E5%BA%8F%E5%88%97"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">Merge()(用来合并两个序列)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mergesort%E7%94%A8%E6%9D%A5%E5%88%86%E5%89%B2"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">MergeSort()(用来分割)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F"><span class="nav-number">1.5.</span> <span class="nav-text">基数排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%80%9D%E6%83%B3"><span class="nav-number">1.5.1.</span> <span class="nav-text">主要思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E5%9F%BA%E4%BA%8E%E6%AF%94%E8%BE%83%E5%92%8C%E7%A7%BB%E5%8A%A8%E8%80%8C%E5%9F%BA%E4%BA%8E%E5%85%B3%E9%94%AE%E5%AD%97%E5%90%84%E4%BD%8D%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">不基于比较和移动，而基于关键字各位的大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">分配：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B6%E9%9B%86"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">收集：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-06 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">282k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

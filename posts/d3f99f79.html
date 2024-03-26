@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="接口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="接口与继承">
+<meta property="og:url" content="http://example.com/posts/d3f99f79.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="接口">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-25T01:10:38.000Z">
+<meta property="article:modified_time" content="2024-03-26T10:50:54.282Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/d3f99f79.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>接口与继承 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">心有所向，无问西东</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d3f99f79.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          接口与继承
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-25 09:10:38" itemprop="dateCreated datePublished" datetime="2024-03-25T09:10:38+08:00">2024-03-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/d3f99f79.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/d3f99f79.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="接口">接口</h1>
+<span id="more"></span>
+<p><strong>接口就像是一种约定</strong>，我们约定某些英雄是物理系英雄，那么他们就一定能够进行物理攻击。</p>
+<h2 id="创建接口">创建接口</h2>
+<p>举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"> </span><br><span class="line">public interface AD &#123;</span><br><span class="line">        //物理伤害</span><br><span class="line">    public void physicAttack();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实现接口">实现接口</h2>
+<p><strong>实现某个接口，就相当于承诺了某种约定</strong></p>
+<p>所以，<strong>实现</strong>了<strong>AD</strong>这个接口，就<strong>必须</strong>提供AD接口中声明的方法<strong>physicAttack()</strong>
+<strong>实现</strong>在语法上使用关键字 <strong>implements</strong></p>
+<h1 id="对象转型">对象转型</h1>
+<h2 id="引用类型与对象类型">引用类型与对象类型</h2>
+<p>在这个例子里，有一个对象 new ADHero(), 同时也有一个引用ad
+对象是有类型的， 是ADHero 引用也是有类型的，是ADHero
+通常情况下，引用类型和对象类型是一样的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"> </span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;</span><br><span class="line">     </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">         </span><br><span class="line">        ADHero ad = new ADHero();</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="向上转型">向上转型</h2>
+<h3 id="子类转父类">子类转父类</h3>
+<p>一个很简单的判别办法
+<font color = "red"><strong>把右边的当做左边来用</strong>，看说得通不</font></p>
+<p>所有的<strong>子类转换为父类</strong>，都是说得通的</p>
+<p>举例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"> </span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;   </span><br><span class="line">    public static void main(String[] args) &#123;        </span><br><span class="line">        Hero h = new Hero();//h引用的类型是Hero</span><br><span class="line">        ADHero ad = new ADHero();//ad引用的类型是ADHero</span><br><span class="line">        h = ad; //把ADHero当做Hero使用，一定可以         </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="类转换接口">类转换接口</h3>
+<p>举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line">   </span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;</span><br><span class="line">       </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ADHero ad = new ADHero();</span><br><span class="line">          </span><br><span class="line">        AD adi = ad;</span><br><span class="line">          </span><br><span class="line">    &#125;</span><br><span class="line">       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从语义上来讲，把一个ADHero当做AD来使用，而AD接口只有一个physicAttack方法，这就意味着转换后就有可能要调用physicAttack方法，而ADHero一定是有physicAttack方法的，所以转换是能成功的。</p>
+<h2 id="向下转型">向下转型</h2>
+<h3 id="父类转子类">父类转子类</h3>
+<p>父类转子类，有的时候行，有的时候不行，所以必须进行强制转换。
+强制转换的意思就是 转换有风险，风险自担。</p>
+<h3 id="接口转实现类">接口转实现类</h3>
+<p>举例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line">     </span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;</span><br><span class="line">         </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ADHero ad = new ADHero();</span><br><span class="line">            </span><br><span class="line">        AD adi = ad;	//ad引用指向ADHero， 而adi引用是接口类型：AD，实现类转换为接口，是向上转型，所以无需强制转换，并且一定能成功</span><br><span class="line">   </span><br><span class="line">        ADHero adHero = (ADHero) adi;	//adi实际上是指向一个ADHero的，所以能够转换成功</span><br><span class="line">            </span><br><span class="line">        ADAPHero adapHero = (ADAPHero) adi;	// adi引用所指向的对象是一个ADHero，要转换为ADAPHero就会失败。</span><br><span class="line">        adapHero.magicAttack();</span><br><span class="line">    &#125;</span><br><span class="line">         </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接口要先向下转型成为一个类，这个接口实际上已经只想一个类(应该不全，有空看看文章)</p>
+<p>所以继承并实现这个接口的类才有可能让接口向下转型，与这个接口没有继承关系的类一定不能</p>
+<h2 id="instanceof">instanceof</h2>
+<p>判断一个引用所指向的对象</p>
+<p>举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line">  </span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;</span><br><span class="line">      </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ADHero ad = new ADHero();</span><br><span class="line">        APHero ap = new APHero();</span><br><span class="line">         </span><br><span class="line">        Hero h1= ad;</span><br><span class="line">        Hero h2= ap;</span><br><span class="line">         </span><br><span class="line">        //判断引用h1指向的对象，是否是ADHero类型</span><br><span class="line">        System.out.println(h1 instanceof ADHero);</span><br><span class="line">         </span><br><span class="line">        //判断引用h2指向的对象，是否是APHero类型</span><br><span class="line">        System.out.println(h2 instanceof APHero);</span><br><span class="line">         </span><br><span class="line">        //判断引用h1指向的对象，是否是Hero的子类型</span><br><span class="line">        System.out.println(h1 instanceof Hero);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="多态">多态</h1>
+<h2 id="操作符的多态">操作符的多态</h2>
+<p>如果+号两侧都是整型，那么<strong>+代表 数字相加</strong>
+如果+号两侧，任意一个是字符串，那么<strong>+代表字符串连接</strong></p>
+<p>举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line">   </span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;</span><br><span class="line"> </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">         </span><br><span class="line">        int i = 5;</span><br><span class="line">        int j = 6;</span><br><span class="line">        int k = i+j; //如果+号两侧都是整型，那么+代表 数字相加</span><br><span class="line">         </span><br><span class="line">        System.out.println(k);</span><br><span class="line">         </span><br><span class="line">        int a = 5;</span><br><span class="line">        String b = &quot;5&quot;;</span><br><span class="line">         </span><br><span class="line">        String c = a+b; //如果+号两侧，任意一个是字符串，那么+代表字符串连接</span><br><span class="line">        System.out.println(c);</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类的多态">类的多态</h2>
+<p>同一个类型，调用同一个方法，却能呈现不同的状态</p>
+<p>关键代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Item i1= new LifePotion();	// i1实际上指向LifePotion这种对象</span><br><span class="line">Item i2 = new MagicPotion();	//i2实际上指向MagicPotion这种对象</span><br><span class="line">System.out.print(&quot;i1  是Item类型，执行effect打印:&quot;);	//i1调用LifePotion对象中方法</span><br><span class="line">i1.effect();</span><br><span class="line">System.out.print(&quot;i2也是Item类型，执行effect打印:&quot;);		//i2调用MagicPotion对象中effect方法</span><br><span class="line">i2.effect();</span><br></pre></td></tr></table></figure>
+<h3 id="类的多态条件">类的多态条件</h3>
+<ol type="1">
+<li>父类（接口）引用指向子类对象</li>
+<li>调用的方法有重写</li>
+</ol>
+<h2 id="使用多态与不使用多态区别">使用多态与不使用多态区别</h2>
+<p>不使用多态</p>
+<p>关键代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public void useLifePotion(LifePotion lp)&#123;</span><br><span class="line">    lp.effect();</span><br><span class="line">&#125;</span><br><span class="line">public void useMagicPotion(MagicPotion mp)&#123;</span><br><span class="line">    mp.effect();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"> </span><br><span class="line">import property.LifePotion;</span><br><span class="line">import property.MagicPotion;</span><br><span class="line">   </span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;</span><br><span class="line"> </span><br><span class="line">    public void useLifePotion(LifePotion lp)&#123;</span><br><span class="line">        lp.effect();</span><br><span class="line">    &#125;</span><br><span class="line">    public void useMagicPotion(MagicPotion mp)&#123;</span><br><span class="line">        mp.effect();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">         </span><br><span class="line">        Hero garen =  new Hero();</span><br><span class="line">        garen.name = &quot;盖伦&quot;;</span><br><span class="line">     </span><br><span class="line">        LifePotion lp =new LifePotion();</span><br><span class="line">        MagicPotion mp =new MagicPotion();</span><br><span class="line">         </span><br><span class="line">        garen.useLifePotion(lp);</span><br><span class="line">        garen.useMagicPotion(mp);</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用多态</p>
+<p>关键代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void useItem(Item i)&#123;</span><br><span class="line">    i.effect();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"> </span><br><span class="line">import property.Item;</span><br><span class="line">import property.LifePotion;</span><br><span class="line">import property.MagicPotion;</span><br><span class="line">   </span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;</span><br><span class="line"> </span><br><span class="line">    public void useItem(Item i)&#123;</span><br><span class="line">        i.effect();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">         </span><br><span class="line">        Hero garen =  new Hero();</span><br><span class="line">        garen.name = &quot;盖伦&quot;;</span><br><span class="line">     </span><br><span class="line">        LifePotion lp =new LifePotion();</span><br><span class="line">        MagicPotion mp =new MagicPotion();</span><br><span class="line">         </span><br><span class="line">        garen.useItem(lp);</span><br><span class="line">        garen.useItem(mp);     </span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>exercise</p>
+<ol type="1">
+<li>设计一个接口</li>
+</ol>
+<p>接口叫做Mortal,其中有一个方法叫做die</p>
+<ol start="2" type="1">
+<li>实现接口</li>
+</ol>
+<p>分别让ADHero,APHero,ADAPHero这三个类，实现Mortal接口，不同的类实现die方法的时候，都打印出不一样的字符串</p>
+<ol start="3" type="1">
+<li><p>为Hero类，添加一个方法,在这个方法中调用 m的die方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void kill(Mortal m)</span><br></pre></td></tr></table></figure></li>
+<li><p>在主方法中 首先实例化出一个Hero对象:盖伦
+然后实例化出3个对象，分别是ADHero,APHero,ADAPHero的实例 然后让盖伦 kill
+这3个对象</p></li>
+</ol>
+<p>answer</p>
+<p>关键代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public void kill(Mortal m) &#123;</span><br><span class="line">    m.die();</span><br><span class="line">&#125;</span><br><span class="line">    ADHero shibing1 = new ADHero();</span><br><span class="line">    APHero shibing2 = new APHero();</span><br><span class="line">    ADAPHero shibing3 = new ADAPHero();</span><br><span class="line">    garen.kill(shibing1);</span><br><span class="line">    garen.kill(shibing2);</span><br><span class="line">    garen.kill(shibing3);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>上面在尝试的时候发现只能在声明shibing的时候必须用对应的类或者声明成接口类型Mortal，如果声明成Hero类型会报错。个人理解原因是Hero与Mortal之间没有继承关系</p>
+<p>完整代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line"></span><br><span class="line">import property.Item;</span><br><span class="line">import property.LifePotion;</span><br><span class="line">import property.MagicPotion;</span><br><span class="line"></span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;</span><br><span class="line"></span><br><span class="line">    public void useItem(Item i)&#123;</span><br><span class="line">        i.effect();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void kill(Mortal m) &#123;</span><br><span class="line">        m.die();</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        Hero garen =  new Hero();</span><br><span class="line">        garen.name = &quot;盖伦&quot;;</span><br><span class="line"></span><br><span class="line">        Mortal shibing1 = new ADHero();</span><br><span class="line">        Mortal shibing2 = new APHero();</span><br><span class="line">        Mortal shibing3 = new ADAPHero();</span><br><span class="line">        garen.kill(shibing1);</span><br><span class="line">        garen.kill(shibing2);</span><br><span class="line">        garen.kill(shibing3);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="隐藏">隐藏</h1>
+<p>与重写类似，方法的<strong>重写是</strong>子类覆盖父类的<strong>对象方法</strong></p>
+<p><strong>隐藏</strong>，就是子类覆盖父类的<strong>类方法</strong></p>
+<p><font color = "red">子类中的静态方法覆盖率父类中的静态方法</font></p>
+<p>举例：</p>
+<p>父类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line">  </span><br><span class="line">public class Hero &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    protected float hp;</span><br><span class="line">  </span><br><span class="line">    //类方法，静态方法</span><br><span class="line">    //通过类就可以直接调用</span><br><span class="line">    public static void battleWin()&#123;</span><br><span class="line">        System.out.println(&quot;hero battle win&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>子类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package charactor;</span><br><span class="line">  </span><br><span class="line">public class ADHero extends Hero implements AD&#123;</span><br><span class="line">  </span><br><span class="line">    @Override</span><br><span class="line">    public void physicAttack() &#123;</span><br><span class="line">        System.out.println(&quot;进行物理攻击&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    //隐藏父类的battleWin方法</span><br><span class="line">    public static void battleWin()&#123;</span><br><span class="line">        System.out.println(&quot;ad hero battle win&quot;);</span><br><span class="line">    &#125;   </span><br><span class="line">     </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Hero.battleWin();</span><br><span class="line">        ADHero.battleWin();</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>exercise:</p>
+<p>Hero h =new ADHero();</p>
+<p>h.battleWin(); //battleWin是一个类方法 h是父类类型的引用
+但是指向一个子类对象 h.battleWin();
+会调用父类的方法？还是子类的方法？</p>
+<p>answer:</p>
+<p><font color = "red">静态方法与类直接关联，而不是与实例对象关联</font>。所以声明为Hero的类，就调用Hero的类方法</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/d3f99f79.html" title="接口与继承">http://example.com/posts/d3f99f79.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/558433c7.html" rel="prev" title="实验一">
+      <i class="fa fa-chevron-left"></i> 实验一
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/5f80bd04.html" rel="next" title="多少个星期一">
+      多少个星期一 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.</span> <span class="nav-text">创建接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.</span> <span class="nav-text">实现接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E8%BD%AC%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">对象转型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">引用类型与对象类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">向上转型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E7%B1%BB%E8%BD%AC%E7%88%B6%E7%B1%BB"><span class="nav-number">2.2.1.</span> <span class="nav-text">子类转父类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E8%BD%AC%E6%8D%A2%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.2.2.</span> <span class="nav-text">类转换接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E4%B8%8B%E8%BD%AC%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">向下转型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%B6%E7%B1%BB%E8%BD%AC%E5%AD%90%E7%B1%BB"><span class="nav-number">2.3.1.</span> <span class="nav-text">父类转子类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E8%BD%AC%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="nav-number">2.3.2.</span> <span class="nav-text">接口转实现类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#instanceof"><span class="nav-number">2.4.</span> <span class="nav-text">instanceof</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E6%80%81"><span class="nav-number">3.</span> <span class="nav-text">多态</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%A4%9A%E6%80%81"><span class="nav-number">3.1.</span> <span class="nav-text">操作符的多态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%A4%9A%E6%80%81"><span class="nav-number">3.2.</span> <span class="nav-text">类的多态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%A4%9A%E6%80%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.2.1.</span> <span class="nav-text">类的多态条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%A4%9A%E6%80%81%E4%B8%8E%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%A4%9A%E6%80%81%E5%8C%BA%E5%88%AB"><span class="nav-number">3.3.</span> <span class="nav-text">使用多态与不使用多态区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9A%90%E8%97%8F"><span class="nav-number">4.</span> <span class="nav-text">隐藏</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-06 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">282k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
