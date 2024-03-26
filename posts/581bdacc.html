@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="exercise1:写一个函数求三个数的平均值(要求分别使用默认参数和不定长参数) 123# 使用不定长参数def fun(*args):    return sum(args) &#x2F; len(args) exercise2：偏函数 123456789101112&#x27;&#x27;&#x27;键盘录入一个数字,使用偏函数计算这个数字表示n周（一周7天）的总天数&#x27;&#x27;&amp;#">
@@ -101,11 +101,12 @@
       <h1 class="site-title">Pilot's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">心有所向，无问西东</p>
+      <p class="site-subtitle" itemprop="description">蹇冩湁鎵€鍚戯紝鏃犻棶瑗夸笢</p>
   </div>
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -140,11 +141,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -173,7 +201,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。">
+      <meta itemprop="description" content="涓嶉椈涓嶈嫢闂讳箣锛岄椈涔嬩笉鑻ヨ�佷箣锛岃�佷箣涓嶈嫢鐭ヤ箣锛岀煡涔嬩笉鑻ヨ�屼箣銆�">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -365,7 +393,7 @@ id="exercise1写一个函数求三个数的平均值要求分别使用默认参�
     <img class="site-author-image" itemprop="image" alt="Pilot"
       src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Pilot</p>
-  <div class="site-description" itemprop="description">不闻不若闻之，闻之不若见之，见之不若知之，知之不若行之。</div>
+  <div class="site-description" itemprop="description">涓嶉椈涓嶈嫢闂讳箣锛岄椈涔嬩笉鑻ヨ�佷箣锛岃�佷箣涓嶈嫢鐭ヤ箣锛岀煡涔嬩笉鑻ヨ�屼箣銆�</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -432,12 +460,12 @@ id="exercise1写一个函数求三个数的平均值要求分别使用默认参�
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">282k</span>
+    <span title="站点总字数">286k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:16</span>
+    <span title="站点阅读时长">4:20</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
@@ -478,6 +506,10 @@ id="exercise1写一个函数求三个数的平均值要求分别使用默认参�
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
