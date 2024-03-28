@@ -9469,14 +9469,14 @@ id="调度不能发生的场合"><font color = "red">调度不能发生的场合
 CPU利用率=\frac{CPU有效工作时间}{CPU有效工作时间+CPU空闲时间}
 \]</span></p></li>
 <li><p>平衡性：平衡指处理器密集型作业和I/O密集型作业的调度平衡，为了保证计算机的各个资源都尽可能处于忙碌状态，需要平衡地调度这两种类型地作业。</p></li>
-<li><p>周转时间：周转时间指一个作业从被提交开始，知道作业完成为止所消耗的时间，其中包括了作业等待高级调度的时间、作业在就绪队列等待的时间以及作业的运行和I/O耗时。</p>
+<li><p><font color = "red">周转时间(长出计算题)</font>：周转时间指一个作业从被提交开始，知道作业完成为止所消耗的时间，其中包括了作业等待高级调度的时间、作业在就绪队列等待的时间以及作业的运行和I/O耗时。</p>
 <p>作业的周转时间短意味着用户可以更快地拿到结果，从操作系统的角度考虑，会希望平均周转时间最短，因为这能直接反映出操作系统更高的效率。</p>
 <ol type="1">
-<li>周转时间<span
-class="math inline">\(T\)</span>：作业从被提交开始，到完成消耗的时间。<span
+<li><font color = "red">周转时间<span
+class="math inline">\(T\)</span></font>：作业从被提交开始，到完成消耗的时间。<span
 class="math inline">\(T=t_{finish}-t_{arrive}\)</span></li>
-<li>平均周转时间<span
-class="math inline">\(\overline{T}\)</span>：多个作业周转时间的平均值。<span
+<li><font color = "red">平均周转时间<span
+class="math inline">\(\overline{T}\)</span></font>：多个作业周转时间的平均值。<span
 class="math inline">\(\overline{T}=(T_1+T_2+\cdots+T_n)/n\)</span></li>
 <li>带权周转时间<span
 class="math inline">\(W\)</span>：一个作业的周转时间<span
@@ -9485,7 +9485,14 @@ class="math inline">\(W=\frac{T}{t_s}\)</span></li>
 <li>平均带权周转时间<span
 class="math inline">\(\overline{W}\)</span>：多个作业带权周转时间的平均值。<span
 class="math inline">\(\overline{W}=(W_1+W_2+\cdots+W_n)/n\)</span></li>
-</ol></li>
+</ol>
+<p>举例：计算平均周转时间</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/d9f720a0b78ee940bbcef234991fcb6.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/6fc3041edc7f61329731803a114b288.jpg" /></p>
+<p><a
+href="https://www.bilibili.com/video/BV1Kz421f7SF/?spm_id_from=333.999.0.0">视频讲解</a></p></li>
 <li><p>系统吞吐率：吞吐率指单位时间内完成的作业数，收到运行作业长度的影响。</p></li>
 <li><p>响应时间：用户提交请求开始，直到系统首次对该作业做出响应所花费的时间。</p></li>
 <li><p>等待时间：等待时间指一个进程在队列中等待各种资源的时间。<span
@@ -9659,9 +9666,9 @@ class="math display">\[
 <p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/b9ac193e8711a395b6df2befc9e3663.jpg" alt="b9ac193e8711a395b6df2befc9e3663" style="zoom:33%;" /></p>
 <p>多级反馈队列调度算法的实现思想如下：</p>
 <ol type="1">
-<li>设置多个就绪队列，并为每个队列赋予不同的优先级。</li>
-<li>赋予各个队列的进程运行时间片的大小各不相同。在优先级越高的队列中，每个进程的时间片就越小。</li>
-<li>每个队列都采用FCFS算法。当一个作业的进程被创建并分配资源后，先将其加入第一个队列的末尾，依据FCFS算法等待分配时间片。</li>
+<li>设置多个就绪队列，并<font color = "red">为每个队列赋予不同的优先级。</font></li>
+<li>赋予各个队列的进程运行时间片的大小各不相同。<font color = "red">在优先级越高的队列中，每个进程的时间片就越小。</font></li>
+<li><font color = "red">每个队列都采用先来先服务(FCFS)算法。</font>当一个作业的进程被创建并分配资源后，先将其加入第一个队列的末尾，依据FCFS算法等待分配时间片。</li>
 <li>按照队列优先级调度。如果当前使用处理器资源的进程来自第i级队列，而此时第一级队列中进入了新的就绪进程，那么会立即进行抢占式进程调度，并将此时正在运行的程序返回i级队列队尾。</li>
 </ol>
 <p>多级反馈队列调度算法如何满足各类用户：</p>
