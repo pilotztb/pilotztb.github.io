@@ -1168,7 +1168,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #9d1433;
+  background: #2d696b;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2510,7 +2510,7 @@ hr {
   font-size: 13px;
 }
 body {
-  background: url("/assets/img/background.jpg");
+  background: url("https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
