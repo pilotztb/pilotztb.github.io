@@ -1168,7 +1168,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #816f01;
+  background: #e983ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2510,7 +2510,7 @@ hr {
   font-size: 13px;
 }
 body {
-  background: url("https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/new_background.jpg");
+  background: url("https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3222a12d8459701ea9246e759d96ca7edefd0868.jpg@960w_540h_1c.webp");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
