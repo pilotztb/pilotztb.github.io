@@ -22,13 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="实验一">
+  <meta name="description" content="快速入门 熟悉主控界面 寄存器栏 观察内存的变化 例代码功能：将4行小写字母使用2层循环变成大写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实验一：熟悉emu8086">
 <meta property="og:url" content="http://example.com/posts/558433c7.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="快速入门 熟悉主控界面 寄存器栏 观察内存的变化 例代码功能：将4行小写字母使用2层循环变成大写">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-22T03:32:42.000Z">
-<meta property="article:modified_time" content="2024-03-26T11:01:31.743Z">
+<meta property="article:modified_time" content="2024-03-29T03:33:32.362Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -45,7 +47,7 @@
   };
 </script>
 
-  <title>实验一 | Pilot's Blog</title>
+  <title>实验一：熟悉emu8086 | Pilot's Blog</title>
   
 
 
@@ -99,7 +101,7 @@
       <h1 class="site-title">Pilot's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">闊�鍥у暞濠€渚€骞嶉埀锟介柛姘�鍩婄槐婵嬪籍閻樼粯锛栭悷妤€銇樼粭锟�</p>
+      <p class="site-subtitle" itemprop="description">闂婏拷閸パ冩殲婵犫偓娓氣偓楠炲秹鍩€閿熶粙鏌涘�橈拷閸╁﹦妲愬┑瀣�绫嶉柣妯肩帛閿涙牠鎮峰Δ鈧�閵囨�肩箔閿燂拷</p>
   </div>
 
   <div class="site-nav-right">
@@ -199,7 +201,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所想，无问西东">
+      <meta itemprop="description" content="蹇冩湁鎵€鎯筹紝鏃犻棶瑗夸笢">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -207,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          实验一
+          实验一：熟悉emu8086
         </h1>
 
         <div class="post-meta">
@@ -224,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 19:01:31" itemprop="dateModified" datetime="2024-03-26T19:01:31+08:00">2024-03-26</time>
+                <time title="修改时间：2024-03-29 11:33:32" itemprop="dateModified" datetime="2024-03-29T11:33:32+08:00">2024-03-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,7 +262,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>44</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -279,7 +281,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="快速入门">快速入门</h1>
+<h2 id="熟悉主控界面">熟悉主控界面</h2>
+<h2 id="寄存器栏">寄存器栏</h2>
+<h2 id="观察内存的变化">观察内存的变化</h2>
+<p>例代码功能：将4行小写字母使用2层循环变成大写</p>
 
     </div>
 
@@ -295,7 +301,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/posts/558433c7.html" title="实验一">http://example.com/posts/558433c7.html</a>
+    <a href="http://example.com/posts/558433c7.html" title="实验一：熟悉emu8086">http://example.com/posts/558433c7.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -378,6 +384,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%86%9F%E6%82%89%E4%B8%BB%E6%8E%A7%E7%95%8C%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">熟悉主控界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E6%A0%8F"><span class="nav-number">1.2.</span> <span class="nav-text">寄存器栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E5%86%85%E5%AD%98%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">观察内存的变化</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -386,7 +393,7 @@
     <img class="site-author-image" itemprop="image" alt="Pilot"
       src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Pilot</p>
-  <div class="site-description" itemprop="description">心有所想，无问西东</div>
+  <div class="site-description" itemprop="description">蹇冩湁鎵€鎯筹紝鏃犻棶瑗夸笢</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
