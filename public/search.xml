@@ -5442,6 +5442,13 @@ SQL 注入攻击，并且使得查询更加灵活和可维护。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cursor = con.execute(&#x27;select * from test&#x27;)</span><br></pre></td></tr></table></figure>
 <h4 id="获取查询结果">获取查询结果</h4>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">rows = cursor.fetchall()</span><br><span class="line">rows</span><br></pre></td></tr></table></figure>
+<p>调用了游标对象 <code>cursor</code> 的 <code>fetchall()</code>
+方法，用于获取执行 SQL
+查询后返回的所有结果行。这将返回一个包含所有结果行的列表
+<code>rows</code>。</p>
+<h4 id="返回描述列的元祖项的集合">返回描述列的元祖项的集合</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cursor.description</span><br></pre></td></tr></table></figure>
+<p>返回一个包含查询结果的元数据的元组，其中每个元组项描述了结果集中的一个列。每个元组项通常包含列的名称、数据类型、宽度、精度</p>
 ]]></content>
       <categories>
         <category>数模</category>
@@ -5451,10 +5458,11 @@ SQL 注入攻击，并且使得查询更加灵活和可维护。</p>
   <entry>
     <title>8086的指令系统</title>
     <url>/posts/f42d18b1.html</url>
-    <content><![CDATA[<h1 id="数据传送类指令">2.1 数据传送类指令</h1>
+    <content><![CDATA[<p><font color = "red">所有指令都有1个共同特点，就是如果有2个操作数的话，两个操作数不能同时在内存</font></p>
+<h1 id="数据传送类指令">数据传送类指令</h1>
 <span id="more"></span>
-<h2 id="通用数据传送指令">2.1.1 通用数据传送指令</h2>
-<h3 id="传送指令mov">1. 传送指令MOV</h3>
+<h2 id="通用数据传送指令">通用数据传送指令</h2>
+<h3 id="传送指令mov">传送指令MOV</h3>
 <p>定义</p>
 <p>把一个字节或字的操作数从源地址传送至目的地址</p>
 <p>举例</p>
@@ -5499,7 +5507,7 @@ ptr指示字节类型，word ptr指示字类型</p>
 ；非法指令：不允许段寄存器间传送</li>
 </ol></li>
 </ul>
-<h3 id="交换指令xchg">2. 交换指令XCHG</h3>
+<h3 id="交换指令xchg">交换指令XCHG</h3>
 <h4 id="寄存器与寄存器之间对换数据">寄存器与寄存器之间对换数据</h4>
 <p>mov ax,1234h ；ax=1234h mov bx,5678h ；bx=5678h xchg ax,bx
 ；ax=5678h，bx=1234h xchg ah,al ；ax=7856h</p>
@@ -5508,10 +5516,10 @@ ptr指示字节类型，word ptr指示字类型</p>
 ；字节交换 等同于 xchg [2000h],al</p>
 <h4
 id="不能在存储器与存储器之间对换数据">不能在存储器与存储器之间对换数据</h4>
-<h3 id="换码指令xlat">3. 换码指令XLAT</h3>
+<h3 id="换码指令xlat">换码指令XLAT</h3>
 <p>定义</p>
 <p>将BX指定的缓冲区中、AL指定的位移处的一个字节数据取出赋给AL</p>
-<h2 id="堆栈操作指令">2.1.2 堆栈操作指令</h2>
+<h2 id="堆栈操作指令">堆栈操作指令</h2>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240322201903196.png" /></p>
 <p><font color = "red">SS指向的基准量，SP指向的是“偏移量”，计算SP指向的物理地址需要加上SS*
@@ -5535,13 +5543,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/73300a8f811300979366c9
 <li>保存和恢复寄存器</li>
 </ol></li>
 </ul>
-<h2 id="标志传送指令">2.1.3 标志传送指令</h2>
+<h2 id="标志传送指令">标志传送指令</h2>
 <h3 id="定义">定义</h3>
 <ul>
 <li>标志寄存器传送指令用来传送标志寄存器FLAGS的内容</li>
 <li>标志位操作指令直接对CF、DF、IF标志进行复位或置位</li>
 </ul>
-<h3 id="标志寄存器传送">1. 标志寄存器传送</h3>
+<h3 id="标志寄存器传送">标志寄存器传送</h3>
 <h4 id="标志低字节进出ah指令">标志低字节进出AH指令</h4>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LAHF	;AH←FLAGS的低字节</span><br></pre></td></tr></table></figure>
 <p>LAHF指令将标志寄存器的低字节送寄存器AH
@@ -5556,7 +5564,7 @@ SF/ZF/AF/PF/CF状态标志位分别送入AH的第7/6/4/2/0位，而AH的第5/3/1
 <p>POPF指令将栈顶字单元内容送标志寄存器，同时栈顶指针SP加2</p>
 <p>举例</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pushf	；保存全部标志到堆栈</span><br><span class="line">pop ax	；堆栈中取出全部标志</span><br><span class="line">or ax,0100h	；设置D8=TF=1，</span><br><span class="line">	；ax其他位不变</span><br><span class="line">push ax	；将ax压入堆栈</span><br><span class="line">popf	；FLAGS←AX</span><br><span class="line">；将堆栈内容取到标志寄存器</span><br></pre></td></tr></table></figure>
-<h3 id="标志位操作">2. 标志位操作</h3>
+<h3 id="标志位操作">标志位操作</h3>
 <h4 id="进位标志操作指令">进位标志操作指令</h4>
 <p>用于任意设置进位标志 CLC ；复位进位标志：CF←0 STC
 ；置位进位标志：CF←1 CMC ；求反进位标志：CF←～CF</p>
@@ -5566,7 +5574,7 @@ SF/ZF/AF/PF/CF状态标志位分别送入AH的第7/6/4/2/0位，而AH的第5/3/1
 <h4 id="中断标志操作指令">中断标志操作指令</h4>
 <p>在编写中断服务程序时，需要控制可屏蔽中断的允许和禁止 CLI
 ；复位中断标志：DF←0 STI ；置位中断标志：DF←1</p>
-<h2 id="地址传送指令">2.1.4 地址传送指令</h2>
+<h2 id="地址传送指令">地址传送指令</h2>
 <p>定义：</p>
 <ol type="1">
 <li>地址传送指令将存储器单元的逻辑地址送至指定的寄存器
@@ -5587,7 +5595,7 @@ SF/ZF/AF/PF/CF状态标志位分别送入AH的第7/6/4/2/0位，而AH的第5/3/1
 获得主存单元的有效地址；不是物理地址，也不是该单元的内容</font></li>
 <li>可以实现计算功能</li>
 </ul>
-<h1 id="算术运算类指令">2.2 算术运算类指令</h1>
+<h1 id="算术运算类指令">算术运算类指令</h1>
 <ul>
 <li>掌握：</li>
 </ul>
@@ -5612,7 +5620,7 @@ SF/ZF/AF/PF/CF状态标志位分别送入AH的第7/6/4/2/0位，而AH的第5/3/1
 <p>DAA/DAS</p>
 <p>AAA/ AAS/AAM/AAD</p></li>
 </ul>
-<h3 id="状态标志">2.2.1 状态标志</h3>
+<h3 id="状态标志">状态标志</h3>
 <p>常用状态标志： 进位标志CF、溢出标志OF 零位标志ZF、符号标志SF
 奇偶标志PF</p>
 <h4 id="进位标志cfcarry-flag">进位标志CF（Carry Flag）</h4>
@@ -5662,7 +5670,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/dbcdf8d7466a93840c23d3
 <h4 id="辅助进位标志afauxiliary-carry-flag">辅助进位标志AF（Auxiliary
 Carry Flag）</h4>
 <p>运算时D3位（低半字节）有进位或借位时，AF = 1；否则AF = 0。</p>
-<h3 id="加法">2.2.2 加法</h3>
+<h3 id="加法">加法</h3>
 <h4 id="加法指令add">加法指令ADD</h4>
 <p>定义：</p>
 <p>ADD指令将源与目的操作数相加，结果送到目的操作数</p>
@@ -5678,7 +5686,7 @@ Carry Flag）</h4>
 <h4 id="增量指令incincrement">增量指令INC（increment）</h4>
 <p>INC指令对操作数加1（增量）
 INC指令不影响进位CF标志，按定义设置其他状态标志</p>
-<h3 id="减法">2.2.3 减法</h3>
+<h3 id="减法">减法</h3>
 <h4 id="减法指令subsubtract">减法指令SUB（subtract）</h4>
 <p>定义：</p>
 <p>SUB指令将目的操作数减去源操作数，结果送到目的操作数</p>
@@ -5691,7 +5699,7 @@ INC指令不影响进位CF标志，按定义设置其他状态标志</p>
 <li>DEC指令对操作数减1（减量）</li>
 <li>DEC指令不影响进位CF标志，按定义设置其他状态标志</li>
 </ul>
-<h3 id="求补指令negnegative">2.2.4 求补指令NEG（negative）</h3>
+<h3 id="求补指令negnegative">求补指令NEG（negative）</h3>
 <p>定义：</p>
 <ul>
 <li>NEG指令对操作数执行求补运算：用零减去操作数，然后结果返回操作数</li>
@@ -5703,7 +5711,7 @@ INC指令不影响进位CF标志，按定义设置其他状态标志</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240324091424121.png" /></p>
 <p><font color = "red">根本原因：虽然人在计算的时候是求反加1，但CPU运算是用0-操作数</font></p>
-<h3 id="比较指令cmpcompare">2.2.5 比较指令CMP（compare）</h3>
+<h3 id="比较指令cmpcompare">比较指令CMP（compare）</h3>
 <p>CMP指令将目的操作数减去源操作数，按照定义相应设置状态标志
 CMP指令执行的功能与SUB指令，但结果不回送目的操作数</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">	cmp al,100	；al-100</span><br><span class="line">	jb below	；al&lt;100，跳转到below执行</span><br><span class="line">	sub al,100	；al≥100，al←al-100</span><br><span class="line">	inc ah	；ah←ah+1</span><br><span class="line">below:	...</span><br></pre></td></tr></table></figure>
@@ -5718,7 +5726,7 @@ CMP指令执行的功能与SUB指令，但结果不回送目的操作数</p>
 <p><font color = "red">3.
 先用非进位运算低位，再用进位运算高位</font></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV   AX，X       ；用DX，AX来表示双精度数</span><br><span class="line">MOV   DX，X+2     ；低位用AX，高位用DX</span><br><span class="line">ADD    AX，Y       ；先低位运算</span><br><span class="line">ADC    DX，Y+2    ；完成X+Y </span><br><span class="line">ADD    AX，24      ；低位运算</span><br><span class="line">ADC    DX，0       ；高位运算，该语句不能少</span><br><span class="line">SUB     AX，Z      ；先低位减法</span><br><span class="line">SBB      DX，Z+2   ；完成运算</span><br><span class="line">MOV    W，AX      ；存储结果</span><br><span class="line">MOV    W+2，DX</span><br></pre></td></tr></table></figure>
-<h3 id="乘法指令">2.2.6 乘法指令</h3>
+<h3 id="乘法指令">乘法指令</h3>
 <p>MUL：无符号乘法</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MUL r8/m8	；AX←AL×r8/m8</span><br><span class="line">MUL r16/m16	；DX.AX←AX×r16/m16</span><br></pre></td></tr></table></figure>
 <p>IMUL：有符号乘法</p>
@@ -5726,7 +5734,7 @@ CMP指令执行的功能与SUB指令，但结果不回送目的操作数</p>
 <p><font color = "red">乘法指令的源操作数显式给出，隐含使用另一个操作数AX和DX</font></p>
 <p>举例：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov al,0b4h	；al=b4h=180</span><br><span class="line">mov bl,11h	；bl=11h=17</span><br><span class="line">mul bl	；ax=Obf4h=3060</span><br><span class="line">；OF=CF=1，AX高8位不为0</span><br><span class="line">mov al,0b4h	；al=b4h=－76</span><br><span class="line">mov bl,11h	；bl=11h=17</span><br><span class="line">imul bl	；ax=faf4h=－1292</span><br><span class="line">；OF=CF=1，AX高8位含有效数字</span><br></pre></td></tr></table></figure>
-<h3 id="除法指令">2.2.7 除法指令</h3>
+<h3 id="除法指令">除法指令</h3>
 <p><font color = "red">除法指令的除数显式给出，隐含使用另一个操作数AX和DX作为被除数</font></p>
 <p><font color = "red">被除数位数至少是除数1倍</font></p>
 <p>举例</p>
@@ -5749,7 +5757,7 @@ CMP指令执行的功能与SUB指令，但结果不回送目的操作数</p>
 <li>DIV/IDIV</li>
 </ol></li>
 </ul>
-<h3 id="符号扩展指令">2.2.8 符号扩展指令</h3>
+<h3 id="符号扩展指令">符号扩展指令</h3>
 <p>定义：</p>
 <p>符号扩展是指用一个操作数的符号位（即最高位）形成另一个操作数，后一个操作数的各位是全0（正数）或全1（负数）。符号扩展不改变数据大小</p>
 <p>种类：</p>
@@ -5761,16 +5769,69 @@ CMP指令执行的功能与SUB指令，但结果不回送目的操作数</p>
 其中X、Y、Z、V均为16位带符号数，已分别装入X、Y、Z、V单元中，要求计算结果把商存入AX，余数存入DX。</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/54e90db558c32af218213452a594db0.jpg" /></p>
-<h3 id="十进制算术运算指令">2.2.9 十进制算术运算指令</h3>
+<h3 id="十进制算术运算指令">十进制算术运算指令</h3>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240329151725488.png" /></p>
 <p>十进制数的运算步骤： 1.对BCD码进行二进制运算
 2.用十进制调整指令进行调整</p>
-<h4 id="压缩的bcd码调整指令">压缩的BCD码调整指令</h4>
-<h5 id="daa">DAA</h5>
+<h4
+id="压缩的bcd码调整指令无操作数默认对放在al的数据操作">压缩的BCD码调整指令(无操作数，默认对放在AL的数据操作)</h4>
+<h5 id="daadevimal-adjust-for-addition加法">DAA(Devimal Adjust for
+Addition)(加法)</h5>
 <p>①AF=1或AL低四位为A到F，则AL+06H→AL，1→AF
 ②CF=1或AL高四位为A到F，则AL+60H→AL，1→CF</p>
-<h5 id="das">DAS</h5>
+<p>解释：为什么第②点事加60H：因为只要BCD码超了都要加6，但是是AL中高四位超过，直接加6会误解，所以就要加60H，6分配给高4位，0分配给第4位。如果高低一起超过就加66H</p>
+<h5 id="dasdevimal-adjust-for-subdition减法">DAS(Devimal Adjust for
+Subdition)(减法)</h5>
+<p>①AF=1或AL低四位为A到F，则AL-06H→AL，1→AF
+②CF=1或AL高四位为A到F，则AL-60H→AL，1→CF</p>
+<h5 id="aam乘法">AAM(乘法)</h5>
+<p>将二进制乘法的结构调整成十进制非压缩的形式，<font color = "red">所以跟在乘法操作后面</font></p>
+<p>举例：</p>
+<h5 id="aad除法">AAD(除法)</h5>
+<p>先将十进制表示调整成二进制形式，再做除法，<font color = "red">所以跟在除法后面</font></p>
+<p>举例：</p>
+<h4 id="非压缩的bcd码调整指令">非压缩的BCD码调整指令</h4>
+<h5 id="aaa加法">AAA(加法)</h5>
+<p>①AL低4位在0~9之间且AF=0则转③ ②AL低4位在A~F之间或AF=1，</p>
+<p>则AL+06H→AL，</p>
+<p>AH+1→AH，</p>
+<p>AF=1 ③清除AL寄存器的高四位</p>
+<h5 id="aas减法">AAS(减法)</h5>
+<p>①AL低4位在0~9之间且AF=0则转③
+②AL低4位在A~F之间或AF=1，则AL-06H→AL，AH-1→AH，AF=1
+③清除AL寄存器的高四位 ④AF→CF</p>
+<p><font color = "red">总结</font></p>
+<ol type="1">
+<li>非压缩和压缩的共同点都是在1个字节表示的数如果用十进制表示大于等于10就加6</li>
+<li>非压缩和压缩的不同点在于压缩不需要给AH加1，非压缩要给AH加1</li>
+</ol>
+<p>举例</p>
+<p>题1：加法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov al,68h	；al=68h，压缩BCD码表示真值68</span><br><span class="line">mov bl,28h	；bl=28h，压缩BCD码表示真值28</span><br><span class="line">add al,bl	；二进制加法：al=68h+28h=90h</span><br><span class="line">daa	；十进制调整：al=96h</span><br><span class="line">；实现压缩BCD码加法：68＋28＝96</span><br></pre></td></tr></table></figure>
+<p>题2：减法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mov ax,1234h</span><br><span class="line">mov bx,4612h</span><br><span class="line">sub al,bl</span><br><span class="line">das	；34-12＝22，CF＝0</span><br><span class="line">xchg al,ah</span><br><span class="line">sbb al,bh</span><br><span class="line">das	；12-46＝-66，CF=1</span><br><span class="line">xchg al,ah	；1 1234－4612＝6622</span><br></pre></td></tr></table></figure>
+<h1 id="位操作类指令">位操作类指令</h1>
+<h2 id="逻辑与指令and">逻辑与指令AND</h2>
+<p>AND指令设置CF = OF = 0，根据结果设置SF、ZF和PF状态，而对AF未定义</p>
+<h2 id="逻辑或指令or">逻辑或指令OR</h2>
+<p>OR指令设置CF = OF = 0，根据结果设置SF、ZF和PF状态，而对AF未定义</p>
+<h2 id="逻辑异或指令xor">逻辑异或指令XOR</h2>
+<p><font color = "red">与0异或不变，与1异或得相反数</font></p>
+<p>XOR指令设置CF = OF = 0，根据结果设置SF、ZF和PF状态，而对AF未定义</p>
+<h2 id="逻辑非指令not">逻辑非指令NOT</h2>
+<p>NOT指令是一个单操作数指令 NOT指令不影响标志位</p>
+<h2 id="测试指令test">测试指令TEST</h2>
+<p>对两个操作数<font color = "red">执行逻辑与运算，结果不回送到目的操作数</font></p>
+<h2 id="移位指令shift">移位指令（shift）</h2>
+<h3 id="shl-逻辑左移">SHL, 逻辑左移</h3>
+<p>SHL reg/mem,1/CL ；逻辑左移，最高位进入CF，最低位补0</p>
+<h3 id="shr-逻辑右移">SHR， 逻辑右移</h3>
+<p>SHR reg/mem,1/CL ；逻辑右移，最低位进入CF，最高位补0</p>
+<h3 id="sal-算术左移">SAL， 算术左移</h3>
+<p>SAL reg/mem,1/CL ；算术左移，最高位进入CF，最低位补0</p>
+<h3 id="sar-算术右移">SAR， 算术右移</h3>
+<p>SAR reg/mem,1/CL ；算术右移，最低位进入CF，最高位不变</p>
 ]]></content>
       <categories>
         <category>汇编语言</category>
@@ -10638,6 +10699,57 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f271da63da1219c133a381
       <categories>
         <category>操作系统</category>
         <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>第三章-数据清洗</title>
+    <url>/posts/ad398b17.html</url>
+    <content><![CDATA[<h1 id="处理缺失数据">处理缺失数据</h1>
+<p>对于数值数据，pandas使用浮点值NaN（Not a Number）表示缺失数据</p>
+<h2 id="初始化数据">初始化数据</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [10]: string_data = pd.Series([&#x27;aardvark&#x27;, &#x27;artichoke&#x27;, np.nan, &#x27;avocado&#x27;])</span><br><span class="line"></span><br><span class="line">In [11]: string_data</span><br><span class="line">Out[11]:</span><br><span class="line">0     aardvark</span><br><span class="line">1    artichoke</span><br><span class="line">2          NaN</span><br><span class="line">3      avocado</span><br><span class="line">dtype: object</span><br></pre></td></tr></table></figure>
+<h2 id="isnull">isnull()</h2>
+<p>判断当前数据是否是缺失值，是就返回true，否就返回false</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [12]: string_data.isnull()</span><br><span class="line">Out[12]: </span><br><span class="line">0    False</span><br><span class="line">1    False</span><br><span class="line">2     True</span><br><span class="line">3    False</span><br><span class="line">dtype: bool</span><br></pre></td></tr></table></figure>
+<h2 id="利用索引直接置为none">利用索引直接置为None</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [13]: string_data[0] = None</span><br><span class="line"></span><br><span class="line">In [14]: string_data.isnull()</span><br><span class="line">Out[14]: </span><br><span class="line">0     True</span><br><span class="line">1    False</span><br><span class="line">2     True</span><br><span class="line">3    False</span><br><span class="line">dtype: bool</span><br></pre></td></tr></table></figure>
+<h2 id="滤除缺失数据">滤除缺失数据</h2>
+<h3 id="dropna">dropna</h3>
+<h4 id="对于series">对于Series</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240330064314334.png" /></p>
+<p>等价于data[data.notnull()]</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [18]: data[data.notnull()]</span><br><span class="line">Out[18]: </span><br><span class="line">0    1.0</span><br><span class="line">2    3.5</span><br><span class="line">4    7.0</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+<h4 id="对于dataframe">对于DataFrame</h4>
+<h5 id="默认丢弃任何含有缺失值的行">默认丢弃任何含有缺失值的行：</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [19]: data = pd.DataFrame([[1., 6.5, 3.], [1., NA, NA],</span><br><span class="line">   ....:                      [NA, NA, NA], [NA, 6.5, 3.]])</span><br><span class="line"></span><br><span class="line">In [20]: cleaned = data.dropna()</span><br><span class="line"></span><br><span class="line">In [21]: data</span><br><span class="line">Out[21]: </span><br><span class="line">     0    1    2</span><br><span class="line">0  1.0  6.5  3.0</span><br><span class="line">1  1.0  NaN  NaN</span><br><span class="line">2  NaN  NaN  NaN</span><br><span class="line">3  NaN  6.5  3.0</span><br><span class="line"></span><br><span class="line">In [22]: cleaned</span><br><span class="line">Out[22]: </span><br><span class="line">     0    1    2</span><br><span class="line">0  1.0  6.5  3.0</span><br></pre></td></tr></table></figure>
+<h5
+id="传入howall将只丢弃全为na的那些行">传入how='all'将只丢弃全为NA的那些行：</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [23]: data.dropna(how=&#x27;all&#x27;)</span><br><span class="line">Out[23]: </span><br><span class="line">     0    1    2</span><br><span class="line">0  1.0  6.5  3.0</span><br><span class="line">1  1.0  NaN  NaN</span><br><span class="line">3  NaN  6.5  3.0</span><br></pre></td></tr></table></figure>
+<h5 id="丢弃全为na的列传入axis1即可">丢弃全为NA的列，传入axis=1即可</h5>
+<p>先添加第四列为全NA的列：data[4] = NA</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240330065154332.png" /></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [26]: data.dropna(axis=1, how=&#x27;all&#x27;)</span><br><span class="line">Out[26]: </span><br><span class="line">     0    1    2</span><br><span class="line">0  1.0  6.5  3.0</span><br><span class="line">1  1.0  NaN  NaN</span><br><span class="line">2  NaN  NaN  NaN</span><br><span class="line">3  NaN  6.5  3.0</span><br></pre></td></tr></table></figure>
+<p>利用thresh参数删除指定确实个数的行</p>
+<p>用切片将不用观察的行和列之间赋值NA，然后再用默认dropna丢弃</p>
+<p>切片赋值NA</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">n [27]: df = pd.DataFrame(np.random.randn(7, 3))</span><br><span class="line"></span><br><span class="line">In [28]: df.iloc[:4, 1] = NA</span><br><span class="line"></span><br><span class="line">In [29]: df.iloc[:2, 2] = NA</span><br><span class="line"></span><br><span class="line">In [30]: df</span><br><span class="line">Out[30]: </span><br><span class="line">          0         1         2</span><br><span class="line">0 -0.204708       NaN       NaN</span><br><span class="line">1 -0.555730       NaN       NaN</span><br><span class="line">2  0.092908       NaN  0.769023</span><br><span class="line">3  1.246435       NaN -1.296221</span><br><span class="line">4  0.274992  0.228913  1.352917</span><br><span class="line">5  0.886429 -2.001637 -0.371843</span><br><span class="line">6  1.669025 -0.438570 -0.539741</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [31]: df.dropna()</span><br><span class="line">Out[31]: </span><br><span class="line">          0         1         2</span><br><span class="line">4  0.274992  0.228913  1.352917</span><br><span class="line">5  0.886429 -2.001637 -0.371843</span><br><span class="line">6  1.669025 -0.438570 -0.539741</span><br></pre></td></tr></table></figure>
+<h2 id="填充缺失数据">填充缺失数据</h2>
+<p>主要使用fillna这个方法</p>
+<h3 id="将缺失值替换为指定的常数值">将缺失值替换为指定的常数值</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [33]: df.fillna(0)</span><br><span class="line">Out[33]: </span><br><span class="line">          0         1         2</span><br><span class="line">0 -0.204708  0.000000  0.000000</span><br><span class="line">1 -0.555730  0.000000  0.000000</span><br><span class="line">2  0.092908  0.000000  0.769023</span><br><span class="line">3  1.246435  0.000000 -1.296221</span><br><span class="line">4  0.274992  0.228913  1.352917</span><br><span class="line">5  0.886429 -2.001637 -0.371843</span><br><span class="line">6  1.669025 -0.438570 -0.539741</span><br></pre></td></tr></table></figure>
+<h3
+id="通过字典对不同的列填充不同的值">通过字典对不同的列填充不同的值</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [34]: df.fillna(&#123;1: 0.5, 2: 0&#125;)</span><br><span class="line">Out[34]: </span><br><span class="line">          0         1         2</span><br><span class="line">0 -0.204708  0.500000  0.000000</span><br><span class="line">1 -0.555730  0.500000  0.000000</span><br><span class="line">2  0.092908  0.500000  0.769023</span><br><span class="line">3  1.246435  0.500000 -1.296221</span><br><span class="line">4  0.274992  0.228913  1.352917</span><br><span class="line">5  0.886429 -2.001637 -0.371843</span><br><span class="line">6  1.669025 -0.438570 -0.539741</span><br></pre></td></tr></table></figure>
+<h3
+id="默认会返回新对象但也可以对现有对象进行就地修改">默认会返回新对象，但也可以对现有对象进行就地修改</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">In [35]: _ = df.fillna(0, inplace=True)</span><br><span class="line"></span><br><span class="line">In [36]: df</span><br><span class="line">Out[36]: </span><br><span class="line">          0         1         2</span><br><span class="line">0 -0.204708  0.000000  0.000000</span><br><span class="line">1 -0.555730  0.000000  0.000000</span><br><span class="line">2  0.092908  0.000000  0.769023</span><br><span class="line">3  1.246435  0.000000 -1.296221</span><br><span class="line">4  0.274992  0.228913  1.352917</span><br><span class="line">5  0.886429 -2.001637 -0.371843</span><br><span class="line">6  1.669025 -0.438570 -0.539741</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>数模</category>
+        <category>数据分析</category>
       </categories>
   </entry>
 </search>

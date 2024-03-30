@@ -192,6 +192,147 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ad398b17.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/ad398b17.html" class="post-title-link" itemprop="url">第三章-数据清洗</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-30 06:26:59 / 修改时间：07:06:20" itemprop="dateCreated datePublished" datetime="2024-03-30T06:26:59+08:00">2024-03-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%A8%A1/" itemprop="url" rel="index"><span itemprop="name">数模</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%A8%A1/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">数据分析</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/ad398b17.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/ad398b17.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="处理缺失数据">处理缺失数据</h1>
+<p>对于数值数据，pandas使用浮点值NaN（Not a Number）表示缺失数据</p>
+<h2 id="初始化数据">初始化数据</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [10]: string_data = pd.Series([&#x27;aardvark&#x27;, &#x27;artichoke&#x27;, np.nan, &#x27;avocado&#x27;])</span><br><span class="line"></span><br><span class="line">In [11]: string_data</span><br><span class="line">Out[11]:</span><br><span class="line">0     aardvark</span><br><span class="line">1    artichoke</span><br><span class="line">2          NaN</span><br><span class="line">3      avocado</span><br><span class="line">dtype: object</span><br></pre></td></tr></table></figure>
+<h2 id="isnull">isnull()</h2>
+<p>判断当前数据是否是缺失值，是就返回true，否就返回false</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [12]: string_data.isnull()</span><br><span class="line">Out[12]: </span><br><span class="line">0    False</span><br><span class="line">1    False</span><br><span class="line">2     True</span><br><span class="line">3    False</span><br><span class="line">dtype: bool</span><br></pre></td></tr></table></figure>
+<h2 id="利用索引直接置为none">利用索引直接置为None</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [13]: string_data[0] = None</span><br><span class="line"></span><br><span class="line">In [14]: string_data.isnull()</span><br><span class="line">Out[14]: </span><br><span class="line">0     True</span><br><span class="line">1    False</span><br><span class="line">2     True</span><br><span class="line">3    False</span><br><span class="line">dtype: bool</span><br></pre></td></tr></table></figure>
+<h2 id="滤除缺失数据">滤除缺失数据</h2>
+<h3 id="dropna">dropna</h3>
+<h4 id="对于series">对于Series</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240330064314334.png" /></p>
+<p>等价于data[data.notnull()]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [18]: data[data.notnull()]</span><br><span class="line">Out[18]: </span><br><span class="line">0    1.0</span><br><span class="line">2    3.5</span><br><span class="line">4    7.0</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+<h4 id="对于dataframe">对于DataFrame</h4>
+<h5 id="默认丢弃任何含有缺失值的行">默认丢弃任何含有缺失值的行：</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">In [19]: data = pd.DataFrame([[1., 6.5, 3.], [1., NA, NA],</span><br><span class="line">   ....:                      [NA, NA, NA], [NA, 6.5, 3.]])</span><br><span class="line"></span><br><span class="line">In [20]: cleaned = data.dropna()</span><br><span class="line"></span><br><span class="line">In [21]: data</span><br><span class="line">Out[21]: </span><br><span class="line">     0    1    2</span><br><span class="line">0  1.0  6.5  3.0</span><br><span class="line">1  1.0  NaN  NaN</span><br><span class="line">2  NaN  NaN  NaN</span><br><span class="line">3  NaN  6.5  3.0</span><br><span class="line"></span><br><span class="line">In [22]: cleaned</span><br><span class="line">Out[22]: </span><br><span class="line">     0    1    2</span><br><span class="line">0  1.0  6.5  3.0</span><br></pre></td></tr></table></figure>
+<h5
+id="传入howall将只丢弃全为na的那些行">传入how='all'将只丢弃全为NA的那些行：</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [23]: data.dropna(how=&#x27;all&#x27;)</span><br><span class="line">Out[23]: </span><br><span class="line">     0    1    2</span><br><span class="line">0  1.0  6.5  3.0</span><br><span class="line">1  1.0  NaN  NaN</span><br><span class="line">3  NaN  6.5  3.0</span><br></pre></td></tr></table></figure>
+<h5 id="丢弃全为na的列传入axis1即可">丢弃全为NA的列，传入axis=1即可</h5>
+<p>先添加第四列为全NA的列：data[4] = NA</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240330065154332.png" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [26]: data.dropna(axis=1, how=&#x27;all&#x27;)</span><br><span class="line">Out[26]: </span><br><span class="line">     0    1    2</span><br><span class="line">0  1.0  6.5  3.0</span><br><span class="line">1  1.0  NaN  NaN</span><br><span class="line">2  NaN  NaN  NaN</span><br><span class="line">3  NaN  6.5  3.0</span><br></pre></td></tr></table></figure>
+<p>利用thresh参数删除指定确实个数的行</p>
+<p>用切片将不用观察的行和列之间赋值NA，然后再用默认dropna丢弃</p>
+<p>切片赋值NA</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">n [27]: df = pd.DataFrame(np.random.randn(7, 3))</span><br><span class="line"></span><br><span class="line">In [28]: df.iloc[:4, 1] = NA</span><br><span class="line"></span><br><span class="line">In [29]: df.iloc[:2, 2] = NA</span><br><span class="line"></span><br><span class="line">In [30]: df</span><br><span class="line">Out[30]: </span><br><span class="line">          0         1         2</span><br><span class="line">0 -0.204708       NaN       NaN</span><br><span class="line">1 -0.555730       NaN       NaN</span><br><span class="line">2  0.092908       NaN  0.769023</span><br><span class="line">3  1.246435       NaN -1.296221</span><br><span class="line">4  0.274992  0.228913  1.352917</span><br><span class="line">5  0.886429 -2.001637 -0.371843</span><br><span class="line">6  1.669025 -0.438570 -0.539741</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [31]: df.dropna()</span><br><span class="line">Out[31]: </span><br><span class="line">          0         1         2</span><br><span class="line">4  0.274992  0.228913  1.352917</span><br><span class="line">5  0.886429 -2.001637 -0.371843</span><br><span class="line">6  1.669025 -0.438570 -0.539741</span><br></pre></td></tr></table></figure>
+<h2 id="填充缺失数据">填充缺失数据</h2>
+<p>主要使用fillna这个方法</p>
+<h3 id="将缺失值替换为指定的常数值">将缺失值替换为指定的常数值</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [33]: df.fillna(0)</span><br><span class="line">Out[33]: </span><br><span class="line">          0         1         2</span><br><span class="line">0 -0.204708  0.000000  0.000000</span><br><span class="line">1 -0.555730  0.000000  0.000000</span><br><span class="line">2  0.092908  0.000000  0.769023</span><br><span class="line">3  1.246435  0.000000 -1.296221</span><br><span class="line">4  0.274992  0.228913  1.352917</span><br><span class="line">5  0.886429 -2.001637 -0.371843</span><br><span class="line">6  1.669025 -0.438570 -0.539741</span><br></pre></td></tr></table></figure>
+<h3
+id="通过字典对不同的列填充不同的值">通过字典对不同的列填充不同的值</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [34]: df.fillna(&#123;1: 0.5, 2: 0&#125;)</span><br><span class="line">Out[34]: </span><br><span class="line">          0         1         2</span><br><span class="line">0 -0.204708  0.500000  0.000000</span><br><span class="line">1 -0.555730  0.500000  0.000000</span><br><span class="line">2  0.092908  0.500000  0.769023</span><br><span class="line">3  1.246435  0.500000 -1.296221</span><br><span class="line">4  0.274992  0.228913  1.352917</span><br><span class="line">5  0.886429 -2.001637 -0.371843</span><br><span class="line">6  1.669025 -0.438570 -0.539741</span><br></pre></td></tr></table></figure>
+<h3
+id="默认会返回新对象但也可以对现有对象进行就地修改">默认会返回新对象，但也可以对现有对象进行就地修改</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">In [35]: _ = df.fillna(0, inplace=True)</span><br><span class="line"></span><br><span class="line">In [36]: df</span><br><span class="line">Out[36]: </span><br><span class="line">          0         1         2</span><br><span class="line">0 -0.204708  0.000000  0.000000</span><br><span class="line">1 -0.555730  0.000000  0.000000</span><br><span class="line">2  0.092908  0.000000  0.769023</span><br><span class="line">3  1.246435  0.000000 -1.296221</span><br><span class="line">4  0.274992  0.228913  1.352917</span><br><span class="line">5  0.886429 -2.001637 -0.371843</span><br><span class="line">6  1.669025 -0.438570 -0.539741</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/ac42800e.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1626,120 +1767,10 @@ target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/611/learnin
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/558433c7.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/558433c7.html" class="post-title-link" itemprop="url">实验一：熟悉emu8086</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-22 11:32:42" itemprop="dateCreated datePublished" datetime="2024-03-22T11:32:42+08:00">2024-03-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-29 11:33:32" itemprop="dateModified" datetime="2024-03-29T11:33:32+08:00">2024-03-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">汇编语言</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">实验</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/558433c7.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/558433c7.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>44</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="快速入门">快速入门</h1>
-<h2 id="熟悉主控界面">熟悉主控界面</h2>
-<h2 id="寄存器栏">寄存器栏</h2>
-<h2 id="观察内存的变化">观察内存的变化</h2>
-<p>例代码功能：将4行小写字母使用2层循环变成大写</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1807,7 +1838,7 @@ target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/611/learnin
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1867,12 +1898,12 @@ target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/611/learnin
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">298k</span>
+    <span title="站点总字数">301k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:31</span>
+    <span title="站点阅读时长">4:34</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
