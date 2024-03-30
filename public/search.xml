@@ -5788,9 +5788,17 @@ Subdition)(减法)</h5>
 <h5 id="aam乘法">AAM(乘法)</h5>
 <p>将二进制乘法的结构调整成十进制非压缩的形式，<font color = "red">所以跟在乘法操作后面</font></p>
 <p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c03ade250a8aee923bb78f4b37da18e.jpg" /></p>
+<p><a
+href="https://www.bilibili.com/video/BV1wm421n7as/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
 <h5 id="aad除法">AAD(除法)</h5>
 <p>先将十进制表示调整成二进制形式，再做除法，<font color = "red">所以跟在除法后面</font></p>
 <p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/18be2878e728fe3e3735fb3320f8686.jpg" /></p>
+<p><a
+href="https://www.bilibili.com/video/BV1JA4m1N7t9/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
 <h4 id="非压缩的bcd码调整指令">非压缩的BCD码调整指令</h4>
 <h5 id="aaa加法">AAA(加法)</h5>
 <p>①AL低4位在0~9之间且AF=0则转③ ②AL低4位在A~F之间或AF=1，</p>
@@ -5824,14 +5832,42 @@ Subdition)(减法)</h5>
 <h2 id="测试指令test">测试指令TEST</h2>
 <p>对两个操作数<font color = "red">执行逻辑与运算，结果不回送到目的操作数</font></p>
 <h2 id="移位指令shift">移位指令（shift）</h2>
-<h3 id="shl-逻辑左移">SHL, 逻辑左移</h3>
-<p>SHL reg/mem,1/CL ；逻辑左移，最高位进入CF，最低位补0</p>
-<h3 id="shr-逻辑右移">SHR， 逻辑右移</h3>
-<p>SHR reg/mem,1/CL ；逻辑右移，最低位进入CF，最高位补0</p>
-<h3 id="sal-算术左移">SAL， 算术左移</h3>
-<p>SAL reg/mem,1/CL ；算术左移，最高位进入CF，最低位补0</p>
-<h3 id="sar-算术右移">SAR， 算术右移</h3>
-<p>SAR reg/mem,1/CL ；算术右移，最低位进入CF，最高位不变</p>
+<h3 id="移位指令的种类">移位指令的种类</h3>
+<p><strong>SHL reg/mem,1/CL</strong>
+；逻辑左移，最高位进入CF，最低位补0</p>
+<p><strong>SAL reg/mem,1/CL</strong>
+；算术左移，最高位进入CF，最低位补0</p>
+<p>逻辑左移和算术左移没什么区别</p>
+<p><strong>SHR reg/mem,1/CL</strong>
+；逻辑右移，最低位进入CF，<font color = "red">最高位补0</font></p>
+<p>举例</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/53c6c2518a3aac3e6f447378d2d625f.jpg" /></p>
+<p><strong>SAR reg/mem,1/CL</strong>
+；算术右移，最低位进入CF，<font color = "red">最高位(符号位)不变</font></p>
+<p>举例</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5fd885e4eec0d58c9c1383423bb759d.jpg" /></p>
+<p><font color = "red">算术</font>左移和算术右移主要用来进行<font color = "red">有符号数</font>的倍增、减半；</p>
+<p><font color = "red">逻辑</font>左移和逻辑右移主要用来进行<font color = "red">无符号数</font>的倍增、减半。</p>
+<h3 id="移位指令的操作数">移位指令的操作数</h3>
+<p>移位指令的<font color = "red">第一个操作数是指定的被移位的操作数</font>，可以是寄存器或存储单元
+<font color = "red">后一个操作数表示移位位数</font>，该操作数为1，表示移动一位；<font color = "red">当移位位数大于1时，用且只能用CL寄存器值表示</font>，该操作数表达为CL</p>
+<h2 id="循环移位指令rotate">循环移位指令（rotate）</h2>
+<h3 id="种类">种类</h3>
+<p>ROL reg/mem,1/CL ；不带进位循环左移</p>
+<p>ROR reg/mem,1/CL ；不带进位循环右移</p>
+<p>RCL reg/mem,1/CL ；带进位循环左移</p>
+<p>RCR reg/mem,1/CL ；带进位循环右移</p>
+<p>带进位和不带进位的区别:</p>
+<p>比如<font color = "red">不带进位的左移</font>，是<font color = "red">将最高位移动到CF里</font>；</p>
+<p>而<font color = "red">带进位的左移</font>，是将CF和要移动的8位<font color = "red">合起来看做一个整体</font>一起移动</p>
+<p><font color = "red">带进位一般用来处理多精度数的移动</font></p>
+<p>举例：</p>
+<p>题1：高精度移位</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240330150914140.png" /></p>
+<p><a href="">视频讲解</a></p>
 ]]></content>
       <categories>
         <category>汇编语言</category>
