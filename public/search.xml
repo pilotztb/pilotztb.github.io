@@ -10334,9 +10334,9 @@ class="math inline">\(P_i\)</span>相连的边并转到步骤1；否则结束简
   <entry>
     <title>同步与互斥</title>
     <url>/posts/b30fed39.html</url>
-    <content><![CDATA[<h1 id="进程同步">2.3 进程同步</h1>
+    <content><![CDATA[<h1 id="进程同步">进程同步</h1>
 <span id="more"></span>
-<h2 id="进程同步的基本概念">2.3.1 进程同步的基本概念</h2>
+<h2 id="进程同步的基本概念">进程同步的基本概念</h2>
 <p>进程同步的任务是采取有效措施来管理多个进程的运行，避免进程不受控制地争夺系统资源而导致混乱局面的出现——每个进程的运行结果存在不可再现性，以及程序的执行存在不确定性。</p>
 <p>举例</p>
 <p>题1：为什么需要进程同步</p>
@@ -10349,7 +10349,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/52688d13cae644c1b693
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/4262ad18f0462b3266be5527e1d9164.jpg" /></p>
 <p>进程B必须在A写入后才能读取，体现互斥（进程之间争夺互斥资源产生的制约）</p>
 <p>进程B和A存在数据交换，体现同步（进程之间需要交换信息和，相互等待而产生的制约）</p>
-<h2 id="临界资源与临界区">2.3.2 临界资源与临界区</h2>
+<h2 id="临界资源与临界区">临界资源与临界区</h2>
 <h4 id="临界资源">临界资源</h4>
 <p>同一时刻只能由一个进程使用的资源称为临界资源。</p>
 <h4 id="临界区">临界区</h4>
@@ -10369,7 +10369,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/4262ad18f0462b3266be
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/9a235df8ff1b692ca5d0da913b7ccc1.jpg" /></p>
 <p>临界资源是互斥共享，一次只能给一个进程使用</p>
-<h2 id="同步与互斥">2.3.3 同步与互斥</h2>
+<h2 id="同步与互斥">同步与互斥</h2>
 <p>进程同步机制的主要任务是协调几个相互协作的进程的执行顺序，使并发执行的进程能够共享系统资源，并按照一定的规则相互制约，保证程序按序执行。</p>
 <h4 id="互斥关系">互斥关系</h4>
 <p>互斥关系，又称进程的<strong>间接相互制约关系(程序-资源-程序模式)</strong>。当一个进程进入临界区使用临界资源时，另一个进程必须等待，当占用临界资源的进程退出临界区后，另一进程才允许去访问此临界资源。</p>
@@ -10378,7 +10378,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/9a235df8ff1b692ca5d0
 <blockquote>
 <p>💡在多道程序环境中，由于互斥和同步这两种制约关系的存在，进程在执行过程中，是否能获得处理器以及以何种速度向前推进，并不由进程本身控制，这也就是进程的异步性。这可能导致进程以不正确的顺序访问共享资源，也可能造成进程每次的运行结果不一致。这些错误往往与时间有关，因此称为“时间相关的错误”。为了防止此类错误，必须协调进程的执行顺序，确保它们按顺序执行。</p>
 </blockquote>
-<h2 id="同步机制设计准则">2.3.4 同步机制设计准则</h2>
+<h2 id="同步机制设计准则">同步机制设计准则</h2>
 <h4 id="空闲让进">空闲让进</h4>
 <p>如果一个进程请求进入一个临界区，而此时没有其他进程在该临界区内，应立即允许该进程进入临界区，以便有效使用临界资源。</p>
 <h4 id="忙则等待">忙则等待</h4>
@@ -10387,7 +10387,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/9a235df8ff1b692ca5d0
 <p>对于请求访问临界资源的进程，必须保证它能在<strong>有限时间</strong>内进入对应的临界区。否则，进程长时间得不到所需的资源，造成“无限等待”的局面，即使最终得到临界资源，也失去了意义。</p>
 <h4 id="让权等待">让权等待</h4>
 <p>若一个进程无法进入临界区，应立即释放处理器，避免出现“忙等”，以提高处理器利用率。</p>
-<h2 id="实现临界区互斥的基本方法">2.3.5 实现临界区互斥的基本方法</h2>
+<h2 id="实现临界区互斥的基本方法">实现临界区互斥的基本方法</h2>
 <h3 id="软件同步机制">软件同步机制</h3>
 <p>有以下几种软件方法可以实现临界区的互斥：</p>
 <ol type="1">
@@ -10553,14 +10553,14 @@ id="关中断方法和硬件指令方法的对比">关中断方法和硬件指�
 </tr>
 </tbody>
 </table>
-<h2 id="互斥锁">2.3.6 互斥锁</h2>
+<h2 id="互斥锁">互斥锁</h2>
 <p>解决临界区最简单的工具就是<strong>互斥锁</strong>。一个进程在进入临界区时应获得锁；在退出临界区时释放锁。</p>
 <p>函数<code>acquire()</code>获得锁，函数<code>release()</code>释放锁。</p>
 <p>每个互斥锁有一个布尔变量<code>available</code>，表示锁是否可用。如果锁是可以用的，调用<code>acquire()</code>会成功，且锁不再可用。当一个进程视图获取不可用的锁时，会被阻塞，直到锁被释放。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">acquire() &#123;</span><br><span class="line">    <span class="keyword">while</span> (!available)</span><br><span class="line">        ;						<span class="comment">//忙等待</span></span><br><span class="line">    available = <span class="literal">false</span>;			<span class="comment">//获得锁</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">release() &#123;</span><br><span class="line">    available = <span class="literal">true</span>;			<span class="comment">//释放锁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>acquire()</code>和<code>release()</code>的执行必须是原子操作，因此互斥锁通常采用硬件机制来实现。</p>
 <p>互斥锁常用于多处理器系统，一个线程可以在一个处理器上等待，不影响其他线程的执行。</p>
-<h2 id="信号量">2.3.7 信号量</h2>
+<h2 id="信号量">信号量</h2>
 <blockquote>
 <p>信号量机制是一种功能较强的机制，可用来解决互斥与同步问题，它只能被两个标准的原语<code>wait(S)</code>和<code>signal(S)</code>访问，也称作“P操作”和“V操作”。</p>
 </blockquote>
@@ -10644,8 +10644,8 @@ S_3\)</span>的前驱关系，应分别设置信号量<code>a1, a2</code>。</p>
 <p>举例：信号量的使用</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/742d6f24bec32f2ab468dfd8bb3048f.jpg" /></p>
-<h2 id="经典同步问题">2.3.8 经典同步问题</h2>
-<h3 id="生产者-消费者问题">1. 生产者-消费者问题</h3>
+<h2 id="经典同步问题">经典同步问题</h2>
+<h3 id="生产者-消费者问题">生产者-消费者问题</h3>
 <p>生产者-消费者问题是对合作进程中内部关系的抽象化。</p>
 <blockquote>
 <p><strong>问题描述：</strong></p>
@@ -10669,7 +10669,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/742d6f24bec32f2ab468df
 <li>V操作的顺序允许颠倒。</li>
 </ul>
 </blockquote>
-<h3 id="哲学家进餐问题">2. 哲学家进餐问题</h3>
+<h3 id="哲学家进餐问题">哲学家进餐问题</h3>
 <p>哲学家进餐问题是进程同步的一个典型问题。</p>
 <blockquote>
 <p>问题描述：</p>
@@ -10710,7 +10710,7 @@ class="math inline">\(，哲学家右边筷子的编号为\)</span> (i + 1)$ %
 </blockquote>
 <p>假设采用第二种限制条件制定正确规则：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">semaphore chopstick[<span class="number">5</span>] = &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;;			<span class="comment">//初始化信号量</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;								<span class="comment">//设置取筷子的信号量</span></span><br><span class="line">Pi() &#123;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        P(mutex);						<span class="comment">//在取筷子前获得互斥量</span></span><br><span class="line">        P(chopstick[i]);				<span class="comment">//取左边筷子</span></span><br><span class="line">        P(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);		<span class="comment">//取右边筷子</span></span><br><span class="line">        V(mutex);						<span class="comment">//释放取筷子的信号量</span></span><br><span class="line">        eat;</span><br><span class="line">        V(chopstick[i]);				<span class="comment">//放回左边筷子</span></span><br><span class="line">        V(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);		<span class="comment">//放回右边筷子</span></span><br><span class="line">        think;</span><br><span class="line">    &#125; <span class="keyword">while</span> (<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="读者写者问题">3. 读者—写者问题</h3>
+<h3 id="读者写者问题">读者—写者问题</h3>
 <p>读者—写者问题是对数据对象的访问模型。</p>
 <blockquote>
 <p>问题描述：</p>
@@ -10775,7 +10775,7 @@ alt="image-20230606225659418" />
 </ul>
 </blockquote>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> num = <span class="number">0</span>;						<span class="comment">//存储随机数</span></span><br><span class="line">semaphore offer1 = <span class="number">0</span>;				<span class="comment">//定义信号量对应烟草和纸组合的资源</span></span><br><span class="line">semaphore offer2 = <span class="number">0</span>;				<span class="comment">//定义信号量对应烟草和胶水组合的资源</span></span><br><span class="line">semaphore offer3 = <span class="number">0</span>;				<span class="comment">//定义信号量对应纸和胶水组合的资源</span></span><br><span class="line">semaphore finish = <span class="number">0</span>;				<span class="comment">//定义信号量表示抽烟是否完成</span></span><br><span class="line"></span><br><span class="line">process <span class="title function_">P1</span><span class="params">()</span> &#123;			<span class="comment">//供应者</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        num++;</span><br><span class="line">        num = num % <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">if</span> (num == <span class="number">0</span>) </span><br><span class="line">            V(offer1);				<span class="comment">//提供烟草和纸</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (num == <span class="number">1</span>)</span><br><span class="line">            V(offer2);				<span class="comment">//提供烟草和胶水</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            V(offer3);				<span class="comment">//提供纸和胶水</span></span><br><span class="line">        </span><br><span class="line">        任意两种材料放在桌上;</span><br><span class="line">        </span><br><span class="line">        P(finish);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">process <span class="title function_">P2</span><span class="params">()</span> &#123;		<span class="comment">//拥有烟草者</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        P(offer3);</span><br><span class="line">        拿纸和胶水，卷成烟，抽掉;</span><br><span class="line">        V(finish);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">process <span class="title function_">P3</span><span class="params">()</span> &#123;		<span class="comment">//拥有纸者</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        P(offer2);</span><br><span class="line">        拿烟草和胶水，卷成烟，抽掉;</span><br><span class="line">        V(finish);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">process <span class="title function_">P4</span><span class="params">()</span> &#123;		<span class="comment">//拥有胶水者</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        P(offer1);</span><br><span class="line">        拿烟草和纸，卷成烟，抽掉;</span><br><span class="line">        V(finish);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="管程">2.3.9 管程</h2>
+<h2 id="管程">管程</h2>
 <h3 id="管程的定义">管程的定义</h3>
 <p>管程的特性保证了进程互斥，无须程序员自己实现互斥，从而降低了死锁发生的可能性。同时管程提供了条件变量，可以让程序员灵活地实现进程同步。</p>
 <p>引入管程的<strong>目的</strong>：</p>
