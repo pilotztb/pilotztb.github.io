@@ -8386,11 +8386,11 @@ class="math inline">\(ROM\)</span>中组成的部件称为固件。固件是一�
       </categories>
   </entry>
   <entry>
-    <title>进程与线程</title>
+    <title>2.1进程与线程</title>
     <url>/posts/eefe591f.html</url>
-    <content><![CDATA[<h1 id="进程与线程">2.1 进程与线程</h1>
+    <content><![CDATA[<h1 id="进程与线程">进程与线程</h1>
 <span id="more"></span>
-<h2 id="进程的概念和特征">2.1.1 进程的概念和特征</h2>
+<h2 id="进程的概念和特征">进程的概念和特征</h2>
 <h4 id="进程的概念">进程的概念</h4>
 <p>进程是计算机中一个执行的程序实例，是操作系统资源分配和调度的独立单位，是操作系统中最基础与最重要的概念之一。</p>
 <p>进程控制块PCB：操作系统为每个进程配备的一个记录型数据结构。</p>
@@ -8419,7 +8419,7 @@ class="math inline">\(ROM\)</span>中组成的部件称为固件。固件是一�
 <li>进程是由一组执行的指令、一个当前状态和一组相关的系统资源表征的活动单元。</li>
 <li>进程由程序段、数据段、进程控制块三部分组成。</li>
 </ul>
-<h2 id="进程的状态与转换">2.1.2 进程的状态与转换</h2>
+<h2 id="进程的状态与转换">进程的状态与转换</h2>
 <p>进程通常有以下五种状态：</p>
 <ul>
 <li>运行态：进程在处理机上运行。</li>
@@ -8465,7 +8465,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/ec2246c148c45bd030bd
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/db58a8fdb97644d35090bb664a2c144.jpg" /></p>
 <p>进程的就绪数目越多，争夺CPU的进程就越多，但只要就绪队列不为空，CPU就一直保持繁忙，而当CPU不忙效率才下降</p></li>
 </ul>
-<h2 id="进程组织">2.1.3 进程组织</h2>
+<h2 id="进程组织">进程组织</h2>
 <p><font color = "red">进程是操作系统资源分配的最小单位</font>，在未引入线程概念的操作系统中，也是调度的最小单位。</p>
 <h4 id="进程控制块pcb的功能概述">进程控制块PCB的功能概述</h4>
 <ul>
@@ -8506,7 +8506,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/db58a8fdb97644d35090
 <li>链接指针</li>
 </ul></li>
 </ul>
-<h2 id="进程控制">2.1.4 进程控制</h2>
+<h2 id="进程控制">进程控制</h2>
 <p>进程控制包括创建新进程、撤销已有进程、实现进程状态转换等功能。</p>
 <p>一般把进程控制用的程序段称为原语，原语的特点是执行期间不允许中断，它是一个不可分割的基本单位。</p>
 <p>原语采用“关中断指令”和“开中断指令”实现。</p>
@@ -8628,7 +8628,7 @@ id="唤醒原语的执行过程"><font color = "red">唤醒原语的执行过程
 <li>恢复待调度程序的上下文环境。</li>
 <li>根据程序计数器(PC)指向的位置找到下一行执行的代码，恢复该进程。</li>
 </ul>
-<h2 id="进程的通信">2.1.5 进程的通信</h2>
+<h2 id="进程的通信">进程的通信</h2>
 <p>举例：两个进程交换数据的方法</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/f1d09b035f046d79b0f831b99fe7e47.jpg" /></p>
@@ -8686,7 +8686,7 @@ HEAD</li>
 </ul></li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/IMG_1135.JPG" alt="IMG_1135" style="zoom:25%;" /></p>
-<h2 id="线程和多线程模型">2.1.6 线程和多线程模型</h2>
+<h2 id="线程和多线程模型">线程和多线程模型</h2>
 <p>线程最直接的理解就是“轻量级线程”，它是一个基本的CPU执行单元，也是程序执行流的最小单元，由线程ID、程序计数器、寄存器集合和堆栈组成。</p>
 <blockquote>
 <p>在引入线程前，进程是操作系统调度的最小单位；
@@ -9624,7 +9624,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/635b663711bb4472dc56
     <content><![CDATA[<h1 id="处理机调度">处理机调度</h1>
 <span id="more"></span>
 <h2 id="调度的概念">调度的概念</h2>
-<p>#### 基本概念</p>
+<h4 id="基本概念">基本概念</h4>
 <p>处理机调度是对处理机进行分配，即从就绪队列中按照一定的算法选择一个进程并将处理机分配给它运行，以实现进程并发地执行。</p>
 <blockquote>
 <p>区别<strong>进程调度</strong>和<strong>上下文切换</strong>。</p>
@@ -10332,7 +10332,7 @@ class="math inline">\(P_i\)</span>相连的边并转到步骤1；否则结束简
       </categories>
   </entry>
   <entry>
-    <title>同步与互斥</title>
+    <title>2.3同步与互斥</title>
     <url>/posts/b30fed39.html</url>
     <content><![CDATA[<h1 id="进程同步">进程同步</h1>
 <span id="more"></span>
@@ -10369,6 +10369,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/4262ad18f0462b3266be
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/9a235df8ff1b692ca5d0da913b7ccc1.jpg" /></p>
 <p>临界资源是互斥共享，一次只能给一个进程使用</p>
+<hr />
 <h2 id="同步与互斥">同步与互斥</h2>
 <p>进程同步机制的主要任务是协调几个相互协作的进程的执行顺序，使并发执行的进程能够共享系统资源，并按照一定的规则相互制约，保证程序按序执行。</p>
 <h4 id="互斥关系">互斥关系</h4>
@@ -10609,6 +10610,9 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f4954fbcadca68b0f7dd56
 <p>题3：信号量与进程之间关系</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/40a765c00740c3b6e1f3f07504be624.jpg" /></p>
+<p>分析：</p>
+<p>唤醒另一个进程，但只是唤醒，说明这个进程要么在临界区，要么在临界区外等待，所以信号量的值小于等于0</p>
+<hr />
 <h3 id="信号量的应用">信号量的应用</h3>
 <h4 id="利用信号量实现进程互斥">利用信号量实现进程互斥</h4>
 <p>使用互斥量实现两个进程<span class="math inline">\(P_A\)</span>和<span
