@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/v2-6fdb4a2f77bcd5a201454af1fdb3335e_720w.webp">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20230606233539715.png">
 <meta property="article:published_time" content="2024-03-14T00:36:34.000Z">
-<meta property="article:modified_time" content="2024-03-31T03:55:39.165Z">
+<meta property="article:modified_time" content="2024-03-31T09:19:23.785Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/IMG_2182%20-%20%E5%89%AF%E6%9C%AC.JPG">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-31 11:55:39" itemprop="dateModified" datetime="2024-03-31T11:55:39+08:00">2024-03-31</time>
+                <time title="修改时间：2024-03-31 17:19:23" itemprop="dateModified" datetime="2024-03-31T17:19:23+08:00">2024-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -266,14 +266,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>17k</span>
+              <span>8.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>16 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -343,15 +343,26 @@ target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1v1421D74W
 <blockquote>
 <p>💡在多道程序环境中，由于互斥和同步这两种制约关系的存在，进程在执行过程中，是否能获得处理器以及以何种速度向前推进，并不由进程本身控制，这也就是进程的异步性。这可能导致进程以不正确的顺序访问共享资源，也可能造成进程每次的运行结果不一致。这些错误往往与时间有关，因此称为“时间相关的错误”。为了防止此类错误，必须协调进程的执行顺序，确保它们按顺序执行。</p>
 </blockquote>
-<h2 id="同步机制设计准则">同步机制设计准则</h2>
-<h4 id="空闲让进">空闲让进</h4>
-<p>如果一个进程请求进入一个临界区，而此时没有其他进程在该临界区内，应立即允许该进程进入临界区，以便有效使用临界资源。</p>
-<h4 id="忙则等待">忙则等待</h4>
-<p>如果已经有一个进程进入临界区，正在访问临界资源，那么其他希望进入临界区的进程应在临界区外等待，确保进程互斥访问临界资源。</p>
-<h4 id="有限等待">有限等待</h4>
-<p>对于请求访问临界资源的进程，必须保证它能在<strong>有限时间</strong>内进入对应的临界区。否则，进程长时间得不到所需的资源，造成“无限等待”的局面，即使最终得到临界资源，也失去了意义。</p>
-<h4 id="让权等待">让权等待</h4>
-<p>若一个进程无法进入临界区，应立即释放处理器，避免出现“忙等”，以提高处理器利用率。</p>
+<h2 id="同步互斥机制设计准则">同步/互斥机制设计准则</h2>
+<h4 id="空闲让进必须实现">空闲让进(必须实现)</h4>
+<p>允许访问空闲临界资源</p>
+<h4 id="忙则等待必须实现">忙则等待(必须实现)</h4>
+<p>两个进程不能同时进入临界区</p>
+<h4 id="有限等待必须实现">有限等待(必须实现)</h4>
+<p>进程进入临界区等待时间有限</p>
+<h4
+id="让权等待可以不实现比如peterson方法">让权等待(可以不实现，比如Peterson方法)</h4>
+<p>不能进入临界区的进程立即放弃CPU</p>
+<hr style = "border:2px solid yellow;">
+<p>举例：对同步/互斥设计准则的理解</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/27c6a73cf98872fb9c87ae7911af464.jpg" /></p>
+<p>解析：</p>
+<p>1：体现了忙则等待</p>
+<p>2：体现了空闲让进</p>
+<p>3：体现了有限等待</p>
+<p>4：体现了让权等待</p>
+<hr style = "border:2px solid yellow;">
 <h2 id="实现临界区互斥的基本方法">实现临界区互斥的基本方法</h2>
 <h3 id="软件同步机制">软件同步机制</h3>
 <p>有以下几种软件方法可以实现临界区的互斥：</p>
@@ -471,17 +482,19 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/d8d62bc5a9e286b9f02538
 <p>每个希望进入临界区的进程必须先测试锁的开与关，若“锁关”，则进程必须等待，若“锁开”，则进程必须立即对其锁定，防止其他进程进入临界区。</p>
 <p>显然，为了防止几个进程同时测试一把锁的开与关，测试和解锁的操作必须是连续的原子操作，不能单独进行。</p>
 </blockquote>
-<p><strong>TSL(TestAndSetLock)指令</strong></p>
+<h5
+id="tsltestandsetlock指令"><strong>TSL(TestAndSetLock)指令</strong></h5>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">boolean <span class="title function_">TSL</span> <span class="params">(boolean *lock)</span> &#123;</span><br><span class="line">    boolean old = *lock;</span><br><span class="line">    *lock = TRUE;		<span class="comment">//上锁</span></span><br><span class="line">    <span class="keyword">return</span> old;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>lock</code>变量的值为<code>FALSE</code>对应未上锁，<code>lock</code>变量的值为<code>TRUE</code>则对应上锁，<code>TSL</code>函数的返回值与<code>lock</code>变量的值相同。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">while</span> <span class="title function_">TSL</span><span class="params">(&amp;lock)</span>;</span><br><span class="line">   	临界区;</span><br><span class="line">    lock = FALSE;</span><br><span class="line">    剩余区;</span><br><span class="line">&#125;<span class="keyword">while</span> (TRUE);</span><br></pre></td></tr></table></figure>
 <p>当<code>lock</code>变量的值为<code>FALSE</code>时，<code>TSL</code>函数才会返回<code>FALSE</code>，进程可以离开<code>while</code>循环体，并进入临界区，同时将<code>lock</code>变量的值设为<code>TRUE</code>。</p>
 <p><code>TSL</code>指令满足<strong>空闲让进</strong>：当临界区空闲，<code>lock</code>变量的值一定为<code>FALSE</code>，<code>TSL</code>函数也会返回<code>FALSE</code>，由于<code>TSL</code>是硬件原子指令，其执行由硬件实现，一气呵成，不会有多个进程同时访问lock变量，必然只存在一个进程可以顺利离开<code>while</code>循环体。</p>
-<p><strong>Swap指令</strong></p>
+<h5 id="swap指令"><strong>Swap指令</strong></h5>
 <p>该指令又称<strong>exchange指令</strong>，用于交换a和b中的内容。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Swap</span><span class="params">(boolean *a, boolean *b)</span> &#123;</span><br><span class="line">    boolean temp = *a;</span><br><span class="line">    *a = *b;</span><br><span class="line">    *b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对于每个临界资源，<code>Swap</code>指令为其设置一个全局布尔变量<code>lock</code>，其初值为<code>FALSE</code>。</p>
 <p>在每个进程中还会设置一个局部布尔变量<code>key</code>，其初值为<code>TRUE</code>。</p>
+<p>有进程在临界区时，重复交换和检查过程，直到临界区里的进程退出</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    key = TRUE;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        Swap(&amp;lock, &amp;key);</span><br><span class="line">    &#125; <span class="keyword">while</span> (key != FALSE);</span><br><span class="line">    临界区;</span><br><span class="line">    lock = FALSE;</span><br><span class="line">    剩余区;</span><br><span class="line">&#125; <span class="keyword">while</span> (TRUE);</span><br></pre></td></tr></table></figure>
 <p>实现临界区互斥的硬件方法的优点：</p>
 <ul>
@@ -563,6 +576,7 @@ class="math inline">\(S\le0\)</span>，就会不断测试。因此，该机制�
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">V</span><span class="params">(semaphore Mutex)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (Mutex.blocked_process_queue.empty())</span><br><span class="line">        Mutex.s = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        从阻塞队列中选择并唤醒一个进程;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>举例：</p>
+<hr style = "border:2px solid yellow">
 <p>题1：信号量与进程数之间关系</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ab2cc7968b751cd4e4f29634741e51b.jpg" /></p>
@@ -585,6 +599,91 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/40a765c00740c3b6e1f3f0
 <p>分析：</p>
 <p>唤醒另一个进程，但只是唤醒，说明这个进程要么在临界区，要么在临界区外等待，所以信号量的值小于等于0</p>
 <hr style="border: 2px solid yellow;">
+<p>题4：不同同步机制的比较</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240331160825.jpg" />]
+解析</p>
+<details>
+<summary>
+A：Peterson方法
+</summary>
+<pre><code>while(1) &#123;
+    turn = j;    // 表示谦让给对方
+    flag[i] = true;    // 表示自己希望进入
+    while(turn == j && flag[j] == true)    // 对方也希望进入并且自己还把机会谦让给对方了
+    // 临界区
+    flag[i] = false;
+    // 剩余区
+&#125;</code></pre>
+Peterson方法可以实现<br> 空闲让进<br> 忙则等待<br> 有限等待<br>
+但不能实现让权等待，因为是while循环就算无法获取临界资源也会占用CPU
+</details>
+<details>
+<summary>
+B:swap指令
+</summary>
+<pre><code>void swap(boolean *a, boolean *b) &#123;
+        boolean tmp = *a;
+        *a = *b;
+        *b = tmp;
+&#125;</code></pre>
+对于每个临界资源，<code>Swap</code>指令为其设置一个全局布尔变量<code>lock</code>，其初值为<code>FALSE</code>。<br>
+在每个进程中还会设置一个局部布尔变量<code>key</code>，其初值为<code>TRUE</code>。<br>
+有进程在临界区时，重复交换和检查过程，直到临界区里的进程退出<br>
+<pre><code>do &#123;
+    key = true;
+    do &#123;
+        swap(&lock, &key);
+    &#125;while(key == true);
+    // 临界区
+    lock = false;
+    // 剩余区
+&#125;while(true);</code></pre>
+swap可以实现空闲让进<br>
+但是swap不能实现让权等待，因为swap其实是硬件实现，所以会一鼓作气执行完，这就意味着不会中断，那么就不能实现让权等待
+</details>
+<details>
+<summary>
+C: 信号量方法
+</summary>
+<pre><code>typedef struct &#123;
+    int value;  //表示资源的数量
+    struct process *L;  //一个链表，用来链接所有等待当前资源的进程
+&#125;semaphore;
+void wait(semaphore S) &#123;
+    S.value--;  //表示申请一个资源
+    if(S.value < 0)&#123; //如果进程已经使用完了
+        将这个进程加到当前信号量S相应的阻塞队列中
+        block(S.L); //自我阻塞，放弃处理机，并且加入对应资源的阻塞队列中
+    &#125;   
+&#125;
+void signal(semaphore S) &#123;
+    S.value++;  //表示对应资源可以申请的数量增加1
+    if(S.value <= 0) &#123;  // 如果当前资源依然在被需求，仍有等待该进程的资源被阻塞
+        将S.L中第一个被阻塞的进程移除
+        wakeup(S.L) //唤醒S.L中第一个被阻塞的进程。与上面移除对应，从阻塞态转变为就绪态
+    &#125;
+&#125;</code></pre>
+信号量是同时满足了同步/阻塞的四种要求
+</details>
+<details>
+<summary>
+D: TSL指令
+</summary>
+<pre><code>boolean TSL(boolean *lock)&#123;
+    boolean old = *lock;
+    *lock = true;
+    return old;
+&#125;
+do &#123;
+    while(TSL(&lock));  //判断当前临界资源是否可以使用
+    临界区
+    lock = false;
+    剩余区
+&#125;(true)</code></pre>
+TSL也可以满足闲则让进，但和B的swap一样,TSL也是由机器代码实现，所以一口气执行完，所以不会中途退出，也就不能满足让权等待
+</details>
+<hr style = "border:2px solid yellow;">
 <h3 id="信号量的应用">信号量的应用</h3>
 <h4 id="利用信号量实现进程互斥">利用信号量实现进程互斥</h4>
 <p>使用互斥量实现两个进程<span class="math inline">\(P_A\)</span>和<span
@@ -754,7 +853,14 @@ alt="image-20230606225659418" />
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> num = <span class="number">0</span>;						<span class="comment">//存储随机数</span></span><br><span class="line">semaphore offer1 = <span class="number">0</span>;				<span class="comment">//定义信号量对应烟草和纸组合的资源</span></span><br><span class="line">semaphore offer2 = <span class="number">0</span>;				<span class="comment">//定义信号量对应烟草和胶水组合的资源</span></span><br><span class="line">semaphore offer3 = <span class="number">0</span>;				<span class="comment">//定义信号量对应纸和胶水组合的资源</span></span><br><span class="line">semaphore finish = <span class="number">0</span>;				<span class="comment">//定义信号量表示抽烟是否完成</span></span><br><span class="line"></span><br><span class="line">process <span class="title function_">P1</span><span class="params">()</span> &#123;			<span class="comment">//供应者</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        num++;</span><br><span class="line">        num = num % <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">if</span> (num == <span class="number">0</span>) </span><br><span class="line">            V(offer1);				<span class="comment">//提供烟草和纸</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (num == <span class="number">1</span>)</span><br><span class="line">            V(offer2);				<span class="comment">//提供烟草和胶水</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            V(offer3);				<span class="comment">//提供纸和胶水</span></span><br><span class="line">        </span><br><span class="line">        任意两种材料放在桌上;</span><br><span class="line">        </span><br><span class="line">        P(finish);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">process <span class="title function_">P2</span><span class="params">()</span> &#123;		<span class="comment">//拥有烟草者</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        P(offer3);</span><br><span class="line">        拿纸和胶水，卷成烟，抽掉;</span><br><span class="line">        V(finish);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">process <span class="title function_">P3</span><span class="params">()</span> &#123;		<span class="comment">//拥有纸者</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        P(offer2);</span><br><span class="line">        拿烟草和胶水，卷成烟，抽掉;</span><br><span class="line">        V(finish);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">process <span class="title function_">P4</span><span class="params">()</span> &#123;		<span class="comment">//拥有胶水者</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        P(offer1);</span><br><span class="line">        拿烟草和纸，卷成烟，抽掉;</span><br><span class="line">        V(finish);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="管程">管程</h2>
 <h3 id="管程的定义">管程的定义</h3>
-<p>管程的特性<font color = "yellow">保证了进程互斥</font>，无须程序员自己实现互斥，从而<font color = "yellow">降低了死锁发生的可能性</font>。同时管程<font color = "yellow">提供了条件变量，可以让程序员灵活地实现进程同步</font>。</p>
+<p>管程既能实现互斥也能实现同步</p>
+<hr style = "border:2px solid yellow;">
+<p>举例：管程的定义与特点考察</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/693515d869526eefdd1662014da3c60.jpg" /></p>
+<p>解析：</p>
+<p>A：管程既能实现互斥也能实现同步</p>
+<hr style = "border:2px solid yellow;">
 <p>引入管程的<strong>目的</strong>：</p>
 <ul>
 <li>集中管理分散于不同进程的临界区。</li>
@@ -800,15 +906,23 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f46ac2ec4358b3a0d85e60
 <p><strong>相似点：</strong>条件变量的<code>wait</code>/<code>signal</code>操作类似于信号量的P/V操作，可以实现进程的阻塞/唤醒。</p>
 <p><strong>不同点：</strong></p>
 <p>条件变量是<strong>没有值</strong>的，仅实现了<strong>排队等待</strong>功能；</p>
-<p>而信号量是<strong>有值</strong>的，信号量的值反映了剩余资源数，而在管程中，剩余资源数用共享数据结构记录。</p>
+而信号量是<strong>有值</strong>的，信号量的值反映了剩余资源数，而在管程中，剩余资源数用共享数据结构记录。
+<hr style = "border:2px solid yellow;">
 </blockquote>
-<p>举例：管程中wait和信号量中V操作区别与联系</p>
+<p>举例：</p>
+<p>题1：管程中wait和信号量中V操作区别与联系</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f271da63da1219c133a381104d17dc8.jpg" /></p>
 <p>解析</p>
 <p>信号量机制中的V操作一定会改变信号量S的值：S = S + 1</p>
 <p>管程中signal操作是针对某个条件变量，若不存在因该条件而阻塞的进程，则signal不会产生任何影响</p>
-<hr style="border: 2px solid yellow;">
+<hr style = "border:2px solid yellow;">
+<p>题2：条件变量中各个操作的使用</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f836844501930974768b9a92cdf47c7.jpg" /></p>
+<p>解析：</p>
+<p>若进程A执行x.wait()操作，则进程A会被阻塞，并挂到条件变量x的阻塞队列上。如果进程B执行x.signal()，会唤醒x对应阻塞队列的队首进程，进程B不受影响</p>
+<hr style = "border:2px solid yellow;">
 
     </div>
 
@@ -907,7 +1021,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f271da63da1219c133a381
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">1.</span> <span class="nav-text">进程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">进程同步的基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E8%B5%84%E6%BA%90%E4%B8%8E%E4%B8%B4%E7%95%8C%E5%8C%BA"><span class="nav-number">1.2.</span> <span class="nav-text">临界资源与临界区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E8%B5%84%E6%BA%90"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">临界资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E5%8C%BA"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">临界区</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E4%B8%8E%E4%BA%92%E6%96%A5"><span class="nav-number">1.3.</span> <span class="nav-text">同步与互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">互斥关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E8%AE%BE%E8%AE%A1%E5%87%86%E5%88%99"><span class="nav-number">1.4.</span> <span class="nav-text">同步机制设计准则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E8%AE%A9%E8%BF%9B"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">空闲让进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%99%E5%88%99%E7%AD%89%E5%BE%85"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">忙则等待</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E7%AD%89%E5%BE%85"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">有限等待</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A9%E6%9D%83%E7%AD%89%E5%BE%85"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">让权等待</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">实现临界区互斥的基本方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.1.</span> <span class="nav-text">软件同步机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E6%A0%87%E5%BF%97%E6%B3%95"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">单标志法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E6%A0%87%E5%BF%97%E5%85%88%E6%A3%80%E6%9F%A5%E6%B3%95"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">双标志先检查法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E6%A0%87%E5%BF%97%E5%90%8E%E6%A3%80%E6%9F%A5%E6%B3%95"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">双标志后检查法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#peterson%E7%AE%97%E6%B3%95"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">Peterson算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.1.5.</span> <span class="nav-text">四种软件同步机制方法对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.2.</span> <span class="nav-text">硬件同步机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%B8%AD%E6%96%AD%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">关中断方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E6%8C%87%E4%BB%A4%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">硬件指令代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%B8%AD%E6%96%AD%E6%96%B9%E6%B3%95%E5%92%8C%E7%A1%AC%E4%BB%B6%E6%8C%87%E4%BB%A4%E6%96%B9%E6%B3%95%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">关中断方法和硬件指令方法的对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%94%81"><span class="nav-number">1.6.</span> <span class="nav-text">互斥锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">1.7.</span> <span class="nav-text">信号量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.7.1.</span> <span class="nav-text">信号量的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">整型信号量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E5%9E%8B%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">记录型信号量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%87%8F"><span class="nav-number">1.7.1.3.</span> <span class="nav-text">互斥量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.7.2.</span> <span class="nav-text">信号量的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">利用信号量实现进程互斥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">利用信号量实现进程同步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E5%89%8D%E9%A9%B1%E5%85%B3%E7%B3%BB"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">利用信号量实现前驱关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.</span> <span class="nav-text">经典同步问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.1.</span> <span class="nav-text">生产者-消费者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%B2%E5%AD%A6%E5%AE%B6%E8%BF%9B%E9%A4%90%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.2.</span> <span class="nav-text">哲学家进餐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E8%80%85%E5%86%99%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.3.</span> <span class="nav-text">读者—写者问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E8%80%85%E4%BC%98%E5%85%88"><span class="nav-number">1.8.3.1.</span> <span class="nav-text">读者优先</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%99%E8%80%85%E4%BC%98%E5%85%88"><span class="nav-number">1.8.3.2.</span> <span class="nav-text">写者优先</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E5%85%AC%E5%B9%B3"><span class="nav-number">1.8.3.3.</span> <span class="nav-text">读写公平</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%B8%E7%83%9F%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.4.</span> <span class="nav-text">吸烟者问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E7%A8%8B"><span class="nav-number">1.9.</span> <span class="nav-text">管程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.9.1.</span> <span class="nav-text">管程的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F"><span class="nav-number">1.9.2.</span> <span class="nav-text">条件变量</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">1.</span> <span class="nav-text">进程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">进程同步的基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E8%B5%84%E6%BA%90%E4%B8%8E%E4%B8%B4%E7%95%8C%E5%8C%BA"><span class="nav-number">1.2.</span> <span class="nav-text">临界资源与临界区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E8%B5%84%E6%BA%90"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">临界资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E5%8C%BA"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">临界区</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E4%B8%8E%E4%BA%92%E6%96%A5"><span class="nav-number">1.3.</span> <span class="nav-text">同步与互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">互斥关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E4%BA%92%E6%96%A5%E6%9C%BA%E5%88%B6%E8%AE%BE%E8%AE%A1%E5%87%86%E5%88%99"><span class="nav-number">1.4.</span> <span class="nav-text">同步&#x2F;互斥机制设计准则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E8%AE%A9%E8%BF%9B%E5%BF%85%E9%A1%BB%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">空闲让进(必须实现)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%99%E5%88%99%E7%AD%89%E5%BE%85%E5%BF%85%E9%A1%BB%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">忙则等待(必须实现)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E7%AD%89%E5%BE%85%E5%BF%85%E9%A1%BB%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">有限等待(必须实现)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A9%E6%9D%83%E7%AD%89%E5%BE%85%E5%8F%AF%E4%BB%A5%E4%B8%8D%E5%AE%9E%E7%8E%B0%E6%AF%94%E5%A6%82peterson%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">让权等待(可以不实现，比如Peterson方法)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%B4%E7%95%8C%E5%8C%BA%E4%BA%92%E6%96%A5%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">实现临界区互斥的基本方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.1.</span> <span class="nav-text">软件同步机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E6%A0%87%E5%BF%97%E6%B3%95"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">单标志法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E6%A0%87%E5%BF%97%E5%85%88%E6%A3%80%E6%9F%A5%E6%B3%95"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">双标志先检查法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E6%A0%87%E5%BF%97%E5%90%8E%E6%A3%80%E6%9F%A5%E6%B3%95"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">双标志后检查法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#peterson%E7%AE%97%E6%B3%95"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">Peterson算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.1.5.</span> <span class="nav-text">四种软件同步机制方法对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.2.</span> <span class="nav-text">硬件同步机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%B8%AD%E6%96%AD%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">关中断方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E6%8C%87%E4%BB%A4%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">硬件指令代码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#tsltestandsetlock%E6%8C%87%E4%BB%A4"><span class="nav-number">1.5.2.2.1.</span> <span class="nav-text">TSL(TestAndSetLock)指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#swap%E6%8C%87%E4%BB%A4"><span class="nav-number">1.5.2.2.2.</span> <span class="nav-text">Swap指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%B8%AD%E6%96%AD%E6%96%B9%E6%B3%95%E5%92%8C%E7%A1%AC%E4%BB%B6%E6%8C%87%E4%BB%A4%E6%96%B9%E6%B3%95%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">关中断方法和硬件指令方法的对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%94%81"><span class="nav-number">1.6.</span> <span class="nav-text">互斥锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">1.7.</span> <span class="nav-text">信号量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.7.1.</span> <span class="nav-text">信号量的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">整型信号量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E5%9E%8B%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">记录型信号量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%87%8F"><span class="nav-number">1.7.1.3.</span> <span class="nav-text">互斥量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.7.2.</span> <span class="nav-text">信号量的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">利用信号量实现进程互斥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">利用信号量实现进程同步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E5%89%8D%E9%A9%B1%E5%85%B3%E7%B3%BB"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">利用信号量实现前驱关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.</span> <span class="nav-text">经典同步问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.1.</span> <span class="nav-text">生产者-消费者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%B2%E5%AD%A6%E5%AE%B6%E8%BF%9B%E9%A4%90%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.2.</span> <span class="nav-text">哲学家进餐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E8%80%85%E5%86%99%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.3.</span> <span class="nav-text">读者—写者问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E8%80%85%E4%BC%98%E5%85%88"><span class="nav-number">1.8.3.1.</span> <span class="nav-text">读者优先</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%99%E8%80%85%E4%BC%98%E5%85%88"><span class="nav-number">1.8.3.2.</span> <span class="nav-text">写者优先</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E5%85%AC%E5%B9%B3"><span class="nav-number">1.8.3.3.</span> <span class="nav-text">读写公平</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%B8%E7%83%9F%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.4.</span> <span class="nav-text">吸烟者问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E7%A8%8B"><span class="nav-number">1.9.</span> <span class="nav-text">管程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.9.1.</span> <span class="nav-text">管程的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F"><span class="nav-number">1.9.2.</span> <span class="nav-text">条件变量</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -983,12 +1097,12 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f271da63da1219c133a381
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">305k</span>
+    <span title="站点总字数">296k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:37</span>
+    <span title="站点阅读时长">4:29</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
