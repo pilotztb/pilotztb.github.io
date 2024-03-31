@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="布尔逻辑检索（Boolean Retrieval） 与—— AND 或—— OR 非—— NOT 逻辑与 运算符为 &quot;AND&quot;、&quot;*&quot; 或空格； 表达两个或两个以上检索词之间的相关关系或限定关系的运算； 用以缩小检索范围，减少输出结果，提高检准率 逻辑或 运算符为 OR 或 + 用于表达两个或两个以上检索词之间的并列关系运算； 常用于连接同一检索词的同义词、近义词； 可扩大检">
+  <meta name="description" content="搜索引擎检索技巧">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文献检索基础知识">
 <meta property="og:url" content="http://example.com/posts/f1d400e4.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
-<meta property="og:description" content="布尔逻辑检索（Boolean Retrieval） 与—— AND 或—— OR 非—— NOT 逻辑与 运算符为 &quot;AND&quot;、&quot;*&quot; 或空格； 表达两个或两个以上检索词之间的相关关系或限定关系的运算； 用以缩小检索范围，减少输出结果，提高检准率 逻辑或 运算符为 OR 或 + 用于表达两个或两个以上检索词之间的并列关系运算； 常用于连接同一检索词的同义词、近义词； 可扩大检">
+<meta property="og:description" content="搜索引擎检索技巧">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-11T11:09:56.000Z">
-<meta property="article:modified_time" content="2024-03-26T10:50:54.309Z">
+<meta property="article:modified_time" content="2024-03-31T15:17:26.970Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+                <time title="修改时间：2024-03-31 23:17:26" itemprop="dateModified" datetime="2024-03-31T23:17:26+08:00">2024-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>655</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -276,7 +276,70 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="布尔逻辑检索boolean-retrieval">布尔逻辑检索（Boolean
+        <h1 id="搜索引擎检索技巧">搜索引擎检索技巧</h1>
+<span id="more"></span>
+<h2 id="布尔逻辑运算">布尔逻辑运算</h2>
+<h2 id="双引号进行精确检索">双引号“”进行精确检索</h2>
+<p>加引号</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331223002226.png" /></p>
+<p>不加引号</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331223124082.png" /></p>
+<p>可以看出加引号的部分搜索结果都包含“大学生信息素质”，不加引号的部分则不一定</p>
+<h2
+id="书名号检索其中书名号会出现在检索结果中或书名号里的内容不会被拆分">书名号《》检索，其中书名号会出现在检索结果中或书名号里的内容不会被拆分。</h2>
+<p><font color = "yellow">与""精确检索有什么区别？</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331223541730.png" /></p>
+<h2 id="在特定站点中搜索关键词">在特定站点中搜索关键词</h2>
+<p>在搜索引擎中，<font color = "yellow">使用"site:站点域名"的语法将会限制搜索结果仅显示来自指定站点的页面，并且包含了您指定的关键词</font>。这样做的效果是，搜索引擎会筛选出特定站点中与您输入的关键词相关的页面，而不会包括其他站点的页面。</p>
+<p>在查询内容的后面加上“site:站点域名”，域名不要http://，
+“site”和站点名之间不要带空格。</p>
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331224423269.png" /></p>
+<h2 id="指定文档类型的检索">指定文档类型的检索</h2>
+<p>关键词+filetype：文档类型”</p>
+<p>举例：信息检索filetype:PPT</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331225931239.png" /></p>
+<h2 id="搜索范围限定在url链接中">搜索范围限定在URL链接中</h2>
+<p>方法：inurl：+关键词，如检索flash的学习技巧，检索式为：flash
+inurl:jiqiao,表示“flash”可以出现在网页的任何位置，而“jiqiao”则必须出现在网页的URL中。</p>
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331224750692.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331224819975.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331224855825.png" /></p>
+<h2 id="限定在网页的标题中的检索">限定在网页的标题中的检索</h2>
+<p>用“intitle：”限定在网页标题范围内，
+“intitle：”和后面的关键词不能有空格。</p>
+<p><font color = "yellow">与前面“”和《》有什么区别</font></p>
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331225246562.png" /></p>
+<h1 id="web-of-science">Web of Science</h1>
+<p>首页点击资源：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331231104019.png" /></p>
+<p>网页搜索“web of science"</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331231147634.png" /></p>
+<p>点击第一个链接，注意一定要关梯子</p>
+<p>点击下拉菜单选择web of science核心合集</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331231343472.png" /></p>
+<p>选择合适年份</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331231508309.png" /></p>
+<p>选择合适索引</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240331231526497.png" /></p>
+<h1 id="英语资源库">英语资源库</h1>
+<h1 id="布尔逻辑检索boolean-retrieval">布尔逻辑检索（Boolean
 Retrieval）</h1>
 <p>与—— AND 或—— OR 非—— NOT</p>
 <h2 id="逻辑与">逻辑与</h2>
@@ -416,8 +479,8 @@ id="词组检索快速精确找出需要的文献">词组检索快速精确找�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E6%A3%80%E7%B4%A2boolean-retrieval"><span class="nav-number">1.</span> <span class="nav-text">布尔逻辑检索（Boolean
-Retrieval）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E4%B8%8E"><span class="nav-number">1.1.</span> <span class="nav-text">逻辑与</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%88%96"><span class="nav-number">1.2.</span> <span class="nav-text">逻辑或</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E9%9D%9E"><span class="nav-number">1.3.</span> <span class="nav-text">逻辑非</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E5%BA%94%E7%94%A8andornot"><span class="nav-number">1.4.</span> <span class="nav-text">综合应用：AND、OR、NOT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%AA%E8%AF%8D%E6%A3%80%E7%B4%A2"><span class="nav-number">2.</span> <span class="nav-text">截词检索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E9%99%90%E6%88%AA%E8%AF%8D"><span class="nav-number">2.1.</span> <span class="nav-text">无限截词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E6%88%AA%E8%AF%8D"><span class="nav-number">2.2.</span> <span class="nav-text">有限截词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%88%AA%E8%AF%8D"><span class="nav-number">2.3.</span> <span class="nav-text">前截词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%88%AA%E8%AF%8D"><span class="nav-number">2.4.</span> <span class="nav-text">中截词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E6%88%AA%E8%AF%8D"><span class="nav-number">2.5.</span> <span class="nav-text">后截词</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%8D%E7%BB%84%E6%A3%80%E7%B4%A2%E5%BF%AB%E9%80%9F%E7%B2%BE%E7%A1%AE%E6%89%BE%E5%87%BA%E9%9C%80%E8%A6%81%E7%9A%84%E6%96%87%E7%8C%AE"><span class="nav-number">3.</span> <span class="nav-text">词组检索快速精确找出需要的文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E5%AD%97%E6%AE%B5%E4%B8%8E%E6%A3%80%E7%B4%A2%E9%80%94%E5%BE%84%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">4.</span> <span class="nav-text">检索字段与检索途径的选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E6%AD%A5%E9%AA%A4"><span class="nav-number">5.</span> <span class="nav-text">检索步骤</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%A3%80%E7%B4%A2%E6%8A%80%E5%B7%A7"><span class="nav-number">1.</span> <span class="nav-text">搜索引擎检索技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="nav-number">1.1.</span> <span class="nav-text">布尔逻辑运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E5%BC%95%E5%8F%B7%E8%BF%9B%E8%A1%8C%E7%B2%BE%E7%A1%AE%E6%A3%80%E7%B4%A2"><span class="nav-number">1.2.</span> <span class="nav-text">双引号“”进行精确检索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%A6%E5%90%8D%E5%8F%B7%E6%A3%80%E7%B4%A2%E5%85%B6%E4%B8%AD%E4%B9%A6%E5%90%8D%E5%8F%B7%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%A3%80%E7%B4%A2%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%88%96%E4%B9%A6%E5%90%8D%E5%8F%B7%E9%87%8C%E7%9A%84%E5%86%85%E5%AE%B9%E4%B8%8D%E4%BC%9A%E8%A2%AB%E6%8B%86%E5%88%86"><span class="nav-number">1.3.</span> <span class="nav-text">书名号《》检索，其中书名号会出现在检索结果中或书名号里的内容不会被拆分。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E7%89%B9%E5%AE%9A%E7%AB%99%E7%82%B9%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="nav-number">1.4.</span> <span class="nav-text">在特定站点中搜索关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E6%96%87%E6%A1%A3%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A3%80%E7%B4%A2"><span class="nav-number">1.5.</span> <span class="nav-text">指定文档类型的检索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E8%8C%83%E5%9B%B4%E9%99%90%E5%AE%9A%E5%9C%A8url%E9%93%BE%E6%8E%A5%E4%B8%AD"><span class="nav-number">1.6.</span> <span class="nav-text">搜索范围限定在URL链接中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E5%AE%9A%E5%9C%A8%E7%BD%91%E9%A1%B5%E7%9A%84%E6%A0%87%E9%A2%98%E4%B8%AD%E7%9A%84%E6%A3%80%E7%B4%A2"><span class="nav-number">1.7.</span> <span class="nav-text">限定在网页的标题中的检索</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#web-of-science"><span class="nav-number">2.</span> <span class="nav-text">Web of Science</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8B%B1%E8%AF%AD%E8%B5%84%E6%BA%90%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">英语资源库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91%E6%A3%80%E7%B4%A2boolean-retrieval"><span class="nav-number">4.</span> <span class="nav-text">布尔逻辑检索（Boolean
+Retrieval）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E4%B8%8E"><span class="nav-number">4.1.</span> <span class="nav-text">逻辑与</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%88%96"><span class="nav-number">4.2.</span> <span class="nav-text">逻辑或</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E9%9D%9E"><span class="nav-number">4.3.</span> <span class="nav-text">逻辑非</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E5%BA%94%E7%94%A8andornot"><span class="nav-number">4.4.</span> <span class="nav-text">综合应用：AND、OR、NOT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%AA%E8%AF%8D%E6%A3%80%E7%B4%A2"><span class="nav-number">5.</span> <span class="nav-text">截词检索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E9%99%90%E6%88%AA%E8%AF%8D"><span class="nav-number">5.1.</span> <span class="nav-text">无限截词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E6%88%AA%E8%AF%8D"><span class="nav-number">5.2.</span> <span class="nav-text">有限截词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%88%AA%E8%AF%8D"><span class="nav-number">5.3.</span> <span class="nav-text">前截词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%88%AA%E8%AF%8D"><span class="nav-number">5.4.</span> <span class="nav-text">中截词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E6%88%AA%E8%AF%8D"><span class="nav-number">5.5.</span> <span class="nav-text">后截词</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%8D%E7%BB%84%E6%A3%80%E7%B4%A2%E5%BF%AB%E9%80%9F%E7%B2%BE%E7%A1%AE%E6%89%BE%E5%87%BA%E9%9C%80%E8%A6%81%E7%9A%84%E6%96%87%E7%8C%AE"><span class="nav-number">6.</span> <span class="nav-text">词组检索快速精确找出需要的文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E5%AD%97%E6%AE%B5%E4%B8%8E%E6%A3%80%E7%B4%A2%E9%80%94%E5%BE%84%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">7.</span> <span class="nav-text">检索字段与检索途径的选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E6%AD%A5%E9%AA%A4"><span class="nav-number">8.</span> <span class="nav-text">检索步骤</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -493,12 +556,12 @@ Retrieval）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">296k</span>
+    <span title="站点总字数">300k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:29</span>
+    <span title="站点阅读时长">4:33</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
