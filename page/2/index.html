@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+                <time title="修改时间：2024-04-01 10:03:52" itemprop="dateModified" datetime="2024-04-01T10:03:52+08:00">2024-04-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -279,155 +279,14 @@
 
       
           <h1 id="推理的形式结构">推理的形式结构</h1>
-<h2 id="推理的正确与错误">推理的正确与错误</h2>
-<p>设 A1, A2, ..., Ak, B 为命题公式。若对于每一组赋值，当 A1 ∧ A2 ∧ ...
-∧ Ak 为假时，或者当 A1 ∧ A2 ∧ ... ∧ Ak 为真时，B 也为真，则称由前提 A1,
-A2, ..., Ak 推出结论 B 的推理是有效的或正确的，并称 B 是有效结论。</p>
-<h2 id="推理的形式结构-1">推理的形式结构</h2>
-<ol type="1">
-<li>{A1, A2, …, Ak} ⊢ B 若推理正确，记为 {A1, A2, ..., An} ⊢ B 记Γ =
-{A1, A2, …, Ak}，则 Γ ⊢ B. 若推理正确，则 Γ ⊢ B.</li>
-<li><span class="math inline">\((A1 ∧ A2 ∧ … ∧ Ak \rightarrow B)
-若推理正确，记为 (A1 ∧ A2 ∧ … ∧ Ak \Rightarrow B)\)</span></li>
-<li>前提：(A1, A2, ..., Ak) 结论：(B)</li>
-</ol>
-<h2 id="判断推理正确的方法">判断推理正确的方法</h2>
-<ol type="1">
-<li>真值表法</li>
-<li>等值演算法</li>
-<li>主析取范式法</li>
-</ol>
-<p>举例：</p>
-<p>判断下面推理是否正确 (1) 若今天是1号, 则明天是5号. 今天是1号. 所以,
-明天是5号.<br />
-(2) 若今天是1号, 则明天是5号. 明天是5号. 所以, 今天是1号.</p>
-<p>首先表示（1）</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/6a754e0ce024506e9bd01c6a5fb74f2.jpg" /></p>
-<p>用等值演算法</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5e7b6268e783c344436a60e51802d24.jpg" /></p>
-<p>用主析取范式，以（2）为例</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/77a01b599885f2e3178da79f3b105ae.jpg" /></p>
-<h2 id="推理定律重点"><font color = "red">推理定律(重点)</font></h2>
-<ol type="1">
-<li><span class="math inline">\(A \Rightarrow (A \lor B)\)</span> 附加律
-(如果命题A为真，那么命题A或B为真)</li>
-<li><span class="math inline">\((A \land B) \Rightarrow A\)</span>
-化简律</li>
-<li><span class="math inline">\((A \Rightarrow B) \land A \Rightarrow
-B\)</span> 假言推理</li>
-<li><span class="math inline">\((A \Rightarrow B) \land \lnot B
-\Rightarrow \lnot A\)</span> 拒取式<br />
-</li>
-<li><span class="math inline">\((A \lor B) \land \lnot B \Rightarrow
-A\)</span> 析取三段论</li>
-<li><span class="math inline">\((A \Rightarrow B) \land (B \Rightarrow
-C) \Rightarrow (A \Rightarrow C)\)</span> 假言三段论</li>
-<li><span class="math inline">\((A \Leftrightarrow B) \land (B
-\Leftrightarrow C) \Rightarrow (A \Leftrightarrow C)\)</span>
-等价三段论</li>
-<li><span class="math inline">\((A \Rightarrow B) \land (C \Rightarrow
-D) \land (A \lor C) \Rightarrow (B \lor D)\)</span> 构造性二难 <span
-class="math inline">\((A \Rightarrow B) \land (\lnot A \Rightarrow B)
-\Rightarrow B\)</span> 构造性二难(特殊形式)</li>
-<li><span class="math inline">\((A \Rightarrow B) \land (C \Rightarrow
-D) \land (\lnot B \lor \lnot D) \Rightarrow (\lnot A \lor \lnot
-C)\)</span> 破坏性二难</li>
-</ol>
-<p>每个等值式可产生两个推理定律 如，由 <span class="math inline">\(A
-\Leftrightarrow \lnot \lnot A\)</span> 可产生 <span
-class="math inline">\(A \Rightarrow \lnot \lnot A\)</span> 和 <span
-class="math inline">\(\lnot \lnot A \Rightarrow A\)</span></p>
-<h1 id="自然推理系统p">自然推理系统P</h1>
-<h2 id="形式系统的定义与分类">形式系统的定义与分类</h2>
-<h2 id="自然推理系统p-1">自然推理系统P</h2>
-<h3 id="字母表">字母表</h3>
-<ol type="1">
-<li>命题变项符号：p, q, r, …, pi, qi, ri, …</li>
-<li>联结词符号：¬, ∧, ∨, →, ↔︎</li>
-<li>括号与逗号：(, ), ，</li>
-</ol>
-<h3 id="合式公式同定义1.6">合式公式（同定义1.6）</h3>
-<p>有限次地应用联结词和括号形成的命题符号串是合式公式</p>
-<h3
-id="推理规则重点中的重点"><font color = "red">推理规则(重点中的重点)</font></h3>
-<ol type="1">
-<li>前提引入规则</li>
-<li>结论引入规则</li>
-<li>置换规则（就是德摩根律）</li>
-</ol>
-<p>注：</p>
-<p><font color = "red">假言推理在于蕴含式前提为真</font></p>
-<p><font color = "red">拒取式规则在于蕴含式结论为假</font></p>
-<p><font color = "red">假言三段论在于递推</font></p>
-<p><font color = "red">析取三段论或的一方为假</font></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240325150416218.png" /></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240325150426381.png" /></p>
-<h2
-id="在p中构造证明直接证明法附加前提证明法归谬法">在P中构造证明:直接证明法、附加前提证明法、归谬法</h2>
-<h3 id="直接证明法">直接证明法</h3>
-<p>举例：</p>
-<p>构造下面推理的证明： 若明天是星期一或星期三, 我明天就有课.
-若我明天有课, 今天必备课. 我今天没备课. 所以, 明天不是星期一, 也不
-是星期三.</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/1d9392a9b4536441ba48c4005c0ce49.jpg" /></p>
-<h3 id="附加前提证明法">附加前提证明法</h3>
-<p>欲证 前提：(A1, A2, …, Ak) 结论：<span class="math inline">\(C
-\Rightarrow B\)</span></p>
-<p>等价地证明 前提：(A1, A2, …, Ak, C) 结论：B</p>
-<p>理由： <span class="math inline">\((A1 \land A2 \land … \land Ak)
-\Rightarrow (C \Rightarrow B)\)</span> <span
-class="math inline">\(\equiv \lnot (A1 \land A2 \land … \land Ak) \lor
-(\lnot C \lor B)\)</span> <span class="math inline">\(\equiv \lnot (A1
-\land A2 \land … \land Ak \land C) \lor B\)</span> <span
-class="math inline">\(\equiv (A1 \land A2 \land … \land Ak \land C)
-\Rightarrow B\)</span></p>
-<p><font color = "red">适用于结论为蕴涵式，本质就是将本来结论中的前提也作为条件</font></p>
-<p>举例:构造下面推理的证明:</p>
-<p>"2是素数或合数. 若2是素数, 则 () 是无理数. 若 () 是无理数,
-则4不是素数. 所以, 如果4是素数, 则2是合数."</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5586ba2610cf6608c526036e805adb5.jpg" /></p>
-<h3 id="归谬法反证法">归谬法（反证法）</h3>
-<p>欲证 前提：(A1, A2, … , Ak)<br />
-结论：(B)</p>
-<p>做法 <font color = "red">在前提中加入<span class="math inline">\(lnot
-B\)</span>，推出矛盾.</font></p>
-<p>理由： <span class="math inline">\(A1\land A2\land …\land
-Ak\Rightarrow B\)</span> <span class="math inline">\(\equiv
-\lnot(A1\land A2\land …\land Ak)\lor B\)</span> <span
-class="math inline">\(\equiv \lnot(A1\land A2\land …\land Ak\land\lnot
-B)\)</span> <span class="math inline">\(\equiv \lnot(A1\land A2\land
-…\land Ak\land\lnot B)\lor 0\)</span> <span class="math inline">\(\equiv
-A1\land A2\land …\land Ak\land\lnot B\Rightarrow 0\)</span></p>
-<p>举例：</p>
-<p>前提：<span class="math inline">\(\lnot(p\land q))\lor r\)</span>,
-<span class="math inline">\(r\Rightarrow s\)</span>, <span
-class="math inline">\(\lnot s\)</span>, <span
-class="math inline">\(p\)</span><br />
-结论：<span class="math inline">\(\lnot q\)</span></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c8cc52970162529ec6abfc6e1d19155.jpg" /></p>
-<h1 id="消解证明法">消解证明法</h1>
-<p>基本做法：
-1.<font color = "red">把前提中的公式,结论的否定都化成等值的合取范式</font>
-2.<font color = "red">列出所有合取范式的所有简单析取式作为前提</font>
-3.用消解规则构造证明.
-4.<font color = "red">如果得到空式(就是矛盾），则证明推理是正确的.</font></p>
-<p>举例</p>
-<p>前提：<span class="math inline">\(q\Rightarrow p\)</span>, <span
-class="math inline">\(q\Leftrightarrow s\)</span>, <span
-class="math inline">\(s\Leftrightarrow t\)</span>, <span
-class="math inline">\(t\land r\)</span><br />
-结论：<span class="math inline">\(p\land q\land s\)</span></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/9451f03b4db5480042cc1f2b2ba5d82.jpg" /></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/b34dc25f.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -728,7 +587,7 @@ target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/611/learnin
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-30 21:37:31" itemprop="dateModified" datetime="2024-03-30T21:37:31+08:00">2024-03-30</time>
+                <time title="修改时间：2024-04-01 10:04:26" itemprop="dateModified" datetime="2024-04-01T10:04:26+08:00">2024-04-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -764,7 +623,7 @@ target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/611/learnin
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>720</span>
+              <span>726</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -784,6 +643,7 @@ target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/611/learnin
 
       
           <h1 id="快速入门">快速入门</h1>
+<p>&lt;!-</p>
 <h2 id="熟悉主控界面">熟悉主控界面</h2>
 <h3 id="寄存器栏">寄存器栏</h3>
 <p>实验代码</p>
@@ -1421,7 +1281,7 @@ srcPos, dest, destPos, length)</h1>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+                <time title="修改时间：2024-04-01 10:04:58" itemprop="dateModified" datetime="2024-04-01T10:04:58+08:00">2024-04-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1473,122 +1333,14 @@ srcPos, dest, destPos, length)</h1>
 
       
           <h1 id="排序">排序</h1>
-<h2 id="插入排序">插入排序</h2>
-<h3
-id="直接插入排序不断从无序序列中挑选出元素插入有序序列">直接插入排序：不断从无序序列中挑选出元素插入有序序列</h3>
-<h3
-id="折半插入排序先折半查找出待插入位置再统一移动">折半插入排序：先折半查找出待插入位置，再统一移动</h3>
-<h3
-id="希尔排序每次取不同的步长按步长从原序列里挑出子序列直到最后步长为0">希尔排序：每次取不同的步长，按步长从原序列里挑出子序列，直到最后步长为0</h3>
-<p>举例1：</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231230195246.jpg" /></p>
-<h2 id="交换排序">交换排序</h2>
-<h3 id="冒泡排序">冒泡排序：</h3>
-<h4
-id="每轮排序结果确定1个位置可以从最后一个开始也可以从第一个开始">每轮排序结果确定1个位置，可以从最后一个开始，也可以从第一个开始</h4>
-<h4
-id="每轮排序过程中比较交换两个相邻的元素">每轮排序过程中比较交换两个相邻的元素</h4>
-<h3
-id="快排主要思想是分治pivot前都比它小pivot后都比它大再对左右子序列继续选pivot分解">快排：主要思想是分治，pivot前都比它小，pivot后都比它大，再对左右子序列继续选pivot，分解</h3>
-<h4
-id="一轮分治过程中high和low依次运行">一轮分治过程中，high和low依次运行</h4>
-<h4
-id="首先high运行当high所指元素小于pivot时high所指元素放到low指的地方认为每次停下来i的那个highlow指向的位置为空">首先high运行，当high所指元素小于pivot时，high所指元素放到low指的地方（认为每次停下来i的那个（high/low）指向的位置为空)</h4>
-<h4
-id="然后low开始运行当low所指元素大于pivot时low所指元素放到high所指位置">然后low开始运行，当low所指元素大于pivot时，low所指元素放到high所指位置</h4>
-<h4
-id="不断循环直到low-high将pivot放到i与j此时指向的位置">不断循环直到low
-== high,将pivot放到i与j此时指向的位置</h4>
-<h4
-id="快排每次分治都有1个元素被放到最终位置">快排每次分治都有1个元素被放到最终位置</h4>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*Partition函数参数是待划分序列，开头位置（low指针指向的位置）结尾位置（high指针指向的位置），返回最终pivot的位置*/</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Partition</span><span class="params">(<span class="type">int</span> data[], <span class="type">int</span> high, <span class="type">int</span> low)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> pivot = data[low];</span><br><span class="line">    <span class="keyword">while</span>(low &lt; high) &#123;</span><br><span class="line">        <span class="keyword">while</span>(low &lt; high &amp;&amp; data[high] &gt;= pivot) high--;</span><br><span class="line">        data[low] = data[high];</span><br><span class="line">        <span class="keyword">while</span>(low &lt; high &amp;&amp; data[low] &lt;= pivot) low++;</span><br><span class="line">        data[high] = data[low];    </span><br><span class="line">    &#125;   </span><br><span class="line">    data[low] = pivot;</span><br><span class="line">    <span class="keyword">return</span> low;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*QuickSort函数参数是待划分序列，开头位置（low指向位置），结尾位置（high指向位置）*/</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">QuickSort</span><span class="params">(<span class="type">int</span> data[], <span class="type">int</span> low, <span class="type">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(low &lt; high) &#123;</span><br><span class="line">        <span class="type">int</span> pivotPosition = <span class="built_in">Partition</span>(data, low, high);</span><br><span class="line">        <span class="built_in">QuickSort</span>(data, low, pivotPosition - <span class="number">1</span>);    <span class="comment">//对左子表再快排</span></span><br><span class="line">        <span class="built_in">QuickSort</span>(data, pivotPosition + <span class="number">1</span>, high);   <span class="comment">//对右子表再快排</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>举例1：判断排序结果</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231122081638.jpg" />
-1 写出最终排序结果 2
-逐个选项选出已经放到应该排的位置的元素，因为针对每一个子列排序，都会有一个元素排到它应该排的位置，所以排第n趟的时候至少有n个元素已经放到正确位置
-3
-再看每个放到正确位置元素将原序列分成几段，因为如果每趟的pivot恰好放在端的地方，那么就是排第n趟的时候有n个元素归位，但如果分割了原序列，就是n+1</p>
-<h2 id="选择排序">选择排序</h2>
-<h3
-id="简单选择排序每次确定一个元素位置比如确定最后一个就是最大元素比较范围从1n-1确定倒数第二个比较范围从1到n-1以此类推">简单选择排序：每次确定一个元素位置，比如确定最后一个，就是最大元素，比较范围从1~n-1，确定倒数第二个，比较范围从1到n-1……以此类推</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231230213447.jpg" /></p>
-<h3 id="堆排序">堆排序</h3>
-<h4 id="存储与结构">1 存储与结构</h4>
-<h5 id="树形结构">1.1 树形结构</h5>
-<p>堆的最常用结构是二叉树，且一般是完全二叉树</p>
-<h5 id="存储结构">1.2 存储结构</h5>
-<p>堆实际存储一般不用指针，而是使用数组，如下图</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231124085512.jpg" /></p>
-<h5 id="数组下标关系">1.3 数组下标关系</h5>
-<h6 id="起始存储单元为1而不是0-0作为哨兵且也易于从子节点找到父节点">1.
-起始存储单元为1，而不是0, 0作为哨兵，且也易于从子节点找到父节点</h6>
-<h6
-id="对于下标为i的节点父节点下标是i2向下取整反过来对于下标为i的节点左孩子下标是2-i右孩子是-2-i-1">2.
-对于下标为i的节点，父节点下标是i/2向下取整，反过来，对于下标为i的节点，左孩子下标是2
-* i，右孩子是 2 * i + 1</h6>
-<h4 id="操作">2 操作</h4>
-<h5 id="插入">2.1 插入</h5>
-<p>以大顶堆为例</p>
-<h6
-id="先将待插入节点放到数组最后一位">先将<strong>待插入节点</strong>放到<strong>数组最后一位</strong></h6>
-<h6
-id="然后向上上滤寻找插入位置即与父节点比较如果比父节点大那么就把父节点下放-直到找到待插入节点应该插入的位置">然后<strong>向上上滤</strong>寻找插入位置，即与父节点比较，如果比父节点大，那么就把父节点<strong>下放</strong>
-，直到找到待插入节点应该插入的位置</h6>
-<p>但是注意到，如果插入的新节点比原堆中任意元素都大，那么到堆顶（下标为1）的时候又/=2得0，0不断/=2得0陷入死循环，所以如果已知堆中元素范围，可以将下标0设置为大于堆中可能元素，这样循环到0就一定会退出</p>
-<p>代码如下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX_NUM 1000000</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Insert</span><span class="params">(<span class="type">int</span> data[], <span class="type">int</span> x, <span class="type">int</span> size)</span> &#123;</span><br><span class="line">    <span class="type">int</span> i = ++size;	<span class="comment">//因为要插入元素，所以大顶堆size + 1</span></span><br><span class="line">    <span class="keyword">for</span>(; data[i / <span class="number">2</span>] &lt; x; i /= <span class="number">2</span>) &#123;	<span class="comment">//向上寻找插入位置</span></span><br><span class="line">        data[i] = data[i / <span class="number">2</span>];			<span class="comment">//将父节点下放</span></span><br><span class="line">    &#125;	</span><br><span class="line">    data[i] = x;	<span class="comment">//将新节点插入到应该插入的位置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="删除">2.2 删除</h5>
-<p>以大顶堆为例</p>
-<h6 id="先弹出根节点">先弹出根节点</h6>
-<h6
-id="然后取数组中最后一个元素因为它在大顶堆中必然是叶子节点向下下滤寻找插入位置">然后取数组中最后一个元素（因为它在大顶堆中必然是叶子节点）<strong>向下下滤</strong>寻找插入位置</h6>
-<h6
-id="通过与当前层为根节点此时为空的左右子树中最大值比较如果左右子树中最大值比最后一个元素大就将左右子树中最大值上移接着从上移节点的位置此时为空继续向下比较否则将最后一个元素插入当前层为根节点">通过<strong>与当前层为根节点（此时为空）</strong>的<strong>左右子树中最大值</strong>比较，如果左右子树中最大值比最后一个元素大，就将左右子树中最大值上移，接着从上移节点的位置（此时为空）继续向下比较，否则将最后一个元素插入当前层为根节点</h6>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231124095808.jpg" /></p>
-<p>代码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">PopMax</span><span class="params">(MaxHeap maxHeap)</span> &#123;</span><br><span class="line">	<span class="type">int</span> maxData = maxHeap-&gt;Data[<span class="number">1</span>];</span><br><span class="line">    <span class="type">int</span> x = maxHeap-&gt;Data[maxHeap-&gt;Size--];	<span class="comment">//选择原来大顶堆中最后一个存储的元素来下滤</span></span><br><span class="line">    <span class="type">int</span> parent = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> child;</span><br><span class="line">    <span class="keyword">for</span>(; parent * <span class="number">2</span> &lt;= maxHeap-&gt;Size; parent = child) &#123;</span><br><span class="line">        child = parent * <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(child != maxHeap-&gt;Size &amp;&amp; maxHeap-&gt;Data[child] &lt; maxHeap-&gt;Data[child + <span class="number">1</span>]) &#123;</span><br><span class="line">			child = child + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(x &lt; maxHeap-&gt;Data[child]) &#123;	<span class="comment">//将x与child比较，注意这时parent指向的位置为空, 如果小就将child提上来</span></span><br><span class="line">            maxHeap-&gt;Data[parent] = maxHeap-&gt;Data[child];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;	<span class="comment">//如果x比child大就break出循环，注意不能在循环里赋值，具体还不清楚，但在循环里就把x赋给parent会报错</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    maxHeap-&gt;Data[parent] = x;</span><br><span class="line">    <span class="keyword">return</span> maxData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="归并排序">归并排序</h2>
-<h3 id="一-算法思想分治">一 算法思想：分治</h3>
-<p>不过归并分治过程和快排有区别</p>
-<p>快排是先对一个大序列(在一个大序列中找到pivot，利用pivot将大序列分割成左右两个小序列)操作，再分割成小序列</p>
-<p>归并是先分割成小序列(先将大序列分割成小序列)
-，再操作(对将小序列两个两个归并成一个大序列)</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231128090112.jpg" /></p>
-<h4 id="分分割成小序列">1 “分”：分割成小序列</h4>
-<h4 id="治小序列两个两个合并成大序列">2
-治：小序列两个两个合并成大序列</h4>
-<h5 id="开一个辅助数组b">2.1 开一个辅助数组B</h5>
-<h5 id="将待排数组名义上两个但实际上存在一个里面存放到辅助数组里面">2.2
-将待排数组(名义上两个，但实际上存在一个里面)存放到辅助数组里面</h5>
-<h5
-id="这时待排数组为空利用两个指针分别指示待归并的两个数组的起点在辅助数组上移动将其中大的重新拷贝回待排数组">2.3
-这时待排数组为空，利用两个指针(分别指示待归并的两个数组的起点)在辅助数组上移动，将其中大的重新拷贝回待排数组</h5>
-<h5
-id="如果其中一个指针移动的位置超过了原来对应待归并的数组的范围将剩下一个数组里元素全部拷贝回待排数组">2.4
-如果其中一个指针移动的位置超过了原来对应待归并的数组的范围，将剩下一个数组里元素全部拷贝回待排数组</h5>
-<h3 id="二-代码">二 代码</h3>
-<h4 id="merge用来合并两个序列">Merge()(用来合并两个序列)</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> Assistance[MAXNUM];</span><br><span class="line"><span class="type">void</span> <span class="title function_">Merge</span><span class="params">(<span class="type">int</span> data[], <span class="type">int</span> low, <span class="type">int</span> high, <span class="type">int</span> mid)</span> &#123;</span><br><span class="line">    <span class="comment">/*拷贝到辅助数组*/</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; high; i++) &#123;</span><br><span class="line">        Assistance[i] = data[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> p, q, r;</span><br><span class="line">    <span class="keyword">for</span>(p = low, q = mid + <span class="number">1</span>, r = low; p &lt;= mid &amp;&amp; q &lt;= high; ) &#123;</span><br><span class="line">        <span class="keyword">if</span>(Assistance[p] &gt; Assistance[q]) &#123;</span><br><span class="line">            data[r++] = Assistance[q];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            data[r++] = Assistance[p];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(p &lt;= mid) data[r++] = Assistance[p];</span><br><span class="line">    <span class="keyword">while</span>(q &lt;= high) data[r++] = Assistance[q]; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-<h4 id="mergesort用来分割">MergeSort()(用来分割)</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">MergeSort</span><span class="params">(<span class="type">int</span> data[], <span class="type">int</span> low, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(low &lt; high) &#123;</span><br><span class="line">        <span class="type">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">        MergeSort(data, low, mid);</span><br><span class="line">        MergeSort(data, mid + <span class="number">1</span>, low);</span><br><span class="line">        Merge(data, low, high, mid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="基数排序">基数排序</h2>
-<h3 id="主要思想">主要思想</h3>
-<h4
-id="不基于比较和移动而基于关键字各位的大小">不基于比较和移动，而基于关键字各位的大小</h4>
-<h4 id="分配">分配：</h4>
-<h4 id="收集">收集：</h4>
-<p>举例：</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231231071221.jpg" /></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231231071233.jpg" /></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/a444b428.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
