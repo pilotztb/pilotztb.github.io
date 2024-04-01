@@ -192,6 +192,260 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b34dc25f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/b34dc25f.html" class="post-title-link" itemprop="url">第三章-命题逻辑的推理理论</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-25 14:02:54" itemprop="dateCreated datePublished" datetime="2024-03-25T14:02:54+08:00">2024-03-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">离散数学</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%90%86%E9%80%BB%E8%BE%91%E4%B8%8E%E9%9B%86%E5%90%88%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">数理逻辑与集合论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/b34dc25f.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/b34dc25f.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="推理的形式结构">推理的形式结构</h1>
+<h2 id="推理的正确与错误">推理的正确与错误</h2>
+<p>设 A1, A2, ..., Ak, B 为命题公式。若对于每一组赋值，当 A1 ∧ A2 ∧ ...
+∧ Ak 为假时，或者当 A1 ∧ A2 ∧ ... ∧ Ak 为真时，B 也为真，则称由前提 A1,
+A2, ..., Ak 推出结论 B 的推理是有效的或正确的，并称 B 是有效结论。</p>
+<h2 id="推理的形式结构-1">推理的形式结构</h2>
+<ol type="1">
+<li>{A1, A2, …, Ak} ⊢ B 若推理正确，记为 {A1, A2, ..., An} ⊢ B 记Γ =
+{A1, A2, …, Ak}，则 Γ ⊢ B. 若推理正确，则 Γ ⊢ B.</li>
+<li><span class="math inline">\((A1 ∧ A2 ∧ … ∧ Ak \rightarrow B)
+若推理正确，记为 (A1 ∧ A2 ∧ … ∧ Ak \Rightarrow B)\)</span></li>
+<li>前提：(A1, A2, ..., Ak) 结论：(B)</li>
+</ol>
+<h2 id="判断推理正确的方法">判断推理正确的方法</h2>
+<ol type="1">
+<li>真值表法</li>
+<li>等值演算法</li>
+<li>主析取范式法</li>
+</ol>
+<p>举例：</p>
+<p>判断下面推理是否正确 (1) 若今天是1号, 则明天是5号. 今天是1号. 所以,
+明天是5号.<br />
+(2) 若今天是1号, 则明天是5号. 明天是5号. 所以, 今天是1号.</p>
+<p>首先表示（1）</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/6a754e0ce024506e9bd01c6a5fb74f2.jpg" /></p>
+<p>用等值演算法</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5e7b6268e783c344436a60e51802d24.jpg" /></p>
+<p>用主析取范式，以（2）为例</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/77a01b599885f2e3178da79f3b105ae.jpg" /></p>
+<h2 id="推理定律重点"><font color = "red">推理定律(重点)</font></h2>
+<ol type="1">
+<li><span class="math inline">\(A \Rightarrow (A \lor B)\)</span> 附加律
+(如果命题A为真，那么命题A或B为真)</li>
+<li><span class="math inline">\((A \land B) \Rightarrow A\)</span>
+化简律</li>
+<li><span class="math inline">\((A \Rightarrow B) \land A \Rightarrow
+B\)</span> 假言推理</li>
+<li><span class="math inline">\((A \Rightarrow B) \land \lnot B
+\Rightarrow \lnot A\)</span> 拒取式<br />
+</li>
+<li><span class="math inline">\((A \lor B) \land \lnot B \Rightarrow
+A\)</span> 析取三段论</li>
+<li><span class="math inline">\((A \Rightarrow B) \land (B \Rightarrow
+C) \Rightarrow (A \Rightarrow C)\)</span> 假言三段论</li>
+<li><span class="math inline">\((A \Leftrightarrow B) \land (B
+\Leftrightarrow C) \Rightarrow (A \Leftrightarrow C)\)</span>
+等价三段论</li>
+<li><span class="math inline">\((A \Rightarrow B) \land (C \Rightarrow
+D) \land (A \lor C) \Rightarrow (B \lor D)\)</span> 构造性二难 <span
+class="math inline">\((A \Rightarrow B) \land (\lnot A \Rightarrow B)
+\Rightarrow B\)</span> 构造性二难(特殊形式)</li>
+<li><span class="math inline">\((A \Rightarrow B) \land (C \Rightarrow
+D) \land (\lnot B \lor \lnot D) \Rightarrow (\lnot A \lor \lnot
+C)\)</span> 破坏性二难</li>
+</ol>
+<p>每个等值式可产生两个推理定律 如，由 <span class="math inline">\(A
+\Leftrightarrow \lnot \lnot A\)</span> 可产生 <span
+class="math inline">\(A \Rightarrow \lnot \lnot A\)</span> 和 <span
+class="math inline">\(\lnot \lnot A \Rightarrow A\)</span></p>
+<h1 id="自然推理系统p">自然推理系统P</h1>
+<h2 id="形式系统的定义与分类">形式系统的定义与分类</h2>
+<h2 id="自然推理系统p-1">自然推理系统P</h2>
+<h3 id="字母表">字母表</h3>
+<ol type="1">
+<li>命题变项符号：p, q, r, …, pi, qi, ri, …</li>
+<li>联结词符号：¬, ∧, ∨, →, ↔︎</li>
+<li>括号与逗号：(, ), ，</li>
+</ol>
+<h3 id="合式公式同定义1.6">合式公式（同定义1.6）</h3>
+<p>有限次地应用联结词和括号形成的命题符号串是合式公式</p>
+<h3
+id="推理规则重点中的重点"><font color = "red">推理规则(重点中的重点)</font></h3>
+<ol type="1">
+<li>前提引入规则</li>
+<li>结论引入规则</li>
+<li>置换规则（就是德摩根律）</li>
+</ol>
+<p>注：</p>
+<p><font color = "red">假言推理在于蕴含式前提为真</font></p>
+<p><font color = "red">拒取式规则在于蕴含式结论为假</font></p>
+<p><font color = "red">假言三段论在于递推</font></p>
+<p><font color = "red">析取三段论或的一方为假</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240325150416218.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240325150426381.png" /></p>
+<h2
+id="在p中构造证明直接证明法附加前提证明法归谬法">在P中构造证明:直接证明法、附加前提证明法、归谬法</h2>
+<h3 id="直接证明法">直接证明法</h3>
+<p>举例：</p>
+<p>构造下面推理的证明： 若明天是星期一或星期三, 我明天就有课.
+若我明天有课, 今天必备课. 我今天没备课. 所以, 明天不是星期一, 也不
+是星期三.</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/1d9392a9b4536441ba48c4005c0ce49.jpg" /></p>
+<h3 id="附加前提证明法">附加前提证明法</h3>
+<p>欲证 前提：(A1, A2, …, Ak) 结论：<span class="math inline">\(C
+\Rightarrow B\)</span></p>
+<p>等价地证明 前提：(A1, A2, …, Ak, C) 结论：B</p>
+<p>理由： <span class="math inline">\((A1 \land A2 \land … \land Ak)
+\Rightarrow (C \Rightarrow B)\)</span> <span
+class="math inline">\(\equiv \lnot (A1 \land A2 \land … \land Ak) \lor
+(\lnot C \lor B)\)</span> <span class="math inline">\(\equiv \lnot (A1
+\land A2 \land … \land Ak \land C) \lor B\)</span> <span
+class="math inline">\(\equiv (A1 \land A2 \land … \land Ak \land C)
+\Rightarrow B\)</span></p>
+<p><font color = "red">适用于结论为蕴涵式，本质就是将本来结论中的前提也作为条件</font></p>
+<p>举例:构造下面推理的证明:</p>
+<p>"2是素数或合数. 若2是素数, 则 () 是无理数. 若 () 是无理数,
+则4不是素数. 所以, 如果4是素数, 则2是合数."</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5586ba2610cf6608c526036e805adb5.jpg" /></p>
+<h3 id="归谬法反证法">归谬法（反证法）</h3>
+<p>欲证 前提：(A1, A2, … , Ak)<br />
+结论：(B)</p>
+<p>做法 <font color = "red">在前提中加入<span class="math inline">\(lnot
+B\)</span>，推出矛盾.</font></p>
+<p>理由： <span class="math inline">\(A1\land A2\land …\land
+Ak\Rightarrow B\)</span> <span class="math inline">\(\equiv
+\lnot(A1\land A2\land …\land Ak)\lor B\)</span> <span
+class="math inline">\(\equiv \lnot(A1\land A2\land …\land Ak\land\lnot
+B)\)</span> <span class="math inline">\(\equiv \lnot(A1\land A2\land
+…\land Ak\land\lnot B)\lor 0\)</span> <span class="math inline">\(\equiv
+A1\land A2\land …\land Ak\land\lnot B\Rightarrow 0\)</span></p>
+<p>举例：</p>
+<p>前提：<span class="math inline">\(\lnot(p\land q))\lor r\)</span>,
+<span class="math inline">\(r\Rightarrow s\)</span>, <span
+class="math inline">\(\lnot s\)</span>, <span
+class="math inline">\(p\)</span><br />
+结论：<span class="math inline">\(\lnot q\)</span></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c8cc52970162529ec6abfc6e1d19155.jpg" /></p>
+<h1 id="消解证明法">消解证明法</h1>
+<p>基本做法：
+1.<font color = "red">把前提中的公式,结论的否定都化成等值的合取范式</font>
+2.<font color = "red">列出所有合取范式的所有简单析取式作为前提</font>
+3.用消解规则构造证明.
+4.<font color = "red">如果得到空式(就是矛盾），则证明推理是正确的.</font></p>
+<p>举例</p>
+<p>前提：<span class="math inline">\(q\Rightarrow p\)</span>, <span
+class="math inline">\(q\Leftrightarrow s\)</span>, <span
+class="math inline">\(s\Leftrightarrow t\)</span>, <span
+class="math inline">\(t\land r\)</span><br />
+结论：<span class="math inline">\(p\land q\land s\)</span></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/9451f03b4db5480042cc1f2b2ba5d82.jpg" /></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/5f80bd04.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1349,113 +1603,6 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/499231f7.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/499231f7.html" class="post-title-link" itemprop="url">如何更新github上过期的token</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-17 11:33:11" itemprop="dateCreated datePublished" datetime="2024-03-17T11:33:11+08:00">2024-03-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-27 06:40:09" itemprop="dateModified" datetime="2024-03-27T06:40:09+08:00">2024-03-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%B5%E8%84%91%E5%B0%8F%E6%8A%80%E5%B7%A7/" itemprop="url" rel="index"><span itemprop="name">电脑小技巧</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/499231f7.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/499231f7.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>56</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>主要是为了更新picgo，git其实使用ssh就没必要（目前看来）</p>
-<h1 id="生成新token">生成新token</h1>
-<p><a
-target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">参考文章</a></p>
-<h1 id="更新picgo">更新picgo</h1>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/489236769">参考文章</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1527,7 +1674,7 @@ target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/k
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1588,13 +1735,13 @@ target="_blank" rel="noopener" href="https://docs.github.com/en/authentication/k
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">300k</span>
+    <span title="站点总字数">305k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:33</span>
+    <span title="站点阅读时长">4:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
