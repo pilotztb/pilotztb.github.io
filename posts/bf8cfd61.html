@@ -30,7 +30,7 @@
 <meta property="og:description" content="一阶逻辑命题符号化">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-01T06:01:54.000Z">
-<meta property="article:modified_time" content="2024-04-01T08:52:00.453Z">
+<meta property="article:modified_time" content="2024-04-01T15:19:26.235Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -219,7 +219,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-04-01 14:01:54 / 修改时间：16:52:00" itemprop="dateCreated datePublished" datetime="2024-04-01T14:01:54+08:00">2024-04-01</time>
+              <time title="创建时间：2024-04-01 14:01:54 / 修改时间：23:19:26" itemprop="dateCreated datePublished" datetime="2024-04-01T14:01:54+08:00">2024-04-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,7 +262,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>599</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -300,9 +300,8 @@ H等表示</strong></p>
 <p>定义：表示个体常项或变项之间数量关系的词</p>
 <p><strong>全称量词∀</strong></p>
 <p><strong>存在量词∃</strong></p>
-<hr style = "border:2px solid yellow;">
-<p>举例：</p>
-<p>题1：0元谓词</p>
+<h2 id="一阶逻辑命题符号化-1">一阶逻辑命题符号化</h2>
+<h3 id="元谓词">0元谓词</h3>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240401141229538.png" /></p>
 <p>解析：</p>
@@ -313,7 +312,7 @@ target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1h1421U7Yt
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e6175f817d342a0f111b3a39332ef34.jpg" /></p>
 <hr style = "border:2px solid yellow;">
-<p>题2：涉及到量词</p>
+<h3 id="涉及到量词">涉及到量词</h3>
 <p>在一阶逻辑中将下面命题符号化 (1) 人都爱美 (2) 有人用左手写字
 个体域分别为 (a) D为人类集合 (b) D为全总个体域</p>
 <p>分析：</p>
@@ -336,24 +335,76 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e6175f817d342a0f111b3a
 target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1wp421y7QA/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/df718134d2f6c900f4199ab6ff090de.jpg" /></p>
-<hr style = "border:2px solid yellow">
-<p>题3：多元变量的符号化</p>
+<h3 id="多元变量的符号化">多元变量的符号化</h3>
 <p>在一阶逻辑中将下面命题符号化 (1) 正数都大于负数 (2)
 有的无理数大于有的有理数</p>
 <p><a href="">视频讲解</a></p>
-<hr style = "border:2px solid yellow">
-<p>题4：带否定的命题符号化</p>
+<h3 id="带否定的命题符号化">带否定的命题符号化</h3>
 <p>在一阶逻辑中将下面命题符号化 (1) 没有不呼吸的人 (2)
 不是所有的人都喜欢吃糖</p>
 <p><a
 target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fx4y1a7Z1/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
-<hr style = "border:2px solid yellow">
-<h2 id="一阶逻辑命题符号化-1">一阶逻辑命题符号化</h2>
+<h3 id="顺序不能调换">顺序不能调换</h3>
+<p>设个体域为实数域, 将下面命题符号化 (1)
+对每一个数x都存在一个数y使得x&lt;y (2)
+存在一个数x使得对每一个数y都有x&lt;y</p>
+<p>分析：</p>
+<p>解 L(x,y):x&lt;y</p>
+<ol type="1">
+<li><p>∀x∃yL(x,y)</p></li>
+<li><p>∃x∀yL(x,y)</p></li>
+</ol>
 <h1 id="一阶逻辑公式及其解释">一阶逻辑公式及其解释</h1>
-<h2 id="一阶语言">一阶语言</h2>
 <h2 id="合式公式">合式公式</h2>
+<p>合式公式定义如下： (1) 原子公式是合式公式. (2) 若A是合式公式，则
+(¬A)也是合式公式 (3) 若A, B是合式公式，则(A∧B), (A∨B), (A→B),
+(A↔︎B)也是合式公式 (4) 若A是合式公式，则∀xA, ∃xA也是合式公式 (5)
+只有有限次地应用(1)—(4)形成的符号串才是合式公式.
+合式公式也称为谓词公式，简称公式 如, F(x), F(x)∨¬G(x,y), ∀x(F(x)→G(x))
+∃x∀y(F(x)→G(y)∧L(x,y))等都是合式公式</p>
+<h2 id="封闭的公式">封闭的公式</h2>
+<h3 id="指导变元和辖域">指导变元和辖域</h3>
+<p>定义:在公式 ∀xA 和 ∃xA 中，称 x 为指导变元，A 为相应量词的辖域。在 ∀x
+和 ∃x 的辖域中，x 的所有出现都称为约束出现，A
+中不是约束出现的其他变项均称为是自由出现的。</p>
+<p>举例：</p>
+<p>例1：</p>
+<p>∀x(F(x,y)→G(x,z))，x 为指导变元，(F(x,y)→G(x,z)) 为 ∀x 的辖域，x
+的两次出现均为约束出现，y 与 z 均为自由出现。</p>
+<p>例2：</p>
+<p>∃x(F(x,y,z)→∀y(G(x,y)∧H(x,y,z)))，∃x 中的 x 是指导变元，辖域为
+(F(x,y,z)→∀y(G(x,y)∧H(x,y,z)))。∀y 中的 y 是指导变元，辖域为
+(G(x,y)∧H(x,y,z))。x 的 3 次出现都是约束出现，y
+的第一次出现是自由出现，后 2 次是约束出现，z 的 2
+次出现都是自由出现。</p>
+<p><a href="">视频讲解</a></p>
+<h3 id="闭式">闭式</h3>
+<p>定义4.6 若公式 A 中不含自由出现的个体变项，则称 A
+为封闭的公式，简称闭式。</p>
+<p>例如，∀x∀y(F(x)∧G(y)→H(x,y)) 为闭式，而 ∃x(F(x)∧G(x,y)) 不是闭式</p>
 <h2 id="合式公式的解释">合式公式的解释</h2>
+<p>说白了就是广义赋值</p>
+<hr style = "border:2px solid yellow;">
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240401231018822.png" /></p>
+<p><a href="">视频讲解</a></p>
+<hr style = "border:2px solid yellow;">
 <h2 id="永真式矛盾式可满足式">永真式、矛盾式、可满足式</h2>
+<ol type="1">
+<li>闭式在任何解释下都是命题</li>
+<li>若公式A在任何解释下均为真, 则称A为永真式(逻辑有效式).
+若A在任何解释下均为假, 则称A为矛盾式(永假式). 若至少有一个解释使A为真,
+则称A为可满足式.</li>
+</ol>
+<blockquote>
+<p>注：</p>
+<p>永真式为可满足式，但反之不真 判断公式是否是可满足的(永真式,
+矛盾式)是不可判定的</p>
+</blockquote>
+<h2 id="代换实例">代换实例</h2>
+<p>说白了就是替换，将复杂的替换成简单的</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240401231924387.png" /></p>
 
     </div>
 
@@ -389,7 +440,10 @@ target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fx4y1a7Z1
     <a href="/posts/37035380.html" rel="prev" title="数字与字符串">
       <i class="fa fa-chevron-left"></i> 数字与字符串
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/posts/2bef7a4d.html" rel="next" title="SpringerLink">
+      SpringerLink <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -449,7 +503,7 @@ target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fx4y1a7Z1
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E9%80%BB%E8%BE%91%E5%91%BD%E9%A2%98%E7%AC%A6%E5%8F%B7%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">一阶逻辑命题符号化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AA%E4%BD%93%E8%AF%8D%E8%B0%93%E8%AF%8D%E9%87%8F%E8%AF%8D"><span class="nav-number">1.1.</span> <span class="nav-text">个体词、谓词、量词</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%93%E8%AF%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">谓词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8F%E8%AF%8D"><span class="nav-number">1.1.2.</span> <span class="nav-text">量词</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E9%80%BB%E8%BE%91%E5%91%BD%E9%A2%98%E7%AC%A6%E5%8F%B7%E5%8C%96-1"><span class="nav-number">1.2.</span> <span class="nav-text">一阶逻辑命题符号化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E9%80%BB%E8%BE%91%E5%85%AC%E5%BC%8F%E5%8F%8A%E5%85%B6%E8%A7%A3%E9%87%8A"><span class="nav-number">2.</span> <span class="nav-text">一阶逻辑公式及其解释</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E8%AF%AD%E8%A8%80"><span class="nav-number">2.1.</span> <span class="nav-text">一阶语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%BC%8F%E5%85%AC%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">合式公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%BC%8F%E5%85%AC%E5%BC%8F%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">2.3.</span> <span class="nav-text">合式公式的解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B0%B8%E7%9C%9F%E5%BC%8F%E7%9F%9B%E7%9B%BE%E5%BC%8F%E5%8F%AF%E6%BB%A1%E8%B6%B3%E5%BC%8F"><span class="nav-number">2.4.</span> <span class="nav-text">永真式、矛盾式、可满足式</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E9%80%BB%E8%BE%91%E5%91%BD%E9%A2%98%E7%AC%A6%E5%8F%B7%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">一阶逻辑命题符号化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AA%E4%BD%93%E8%AF%8D%E8%B0%93%E8%AF%8D%E9%87%8F%E8%AF%8D"><span class="nav-number">1.1.</span> <span class="nav-text">个体词、谓词、量词</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%93%E8%AF%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">谓词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8F%E8%AF%8D"><span class="nav-number">1.1.2.</span> <span class="nav-text">量词</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E9%80%BB%E8%BE%91%E5%91%BD%E9%A2%98%E7%AC%A6%E5%8F%B7%E5%8C%96-1"><span class="nav-number">1.2.</span> <span class="nav-text">一阶逻辑命题符号化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E8%B0%93%E8%AF%8D"><span class="nav-number">1.2.1.</span> <span class="nav-text">0元谓词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%89%E5%8F%8A%E5%88%B0%E9%87%8F%E8%AF%8D"><span class="nav-number">1.2.2.</span> <span class="nav-text">涉及到量词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%85%83%E5%8F%98%E9%87%8F%E7%9A%84%E7%AC%A6%E5%8F%B7%E5%8C%96"><span class="nav-number">1.2.3.</span> <span class="nav-text">多元变量的符号化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E5%90%A6%E5%AE%9A%E7%9A%84%E5%91%BD%E9%A2%98%E7%AC%A6%E5%8F%B7%E5%8C%96"><span class="nav-number">1.2.4.</span> <span class="nav-text">带否定的命题符号化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E4%B8%8D%E8%83%BD%E8%B0%83%E6%8D%A2"><span class="nav-number">1.2.5.</span> <span class="nav-text">顺序不能调换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E9%80%BB%E8%BE%91%E5%85%AC%E5%BC%8F%E5%8F%8A%E5%85%B6%E8%A7%A3%E9%87%8A"><span class="nav-number">2.</span> <span class="nav-text">一阶逻辑公式及其解释</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%BC%8F%E5%85%AC%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">合式公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E9%97%AD%E7%9A%84%E5%85%AC%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">封闭的公式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AF%BC%E5%8F%98%E5%85%83%E5%92%8C%E8%BE%96%E5%9F%9F"><span class="nav-number">2.2.1.</span> <span class="nav-text">指导变元和辖域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AD%E5%BC%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">闭式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%BC%8F%E5%85%AC%E5%BC%8F%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">2.3.</span> <span class="nav-text">合式公式的解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B0%B8%E7%9C%9F%E5%BC%8F%E7%9F%9B%E7%9B%BE%E5%BC%8F%E5%8F%AF%E6%BB%A1%E8%B6%B3%E5%BC%8F"><span class="nav-number">2.4.</span> <span class="nav-text">永真式、矛盾式、可满足式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E6%8D%A2%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.5.</span> <span class="nav-text">代换实例</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -465,7 +519,7 @@ target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fx4y1a7Z1
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -526,13 +580,13 @@ target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fx4y1a7Z1
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">306k</span>
+    <span title="站点总字数">308k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:38</span>
+    <span title="站点阅读时长">4:40</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
