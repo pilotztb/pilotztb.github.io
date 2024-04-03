@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #712b82;
+  background: #303614;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2549,26 +2549,7 @@ body {
 /* 主体背景透明设置及组件位置调整 */
 .main-inner {
   background-color: #000; /* 设置主体背景 */
-  padding: 0px 10px 10px 10px; /* 调整组件位置 */
-}
-/* 博客内容透明化 */
-.post-block {
-  background: #000 none repeat scroll !important; /* 文章内容的透明度设置 */
-}
-.pagination {
-  background: #000; /* 分页(主页最下面的那一小块) */
-}
-.header-inner {
-  background: #000; /* 菜单栏背景 */
-}
-.sidebar-inner {
-  background: #000 none repeat scroll !important; /* 侧边框的透明度设置 */
-}
-.popup {
-  opacity: 0.9; /* 搜索框（local-search）的透明度设置 */
-}
-.comments {
-  background: rgba(0,0,0,0.9); /* 评论区 */
+  padding: 0px 100px 100px 100px; /* 调整组件位置 */
 }
 /* 侧边栏图标格式设置 */
 .bilibili {
