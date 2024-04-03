@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #86c4d7;
+  background: #42b3ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2548,20 +2548,20 @@ body {
 }
 /* 主体背景透明及调整组件位置 */
 .main-inner {
-  background-color: rgba(0,0,0,0.8); /* 主体背景透明 */
+  background-color: rgba(0,0,0,0.9); /* 主体背景透明 */
   padding: 0px 100px 100px 100px; /* 调整组件位置 */
 }
 /* 侧边框的透明度设置 */
 .sidebar {
-  opacity: 0.7;
+  opacity: 0.9;
 }
 /* 菜单栏的调色 */
 .header-inner {
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.9);
 }
 /* 搜索框透明 */
 .popup {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 /* 侧边栏图标格式设置 */
 .bilibili {
