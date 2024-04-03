@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #9a2199;
+  background: #b6ffff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2552,20 +2552,7 @@ body {
 .main-inner > .tabs-comment,
 .main-inner > .comments,
 .main-inner > .pagination {
-  background: rgba(245,245,245,0.42); /* 此处使用十六进制颜色代码，也可以使用 rgba 进行调色，
-                              实际效果为白色透明色底板，rgba 的第四参数即为透明度 */
-}
-/* 修改主体字体颜色 */
-body {
-  color: #000; /* 纯黑 */
-}
-/* 标题颜色 */
-.posts-expand .post-title-link {
-  color: #000; /* 首页文章标题颜色，默认为灰色，辨识度不高 */
-}
-/* 标题下的日期颜色 */
-.posts-expand .post-meta-container {
-  color: #800; /* 此处修改为红色，可自行调用 rgb 调色 */
+  background: #000; /* 黑色背景 */
 }
 /* 侧边框的透明度设置 */
 .sidebar {
@@ -2573,7 +2560,7 @@ body {
 }
 /* 菜单栏的调色 */
 .header-inner {
-  background: rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.7);
 }
 /* 搜索框透明 */
 .popup {
