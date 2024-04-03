@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f49d98;
+  background: #0a47f0;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2549,6 +2549,9 @@ body {
 /* 主体背景透明设置及组件位置调整 */
 .main-inner {
   padding: 0px 100px 100px 100px; /* 调整组件位置 */
+}
+.post-block {
+  background: #000 none repeat scroll !important;
 }
 .comments {
   background: rgba(0,0,0,0.8); /* 评论区 */
