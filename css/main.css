@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #afff25;
+  background: #3cffff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2556,7 +2556,6 @@ body {
 }
 /* 主体背景透明及调整组件位置 */
 .main-inner {
-  background-color: rgba(255,255,255,0); /* 主体背景透明 */
   padding: 0px 100px 100px 100px; /* 调整组件位置 */
 }
 /* 侧边框的透明度设置 */
