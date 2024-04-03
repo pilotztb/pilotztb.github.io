@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="大数定律与中心极限定理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第五章：大数定律与中心极限定理">
+<meta property="og:url" content="http://example.com/posts/c0910902.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="大数定律与中心极限定理">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-03T00:39:30.000Z">
+<meta property="article:modified_time" content="2024-04-03T00:40:36.697Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/c0910902.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>第五章：大数定律与中心极限定理 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c0910902.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第五章：大数定律与中心极限定理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-03 08:39:30 / 修改时间：08:40:36" itemprop="dateCreated datePublished" datetime="2024-04-03T08:39:30+08:00">2024-04-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A6%82%E7%8E%87%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">概率论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/c0910902.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/c0910902.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>988</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="大数定律与中心极限定理">大数定律与中心极限定理</h1>
+<span id="more"></span>
+<h2 id="一依概率收敛">(一）依概率收敛</h2>
+<h3 id="一定义">一：定义</h3>
+<h4
+id="鬼话forall-epsilon-0-exist-n-0-当n-n时-有lim_n-to-inftypleftx_n-a-epsilonright-1则称x_n依概率收敛于a">鬼话：<span
+class="math inline">\(\forall \epsilon &gt; 0, \exist N &gt; 0, 当n &gt;
+N时, 有\lim_{n \to \infty}P\left\{|X_n-a| &lt; \epsilon\right\} =
+1,则称X_n依概率收敛于a\)</span></h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231126134818.jpg" /></p>
+<h4 id="人话形容一列数x_n到点a的距离很近极限状态下概率是1">人话：<span
+class="math inline">\(形容一列数X_n到点a的距离很近，极限状态下概率是1\)</span></h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231126134851.jpg" /></p>
+<h3
+id="题型证明一个随机变量序列收敛">题型：证明一个随机变量序列收敛</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231126140719.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231126140649.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231126140824.jpg" /></p>
+<h4 id="方法">方法</h4>
+<h5 id="构造xn到一个数的距离小于ε">1 构造Xn到一个数的距离小于ε</h5>
+<h5 id="对上面构造的求极限一般会向切比雪夫不等式靠近">2
+对上面构造的求极限，一般会向切比雪夫不等式靠近</h5>
+<h2 id="二大数定律">(二)大数定律</h2>
+<h3 id="切比雪夫">1 切比雪夫</h3>
+<h4 id="条件">条件</h4>
+<h5 id="变量序列相互独立">(1) 变量序列相互独立</h5>
+<h5 id="变量序列的方差存在且有上界">(2) 变量序列的方差存在且有上界</h5>
+<h4
+id="结论-frac1n-sum_i1n-x_i-oversetprightarrow-frac1nsum_i1nex_i-这堆变量序列的均值最终依概率收敛到这堆变量序列的期望们的均值">结论
+<span class="math inline">\(\frac{1}{n} \sum_{i=1}^n X_i
+\overset{P}{\rightarrow} \frac{1}{n}\sum_{i=1}^{n}E(X_i)\)</span> ,
+这堆变量序列的均值最终依概率收敛到这堆变量序列的期望们的均值</h4>
+<h3 id="辛钦">2 辛钦</h3>
+<h4 id="条件-1">条件</h4>
+<h5 id="独立">(1) 独立</h5>
+<h5 id="同分布">(2) 同分布</h5>
+<h5 id="期望存在">(3) 期望存在</h5>
+<h4
+id="结论-frac1nsum_i1nx_i-frac1nsum_i1nex_i-frac1nnu-u-与切比雪夫结论类似不过因为同分布所以ex_i一样">结论
+<span class="math inline">\(\frac{1}{n}\sum_{i=1}^{n}X_i =
+\frac{1}{n}\sum_{i=1}^{n}E(X_i) = \frac{1}{n}nu = u\)</span>,
+与切比雪夫结论类似，不过因为同分布所以<span
+class="math inline">\(E(X_i)一样\)</span></h4>
+<h2 id="三-中心极限定理">(三) 中心极限定理</h2>
+<h3 id="条件-2">条件</h3>
+<h4 id="xi独立同分布于某种类型的分布">(1)
+Xi独立同分布于某种类型的分布</h4>
+<h4 id="xi的期望和方差都存在分别设期望是u方差是σ2">(2)
+Xi的期望和方差都存在，分别设期望是u，方差是σ^2</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231126144358.jpg" /></p>
+<h3
+id="结论对xi求和再取极限n-就趋向于正态分布nnsigma-nsigma2">结论：对Xi求和再取极限(n-&gt;∞)就趋向于正态分布<span
+class="math inline">\(N(n\sigma, n\sigma^2)\)</span></h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231126144404.jpg" /></p>
+<h3 id="标准化的结论">标准化的结论</h3>
+<h4 id="fracsum_i1nx_i-nsigmasqrtnsigma-sim-n0-1">1 <span
+class="math inline">\(\frac{(\sum_{i=1}^{n}X_i)-n\sigma}{\sqrt{n}\sigma}
+\sim N(0, 1)\)</span></h4>
+<h4
+id="lim_nrightarrowinftypleftfracsum_i1nx_i-nsigmasqrtnsigma-leq-xright-phix">2
+<span
+class="math inline">\(\lim_{n\rightarrow\infty}P\left\{\frac{(\sum_{i=1}^{n}X_i)-n\sigma}{\sqrt{n}\sigma}
+\leq x\right\} = \Phi{(x)}\)</span></h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231126144407.jpg" /></p>
+<p>对于二项分布来说，其实每一次是一个0-1分布，所以均值是0-1分布的均值而不是二项分布的均值</p>
+<h3 id="题型求一个范围ab的概率">题型：求一个范围A~B的概率</h3>
+<h4 id="看一次取样满足于什么分布">1 看一次取样满足于什么分布</h4>
+<h4 id="求这种分布的均值u和方差σ">2 求这种分布的均值u和方差σ</h4>
+<h4 id="看取了几次样作为n得到近似正态分布nnu-nσ2">3
+看取了几次样，作为n，得到近似正态分布<span class="math inline">\(N(nu,
+nσ^2)\)</span></h4>
+<h4 id="ab的概率就是φfracb-nuσ---φfraca-nuσ">4 A~B的概率就是<span
+class="math inline">\(Φ(\frac{B-nu}{σ}) -
+Φ(\frac{A-nu}{σ})\)</span></h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231214163043.jpg" /></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/c0910902.html" title="第五章：大数定律与中心极限定理">http://example.com/posts/c0910902.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/a17c09d9.html" rel="prev" title="第四章：随机变量的数字特征">
+      <i class="fa fa-chevron-left"></i> 第四章：随机变量的数字特征
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/29760bc5.html" rel="next" title="第六章：数理统计">
+      第六章：数理统计 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B%E4%B8%8E%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">大数定律与中心极限定理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BE%9D%E6%A6%82%E7%8E%87%E6%94%B6%E6%95%9B"><span class="nav-number">1.1.</span> <span class="nav-text">(一）依概率收敛</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">一：定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AC%BC%E8%AF%9Dforall-epsilon-0-exist-n-0-%E5%BD%93n-n%E6%97%B6-%E6%9C%89lim_n-to-inftypleftx_n-a-epsilonright-1%E5%88%99%E7%A7%B0x_n%E4%BE%9D%E6%A6%82%E7%8E%87%E6%94%B6%E6%95%9B%E4%BA%8Ea"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">鬼话：\(\forall \epsilon &gt; 0, \exist N &gt; 0, 当n &gt;
+N时, 有\lim_{n \to \infty}P\left\{|X_n-a| &lt; \epsilon\right\} &#x3D;
+1,则称X_n依概率收敛于a\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E8%AF%9D%E5%BD%A2%E5%AE%B9%E4%B8%80%E5%88%97%E6%95%B0x_n%E5%88%B0%E7%82%B9a%E7%9A%84%E8%B7%9D%E7%A6%BB%E5%BE%88%E8%BF%91%E6%9E%81%E9%99%90%E7%8A%B6%E6%80%81%E4%B8%8B%E6%A6%82%E7%8E%87%E6%98%AF1"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">人话：\(形容一列数X_n到点a的距离很近，极限状态下概率是1\)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E5%9E%8B%E8%AF%81%E6%98%8E%E4%B8%80%E4%B8%AA%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%BA%8F%E5%88%97%E6%94%B6%E6%95%9B"><span class="nav-number">1.1.2.</span> <span class="nav-text">题型：证明一个随机变量序列收敛</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%84%E9%80%A0xn%E5%88%B0%E4%B8%80%E4%B8%AA%E6%95%B0%E7%9A%84%E8%B7%9D%E7%A6%BB%E5%B0%8F%E4%BA%8E%CE%B5"><span class="nav-number">1.1.2.1.1.</span> <span class="nav-text">1 构造Xn到一个数的距离小于ε</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E4%B8%8A%E9%9D%A2%E6%9E%84%E9%80%A0%E7%9A%84%E6%B1%82%E6%9E%81%E9%99%90%E4%B8%80%E8%88%AC%E4%BC%9A%E5%90%91%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E4%B8%8D%E7%AD%89%E5%BC%8F%E9%9D%A0%E8%BF%91"><span class="nav-number">1.1.2.1.2.</span> <span class="nav-text">2
+对上面构造的求极限，一般会向切比雪夫不等式靠近</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%A4%A7%E6%95%B0%E5%AE%9A%E5%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">(二)大数定律</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB"><span class="nav-number">1.2.1.</span> <span class="nav-text">1 切比雪夫</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">条件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%BA%8F%E5%88%97%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">(1) 变量序列相互独立</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%BA%8F%E5%88%97%E7%9A%84%E6%96%B9%E5%B7%AE%E5%AD%98%E5%9C%A8%E4%B8%94%E6%9C%89%E4%B8%8A%E7%95%8C"><span class="nav-number">1.2.1.1.2.</span> <span class="nav-text">(2) 变量序列的方差存在且有上界</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-frac1n-sum_i1n-x_i-oversetprightarrow-frac1nsum_i1nex_i-%E8%BF%99%E5%A0%86%E5%8F%98%E9%87%8F%E5%BA%8F%E5%88%97%E7%9A%84%E5%9D%87%E5%80%BC%E6%9C%80%E7%BB%88%E4%BE%9D%E6%A6%82%E7%8E%87%E6%94%B6%E6%95%9B%E5%88%B0%E8%BF%99%E5%A0%86%E5%8F%98%E9%87%8F%E5%BA%8F%E5%88%97%E7%9A%84%E6%9C%9F%E6%9C%9B%E4%BB%AC%E7%9A%84%E5%9D%87%E5%80%BC"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">结论
+\(\frac{1}{n} \sum_{i&#x3D;1}^n X_i
+\overset{P}{\rightarrow} \frac{1}{n}\sum_{i&#x3D;1}^{n}E(X_i)\) ,
+这堆变量序列的均值最终依概率收敛到这堆变量序列的期望们的均值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%9B%E9%92%A6"><span class="nav-number">1.2.2.</span> <span class="nav-text">2 辛钦</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6-1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">条件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B"><span class="nav-number">1.2.2.1.1.</span> <span class="nav-text">(1) 独立</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E5%88%86%E5%B8%83"><span class="nav-number">1.2.2.1.2.</span> <span class="nav-text">(2) 同分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%9F%E6%9C%9B%E5%AD%98%E5%9C%A8"><span class="nav-number">1.2.2.1.3.</span> <span class="nav-text">(3) 期望存在</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-frac1nsum_i1nx_i-frac1nsum_i1nex_i-frac1nnu-u-%E4%B8%8E%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E7%BB%93%E8%AE%BA%E7%B1%BB%E4%BC%BC%E4%B8%8D%E8%BF%87%E5%9B%A0%E4%B8%BA%E5%90%8C%E5%88%86%E5%B8%83%E6%89%80%E4%BB%A5ex_i%E4%B8%80%E6%A0%B7"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">结论
+\(\frac{1}{n}\sum_{i&#x3D;1}^{n}X_i &#x3D;
+\frac{1}{n}\sum_{i&#x3D;1}^{n}E(X_i) &#x3D; \frac{1}{n}nu &#x3D; u\),
+与切比雪夫结论类似，不过因为同分布所以\(E(X_i)一样\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">(三) 中心极限定理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#xi%E7%8B%AC%E7%AB%8B%E5%90%8C%E5%88%86%E5%B8%83%E4%BA%8E%E6%9F%90%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">(1)
+Xi独立同分布于某种类型的分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xi%E7%9A%84%E6%9C%9F%E6%9C%9B%E5%92%8C%E6%96%B9%E5%B7%AE%E9%83%BD%E5%AD%98%E5%9C%A8%E5%88%86%E5%88%AB%E8%AE%BE%E6%9C%9F%E6%9C%9B%E6%98%AFu%E6%96%B9%E5%B7%AE%E6%98%AF%CF%832"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">(2)
+Xi的期望和方差都存在，分别设期望是u，方差是σ^2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA%E5%AF%B9xi%E6%B1%82%E5%92%8C%E5%86%8D%E5%8F%96%E6%9E%81%E9%99%90n-%E5%B0%B1%E8%B6%8B%E5%90%91%E4%BA%8E%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83nnsigma-nsigma2"><span class="nav-number">1.3.2.</span> <span class="nav-text">结论：对Xi求和再取极限(n-&gt;∞)就趋向于正态分布\(N(n\sigma, n\sigma^2)\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%8C%96%E7%9A%84%E7%BB%93%E8%AE%BA"><span class="nav-number">1.3.3.</span> <span class="nav-text">标准化的结论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fracsum_i1nx_i-nsigmasqrtnsigma-sim-n0-1"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">1 \(\frac{(\sum_{i&#x3D;1}^{n}X_i)-n\sigma}{\sqrt{n}\sigma}
+\sim N(0, 1)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lim_nrightarrowinftypleftfracsum_i1nx_i-nsigmasqrtnsigma-leq-xright-phix"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">2
+\(\lim_{n\rightarrow\infty}P\left\{\frac{(\sum_{i&#x3D;1}^{n}X_i)-n\sigma}{\sqrt{n}\sigma}
+\leq x\right\} &#x3D; \Phi{(x)}\)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E5%9E%8B%E6%B1%82%E4%B8%80%E4%B8%AA%E8%8C%83%E5%9B%B4ab%E7%9A%84%E6%A6%82%E7%8E%87"><span class="nav-number">1.3.4.</span> <span class="nav-text">题型：求一个范围A~B的概率</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9C%8B%E4%B8%80%E6%AC%A1%E5%8F%96%E6%A0%B7%E6%BB%A1%E8%B6%B3%E4%BA%8E%E4%BB%80%E4%B9%88%E5%88%86%E5%B8%83"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">1 看一次取样满足于什么分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E8%BF%99%E7%A7%8D%E5%88%86%E5%B8%83%E7%9A%84%E5%9D%87%E5%80%BCu%E5%92%8C%E6%96%B9%E5%B7%AE%CF%83"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">2 求这种分布的均值u和方差σ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9C%8B%E5%8F%96%E4%BA%86%E5%87%A0%E6%AC%A1%E6%A0%B7%E4%BD%9C%E4%B8%BAn%E5%BE%97%E5%88%B0%E8%BF%91%E4%BC%BC%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83nnu-n%CF%832"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">3
+看取了几次样，作为n，得到近似正态分布\(N(nu,
+nσ^2)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ab%E7%9A%84%E6%A6%82%E7%8E%87%E5%B0%B1%E6%98%AF%CF%86fracb-nu%CF%83---%CF%86fraca-nu%CF%83"><span class="nav-number">1.3.4.4.</span> <span class="nav-text">4 A~B的概率就是\(Φ(\frac{B-nu}{σ}) -
+Φ(\frac{A-nu}{σ})\)</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">心有所向，无问西东</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">325k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:55</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

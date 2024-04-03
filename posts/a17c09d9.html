@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="随机变量的数字特征">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第四章：随机变量的数字特征">
+<meta property="og:url" content="http://example.com/posts/a17c09d9.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="随机变量的数字特征">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-03T00:35:06.000Z">
+<meta property="article:modified_time" content="2024-04-03T00:38:11.366Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/a17c09d9.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>第四章：随机变量的数字特征 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/a17c09d9.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第四章：随机变量的数字特征
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-03 08:35:06 / 修改时间：08:38:11" itemprop="dateCreated datePublished" datetime="2024-04-03T08:35:06+08:00">2024-04-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A6%82%E7%8E%87%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">概率论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/a17c09d9.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/a17c09d9.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="随机变量的数字特征">随机变量的数字特征</h1>
+<span id="more"></span>
+<h2 id="一-一维随机变量的数字特征">(一) 一维随机变量的数字特征</h2>
+<h3 id="数学期望可以理解为加权平均求和">1
+数学期望(可以理解为加权平均求和)</h3>
+<h4 id="概念">1.1 概念</h4>
+<h5 id="离散型x-p_i">(1) 离散型：X ~ <span
+class="math inline">\(P_i\)</span></h5>
+<h6
+id="ex-sum_in-x_ip_i每一个正概率点是x_i对应的概率是p_i对应相乘后求和"><span
+class="math inline">\(E(X) = \sum_{i}^n
+x_ip_i\)</span>(每一个正概率点是<span
+class="math inline">\(x_i\)</span>，对应的概率是<span
+class="math inline">\(p_i\)</span>，对应相乘后求和)</h6>
+<h6 id="如果y-gx-ey-sum_ingx_ip_i">如果Y = g(x), <span
+class="math inline">\(E(Y) = \sum_{i}^{n}g(x_i)p_i\)</span></h6>
+<h5 id="连续型x-fx">(2) 连续型：X ~ <span
+class="math inline">\(f(x)\)</span></h5>
+<h6
+id="ex-int_-inftyinftyxfxdx对于任意在正概率区间内的x可以形成一个以底是dx高是fx的小矩形面积是fxdx可以近似认为是x对应的概率所以在整个区间上对所有的x积分就是int_-inftyinftyxfxdx"><span
+class="math inline">\(E(X) =
+\int_{-\infty}^{+\infty}xf(x)dx\)</span>(对于任意在正概率区间内的x，可以形成一个以底是dx，高是f(x)的小矩形，面积是f(x)dx,可以近似认为是x对应的概率，所以在整个区间上对所有的x积分就是<span
+class="math inline">\(\int_{-\infty}^{+\infty}xf(x)dx\)</span>)</h6>
+<h6
+id="如果y-gx-ey-int_-inftyinftygxfxdxy-gx只是修改了定义域的范围将定义域从x的范围变成了gx的范围而对概率密度并没有影响">如果Y
+= g(x), <span class="math inline">\(E(Y) =
+\int_{-\infty}^{+\infty}g(x)f(x)dx\)</span>(Y=
+g(x)，只是修改了定义域的范围，将定义域从x的范围变成了g(x)的范围，而对概率密度并没有影响)</h6>
+<h4 id="性质">1.2 性质</h4>
+<h5 id="线性eax-b-aex-b">1.2.1 线性：E(aX + b) = aE(X) + b</h5>
+<h5
+id="独立如果x与y相互独立才可以拆分exy-exey也常用这个证明是否相互独立">1.2.2
+独立：如果X与Y相互独立，才可以拆分E(XY) =
+E(X)E(Y)(也常用这个证明是否相互独立)</h5>
+<h3 id="方差标准差">2 方差、标准差</h3>
+<h3
+id="概念方差反应的是每个数据点对于均值的偏离情况标准差就是方差开根号">2.1
+概念：方差反应的是每个数据点对于均值的偏离情况，标准差就是方差开根号</h3>
+<h4 id="dx-ex---ex2-ex2---ex2-sigma-sqrtdx"><span
+class="math inline">\(D(X) = E((X - E(X)^2) = E(X^2) - (E(X))^2, \sigma
+= \sqrt{D(X)}\)</span></h4>
+<p>如果是求D(g(X))，或者说所有求D(X),都要利用定义转换成计算均值</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231214084118.jpg" /></p>
+<h3 id="性质-1">2.2 性质</h3>
+<h4 id="dax-b-a2dx">2.2.1 <span class="math inline">\(D(aX + b) =
+a^2D(X)\)</span></h4>
+<h4 id="dxpm-y-dx-dy-pm-2covx-y">2.2.2 <span
+class="math inline">\(D(X\pm Y) = D(X) + D(Y) \pm 2Cov(X,
+Y)\)</span></h4>
+<h4 id="如果x与y相互独立dax-by-a2dx-b2dy">2.2.3 如果X与Y相互独立，<span
+class="math inline">\(D(aX + bY) = a^2D(X) + b^2D(Y)\)</span></h4>
+<h3 id="切比雪夫不等式偏离期望值的概率小靠近期望值的概率大">3
+切比雪夫不等式(偏离期望值的概率小，靠近期望值的概率大)</h3>
+<h4 id="pleftx---ex-epsilon-right-geq-1---fracdxepsilon2">3.1 <span
+class="math inline">\(P\left\{|X - E(X)| &lt; \epsilon \right\} \geq 1 -
+\frac{D(X)}{\epsilon^2}\)</span></h4>
+<h4 id="pleftx---ex-geq-epsilonright-leq-fracdxepsilon2">3.2 <span
+class="math inline">\(P\left\{|X - E(X)| \geq \epsilon\right\} \leq
+\frac{D(X)}{\epsilon^2}\)</span></h4>
+<p>常用期望和分布</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231213160527.jpg" /></p>
+<h2 id="二-二维随机变量的数字特征">(二) 二维随机变量的数字特征</h2>
+<h3 id="期望">1 期望</h3>
+<h3
+id="离散型-egx-y-sum_isum_jgx-yp_i-jgx-y实际上代表的是平面定义域">1.1
+离散型 <span class="math inline">\(E[g(X, Y)] = \sum_{i}\sum_{j}g(x,
+y)p_{i, j})\)</span>(g(x, y)实际上代表的是平面定义域)</h3>
+<h3 id="连续型-设x-yfx-y-egx-y-iint_-inftyinftygx-yfx-ydxdy">1.2 连续型
+，设(x, y)~f(x, y) <span class="math inline">\(E[g(X, Y)] =
+\iint_{-\infty}^{+\infty}g(x, y)f(x, y)dxdy\)</span></h3>
+<h3 id="协方差与相关系数">2 协方差与相关系数</h3>
+<h4 id="概念-1">1 概念：</h4>
+<h5 id="协方差概念-covx-y-ex---exy---ey-exy---exey">协方差概念 Cov(X, Y)
+= E[(X - E(X))(Y - E(Y))] = E(XY) - E(X)E(Y)</h5>
+<h5 id="相关系数概念-rho_xy-fraccovx-ysqrtdx-sqrtdy">相关系数概念 <span
+class="math inline">\(\rho_{XY} = \frac{Cov(X, Y)}{\sqrt{D(X)}
+\sqrt{D(Y)}}\)</span></h5>
+<p>如果<span class="math inline">\(\rho _{XY} =
+0\)</span>,说明X与Y之间没有线性相关性，但可能有其他形式的相关，如果不为0，就是有线性相关性</p>
+<h4 id="性质都可以从定义推出来">2 性质(都可以从定义推出来)</h4>
+<h5 id="对称性">2.1 对称性</h5>
+<h5 id="线性性">2.2 线性性</h5>
+<h2 id="典型题型">典型题型</h2>
+<h3 id="求二维连续型随机变量相关系数">1
+求二维连续型随机变量相关系数</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231120140922.jpg" /></p>
+<h4 id="求ex">求EX</h4>
+<h4 id="求ex2">求E(X^2)</h4>
+<h4 id="求dx-ex2---ex2">求DX = E(X^2) - (EX)^2</h4>
+<h4 id="y同理">Y同理</h4>
+<h4 id="求exy">求E(XY)</h4>
+<h4 id="利用相关系数公式">利用相关系数公式</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231120143419.jpg" /></p>
+<p>### 2 独立性与相关性的判定</p>
+<p>#### 计算Cov(X, Y)</p>
+<p>#### <span class="math inline">\(Cov(X, Y) \neq 0 \Rightarrow
+X与Y相关 \Rightarrow X与Y不相互独立\)</span></p>
+<p>####<span class="math inline">\(Cov(X, Y) = 0 \Rightarrow X与Y不相关
+\Rightarrow 通过构造事件组P\left\{X \leq a\right\}, P\left\{Y \leq
+a\right\}\)</span></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/a17c09d9.html" title="第四章：随机变量的数字特征">http://example.com/posts/a17c09d9.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/d1c25b21.html" rel="prev" title="第三章：多维随机变量及其分布">
+      <i class="fa fa-chevron-left"></i> 第三章：多维随机变量及其分布
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/c0910902.html" rel="next" title="第五章：大数定律与中心极限定理">
+      第五章：大数定律与中心极限定理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E6%95%B0%E5%AD%97%E7%89%B9%E5%BE%81"><span class="nav-number">1.</span> <span class="nav-text">随机变量的数字特征</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E4%B8%80%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E6%95%B0%E5%AD%97%E7%89%B9%E5%BE%81"><span class="nav-number">1.1.</span> <span class="nav-text">(一) 一维随机变量的数字特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E6%9C%9F%E6%9C%9B%E5%8F%AF%E4%BB%A5%E7%90%86%E8%A7%A3%E4%B8%BA%E5%8A%A0%E6%9D%83%E5%B9%B3%E5%9D%87%E6%B1%82%E5%92%8C"><span class="nav-number">1.1.1.</span> <span class="nav-text">1
+数学期望(可以理解为加权平均求和)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1.1 概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E5%9E%8Bx-p_i"><span class="nav-number">1.1.1.1.1.</span> <span class="nav-text">(1) 离散型：X ~ \(P_i\)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ex-sum_in-x_ip_i%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%A6%82%E7%8E%87%E7%82%B9%E6%98%AFx_i%E5%AF%B9%E5%BA%94%E7%9A%84%E6%A6%82%E7%8E%87%E6%98%AFp_i%E5%AF%B9%E5%BA%94%E7%9B%B8%E4%B9%98%E5%90%8E%E6%B1%82%E5%92%8C"><span class="nav-number">1.1.1.1.1.1.</span> <span class="nav-text">\(E(X) &#x3D; \sum_{i}^n
+x_ip_i\)(每一个正概率点是\(x_i\)，对应的概率是\(p_i\)，对应相乘后求和)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E6%9E%9Cy-gx-ey-sum_ingx_ip_i"><span class="nav-number">1.1.1.1.1.2.</span> <span class="nav-text">如果Y &#x3D; g(x), \(E(Y) &#x3D; \sum_{i}^{n}g(x_i)p_i\)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%9E%8Bx-fx"><span class="nav-number">1.1.1.1.2.</span> <span class="nav-text">(2) 连续型：X ~ \(f(x)\)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ex-int_-inftyinftyxfxdx%E5%AF%B9%E4%BA%8E%E4%BB%BB%E6%84%8F%E5%9C%A8%E6%AD%A3%E6%A6%82%E7%8E%87%E5%8C%BA%E9%97%B4%E5%86%85%E7%9A%84x%E5%8F%AF%E4%BB%A5%E5%BD%A2%E6%88%90%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%BA%95%E6%98%AFdx%E9%AB%98%E6%98%AFfx%E7%9A%84%E5%B0%8F%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF%E6%98%AFfxdx%E5%8F%AF%E4%BB%A5%E8%BF%91%E4%BC%BC%E8%AE%A4%E4%B8%BA%E6%98%AFx%E5%AF%B9%E5%BA%94%E7%9A%84%E6%A6%82%E7%8E%87%E6%89%80%E4%BB%A5%E5%9C%A8%E6%95%B4%E4%B8%AA%E5%8C%BA%E9%97%B4%E4%B8%8A%E5%AF%B9%E6%89%80%E6%9C%89%E7%9A%84x%E7%A7%AF%E5%88%86%E5%B0%B1%E6%98%AFint_-inftyinftyxfxdx"><span class="nav-number">1.1.1.1.2.1.</span> <span class="nav-text">\(E(X) &#x3D;
+\int_{-\infty}^{+\infty}xf(x)dx\)(对于任意在正概率区间内的x，可以形成一个以底是dx，高是f(x)的小矩形，面积是f(x)dx,可以近似认为是x对应的概率，所以在整个区间上对所有的x积分就是\(\int_{-\infty}^{+\infty}xf(x)dx\))</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E6%9E%9Cy-gx-ey-int_-inftyinftygxfxdxy-gx%E5%8F%AA%E6%98%AF%E4%BF%AE%E6%94%B9%E4%BA%86%E5%AE%9A%E4%B9%89%E5%9F%9F%E7%9A%84%E8%8C%83%E5%9B%B4%E5%B0%86%E5%AE%9A%E4%B9%89%E5%9F%9F%E4%BB%8Ex%E7%9A%84%E8%8C%83%E5%9B%B4%E5%8F%98%E6%88%90%E4%BA%86gx%E7%9A%84%E8%8C%83%E5%9B%B4%E8%80%8C%E5%AF%B9%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6%E5%B9%B6%E6%B2%A1%E6%9C%89%E5%BD%B1%E5%93%8D"><span class="nav-number">1.1.1.1.2.2.</span> <span class="nav-text">如果Y
+&#x3D; g(x), \(E(Y) &#x3D;
+\int_{-\infty}^{+\infty}g(x)f(x)dx\)(Y&#x3D;
+g(x)，只是修改了定义域的范围，将定义域从x的范围变成了g(x)的范围，而对概率密度并没有影响)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">1.2 性质</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7eax-b-aex-b"><span class="nav-number">1.1.1.2.1.</span> <span class="nav-text">1.2.1 线性：E(aX + b) &#x3D; aE(X) + b</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E5%A6%82%E6%9E%9Cx%E4%B8%8Ey%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B%E6%89%8D%E5%8F%AF%E4%BB%A5%E6%8B%86%E5%88%86exy-exey%E4%B9%9F%E5%B8%B8%E7%94%A8%E8%BF%99%E4%B8%AA%E8%AF%81%E6%98%8E%E6%98%AF%E5%90%A6%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B"><span class="nav-number">1.1.1.2.2.</span> <span class="nav-text">1.2.2
+独立：如果X与Y相互独立，才可以拆分E(XY) &#x3D;
+E(X)E(Y)(也常用这个证明是否相互独立)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%B7%AE%E6%A0%87%E5%87%86%E5%B7%AE"><span class="nav-number">1.1.2.</span> <span class="nav-text">2 方差、标准差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%E6%96%B9%E5%B7%AE%E5%8F%8D%E5%BA%94%E7%9A%84%E6%98%AF%E6%AF%8F%E4%B8%AA%E6%95%B0%E6%8D%AE%E7%82%B9%E5%AF%B9%E4%BA%8E%E5%9D%87%E5%80%BC%E7%9A%84%E5%81%8F%E7%A6%BB%E6%83%85%E5%86%B5%E6%A0%87%E5%87%86%E5%B7%AE%E5%B0%B1%E6%98%AF%E6%96%B9%E5%B7%AE%E5%BC%80%E6%A0%B9%E5%8F%B7"><span class="nav-number">1.1.3.</span> <span class="nav-text">2.1
+概念：方差反应的是每个数据点对于均值的偏离情况，标准差就是方差开根号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dx-ex---ex2-ex2---ex2-sigma-sqrtdx"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">\(D(X) &#x3D; E((X - E(X)^2) &#x3D; E(X^2) - (E(X))^2, \sigma
+&#x3D; \sqrt{D(X)}\)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8-1"><span class="nav-number">1.1.4.</span> <span class="nav-text">2.2 性质</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dax-b-a2dx"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">2.2.1 \(D(aX + b) &#x3D;
+a^2D(X)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dxpm-y-dx-dy-pm-2covx-y"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">2.2.2 \(D(X\pm Y) &#x3D; D(X) + D(Y) \pm 2Cov(X,
+Y)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E6%9E%9Cx%E4%B8%8Ey%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8Bdax-by-a2dx-b2dy"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">2.2.3 如果X与Y相互独立，\(D(aX + bY) &#x3D; a^2D(X) + b^2D(Y)\)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E4%B8%8D%E7%AD%89%E5%BC%8F%E5%81%8F%E7%A6%BB%E6%9C%9F%E6%9C%9B%E5%80%BC%E7%9A%84%E6%A6%82%E7%8E%87%E5%B0%8F%E9%9D%A0%E8%BF%91%E6%9C%9F%E6%9C%9B%E5%80%BC%E7%9A%84%E6%A6%82%E7%8E%87%E5%A4%A7"><span class="nav-number">1.1.5.</span> <span class="nav-text">3
+切比雪夫不等式(偏离期望值的概率小，靠近期望值的概率大)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pleftx---ex-epsilon-right-geq-1---fracdxepsilon2"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">3.1 \(P\left\{|X - E(X)| &lt; \epsilon \right\} \geq 1 -
+\frac{D(X)}{\epsilon^2}\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pleftx---ex-geq-epsilonright-leq-fracdxepsilon2"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">3.2 \(P\left\{|X - E(X)| \geq \epsilon\right\} \leq
+\frac{D(X)}{\epsilon^2}\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E4%BA%8C%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E6%95%B0%E5%AD%97%E7%89%B9%E5%BE%81"><span class="nav-number">1.2.</span> <span class="nav-text">(二) 二维随机变量的数字特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%9F%E6%9C%9B"><span class="nav-number">1.2.1.</span> <span class="nav-text">1 期望</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E5%9E%8B-egx-y-sum_isum_jgx-yp_i-jgx-y%E5%AE%9E%E9%99%85%E4%B8%8A%E4%BB%A3%E8%A1%A8%E7%9A%84%E6%98%AF%E5%B9%B3%E9%9D%A2%E5%AE%9A%E4%B9%89%E5%9F%9F"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.1
+离散型 \(E[g(X, Y)] &#x3D; \sum_{i}\sum_{j}g(x,
+y)p_{i, j})\)(g(x, y)实际上代表的是平面定义域)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%9E%8B-%E8%AE%BEx-yfx-y-egx-y-iint_-inftyinftygx-yfx-ydxdy"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2 连续型
+，设(x, y)~f(x, y) \(E[g(X, Y)] &#x3D;
+\iint_{-\infty}^{+\infty}g(x, y)f(x, y)dxdy\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E6%96%B9%E5%B7%AE%E4%B8%8E%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">2 协方差与相关系数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">1 概念：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%8F%E6%96%B9%E5%B7%AE%E6%A6%82%E5%BF%B5-covx-y-ex---exy---ey-exy---exey"><span class="nav-number">1.2.4.1.1.</span> <span class="nav-text">协方差概念 Cov(X, Y)
+&#x3D; E[(X - E(X))(Y - E(Y))] &#x3D; E(XY) - E(X)E(Y)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0%E6%A6%82%E5%BF%B5-rho_xy-fraccovx-ysqrtdx-sqrtdy"><span class="nav-number">1.2.4.1.2.</span> <span class="nav-text">相关系数概念 \(\rho_{XY} &#x3D; \frac{Cov(X, Y)}{\sqrt{D(X)}
+\sqrt{D(Y)}}\)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8%E9%83%BD%E5%8F%AF%E4%BB%A5%E4%BB%8E%E5%AE%9A%E4%B9%89%E6%8E%A8%E5%87%BA%E6%9D%A5"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">2 性质(都可以从定义推出来)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E6%80%A7"><span class="nav-number">1.2.4.2.1.</span> <span class="nav-text">2.1 对称性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%80%A7"><span class="nav-number">1.2.4.2.2.</span> <span class="nav-text">2.2 线性性</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E9%A2%98%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">典型题型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E4%BA%8C%E7%BB%B4%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">1
+求二维连续型随机变量相关系数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82ex"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">求EX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82ex2"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">求E(X^2)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82dx-ex2---ex2"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">求DX &#x3D; E(X^2) - (EX)^2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#y%E5%90%8C%E7%90%86"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">Y同理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82exy"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">求E(XY)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0%E5%85%AC%E5%BC%8F"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">利用相关系数公式</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">心有所向，无问西东</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">325k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:55</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="多维随机变量及其分布">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第三章：多维随机变量及其分布">
+<meta property="og:url" content="http://example.com/posts/d1c25b21.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="多维随机变量及其分布">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-03T00:32:32.000Z">
+<meta property="article:modified_time" content="2024-04-03T00:35:17.924Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/d1c25b21.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>第三章：多维随机变量及其分布 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d1c25b21.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第三章：多维随机变量及其分布
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-03 08:32:32 / 修改时间：08:35:17" itemprop="dateCreated datePublished" datetime="2024-04-03T08:32:32+08:00">2024-04-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A6%82%E7%8E%87%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">概率论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/d1c25b21.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/d1c25b21.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="多维随机变量及其分布">多维随机变量及其分布</h1>
+<span id="more"></span>
+<h2 id="一-二维随机变量">(一) 二维随机变量</h2>
+<h3 id="概念">1 概念</h3>
+<h3 id="联合分布函数如果说之前一维积分是面积那这里二维积分就是体积">2
+联合分布函数(如果说之前一维积分是面积，那这里二维积分就是体积)</h3>
+<h4 id="概念fx-y-px-leq-x-y-leq-y">2.1 概念:F(x, y) = P{X <span
+class="math inline">\(\leq\)</span> x, Y <span
+class="math inline">\(\leq\)</span> y}</h4>
+<h4 id="性质">2.2 性质</h4>
+<h5 id="单调性固定一个看另一个">(1) 单调性(固定一个，看另一个)</h5>
+<h5 id="右连续性固定一个看另一个">(2) 右连续性(固定一个，看另一个)</h5>
+<h5 id="有界性全体积为1">(3) 有界性(全体积为1)</h5>
+<h5 id="非负性下面这个公式重点根据旁边的图理解是如何计算的">(4)
+非负性(下面这个公式重点根据旁边的图理解是如何计算的)</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231211153025.jpg" /></p>
+<h3 id="边缘分布函数求哪一个保留哪一个另一个极限取到无穷">3
+边缘分布函数(求哪一个，保留哪一个，另一个极限取到无穷)</h3>
+<h4 id="f_xx-fx-infty"><span class="math inline">\(F_X(x) = F(x,
++\infty)\)</span></h4>
+<h4 id="f_yy-finfty-y"><span class="math inline">\(F_Y(y) = F(+\infty,
+y)\)</span></h4>
+<h2 id="二-二维离散型随机变量">(二) 二维离散型随机变量</h2>
+<h3 id="联合分布律">1 联合分布律</h3>
+<h3 id="边缘分布律">2 边缘分布律</h3>
+<h3 id="条件分布律">3 条件分布律</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231211153837.jpg" /></p>
+<h3 id="独立性forall-i-j-p_ij-p_i.p_j.-longleftrightarrow-x-y相互对立">4
+独立性：<span class="math inline">\(\forall\ i, j, P_{ij} = P_i.P_j.
+\Longleftrightarrow X, Y相互对立\)</span></h3>
+<h2 id="三-二维连续型随机变量">(三) 二维连续型随机变量</h2>
+<h3 id="概率密度">1 概率密度</h3>
+<h4 id="联合概率密度fx-y">1.1 联合概率密度：f(x, y)</h4>
+<h4
+id="边缘概率密度求谁不积谁不积先定限限内画条线先交取下限后交取上限">1.2
+边缘概率密度：求谁不积谁，不积先定限，限内画条线，先交取下限，后交取上限</h4>
+<h5
+id="f_xx-int_-inftyinftyfx-ydy表示的几何意义是求沿x-x对几何体切一刀得到的切片面积关键是要求y的积分范围方法是求谁不积谁限内画条线先交取下限后交取上限"><span
+class="math inline">\(f_X(x) = \int_{-\infty}^{+\infty}f(x,
+y)\,dy\)</span>(表示的几何意义是求沿X =
+x对几何体切一刀得到的切片面积，关键是要求y的积分范围，方法是求谁不积谁，限内画条线，先交取下限，后交取上限)</h5>
+<h5 id="f_yy-int_-inftyinftyfx-ydx"><span class="math inline">\(f_Y(y) =
+\int_{-\infty}^{+\infty}f(x, y)\,dx\)</span></h5>
+<h3 id="分布函数">2 分布函数</h3>
+<h4
+id="联合分布函数fx-y-px-leq-x-y-leq-y-int_-inftyy-int_inftyxfu-v-dudv">2.1
+联合分布函数：F(x, y) = P{X <span class="math inline">\(\leq\)</span> x,
+Y <span class="math inline">\(\leq\)</span> y} = <span
+class="math inline">\(\int_{-\infty}^{y} \int_{\infty}^{x}f(u, v)\,
+dudv\)</span></h4>
+<h4 id="边缘分布函数">2.2 边缘分布函数</h4>
+<h5 id="已知联合概率密度fx-y">已知联合概率密度<span
+class="math inline">\(f(x, y)\)</span></h5>
+<h6
+id="f_xx-int_-inftyxf_xt-dt-int_-inftyxint_-inftyinftyfu-vdudv"><span
+class="math inline">\(F_X(x) = \int_{-\infty}^xf_X(t)\, dt =
+\int_{-\infty}^{x}[\int_{-\infty}^{+\infty}f(u, v)du]dv\)</span></h6>
+<h6
+id="f_yy-int_-inftyyf_yt-dt-int_-inftyyint_-inftyinftyfu-vdvdu"><span
+class="math inline">\(F_Y(y) = \int_{-\infty}^yf_Y(t)\, dt =
+\int_{-\infty}^{y}[\int_{-\infty}^{+\infty}f(u, v)dv]du\)</span></h6>
+<h5
+id="已知联合分布函数fx-y不用积分了取极限到无穷就行">已知联合分布函数<span
+class="math inline">\(F(x,
+y)\)</span>(不用积分了！取极限到无穷就行)</h5>
+<h6 id="f_xx-fx-infty-1"><span class="math inline">\(F_X(x) = F(x,
++\infty)\)</span></h6>
+<h6 id="f_yy-finfty-y-1"><span class="math inline">\(F_Y(y) = F(+\infty,
+y)\)</span></h6>
+<h4 id="与概率密度关系">2.3 与概率密度关系</h4>
+<h5
+id="联合-联合分布函数fx-y求两次偏导就可以得到联合概率密度fx-y-fx-y求二重积分就可以得到fx-y">2.3.1
+联合 ：联合分布函数F(x, y)求两次偏导就可以得到联合概率密度f(x, y), f(x,
+y)求二重积分就可以得到F(x, y)</h5>
+<h5 id="边缘边沿分布函数f_xx和边缘概率密度f_xx不存在这种关系y同理">2.3.2
+边缘：<span
+class="math inline">\(边沿分布函数F_X(x)和边缘概率密度f_X(x)不存在这种关系,Y同理\)</span></h5>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231212113847.jpg" /></p>
+<h3 id="条件条件-frac联合边缘">3 条件：<span class="math inline">\(条件
+= \frac{联合}{边缘}\)</span></h3>
+<h4 id="条件概率密度">3.1 条件概率密度</h4>
+<h5 id="f_yxyx-fracfx-yf_xx"><span class="math inline">\(f_{Y|X}(y|x) =
+\frac{f(x, y)}{f_{X}(x)}\)</span></h5>
+<h5 id="f_xyxy-fracfx-yf_yy"><span class="math inline">\(f_{X|Y}(x|y) =
+\frac{f(x, y)}{f_{Y}(y)}\)</span></h5>
+<h4
+id="条件分布函数哪个是条件哪个保留积另外一个以f_yxyx为例因为叫在x-x条件下的条件分布函数所以是对y积分">3.2
+条件分布函数：哪个是条件，哪个保留，积另外一个，以<span
+class="math inline">\(F_{Y|X}(y|x)\)</span>为例，因为叫在X =
+x条件下的条件分布函数，所以是对y积分</h4>
+<h5 id="f_yxyx-int_-inftyyf_yxyxdy"><span
+class="math inline">\(F_{Y|X}(y|x) =
+\int_{-\infty}^{y}f_{Y|X}(y|x)dy\)</span></h5>
+<h5 id="f_xyxy-int_-inftyxf_xyxydx"><span
+class="math inline">\(F_{X|Y}(x|y) =
+\int_{-\infty}^{x}f_{X|Y}(x|y)dx\)</span></h5>
+<p>举个例子</p>
+<h3 id="独立性">4 独立性：</h3>
+<h4 id="从概率密度角度fx-y-f_xxf_yy">4.1 从概率密度角度：<span
+class="math inline">\(f(x, y) = f_{X}(x)f_{Y}(y)\)</span></h4>
+<h4 id="从分布函数角度fx-y-f_xxf_yy">4.2 从分布函数角度：<span
+class="math inline">\(F(X, Y) = F_X(x)F_Y(y)\)</span></h4>
+<p>举个例子，也涉及概率密度与分布函数关系</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231212113501.jpg" /></p>
+<h4
+id="相互独立随机变量函数的分布及卷积公式积谁不换谁换完求偏导加绝对值如果独立进一步拆分">4.3
+相互独立随机变量函数的分布及卷积公式：积谁不换谁，换完求偏导加绝对值,如果独立，进一步拆分</h4>
+<p>设(X, Y)~f(x, y)</p>
+<h5
+id="和的分布z-x-y的概率密度f_zz-int_-inftyinftyfx-z-xdx换成y同理进一步如果x与y相互独立f_zz-int_-inftyinftyfx-z-xdx-int_-inftyinftyf_xxf_yz-xdx">(1)
+和的分布:Z = X + Y的概率密度<span class="math inline">\(f_Z(z) =
+\int_{-\infty}^{+\infty}f(x,
+z-x)dx\)</span>(换成y同理)，进一步如果X与Y相互独立,<span
+class="math inline">\(f_Z(z) = \int_{-\infty}^{+\infty}f(x, z-x)dx =
+\int_{-\infty}^{+\infty}f_X(x)f_Y(z-x)dx\)</span></h5>
+<h5 id="差的分布">(2) 差的分布</h5>
+<h5 id="积的分布">(3) 积的分布</h5>
+<h5 id="商的分布">(4) 商的分布</h5>
+<h5 id="maxx-y的分布">(5) max{X, Y}的分布</h5>
+<h5 id="minx-y的分布">(6) min{X, Y}的分布</h5>
+<h3 id="两个常见的二维连续分布">5 两个常见的二维连续分布</h3>
+<h4 id="二维均匀分布">5.1 二维均匀分布</h4>
+<h4 id="二维正态分布这个有大问题">5.2 二维正态分布(这个有大问题)</h4>
+<p>概念</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231212114137.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231212114147.jpg" /></p>
+<p>题型</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231211204826.jpg" /></p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231212114251.jpg"
+alt="微信图片_20231212114251" />
+<figcaption aria-hidden="true">微信图片_20231212114251</figcaption>
+</figure>
+<h2 id="四-经典题型">(四) 经典题型：</h2>
+<h3 id="求二维随机变量在限制条件下概率">1
+求二维随机变量在限制条件下概率</h3>
+<h4
+id="二维随机变量相互独立常见于两个相互独立的正态分布直接将限制条件转换成一个新函数">1.1
+二维随机变量相互独立,常见于两个相互独立的正态分布，直接将限制条件转换成一个新函数</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231214140814.jpg" /></p>
+<h4 id="二维随机变量独立性未知只知fx-y">1.2
+二维随机变量独立性未知，只知f(x, y)</h4>
+<h5 id="找出正概率区间">1.2.1 找出正概率区间</h5>
+<h5 id="画出正概率区间与限定区间的交集">1.2.2
+画出正概率区间与限定区间的交集</h5>
+<h5 id="计算二重积分或求和">1.2.3 计算二重积分或求和</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231212160900.jpg" /></p>
+<h3 id="二维复合成一维z-fx-y求复合后的概率密度">2 二维复合成一维(Z =
+F(X, Y))，求复合后的概率密度</h3>
+<h4 id="连续-连续">2.1连续-连续</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231212171443.jpg" /></p>
+<h5 id="法一">法一：</h5>
+<h6 id="求联合概率密度">1 求联合概率密度</h6>
+<h6
+id="通过代入定义f_zz-pleftz-leq-zright-pleftfx-y-leq-zright转换成前面求限制条件下概率问题">2
+通过代入定义<span class="math inline">\(F_Z(z) = P\left\{Z \leq
+z\right\} = P\left\{F(X, Y) \leq
+z\right\}\)</span>转换成前面求限制条件下概率问题</h6>
+<h6 id="通过分布函数求概率密度">3 通过分布函数求概率密度</h6>
+<h5 id="法二如果已知xy相互独立">法二：如果已知x，y相互独立</h5>
+<h6
+id="求联合概率密度fx-y没讲独立直接将x-z---x代入fx-y即可讲独立就可以不用求fx-y">1
+求联合概率密度f(x, y)(没讲独立，直接将x， z - x代入f(x,
+y)即可，讲独立，就可以不用求f(x, y))</h6>
+<h6 id="积谁不换谁换完求偏导加绝对值">2
+积谁不换谁，换完求偏导加绝对值</h6>
+<h6
+id="确定被积函数fx-z---x确定x的范围再通过y的范围经过还原确定z的范围">3
+确定被积函数f(x, z -
+x)，确定x的范围，再通过y的范围经过还原确定z的范围</h6>
+<h6 id="以x为横轴z为纵轴作图以z为横线讨论z的范围求fz">4
+以x为横轴，z为纵轴作图，以z为横线讨论z的范围求f(z)</h6>
+<h4 id="连续-离散">2.2 连续-离散</h4>
+<h5 id="全概率公式分解">1 全概率公式分解</h5>
+<h5 id="条件公式分解">2 条件公式分解</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231212144542.jpg" /></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/d1c25b21.html" title="第三章：多维随机变量及其分布">http://example.com/posts/d1c25b21.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/5a8a6c8d.html" rel="prev" title="post">
+      <i class="fa fa-chevron-left"></i> post
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/a17c09d9.html" rel="next" title="第四章：随机变量的数字特征">
+      第四章：随机变量的数字特征 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%8F%8A%E5%85%B6%E5%88%86%E5%B8%83"><span class="nav-number">1.</span> <span class="nav-text">多维随机变量及其分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E4%BA%8C%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">(一) 二维随机变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">1 概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E5%A6%82%E6%9E%9C%E8%AF%B4%E4%B9%8B%E5%89%8D%E4%B8%80%E7%BB%B4%E7%A7%AF%E5%88%86%E6%98%AF%E9%9D%A2%E7%A7%AF%E9%82%A3%E8%BF%99%E9%87%8C%E4%BA%8C%E7%BB%B4%E7%A7%AF%E5%88%86%E5%B0%B1%E6%98%AF%E4%BD%93%E7%A7%AF"><span class="nav-number">1.1.2.</span> <span class="nav-text">2
+联合分布函数(如果说之前一维积分是面积，那这里二维积分就是体积)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5fx-y-px-leq-x-y-leq-y"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">2.1 概念:F(x, y) &#x3D; P{X \(\leq\) x, Y \(\leq\) y}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2.2 性质</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E6%80%A7%E5%9B%BA%E5%AE%9A%E4%B8%80%E4%B8%AA%E7%9C%8B%E5%8F%A6%E4%B8%80%E4%B8%AA"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">(1) 单调性(固定一个，看另一个)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%B3%E8%BF%9E%E7%BB%AD%E6%80%A7%E5%9B%BA%E5%AE%9A%E4%B8%80%E4%B8%AA%E7%9C%8B%E5%8F%A6%E4%B8%80%E4%B8%AA"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">(2) 右连续性(固定一个，看另一个)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E7%95%8C%E6%80%A7%E5%85%A8%E4%BD%93%E7%A7%AF%E4%B8%BA1"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">(3) 有界性(全体积为1)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E8%B4%9F%E6%80%A7%E4%B8%8B%E9%9D%A2%E8%BF%99%E4%B8%AA%E5%85%AC%E5%BC%8F%E9%87%8D%E7%82%B9%E6%A0%B9%E6%8D%AE%E6%97%81%E8%BE%B9%E7%9A%84%E5%9B%BE%E7%90%86%E8%A7%A3%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E7%9A%84"><span class="nav-number">1.1.2.2.4.</span> <span class="nav-text">(4)
+非负性(下面这个公式重点根据旁边的图理解是如何计算的)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E6%B1%82%E5%93%AA%E4%B8%80%E4%B8%AA%E4%BF%9D%E7%95%99%E5%93%AA%E4%B8%80%E4%B8%AA%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%9E%81%E9%99%90%E5%8F%96%E5%88%B0%E6%97%A0%E7%A9%B7"><span class="nav-number">1.1.3.</span> <span class="nav-text">3
+边缘分布函数(求哪一个，保留哪一个，另一个极限取到无穷)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#f_xx-fx-infty"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">\(F_X(x) &#x3D; F(x,
++\infty)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#f_yy-finfty-y"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">\(F_Y(y) &#x3D; F(+\infty,
+y)\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E4%BA%8C%E7%BB%B4%E7%A6%BB%E6%95%A3%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">(二) 二维离散型随机变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%BE%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">1 联合分布律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E5%88%86%E5%B8%83%E5%BE%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">2 边缘分布律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E5%BE%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">3 条件分布律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%80%A7forall-i-j-p_ij-p_i.p_j.-longleftrightarrow-x-y%E7%9B%B8%E4%BA%92%E5%AF%B9%E7%AB%8B"><span class="nav-number">1.2.4.</span> <span class="nav-text">4
+独立性：\(\forall\ i, j, P_{ij} &#x3D; P_i.P_j.
+\Longleftrightarrow X, Y相互对立\)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E4%BA%8C%E7%BB%B4%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.</span> <span class="nav-text">(三) 二维连续型随机变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="nav-number">1.3.1.</span> <span class="nav-text">1 概率密度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E5%90%88%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6fx-y"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">1.1 联合概率密度：f(x, y)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6%E6%B1%82%E8%B0%81%E4%B8%8D%E7%A7%AF%E8%B0%81%E4%B8%8D%E7%A7%AF%E5%85%88%E5%AE%9A%E9%99%90%E9%99%90%E5%86%85%E7%94%BB%E6%9D%A1%E7%BA%BF%E5%85%88%E4%BA%A4%E5%8F%96%E4%B8%8B%E9%99%90%E5%90%8E%E4%BA%A4%E5%8F%96%E4%B8%8A%E9%99%90"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">1.2
+边缘概率密度：求谁不积谁，不积先定限，限内画条线，先交取下限，后交取上限</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#f_xx-int_-inftyinftyfx-ydy%E8%A1%A8%E7%A4%BA%E7%9A%84%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89%E6%98%AF%E6%B1%82%E6%B2%BFx-x%E5%AF%B9%E5%87%A0%E4%BD%95%E4%BD%93%E5%88%87%E4%B8%80%E5%88%80%E5%BE%97%E5%88%B0%E7%9A%84%E5%88%87%E7%89%87%E9%9D%A2%E7%A7%AF%E5%85%B3%E9%94%AE%E6%98%AF%E8%A6%81%E6%B1%82y%E7%9A%84%E7%A7%AF%E5%88%86%E8%8C%83%E5%9B%B4%E6%96%B9%E6%B3%95%E6%98%AF%E6%B1%82%E8%B0%81%E4%B8%8D%E7%A7%AF%E8%B0%81%E9%99%90%E5%86%85%E7%94%BB%E6%9D%A1%E7%BA%BF%E5%85%88%E4%BA%A4%E5%8F%96%E4%B8%8B%E9%99%90%E5%90%8E%E4%BA%A4%E5%8F%96%E4%B8%8A%E9%99%90"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">\(f_X(x) &#x3D; \int_{-\infty}^{+\infty}f(x,
+y)\,dy\)(表示的几何意义是求沿X &#x3D;
+x对几何体切一刀得到的切片面积，关键是要求y的积分范围，方法是求谁不积谁，限内画条线，先交取下限，后交取上限)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#f_yy-int_-inftyinftyfx-ydx"><span class="nav-number">1.3.1.2.2.</span> <span class="nav-text">\(f_Y(y) &#x3D;
+\int_{-\infty}^{+\infty}f(x, y)\,dx\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">2 分布函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0fx-y-px-leq-x-y-leq-y-int_-inftyy-int_inftyxfu-v-dudv"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">2.1
+联合分布函数：F(x, y) &#x3D; P{X \(\leq\) x,
+Y \(\leq\) y} &#x3D; \(\int_{-\infty}^{y} \int_{\infty}^{x}f(u, v)\,
+dudv\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2.2 边缘分布函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B7%B2%E7%9F%A5%E8%81%94%E5%90%88%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6fx-y"><span class="nav-number">1.3.2.2.1.</span> <span class="nav-text">已知联合概率密度\(f(x, y)\)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#f_xx-int_-inftyxf_xt-dt-int_-inftyxint_-inftyinftyfu-vdudv"><span class="nav-number">1.3.2.2.1.1.</span> <span class="nav-text">\(F_X(x) &#x3D; \int_{-\infty}^xf_X(t)\, dt &#x3D;
+\int_{-\infty}^{x}[\int_{-\infty}^{+\infty}f(u, v)du]dv\)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#f_yy-int_-inftyyf_yt-dt-int_-inftyyint_-inftyinftyfu-vdvdu"><span class="nav-number">1.3.2.2.1.2.</span> <span class="nav-text">\(F_Y(y) &#x3D; \int_{-\infty}^yf_Y(t)\, dt &#x3D;
+\int_{-\infty}^{y}[\int_{-\infty}^{+\infty}f(u, v)dv]du\)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B7%B2%E7%9F%A5%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0fx-y%E4%B8%8D%E7%94%A8%E7%A7%AF%E5%88%86%E4%BA%86%E5%8F%96%E6%9E%81%E9%99%90%E5%88%B0%E6%97%A0%E7%A9%B7%E5%B0%B1%E8%A1%8C"><span class="nav-number">1.3.2.2.2.</span> <span class="nav-text">已知联合分布函数\(F(x,
+y)\)(不用积分了！取极限到无穷就行)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#f_xx-fx-infty-1"><span class="nav-number">1.3.2.2.2.1.</span> <span class="nav-text">\(F_X(x) &#x3D; F(x,
++\infty)\)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#f_yy-finfty-y-1"><span class="nav-number">1.3.2.2.2.2.</span> <span class="nav-text">\(F_Y(y) &#x3D; F(+\infty,
+y)\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8E%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">2.3 与概率密度关系</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%81%94%E5%90%88-%E8%81%94%E5%90%88%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0fx-y%E6%B1%82%E4%B8%A4%E6%AC%A1%E5%81%8F%E5%AF%BC%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BE%97%E5%88%B0%E8%81%94%E5%90%88%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6fx-y-fx-y%E6%B1%82%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BE%97%E5%88%B0fx-y"><span class="nav-number">1.3.2.3.1.</span> <span class="nav-text">2.3.1
+联合 ：联合分布函数F(x, y)求两次偏导就可以得到联合概率密度f(x, y), f(x,
+y)求二重积分就可以得到F(x, y)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%B9%E7%BC%98%E8%BE%B9%E6%B2%BF%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0f_xx%E5%92%8C%E8%BE%B9%E7%BC%98%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6f_xx%E4%B8%8D%E5%AD%98%E5%9C%A8%E8%BF%99%E7%A7%8D%E5%85%B3%E7%B3%BBy%E5%90%8C%E7%90%86"><span class="nav-number">1.3.2.3.2.</span> <span class="nav-text">2.3.2
+边缘：\(边沿分布函数F_X(x)和边缘概率密度f_X(x)不存在这种关系,Y同理\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%9D%A1%E4%BB%B6-frac%E8%81%94%E5%90%88%E8%BE%B9%E7%BC%98"><span class="nav-number">1.3.3.</span> <span class="nav-text">3 条件：\(条件
+&#x3D; \frac{联合}{边缘}\)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">3.1 条件概率密度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#f_yxyx-fracfx-yf_xx"><span class="nav-number">1.3.3.1.1.</span> <span class="nav-text">\(f_{Y|X}(y|x) &#x3D;
+\frac{f(x, y)}{f_{X}(x)}\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#f_xyxy-fracfx-yf_yy"><span class="nav-number">1.3.3.1.2.</span> <span class="nav-text">\(f_{X|Y}(x|y) &#x3D;
+\frac{f(x, y)}{f_{Y}(y)}\)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E5%93%AA%E4%B8%AA%E6%98%AF%E6%9D%A1%E4%BB%B6%E5%93%AA%E4%B8%AA%E4%BF%9D%E7%95%99%E7%A7%AF%E5%8F%A6%E5%A4%96%E4%B8%80%E4%B8%AA%E4%BB%A5f_yxyx%E4%B8%BA%E4%BE%8B%E5%9B%A0%E4%B8%BA%E5%8F%AB%E5%9C%A8x-x%E6%9D%A1%E4%BB%B6%E4%B8%8B%E7%9A%84%E6%9D%A1%E4%BB%B6%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E6%89%80%E4%BB%A5%E6%98%AF%E5%AF%B9y%E7%A7%AF%E5%88%86"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">3.2
+条件分布函数：哪个是条件，哪个保留，积另外一个，以\(F_{Y|X}(y|x)\)为例，因为叫在X &#x3D;
+x条件下的条件分布函数，所以是对y积分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#f_yxyx-int_-inftyyf_yxyxdy"><span class="nav-number">1.3.3.2.1.</span> <span class="nav-text">\(F_{Y|X}(y|x) &#x3D;
+\int_{-\infty}^{y}f_{Y|X}(y|x)dy\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#f_xyxy-int_-inftyxf_xyxydx"><span class="nav-number">1.3.3.2.2.</span> <span class="nav-text">\(F_{X|Y}(x|y) &#x3D;
+\int_{-\infty}^{x}f_{X|Y}(x|y)dx\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">1.3.4.</span> <span class="nav-text">4 独立性：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6%E8%A7%92%E5%BA%A6fx-y-f_xxf_yy"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">4.1 从概率密度角度：\(f(x, y) &#x3D; f_{X}(x)f_{Y}(y)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E8%A7%92%E5%BA%A6fx-y-f_xxf_yy"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">4.2 从分布函数角度：\(F(X, Y) &#x3D; F_X(x)F_Y(y)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83%E5%8F%8A%E5%8D%B7%E7%A7%AF%E5%85%AC%E5%BC%8F%E7%A7%AF%E8%B0%81%E4%B8%8D%E6%8D%A2%E8%B0%81%E6%8D%A2%E5%AE%8C%E6%B1%82%E5%81%8F%E5%AF%BC%E5%8A%A0%E7%BB%9D%E5%AF%B9%E5%80%BC%E5%A6%82%E6%9E%9C%E7%8B%AC%E7%AB%8B%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%8B%86%E5%88%86"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">4.3
+相互独立随机变量函数的分布及卷积公式：积谁不换谁，换完求偏导加绝对值,如果独立，进一步拆分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%92%8C%E7%9A%84%E5%88%86%E5%B8%83z-x-y%E7%9A%84%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6f_zz-int_-inftyinftyfx-z-xdx%E6%8D%A2%E6%88%90y%E5%90%8C%E7%90%86%E8%BF%9B%E4%B8%80%E6%AD%A5%E5%A6%82%E6%9E%9Cx%E4%B8%8Ey%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8Bf_zz-int_-inftyinftyfx-z-xdx-int_-inftyinftyf_xxf_yz-xdx"><span class="nav-number">1.3.4.3.1.</span> <span class="nav-text">(1)
+和的分布:Z &#x3D; X + Y的概率密度\(f_Z(z) &#x3D;
+\int_{-\infty}^{+\infty}f(x,
+z-x)dx\)(换成y同理)，进一步如果X与Y相互独立,\(f_Z(z) &#x3D; \int_{-\infty}^{+\infty}f(x, z-x)dx &#x3D;
+\int_{-\infty}^{+\infty}f_X(x)f_Y(z-x)dx\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B7%AE%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.3.4.3.2.</span> <span class="nav-text">(2) 差的分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A7%AF%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.3.4.3.3.</span> <span class="nav-text">(3) 积的分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%95%86%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.3.4.3.4.</span> <span class="nav-text">(4) 商的分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#maxx-y%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.3.4.3.5.</span> <span class="nav-text">(5) max{X, Y}的分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#minx-y%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">1.3.4.3.6.</span> <span class="nav-text">(6) min{X, Y}的分布</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BA%8C%E7%BB%B4%E8%BF%9E%E7%BB%AD%E5%88%86%E5%B8%83"><span class="nav-number">1.3.5.</span> <span class="nav-text">5 两个常见的二维连续分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E5%9D%87%E5%8C%80%E5%88%86%E5%B8%83"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">5.1 二维均匀分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E8%BF%99%E4%B8%AA%E6%9C%89%E5%A4%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">5.2 二维正态分布(这个有大问题)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E7%BB%8F%E5%85%B8%E9%A2%98%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">(四) 经典题型：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E4%BA%8C%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%9C%A8%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6%E4%B8%8B%E6%A6%82%E7%8E%87"><span class="nav-number">1.4.1.</span> <span class="nav-text">1
+求二维随机变量在限制条件下概率</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B%E5%B8%B8%E8%A7%81%E4%BA%8E%E4%B8%A4%E4%B8%AA%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B%E7%9A%84%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9B%B4%E6%8E%A5%E5%B0%86%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6%E8%BD%AC%E6%8D%A2%E6%88%90%E4%B8%80%E4%B8%AA%E6%96%B0%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">1.1
+二维随机变量相互独立,常见于两个相互独立的正态分布，直接将限制条件转换成一个新函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%8B%AC%E7%AB%8B%E6%80%A7%E6%9C%AA%E7%9F%A5%E5%8F%AA%E7%9F%A5fx-y"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">1.2
+二维随机变量独立性未知，只知f(x, y)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%BE%E5%87%BA%E6%AD%A3%E6%A6%82%E7%8E%87%E5%8C%BA%E9%97%B4"><span class="nav-number">1.4.1.2.1.</span> <span class="nav-text">1.2.1 找出正概率区间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%BB%E5%87%BA%E6%AD%A3%E6%A6%82%E7%8E%87%E5%8C%BA%E9%97%B4%E4%B8%8E%E9%99%90%E5%AE%9A%E5%8C%BA%E9%97%B4%E7%9A%84%E4%BA%A4%E9%9B%86"><span class="nav-number">1.4.1.2.2.</span> <span class="nav-text">1.2.2
+画出正概率区间与限定区间的交集</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86%E6%88%96%E6%B1%82%E5%92%8C"><span class="nav-number">1.4.1.2.3.</span> <span class="nav-text">1.2.3 计算二重积分或求和</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E5%A4%8D%E5%90%88%E6%88%90%E4%B8%80%E7%BB%B4z-fx-y%E6%B1%82%E5%A4%8D%E5%90%88%E5%90%8E%E7%9A%84%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="nav-number">1.4.2.</span> <span class="nav-text">2 二维复合成一维(Z &#x3D;
+F(X, Y))，求复合后的概率密度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD-%E8%BF%9E%E7%BB%AD"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">2.1连续-连续</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%95%E4%B8%80"><span class="nav-number">1.4.2.1.1.</span> <span class="nav-text">法一：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B1%82%E8%81%94%E5%90%88%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="nav-number">1.4.2.1.1.1.</span> <span class="nav-text">1 求联合概率密度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E4%BB%A3%E5%85%A5%E5%AE%9A%E4%B9%89f_zz-pleftz-leq-zright-pleftfx-y-leq-zright%E8%BD%AC%E6%8D%A2%E6%88%90%E5%89%8D%E9%9D%A2%E6%B1%82%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6%E4%B8%8B%E6%A6%82%E7%8E%87%E9%97%AE%E9%A2%98"><span class="nav-number">1.4.2.1.1.2.</span> <span class="nav-text">2
+通过代入定义\(F_Z(z) &#x3D; P\left\{Z \leq
+z\right\} &#x3D; P\left\{F(X, Y) \leq
+z\right\}\)转换成前面求限制条件下概率问题</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E6%B1%82%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="nav-number">1.4.2.1.1.3.</span> <span class="nav-text">3 通过分布函数求概率密度</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%95%E4%BA%8C%E5%A6%82%E6%9E%9C%E5%B7%B2%E7%9F%A5xy%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B"><span class="nav-number">1.4.2.1.2.</span> <span class="nav-text">法二：如果已知x，y相互独立</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B1%82%E8%81%94%E5%90%88%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6fx-y%E6%B2%A1%E8%AE%B2%E7%8B%AC%E7%AB%8B%E7%9B%B4%E6%8E%A5%E5%B0%86x-z---x%E4%BB%A3%E5%85%A5fx-y%E5%8D%B3%E5%8F%AF%E8%AE%B2%E7%8B%AC%E7%AB%8B%E5%B0%B1%E5%8F%AF%E4%BB%A5%E4%B8%8D%E7%94%A8%E6%B1%82fx-y"><span class="nav-number">1.4.2.1.2.1.</span> <span class="nav-text">1
+求联合概率密度f(x, y)(没讲独立，直接将x， z - x代入f(x,
+y)即可，讲独立，就可以不用求f(x, y))</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A7%AF%E8%B0%81%E4%B8%8D%E6%8D%A2%E8%B0%81%E6%8D%A2%E5%AE%8C%E6%B1%82%E5%81%8F%E5%AF%BC%E5%8A%A0%E7%BB%9D%E5%AF%B9%E5%80%BC"><span class="nav-number">1.4.2.1.2.2.</span> <span class="nav-text">2
+积谁不换谁，换完求偏导加绝对值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E8%A2%AB%E7%A7%AF%E5%87%BD%E6%95%B0fx-z---x%E7%A1%AE%E5%AE%9Ax%E7%9A%84%E8%8C%83%E5%9B%B4%E5%86%8D%E9%80%9A%E8%BF%87y%E7%9A%84%E8%8C%83%E5%9B%B4%E7%BB%8F%E8%BF%87%E8%BF%98%E5%8E%9F%E7%A1%AE%E5%AE%9Az%E7%9A%84%E8%8C%83%E5%9B%B4"><span class="nav-number">1.4.2.1.2.3.</span> <span class="nav-text">3
+确定被积函数f(x, z -
+x)，确定x的范围，再通过y的范围经过还原确定z的范围</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A5x%E4%B8%BA%E6%A8%AA%E8%BD%B4z%E4%B8%BA%E7%BA%B5%E8%BD%B4%E4%BD%9C%E5%9B%BE%E4%BB%A5z%E4%B8%BA%E6%A8%AA%E7%BA%BF%E8%AE%A8%E8%AE%BAz%E7%9A%84%E8%8C%83%E5%9B%B4%E6%B1%82fz"><span class="nav-number">1.4.2.1.2.4.</span> <span class="nav-text">4
+以x为横轴，z为纵轴作图，以z为横线讨论z的范围求f(z)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD-%E7%A6%BB%E6%95%A3"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">2.2 连续-离散</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F%E5%88%86%E8%A7%A3"><span class="nav-number">1.4.2.2.1.</span> <span class="nav-text">1 全概率公式分解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%85%AC%E5%BC%8F%E5%88%86%E8%A7%A3"><span class="nav-number">1.4.2.2.2.</span> <span class="nav-text">2 条件公式分解</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">心有所向，无问西东</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">325k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:55</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

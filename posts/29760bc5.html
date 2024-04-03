@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="数理统计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第六章：数理统计">
+<meta property="og:url" content="http://example.com/posts/29760bc5.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="数理统计">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-03T00:41:08.000Z">
+<meta property="article:modified_time" content="2024-04-03T00:43:14.877Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/29760bc5.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>第六章：数理统计 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/29760bc5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第六章：数理统计
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-03 08:41:08 / 修改时间：08:43:14" itemprop="dateCreated datePublished" datetime="2024-04-03T08:41:08+08:00">2024-04-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A6%82%E7%8E%87%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">概率论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/29760bc5.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/29760bc5.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="数理统计">数理统计</h1>
+<span id="more"></span>
+<h2 id="总体与样本">总体与样本</h2>
+<h3 id="总体研究对象全体">总体：研究对象全体</h3>
+<h3 id="样本">样本：</h3>
+<h4 id="n个没有抽样的x_ii1-2-n">1 n个(没有抽样)的<span
+class="math inline">\(X_i(i=1, 2, ……, n)\)</span></h4>
+<h4 id="相互独立且同分布于某个随机变量x">2
+相互独立且同分布于某个随机变量X</h4>
+<h4
+id="组成的整体x_1-x_2-x_n-叫做一个样本一次抽样结果的n个具体数值x_1-x_2-x_n叫做这个样本的观测值">3
+组成的整体<span class="math inline">\((X_1, X_2, ……，X_n)\)</span>
+叫做一个样本，一次抽样结果的n个具体数值<span class="math inline">\((x_1,
+x_2, ……， x_n)\)</span>叫做这个样本的观测值</h4>
+<h3
+id="样本的分布如果样本x_1-x_2-x_n服从的x的分布函数是fx则fx_1-x_2-x_n-prod_i1nfx_i理解上就是相互独立所以可以拆分另外什么概率密度分布律类似">样本的分布：如果样本<span
+class="math inline">\((X_1, X_2, ……，
+X_n)\)</span>服从的X的分布函数是F(x)，则<span
+class="math inline">\(F(x_1, x_2, x_n) =
+\prod_{i=1}^nF(x_i)\)</span>(理解上就是相互独立所以可以拆分，另外什么概率密度，分布律类似)</h3>
+<p>举个例子</p>
+<p>离散型</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216120104.jpg" /></p>
+<p>连续型</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216120917.jpg" /></p>
+<h2 id="统计量及其分布">统计量及其分布</h2>
+<h3 id="统计量">统计量</h3>
+<h4 id="样本数字特征">1 样本数字特征</h4>
+<h5 id="样本均值-overlinex-frac1nsum_i1nx_i">样本均值： <span
+class="math inline">\(\overline{X} =
+\frac{1}{n}\sum_{i=1}^{n}X_i\)</span></h5>
+<h5
+id="样本方差标准差s2-frac1n-1sum_i1nx_i-overline-x2-s-sqrtfrac1n-1sum_i1nx_i-overline-x2">样本方差，标准差：<span
+class="math inline">\(S^2 = \frac{1}{n-1}\sum_{i=1}^{n}(X_i-\overline
+X)^2\)</span>， <span class="math inline">\(S =
+\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\overline X)^2}\)</span></h5>
+<h5 id="样本k阶原点矩-a_k-frac1nsum_i1nx_ikk-1-2">样本k阶原点矩： <span
+class="math inline">\(A_k = \frac{1}{n}\sum_{i=1}^{n}X_i^k(k = 1, 2,
+……)\)</span></h5>
+<h5 id="样本k阶中心矩-b_k-frac1nsum_i1nx_i-overlinexk">样本k阶中心矩：
+<span class="math inline">\(B_k =
+\frac{1}{n}\sum_{i=1}^{n}(X_i-\overline{X})^k\)</span></h5>
+<h4 id="顺序统计量">2 顺序统计量</h4>
+<h5 id="最大顺序统计量x_n-maxleftx_1-x_2-x_nright">最大顺序统计量：<span
+class="math inline">\(X_(n) = max\left\{X_1, X_2,……，
+X_n\right\}\)</span></h5>
+<h6 id="分布函数f_nx-fxn">分布函数：<span
+class="math inline">\(F_{(n)}(x) = [F(x)]^n\)</span></h6>
+<h6
+id="概率密度f_nx-nfxn-1fx对上面f求导注意是复合函数求导">概率密度：<span
+class="math inline">\(f_(n)(x) =
+n[F(x)]^{n-1}f(x)\)</span>(对上面F求导，注意是复合函数求导)</h6>
+<h5 id="最小顺序统计量x_1minleftx_1-x_2-x_nright">最小顺序统计量：<span
+class="math inline">\(X_{(1)}=min\left\{X_1, X_2,
+……X_n\right\}\)</span></h5>
+<h6 id="分布函数f_1x-1-1-fxn">分布函数：<span
+class="math inline">\(F_{(1)}(x) = 1-[1-F(x)]^n\)</span></h6>
+<h6 id="概率密度f_1x-n1-fxn-1fx">概率密度：<span
+class="math inline">\(f_{(1)}(x) = n[1-F(x)]^{n-1}f(x)\)</span></h6>
+<h4 id="性质设总体exmudx-sigma2">3 性质(<span
+class="math inline">\(设总体E(X)=\mu,D(X) = \sigma^2\)</span>)</h4>
+<h5 id="x_i的期望与方差"><span
+class="math inline">\(X_i的期望与方差\)</span></h5>
+<h6 id="ex_i-mu"><span class="math inline">\(E(X_i) = \mu\)</span></h6>
+<h6 id="dx_i-sigma2"><span class="math inline">\(D(X_i) =
+\sigma^2\)</span></h6>
+<h5 id="overlinex的期望与方差"><span
+class="math inline">\(\overline{X}的期望与方差\)</span></h5>
+<h6 id="eoverlinex-ex-mu"><span class="math inline">\(E(\overline{X}) =
+E(X) = \mu\)</span></h6>
+<h6 id="doverlinex-fracsigma2n"><span
+class="math inline">\(D(\overline{X}) = \frac{\sigma^2}{n}\)</span></h6>
+<h5 id="s2"><span class="math inline">\(S^2\)</span></h5>
+<h6 id="es2-dx-sigma2"><span class="math inline">\(E(S^2) = D(X) =
+\sigma^2\)</span></h6>
+<h3 id="三大分布">三大分布</h3>
+<h4 id="chi2分布">1 <span class="math inline">\(\chi^2分布\)</span></h4>
+<h5 id="定义-x_i独立同分布于n0-1x-_i-1nx_i2-2n">1.1 定义：$
+X_i独立同分布于N(0, 1)，X = _{i = 1}<sup>{n}X_{i}</sup>2 ^2(n)$</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231214194907.jpg" /></p>
+<h5 id="性质">1.2 性质：</h5>
+<h6
+id="若x_1-sim-chi2n_1-x_2-sim-chi2n_2-x_1与x_2相互独立则x_1-x_2-sim-chi2n_1n_2">(1)
+<span class="math inline">\(若X_1 \sim \chi^2(n_1), X_2 \sim
+\chi^2(n_2), X_1与X_2相互独立，则X_1 + X_2 \sim
+\chi^{2}(n_1+n_2)\)</span></h6>
+<h6 id="若xsim-chi2nexn-dx2n">(2) <span class="math inline">\(若X\sim
+\chi^2(n),E(X)=n, D(X)=2n\)</span></h6>
+<h4 id="t分布">2 t分布</h4>
+<h5
+id="定义xsim-n0-1-ysim-chi2n-x与y相互独立t-fracxsqrtfracyn-sim-tn">2.1
+定义：<span class="math inline">\(X\sim N(0, 1), Y\sim \chi^2(n),
+X与Y相互独立，t = \frac{X}{\sqrt{\frac{Y}{N}}} \sim t(n)\)</span></h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231214195812.jpg" /></p>
+<h5
+id="性质-图形关于y轴对称所以t_alphan这个点右侧面积是alpha--t_1-alphan这个点右侧面积是1-alpha">2.2
+性质: <span
+class="math inline">\(图形关于y轴对称，所以t_{\alpha}(n)(这个点右侧面积是\alpha)
+= -t_{1-\alpha}(n)(这个点右侧面积是1-\alpha)\)</span></h5>
+<h4 id="f分布">3 F分布</h4>
+<h5
+id="定义xsim-chi2n_1-ysim-chi2n_2x与y相互独立f-fracxn_1yn_2sim-fn_1-n_2">3.1
+定义：<span class="math inline">\(X\sim \chi^2(n_1), Y\sim
+\chi^2(n_2),X与Y相互独立，F = \frac{X/{n_1}}{Y/{n_2}}\sim F(n_1,
+n_2)\)</span></h5>
+<h5 id="性质-1">3.2 性质</h5>
+<h6 id="若fsim-fn_1-n_2则frac1fsim-fn_2-n_1">(1) <span
+class="math inline">\(若F\sim F(n_1, n_2)，则\frac{1}{F}\sim F(n_2,
+n_1)\)</span></h6>
+<h6 id="若f_1-alphan_1-n_2-frac1f_alphan_2-n_1">(2)<span
+class="math inline">\(若F_{1-\alpha}(n_1, n_2) =
+\frac{1}{F_{\alpha}(n_2, n_1)}\)</span></h6>
+<p>题型：给一个不标准的分布，去表示出一个标准的分布</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231224094116.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231224094141.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231224094152.jpg" /></p>
+<h3
+id="x_1-x_2x_n独立同分布正态nmu-sigma2时常用结论这些结论常用于后面区间估计和假设检验"><span
+class="math inline">\(X_1, X_2,……X_n独立同分布正态(N(\mu,
+\sigma^2))时常用结论\)</span>(这些结论常用于后面区间估计和假设检验)</h3>
+<h4
+id="overlinexsim-nmu-fracsigma2n从前面overlinex的均值与方差可知所以fracoverlinex-musigmasqrtnsim-n0-1">(1)
+<span class="math inline">\(\overline{X}\sim N(\mu,
+\frac{\sigma^2}{n})(从前面\overline{X}的均值与方差可知),所以\frac{\overline{X}-\mu}{\sigma/\sqrt{n}}\sim
+N(0, 1)\)</span></h4>
+<h4
+id="sum_i1nfracx_i-musigma2-sim-chi2nx_i标准化后的平方和服从与chi2">(2)
+<span class="math inline">\(\sum_{i=1}^{n}(\frac{X_i-\mu}{\sigma})^2
+\sim \chi^2(n)(X_i标准化后的平方和服从与\chi^2)\)</span></h4>
+<h4
+id="sum_i1nfracx_i-overlinexsigma2-fracn-1s2sigma2-sim-chi2n-1上面如果总体期望未知可以用样本均值代替后做相应改动">(3)
+<span
+class="math inline">\(\sum_{i=1}^{n}(\frac{X_i-\overline{X}}{\sigma})^2
+= \frac{(n-1)S^2}{\sigma^2} \sim
+\chi^2(n-1)(上面如果总体期望未知，可以用样本均值代替后做相应改动)\)</span></h4>
+<h4
+id="fracoverlinex-mussqrtn-sim-tn-1将1中的总体标准差sigma用样本标准差s替换-fracnoverlinex-mu2s2-sim-f1-n-1">(4)
+<span class="math inline">\(\frac{(\overline{X}-\mu)}{S/\sqrt{n}} \sim
+t(n-1)(将(1)中的总体标准差\sigma用样本标准差S替换),
+\frac{n(\overline{X}-\mu)^2}{S^2} \sim F(1, n-1)\)</span></h4>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216121331.jpg" /></p>
+<p>(1)先确定要表示的分布</p>
+<p>(2)将要表示的分布里的标准分布通过题干中分布标准化后换元表示</p>
+<h2 id="参数的区间估计">参数的区间估计</h2>
+<p>首先需要了解一些基本概念：</p>
+<p><span
+class="math inline">\(\mu\)</span>：表示期望，不随抽样改变而改变</p>
+<p><span
+class="math inline">\(\overline{X}\)</span>：均值，由每次抽样决定</p>
+<p>均值虽然不是期望，但一般来说均值与期望之间距离<span
+class="math inline">\(|\overline{X}-u|\)</span>比较小的概率还是很大的，公式表示就是</p>
+<p><span class="math inline">\(P\left\{|\overline{X}-\mu| \leq
+\varepsilon \right\} = 1 - \alpha\)</span></p>
+<p>其中<span class="math inline">\(\alpha\)</span>叫显著性水平，<span
+class="math inline">\(1-\alpha\)</span>叫置信区间</p>
+<h3
+id="sigma2已知时的置信区间overlinex-z_fracalpha2fracsigmasqrtn-overlinexz_fracalpha2fracsigmasqrtn"><span
+class="math inline">\(\sigma^2已知时的置信区间：(\overline{X}-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}},
+\overline{X}+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}})\)</span></h3>
+<p>证明：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216090745.jpg" /></p>
+<h3
+id="sigma2未知时的置信区间overlinex-t_fracalpha2n-1fracssqrtn-overlinext_fracalpha2n-1fracssqrtn"><span
+class="math inline">\(\sigma^2未知时的置信区间：(\overline{X}-t_{\frac{\alpha}{2}}(n-1)\frac{S}{\sqrt{n}},
+\overline{X}+t_{\frac{\alpha}{2}}(n-1)\frac{S}{\sqrt{n}})\)</span></h3>
+<p>证明</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216091229.jpg" /></p>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216091404.jpg" /></p>
+<h2
+id="假设检验u只是一个假设的值在求出拒绝域后看实际得到的结果落在哪里如果落在拒绝域说明假设不成立">假设检验(u只是一个假设的值，在求出拒绝域后，看实际得到的结果落在哪里，如果落在拒绝域说明假设不成立)</h2>
+<p>基本思想是<span class="math inline">\(P(\overline{A}) = 1 -
+P(A)\)</span></p>
+<p>拒绝域：拒绝原假设<span
+class="math inline">\(H_0\)</span>的全体样本点组成集合</p>
+<p>接受域：接受原假设<span
+class="math inline">\(H_0\)</span>的全体样本点组成集合</p>
+<h3 id="双边检验分布的下标是fracalpha2">1 双边检验(<span
+class="math inline">\(分布的下标是\frac{\alpha}{2}\)</span>)</h3>
+<h4 id="sigma2已知">(1) <span
+class="math inline">\(\sigma^2已知\)</span></h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216093736.jpg" /></p>
+<h4 id="sigma2未知">(2) <span
+class="math inline">\(\sigma^2未知\)</span></h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216093840.jpg" /></p>
+<h3 id="单边检验分布的下标是">2 单边检验($分布的下标是$)</h3>
+<h4 id="sigma2已知-1">(1) <span
+class="math inline">\(\sigma^2已知\)</span></h4>
+<h5 id="mu-leq-u_0"><span class="math inline">\(\mu \leq
+u_0\)</span></h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216094230.jpg" /></p>
+<h5 id="mu-geq-u_0"><span class="math inline">\(\mu \geq
+u_0\)</span></h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216094312.jpg" /></p>
+<h4 id="sigma2未知-1">(2)<span
+class="math inline">\(\sigma^2未知\)</span></h4>
+<h5 id="mu-leq-u_0-1"><span class="math inline">\(\mu \leq
+u_0\)</span></h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216094446.jpg" /></p>
+<h5 id="u-geq-u_0"><span class="math inline">\(u \geq u_0\)</span></h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216094521.jpg" /></p>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216095445.jpg" /></p>
+<h2 id="参数的点估计">参数的点估计</h2>
+<h3 id="方法">方法</h3>
+<h4
+id="矩估计法样本中有未知值theta用样本均值等于总体期望ex-overlinex来计算theta的估计值hattheta">矩估计法：<span
+class="math inline">\(样本中有未知值\theta，用样本均值等于总体期望E(X) =
+\overline{X}来计算\theta的估计值\hat{\theta}\)</span></h4>
+<h4 id="求ex">1 <span class="math inline">\(求E(X)\)</span></h4>
+<h4 id="另ex-overlinex">2 <span class="math inline">\(另E(X) =
+\overline{X}\)</span></h4>
+<h4
+id="最大似然估计法-如果是离散型概率分布中含theta如果是连续型概率函数含theta即后面所求将是包含theta的函数">最大似然估计法
+<span
+class="math inline">\(如果是离散型，概率分布中含\theta，如果是连续型，概率函数含\theta,即后面所求将是包含\theta的函数\)</span></h4>
+<h5 id="将样本中所有结果相乘得到ltheta-prod_i1npleftx_i-xright">(1)
+<span class="math inline">\(将样本中所有结果相乘得到L(\theta) =
+\prod_{i=1}^nP\left\{X_i = x\right\}\)</span></h5>
+<h5 id="第一步得到的等式两边取对数">(2) 第一步得到的等式两边取对数</h5>
+<h5 id="等式两边关于theta求导并另之为0">(3) <span
+class="math inline">\(等式两边关于\theta求导，并另之为0\)</span></h5>
+<p>举个例子</p>
+<p>离散型</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231215085510.jpg" /></p>
+<p>矩估计法</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231215091131.jpg" /></p>
+<p>最大似然估计法</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231215094536.jpg" /></p>
+<p>连续型</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231215090002.jpg" /></p>
+<p>矩估计法</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231215091143.jpg" /></p>
+<p>最大似然估计法</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231215095428.jpg" /></p>
+<h3 id="估计量的评价标准">估计量的评价标准</h3>
+<h4 id="无偏性得到hattheta后证明ehattheta-theta">无偏性：<span
+class="math inline">\(得到\hat{\theta}后证明E(\hat{\theta}) =
+\theta\)</span></h4>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231215142836.jpg" /></p>
+<h4 id="有效性比较哪个dhattheta更小">有效性：<span
+class="math inline">\(比较哪个D(\hat{\theta})更小\)</span></h4>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231215143607.jpg" /></p>
+<h4
+id="一致性相合性证明hattheta依概率收敛于theta即lim_nrightarrowinftyplefthattheta-theta-epsilonright-1使用时往往结合切比雪夫不等式">一致性(相合性)：<span
+class="math inline">\(证明\hat{\theta}依概率收敛于\theta，即\lim_{n\rightarrow\infty}P\left\{|\hat{\theta}-\theta|
+&lt; \epsilon\right\} = 1\)</span>，使用时往往结合切比雪夫不等式</h4>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216094731.jpg" /></p>
+<h2 id="两类错误">两类错误</h2>
+<p>以有没有病举例</p>
+<h3 id="p拒绝h_0h_0为真-有病但被判成无病的概率">$P{拒绝H_0|H_0为真} = $
+有病但被判成无病的概率</h3>
+<h3 id="pleft接受h_0h_0为假right-无病但被判成有病的概率"><span
+class="math inline">\(P\left\{接受H_0|H_0为假\right\}\)</span>
+无病但被判成有病的概率</h3>
+<p>举个例子</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231216100549.jpg" /></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/29760bc5.html" title="第六章：数理统计">http://example.com/posts/29760bc5.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/c0910902.html" rel="prev" title="第五章：大数定律与中心极限定理">
+      <i class="fa fa-chevron-left"></i> 第五章：大数定律与中心极限定理
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">数理统计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E4%B8%8E%E6%A0%B7%E6%9C%AC"><span class="nav-number">1.1.</span> <span class="nav-text">总体与样本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E7%A0%94%E7%A9%B6%E5%AF%B9%E8%B1%A1%E5%85%A8%E4%BD%93"><span class="nav-number">1.1.1.</span> <span class="nav-text">总体：研究对象全体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC"><span class="nav-number">1.1.2.</span> <span class="nav-text">样本：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#n%E4%B8%AA%E6%B2%A1%E6%9C%89%E6%8A%BD%E6%A0%B7%E7%9A%84x_ii1-2-n"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1 n个(没有抽样)的\(X_i(i&#x3D;1, 2, ……, n)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B%E4%B8%94%E5%90%8C%E5%88%86%E5%B8%83%E4%BA%8E%E6%9F%90%E4%B8%AA%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8Fx"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2
+相互独立且同分布于某个随机变量X</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E6%88%90%E7%9A%84%E6%95%B4%E4%BD%93x_1-x_2-x_n-%E5%8F%AB%E5%81%9A%E4%B8%80%E4%B8%AA%E6%A0%B7%E6%9C%AC%E4%B8%80%E6%AC%A1%E6%8A%BD%E6%A0%B7%E7%BB%93%E6%9E%9C%E7%9A%84n%E4%B8%AA%E5%85%B7%E4%BD%93%E6%95%B0%E5%80%BCx_1-x_2-x_n%E5%8F%AB%E5%81%9A%E8%BF%99%E4%B8%AA%E6%A0%B7%E6%9C%AC%E7%9A%84%E8%A7%82%E6%B5%8B%E5%80%BC"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">3
+组成的整体\((X_1, X_2, ……，X_n)\)
+叫做一个样本，一次抽样结果的n个具体数值\((x_1,
+x_2, ……， x_n)\)叫做这个样本的观测值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E7%9A%84%E5%88%86%E5%B8%83%E5%A6%82%E6%9E%9C%E6%A0%B7%E6%9C%ACx_1-x_2-x_n%E6%9C%8D%E4%BB%8E%E7%9A%84x%E7%9A%84%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0%E6%98%AFfx%E5%88%99fx_1-x_2-x_n-prod_i1nfx_i%E7%90%86%E8%A7%A3%E4%B8%8A%E5%B0%B1%E6%98%AF%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B%E6%89%80%E4%BB%A5%E5%8F%AF%E4%BB%A5%E6%8B%86%E5%88%86%E5%8F%A6%E5%A4%96%E4%BB%80%E4%B9%88%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6%E5%88%86%E5%B8%83%E5%BE%8B%E7%B1%BB%E4%BC%BC"><span class="nav-number">1.1.3.</span> <span class="nav-text">样本的分布：如果样本\((X_1, X_2, ……，
+X_n)\)服从的X的分布函数是F(x)，则\(F(x_1, x_2, x_n) &#x3D;
+\prod_{i&#x3D;1}^nF(x_i)\)(理解上就是相互独立所以可以拆分，另外什么概率密度，分布律类似)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E9%87%8F%E5%8F%8A%E5%85%B6%E5%88%86%E5%B8%83"><span class="nav-number">1.2.</span> <span class="nav-text">统计量及其分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E9%87%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">统计量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E6%95%B0%E5%AD%97%E7%89%B9%E5%BE%81"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">1 样本数字特征</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC-overlinex-frac1nsum_i1nx_i"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">样本均值： \(\overline{X} &#x3D;
+\frac{1}{n}\sum_{i&#x3D;1}^{n}X_i\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E6%96%B9%E5%B7%AE%E6%A0%87%E5%87%86%E5%B7%AEs2-frac1n-1sum_i1nx_i-overline-x2-s-sqrtfrac1n-1sum_i1nx_i-overline-x2"><span class="nav-number">1.2.1.1.2.</span> <span class="nav-text">样本方差，标准差：\(S^2 &#x3D; \frac{1}{n-1}\sum_{i&#x3D;1}^{n}(X_i-\overline
+X)^2\)， \(S &#x3D;
+\sqrt{\frac{1}{n-1}\sum_{i&#x3D;1}^{n}(X_i-\overline X)^2}\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%B7%E6%9C%ACk%E9%98%B6%E5%8E%9F%E7%82%B9%E7%9F%A9-a_k-frac1nsum_i1nx_ikk-1-2"><span class="nav-number">1.2.1.1.3.</span> <span class="nav-text">样本k阶原点矩： \(A_k &#x3D; \frac{1}{n}\sum_{i&#x3D;1}^{n}X_i^k(k &#x3D; 1, 2,
+……)\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%B7%E6%9C%ACk%E9%98%B6%E4%B8%AD%E5%BF%83%E7%9F%A9-b_k-frac1nsum_i1nx_i-overlinexk"><span class="nav-number">1.2.1.1.4.</span> <span class="nav-text">样本k阶中心矩：
+\(B_k &#x3D;
+\frac{1}{n}\sum_{i&#x3D;1}^{n}(X_i-\overline{X})^k\)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2 顺序统计量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8Fx_n-maxleftx_1-x_2-x_nright"><span class="nav-number">1.2.1.2.1.</span> <span class="nav-text">最大顺序统计量：\(X_(n) &#x3D; max\left\{X_1, X_2,……，
+X_n\right\}\)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0f_nx-fxn"><span class="nav-number">1.2.1.2.1.1.</span> <span class="nav-text">分布函数：\(F_{(n)}(x) &#x3D; [F(x)]^n\)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6f_nx-nfxn-1fx%E5%AF%B9%E4%B8%8A%E9%9D%A2f%E6%B1%82%E5%AF%BC%E6%B3%A8%E6%84%8F%E6%98%AF%E5%A4%8D%E5%90%88%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC"><span class="nav-number">1.2.1.2.1.2.</span> <span class="nav-text">概率密度：\(f_(n)(x) &#x3D;
+n[F(x)]^{n-1}f(x)\)(对上面F求导，注意是复合函数求导)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8Fx_1minleftx_1-x_2-x_nright"><span class="nav-number">1.2.1.2.2.</span> <span class="nav-text">最小顺序统计量：\(X_{(1)}&#x3D;min\left\{X_1, X_2,
+……X_n\right\}\)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0f_1x-1-1-fxn"><span class="nav-number">1.2.1.2.2.1.</span> <span class="nav-text">分布函数：\(F_{(1)}(x) &#x3D; 1-[1-F(x)]^n\)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6f_1x-n1-fxn-1fx"><span class="nav-number">1.2.1.2.2.2.</span> <span class="nav-text">概率密度：\(f_{(1)}(x) &#x3D; n[1-F(x)]^{n-1}f(x)\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8%E8%AE%BE%E6%80%BB%E4%BD%93exmudx-sigma2"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">3 性质(\(设总体E(X)&#x3D;\mu,D(X) &#x3D; \sigma^2\))</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#x_i%E7%9A%84%E6%9C%9F%E6%9C%9B%E4%B8%8E%E6%96%B9%E5%B7%AE"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">\(X_i的期望与方差\)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ex_i-mu"><span class="nav-number">1.2.1.3.1.1.</span> <span class="nav-text">\(E(X_i) &#x3D; \mu\)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#dx_i-sigma2"><span class="nav-number">1.2.1.3.1.2.</span> <span class="nav-text">\(D(X_i) &#x3D;
+\sigma^2\)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#overlinex%E7%9A%84%E6%9C%9F%E6%9C%9B%E4%B8%8E%E6%96%B9%E5%B7%AE"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">\(\overline{X}的期望与方差\)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#eoverlinex-ex-mu"><span class="nav-number">1.2.1.3.2.1.</span> <span class="nav-text">\(E(\overline{X}) &#x3D;
+E(X) &#x3D; \mu\)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#doverlinex-fracsigma2n"><span class="nav-number">1.2.1.3.2.2.</span> <span class="nav-text">\(D(\overline{X}) &#x3D; \frac{\sigma^2}{n}\)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#s2"><span class="nav-number">1.2.1.3.3.</span> <span class="nav-text">\(S^2\)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#es2-dx-sigma2"><span class="nav-number">1.2.1.3.3.1.</span> <span class="nav-text">\(E(S^2) &#x3D; D(X) &#x3D;
+\sigma^2\)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E5%88%86%E5%B8%83"><span class="nav-number">1.2.2.</span> <span class="nav-text">三大分布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#chi2%E5%88%86%E5%B8%83"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1 \(\chi^2分布\)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-x_i%E7%8B%AC%E7%AB%8B%E5%90%8C%E5%88%86%E5%B8%83%E4%BA%8En0-1x-_i-1nx_i2-2n"><span class="nav-number">1.2.2.1.1.</span> <span class="nav-text">1.1 定义：$
+X_i独立同分布于N(0, 1)，X &#x3D; _{i &#x3D; 1}{n}X_{i}2 ^2(n)$</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.2.2.1.2.</span> <span class="nav-text">1.2 性质：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8B%A5x_1-sim-chi2n_1-x_2-sim-chi2n_2-x_1%E4%B8%8Ex_2%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B%E5%88%99x_1-x_2-sim-chi2n_1n_2"><span class="nav-number">1.2.2.1.2.1.</span> <span class="nav-text">(1)
+\(若X_1 \sim \chi^2(n_1), X_2 \sim
+\chi^2(n_2), X_1与X_2相互独立，则X_1 + X_2 \sim
+\chi^{2}(n_1+n_2)\)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8B%A5xsim-chi2nexn-dx2n"><span class="nav-number">1.2.2.1.2.2.</span> <span class="nav-text">(2) \(若X\sim
+\chi^2(n),E(X)&#x3D;n, D(X)&#x3D;2n\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#t%E5%88%86%E5%B8%83"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2 t分布</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89xsim-n0-1-ysim-chi2n-x%E4%B8%8Ey%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8Bt-fracxsqrtfracyn-sim-tn"><span class="nav-number">1.2.2.2.1.</span> <span class="nav-text">2.1
+定义：\(X\sim N(0, 1), Y\sim \chi^2(n),
+X与Y相互独立，t &#x3D; \frac{X}{\sqrt{\frac{Y}{N}}} \sim t(n)\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8-%E5%9B%BE%E5%BD%A2%E5%85%B3%E4%BA%8Ey%E8%BD%B4%E5%AF%B9%E7%A7%B0%E6%89%80%E4%BB%A5t_alphan%E8%BF%99%E4%B8%AA%E7%82%B9%E5%8F%B3%E4%BE%A7%E9%9D%A2%E7%A7%AF%E6%98%AFalpha--t_1-alphan%E8%BF%99%E4%B8%AA%E7%82%B9%E5%8F%B3%E4%BE%A7%E9%9D%A2%E7%A7%AF%E6%98%AF1-alpha"><span class="nav-number">1.2.2.2.2.</span> <span class="nav-text">2.2
+性质: \(图形关于y轴对称，所以t_{\alpha}(n)(这个点右侧面积是\alpha)
+&#x3D; -t_{1-\alpha}(n)(这个点右侧面积是1-\alpha)\)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#f%E5%88%86%E5%B8%83"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">3 F分布</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89xsim-chi2n_1-ysim-chi2n_2x%E4%B8%8Ey%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8Bf-fracxn_1yn_2sim-fn_1-n_2"><span class="nav-number">1.2.2.3.1.</span> <span class="nav-text">3.1
+定义：\(X\sim \chi^2(n_1), Y\sim
+\chi^2(n_2),X与Y相互独立，F &#x3D; \frac{X&#x2F;{n_1}}{Y&#x2F;{n_2}}\sim F(n_1,
+n_2)\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8-1"><span class="nav-number">1.2.2.3.2.</span> <span class="nav-text">3.2 性质</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8B%A5fsim-fn_1-n_2%E5%88%99frac1fsim-fn_2-n_1"><span class="nav-number">1.2.2.3.2.1.</span> <span class="nav-text">(1) \(若F\sim F(n_1, n_2)，则\frac{1}{F}\sim F(n_2,
+n_1)\)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8B%A5f_1-alphan_1-n_2-frac1f_alphan_2-n_1"><span class="nav-number">1.2.2.3.2.2.</span> <span class="nav-text">(2)\(若F_{1-\alpha}(n_1, n_2) &#x3D;
+\frac{1}{F_{\alpha}(n_2, n_1)}\)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x_1-x_2x_n%E7%8B%AC%E7%AB%8B%E5%90%8C%E5%88%86%E5%B8%83%E6%AD%A3%E6%80%81nmu-sigma2%E6%97%B6%E5%B8%B8%E7%94%A8%E7%BB%93%E8%AE%BA%E8%BF%99%E4%BA%9B%E7%BB%93%E8%AE%BA%E5%B8%B8%E7%94%A8%E4%BA%8E%E5%90%8E%E9%9D%A2%E5%8C%BA%E9%97%B4%E4%BC%B0%E8%AE%A1%E5%92%8C%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C"><span class="nav-number">1.2.3.</span> <span class="nav-text">\(X_1, X_2,……X_n独立同分布正态(N(\mu,
+\sigma^2))时常用结论\)(这些结论常用于后面区间估计和假设检验)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overlinexsim-nmu-fracsigma2n%E4%BB%8E%E5%89%8D%E9%9D%A2overlinex%E7%9A%84%E5%9D%87%E5%80%BC%E4%B8%8E%E6%96%B9%E5%B7%AE%E5%8F%AF%E7%9F%A5%E6%89%80%E4%BB%A5fracoverlinex-musigmasqrtnsim-n0-1"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">(1)
+\(\overline{X}\sim N(\mu,
+\frac{\sigma^2}{n})(从前面\overline{X}的均值与方差可知),所以\frac{\overline{X}-\mu}{\sigma&#x2F;\sqrt{n}}\sim
+N(0, 1)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sum_i1nfracx_i-musigma2-sim-chi2nx_i%E6%A0%87%E5%87%86%E5%8C%96%E5%90%8E%E7%9A%84%E5%B9%B3%E6%96%B9%E5%92%8C%E6%9C%8D%E4%BB%8E%E4%B8%8Echi2"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">(2)
+\(\sum_{i&#x3D;1}^{n}(\frac{X_i-\mu}{\sigma})^2
+\sim \chi^2(n)(X_i标准化后的平方和服从与\chi^2)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sum_i1nfracx_i-overlinexsigma2-fracn-1s2sigma2-sim-chi2n-1%E4%B8%8A%E9%9D%A2%E5%A6%82%E6%9E%9C%E6%80%BB%E4%BD%93%E6%9C%9F%E6%9C%9B%E6%9C%AA%E7%9F%A5%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%E4%BB%A3%E6%9B%BF%E5%90%8E%E5%81%9A%E7%9B%B8%E5%BA%94%E6%94%B9%E5%8A%A8"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">(3)
+\(\sum_{i&#x3D;1}^{n}(\frac{X_i-\overline{X}}{\sigma})^2
+&#x3D; \frac{(n-1)S^2}{\sigma^2} \sim
+\chi^2(n-1)(上面如果总体期望未知，可以用样本均值代替后做相应改动)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fracoverlinex-mussqrtn-sim-tn-1%E5%B0%861%E4%B8%AD%E7%9A%84%E6%80%BB%E4%BD%93%E6%A0%87%E5%87%86%E5%B7%AEsigma%E7%94%A8%E6%A0%B7%E6%9C%AC%E6%A0%87%E5%87%86%E5%B7%AEs%E6%9B%BF%E6%8D%A2-fracnoverlinex-mu2s2-sim-f1-n-1"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">(4)
+\(\frac{(\overline{X}-\mu)}{S&#x2F;\sqrt{n}} \sim
+t(n-1)(将(1)中的总体标准差\sigma用样本标准差S替换),
+\frac{n(\overline{X}-\mu)^2}{S^2} \sim F(1, n-1)\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E5%8C%BA%E9%97%B4%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.3.</span> <span class="nav-text">参数的区间估计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sigma2%E5%B7%B2%E7%9F%A5%E6%97%B6%E7%9A%84%E7%BD%AE%E4%BF%A1%E5%8C%BA%E9%97%B4overlinex-z_fracalpha2fracsigmasqrtn-overlinexz_fracalpha2fracsigmasqrtn"><span class="nav-number">1.3.1.</span> <span class="nav-text">\(\sigma^2已知时的置信区间：(\overline{X}-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}},
+\overline{X}+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}})\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sigma2%E6%9C%AA%E7%9F%A5%E6%97%B6%E7%9A%84%E7%BD%AE%E4%BF%A1%E5%8C%BA%E9%97%B4overlinex-t_fracalpha2n-1fracssqrtn-overlinext_fracalpha2n-1fracssqrtn"><span class="nav-number">1.3.2.</span> <span class="nav-text">\(\sigma^2未知时的置信区间：(\overline{X}-t_{\frac{\alpha}{2}}(n-1)\frac{S}{\sqrt{n}},
+\overline{X}+t_{\frac{\alpha}{2}}(n-1)\frac{S}{\sqrt{n}})\)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8Cu%E5%8F%AA%E6%98%AF%E4%B8%80%E4%B8%AA%E5%81%87%E8%AE%BE%E7%9A%84%E5%80%BC%E5%9C%A8%E6%B1%82%E5%87%BA%E6%8B%92%E7%BB%9D%E5%9F%9F%E5%90%8E%E7%9C%8B%E5%AE%9E%E9%99%85%E5%BE%97%E5%88%B0%E7%9A%84%E7%BB%93%E6%9E%9C%E8%90%BD%E5%9C%A8%E5%93%AA%E9%87%8C%E5%A6%82%E6%9E%9C%E8%90%BD%E5%9C%A8%E6%8B%92%E7%BB%9D%E5%9F%9F%E8%AF%B4%E6%98%8E%E5%81%87%E8%AE%BE%E4%B8%8D%E6%88%90%E7%AB%8B"><span class="nav-number">1.4.</span> <span class="nav-text">假设检验(u只是一个假设的值，在求出拒绝域后，看实际得到的结果落在哪里，如果落在拒绝域说明假设不成立)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E8%BE%B9%E6%A3%80%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E4%B8%8B%E6%A0%87%E6%98%AFfracalpha2"><span class="nav-number">1.4.1.</span> <span class="nav-text">1 双边检验(\(分布的下标是\frac{\alpha}{2}\))</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sigma2%E5%B7%B2%E7%9F%A5"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">(1) \(\sigma^2已知\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sigma2%E6%9C%AA%E7%9F%A5"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">(2) \(\sigma^2未知\)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E8%BE%B9%E6%A3%80%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E4%B8%8B%E6%A0%87%E6%98%AF"><span class="nav-number">1.4.2.</span> <span class="nav-text">2 单边检验($分布的下标是$)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sigma2%E5%B7%B2%E7%9F%A5-1"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">(1) \(\sigma^2已知\)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mu-leq-u_0"><span class="nav-number">1.4.2.1.1.</span> <span class="nav-text">\(\mu \leq
+u_0\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mu-geq-u_0"><span class="nav-number">1.4.2.1.2.</span> <span class="nav-text">\(\mu \geq
+u_0\)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sigma2%E6%9C%AA%E7%9F%A5-1"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">(2)\(\sigma^2未知\)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mu-leq-u_0-1"><span class="nav-number">1.4.2.2.1.</span> <span class="nav-text">\(\mu \leq
+u_0\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#u-geq-u_0"><span class="nav-number">1.4.2.2.2.</span> <span class="nav-text">\(u \geq u_0\)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E7%82%B9%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.5.</span> <span class="nav-text">参数的点估计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.1.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A9%E4%BC%B0%E8%AE%A1%E6%B3%95%E6%A0%B7%E6%9C%AC%E4%B8%AD%E6%9C%89%E6%9C%AA%E7%9F%A5%E5%80%BCtheta%E7%94%A8%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%E7%AD%89%E4%BA%8E%E6%80%BB%E4%BD%93%E6%9C%9F%E6%9C%9Bex-overlinex%E6%9D%A5%E8%AE%A1%E7%AE%97theta%E7%9A%84%E4%BC%B0%E8%AE%A1%E5%80%BChattheta"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">矩估计法：\(样本中有未知值\theta，用样本均值等于总体期望E(X) &#x3D;
+\overline{X}来计算\theta的估计值\hat{\theta}\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82ex"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">1 \(求E(X)\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A6ex-overlinex"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">2 \(另E(X) &#x3D;
+\overline{X}\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%B3%95-%E5%A6%82%E6%9E%9C%E6%98%AF%E7%A6%BB%E6%95%A3%E5%9E%8B%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83%E4%B8%AD%E5%90%ABtheta%E5%A6%82%E6%9E%9C%E6%98%AF%E8%BF%9E%E7%BB%AD%E5%9E%8B%E6%A6%82%E7%8E%87%E5%87%BD%E6%95%B0%E5%90%ABtheta%E5%8D%B3%E5%90%8E%E9%9D%A2%E6%89%80%E6%B1%82%E5%B0%86%E6%98%AF%E5%8C%85%E5%90%ABtheta%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">最大似然估计法
+\(如果是离散型，概率分布中含\theta，如果是连续型，概率函数含\theta,即后面所求将是包含\theta的函数\)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86%E6%A0%B7%E6%9C%AC%E4%B8%AD%E6%89%80%E6%9C%89%E7%BB%93%E6%9E%9C%E7%9B%B8%E4%B9%98%E5%BE%97%E5%88%B0ltheta-prod_i1npleftx_i-xright"><span class="nav-number">1.5.1.4.1.</span> <span class="nav-text">(1)
+\(将样本中所有结果相乘得到L(\theta) &#x3D;
+\prod_{i&#x3D;1}^nP\left\{X_i &#x3D; x\right\}\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%E5%BE%97%E5%88%B0%E7%9A%84%E7%AD%89%E5%BC%8F%E4%B8%A4%E8%BE%B9%E5%8F%96%E5%AF%B9%E6%95%B0"><span class="nav-number">1.5.1.4.2.</span> <span class="nav-text">(2) 第一步得到的等式两边取对数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%89%E5%BC%8F%E4%B8%A4%E8%BE%B9%E5%85%B3%E4%BA%8Etheta%E6%B1%82%E5%AF%BC%E5%B9%B6%E5%8F%A6%E4%B9%8B%E4%B8%BA0"><span class="nav-number">1.5.1.4.3.</span> <span class="nav-text">(3) \(等式两边关于\theta求导，并另之为0\)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%B0%E8%AE%A1%E9%87%8F%E7%9A%84%E8%AF%84%E4%BB%B7%E6%A0%87%E5%87%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">估计量的评价标准</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E5%81%8F%E6%80%A7%E5%BE%97%E5%88%B0hattheta%E5%90%8E%E8%AF%81%E6%98%8Eehattheta-theta"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">无偏性：\(得到\hat{\theta}后证明E(\hat{\theta}) &#x3D;
+\theta\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E6%95%88%E6%80%A7%E6%AF%94%E8%BE%83%E5%93%AA%E4%B8%AAdhattheta%E6%9B%B4%E5%B0%8F"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">有效性：\(比较哪个D(\hat{\theta})更小\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E7%9B%B8%E5%90%88%E6%80%A7%E8%AF%81%E6%98%8Ehattheta%E4%BE%9D%E6%A6%82%E7%8E%87%E6%94%B6%E6%95%9B%E4%BA%8Etheta%E5%8D%B3lim_nrightarrowinftyplefthattheta-theta-epsilonright-1%E4%BD%BF%E7%94%A8%E6%97%B6%E5%BE%80%E5%BE%80%E7%BB%93%E5%90%88%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">一致性(相合性)：\(证明\hat{\theta}依概率收敛于\theta，即\lim_{n\rightarrow\infty}P\left\{|\hat{\theta}-\theta|
+&lt; \epsilon\right\} &#x3D; 1\)，使用时往往结合切比雪夫不等式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E7%B1%BB%E9%94%99%E8%AF%AF"><span class="nav-number">1.6.</span> <span class="nav-text">两类错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#p%E6%8B%92%E7%BB%9Dh_0h_0%E4%B8%BA%E7%9C%9F-%E6%9C%89%E7%97%85%E4%BD%86%E8%A2%AB%E5%88%A4%E6%88%90%E6%97%A0%E7%97%85%E7%9A%84%E6%A6%82%E7%8E%87"><span class="nav-number">1.6.1.</span> <span class="nav-text">$P{拒绝H_0|H_0为真} &#x3D; $
+有病但被判成无病的概率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pleft%E6%8E%A5%E5%8F%97h_0h_0%E4%B8%BA%E5%81%87right-%E6%97%A0%E7%97%85%E4%BD%86%E8%A2%AB%E5%88%A4%E6%88%90%E6%9C%89%E7%97%85%E7%9A%84%E6%A6%82%E7%8E%87"><span class="nav-number">1.6.2.</span> <span class="nav-text">\(P\left\{接受H_0|H_0为假\right\}\)
+无病但被判成有病的概率</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">心有所向，无问西东</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">325k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:55</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

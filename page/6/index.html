@@ -192,6 +192,519 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/fdcdf70e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/fdcdf70e.html" class="post-title-link" itemprop="url">论文笔记：Beyond the Prior Forgery Knowledge Mining</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-14 08:46:00" itemprop="dateCreated datePublished" datetime="2024-02-14T08:46:00+08:00">2024-02-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deepfake/" itemprop="url" rel="index"><span itemprop="name">Deepfake</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deepfake/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/fdcdf70e.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/fdcdf70e.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="abstract">Abstract</h1>
+<h2 id="以前方法存在的问题">以前方法存在的问题：</h2>
+<p>都只是为了捕获特定的伪造线索，比如噪声(noise patterns),
+混合边界(blending boundaries)和频率(frequency
+artifacts),导致容易陷入局部最优，从而降低鲁棒性和泛化能力</p>
+<h2 id="创新点">创新点</h2>
+<p>提出CFM框架，原文which can be flexibly assembled with various
+backbones to boost their generalization and robustness
+performance，那么是一种模块吗？</p>
+<h3
+id="cfm框架组成先把原文放在这看后面怎么说">CFM框架组成(先把原文放在这，看后面怎么说)</h3>
+<h4
+id="首先构建了一个细粒度的三元组并通过先验知识不可知的数据增强来抑制特定的伪造痕迹">首先构建了一个细粒度的三元组，并通过先验知识不可知的数据增强来抑制特定的伪造痕迹</h4>
+<p>Specifically, we first build a fine-grained triplet and suppress
+specific forgery traces through prior knowledge-agnostic data
+augmentation</p>
+<h4
+id="随后我们提出了一个细粒度的关系学习原型通过实例和局部相似感知损失来挖掘伪造中的关键信息">随后，我们提出了一个细粒度的关系学习原型，通过实例和局部相似感知损失来挖掘伪造中的关键信息</h4>
+<p>Subsequently, we propose a fine-grained relation learning prototype
+to mine critical information in forgeries through instance and local
+similarity-aware losses</p>
+<h4
+id="此外我们设计了一种新颖的渐进式学习控制器来引导模型专注于主要特征组件使其能够以从粗到精的方式学习关键伪造特征">此外，我们设计了一种新颖的渐进式学习控制器来引导模型专注于主要特征组件，使其能够以从粗到精的方式学习关键伪造特征</h4>
+<p>Moreover, we design a novel progressive learning controller to guide
+the model to focus on principal feature components, enabling it to learn
+critical forgery features in a coarse-to-fine manner</p>
+<h1 id="introduction">INTRODUCTION</h1>
+<h2 id="研究背景">研究背景：</h2>
+<p>以常见的4种伪造手段Deepfakes , Face2Face ,FaceSwap and
+NeuralTextures为代表的深度伪造技术不断发展，并且越来越多现成的伪造软件被开发被人利用，导致了严重的金融欺诈，假新闻和身份假冒。</p>
+<h2 id="早期检测">早期检测</h2>
+<p>生物信息，比如眨眼，头部位置不一致和面部扭曲伪影，效果差</p>
+<p>基于深度学习的检测，泛化性差</p>
+<p>基于深度学习与捕获先验已知的特征，对图像失真的鲁棒性差</p>
+<h2 id="目标">目标</h2>
+<p>抗过拟合的同时挖掘出尽可能多的伪造线索</p>
+<h2 id="实现">实现</h2>
+<h3 id="数据集准备">数据集准备</h3>
+<p>利用先验知识不可知的数据增强来防止模型陷入局部最优，并驱动模型学习更广义的伪造知识;</p>
+<h3 id="学习框架">学习框架</h3>
+<p>引入细粒度三元关系学习方案，使模型能够学习更多的固有特征表示</p>
+<h3 id="正则化方案">正则化方案</h3>
+<p>用PLC正则化</p>
+<h3 id="目标函数">目标函数</h3>
+<p>实例相似度感知损失和局部相似度感知损失来同时学习全局关键特征和局部细微伪影</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240214092733347.png"
+alt="基于EfficientNet-B4的不同线索提取器的注意图" />
+<figcaption
+aria-hidden="true">基于EfficientNet-B4的不同线索提取器的注意图</figcaption>
+</figure>
+<p>上图每个部分图像第一列是不同形式伪造的图片</p>
+<p>提取特征的主干网络都是EfficientNet-B4(可以换成线性transformer试试)</p>
+<p>第二列是用普通卷积层提取出的基本伪造特征</p>
+<p>第三列是用低频提取出的噪声线索</p>
+<p>第四列是用本文提出的CFM框架提取出的关键伪造线索</p>
+<p>a部分的图像并没有经过任何变换，b部分的图像经过了下采样，c部分的图像加入了高斯噪声，对比可以看出根据基础线索（估计即使边界）和根据频率线索的检测都受到了干扰</p>
+<h1 id="related-work">RELATED WORK</h1>
+<h2 id="a.-prior-knowledge-based-face-forgery-detection">A. Prior
+Knowledge-Based Face Forgery Detection</h2>
+<p>缺点：抗扰动性差</p>
+<h2 id="b.-face-forgery-detection-via-representation-learning">B. Face
+Forgery Detection via Representation Learning</h2>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b018e611.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/b018e611.html" class="post-title-link" itemprop="url">Deepfake中的transformer应用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-12 05:56:48" itemprop="dateCreated datePublished" datetime="2024-02-12T05:56:48+08:00">2024-02-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deepfake/" itemprop="url" rel="index"><span itemprop="name">Deepfake</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deepfake/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/b018e611.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/b018e611.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f8648800.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/f8648800.html" class="post-title-link" itemprop="url">transformer在cv中应用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-09 06:05:43" itemprop="dateCreated datePublished" datetime="2024-02-09T06:05:43+08:00">2024-02-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/f8648800.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/f8648800.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>653</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="基础transformer讲解">基础transformer讲解</h1>
+<h2 id="position-encoding">Position Encoding</h2>
+<p>前面是没有考虑位置信息的，举个例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">m = nn.MultiheadAttention(embed_dim=<span class="number">2</span>, num_heads=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># embed_dim=2：指定了输入的嵌入维度（embedding dimension），即每个输入样本的特征维度为2，说白了就是图像的列数</span></span><br><span class="line"><span class="comment"># num_heads=1：指定了注意力头的数量，即将输入特征分成几份进行注意力计算。在这个例子中，只使用了1个注意力头。</span></span><br><span class="line">t1 = [[[<span class="number">1.</span>, <span class="number">2.</span>],   <span class="comment"># q1, k1, v1</span></span><br><span class="line">       [<span class="number">2.</span>, <span class="number">3.</span>],   <span class="comment"># q2, k2, v2</span></span><br><span class="line">       [<span class="number">3.</span>, <span class="number">4.</span>]]]  <span class="comment"># q3, k3, v3</span></span><br><span class="line"></span><br><span class="line">t2 = [[[<span class="number">1.</span>, <span class="number">2.</span>],   <span class="comment"># q1, k1, v1</span></span><br><span class="line">       [<span class="number">3.</span>, <span class="number">4.</span>],   <span class="comment"># q3, k3, v3</span></span><br><span class="line">       [<span class="number">2.</span>, <span class="number">3.</span>]]]  <span class="comment"># q2, k2, v2</span></span><br><span class="line"></span><br><span class="line">q, k, v = torch.as_tensor(t1), torch.as_tensor(t1), torch.as_tensor(t1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;result1: \n&quot;</span>, m(q, k, v))</span><br><span class="line"></span><br><span class="line">q, k, v = torch.as_tensor(t2), torch.as_tensor(t2), torch.as_tensor(t2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;result2: \n&quot;</span>, m(q, k, v))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>输出结果</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/20210611164732523.png" /></p>
+<p>发现对b1没有影响</p>
+<p>所以</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/20210611154758830.png" /></p>
+<h1 id="vision-transformer模型详解">Vision Transformer模型详解</h1>
+<p><strong><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37541097/article/details/118242600#078b00d2-5d7d-f09f-c2b7-5f65765519fb">参考文章一</a></strong></p>
+<p><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37541097/article/details/117691873">参考文章二</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/56b92135.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/56b92135.html" class="post-title-link" itemprop="url">动态规划基础-混境之地5</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-08 16:44:05" itemprop="dateCreated datePublished" datetime="2024-02-08T16:44:05+08:00">2024-02-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 19:07:58" itemprop="dateModified" datetime="2024-03-26T19:07:58+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="index"><span itemprop="name">动态规划</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%AE%80%E5%8D%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">简单题</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/56b92135.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/56b92135.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题目"><a
+target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/3820/learning/?page=1&amp;first_category_id=1&amp;problem_id=3820">题目</a></h1>
+<h1 id="分析">分析</h1>
+<p>这题最初的想法用dfs解决，但会超时，分析是因为每次递归计算的值没有利用，所以开一个dp[n][m][k]数组，表示从起点开始，在经过点(x,
+y)，并且在使用喷气背包的次数为t的情况下，能否到达终点</p>
+<p>另外要注意地图的边界是从1开始，不是从0开始</p>
+<h1 id="代码">代码</h1>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="comment">// 1:无需package</span></span><br><span class="line"><span class="comment">// 2: 类名必须Main, 不可修改</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">MAXSIZE</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">1e3</span> + <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[][][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[MAXSIZE][MAXSIZE][<span class="number">2</span>];</span><br><span class="line">    <span class="comment">// dp有三个值：-1表示没有遍历过，0表示从起点,经过点(x, y),在喷气背包使用t次的情况下无法抵达终点，1则相反，表示可以抵达</span></span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[][] map = <span class="keyword">new</span> <span class="title class_">int</span>[MAXSIZE][MAXSIZE];</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> sx, sy, fx, fy;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> k;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> n, m;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[] dx = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[] dy = &#123;<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> x &gt;= <span class="number">1</span> &amp;&amp; x &lt;= n &amp;&amp; y &gt;= <span class="number">1</span> &amp;&amp; y &lt;= m;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> p)</span> &#123;</span><br><span class="line">    	<span class="comment">// 如果发现已经抵达终点</span></span><br><span class="line">    	<span class="keyword">if</span>(x == fx &amp;&amp; y == fy) &#123;</span><br><span class="line">    		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="comment">// 如果发现当前坐标位置已经遍历过，dp思想的核心体现</span></span><br><span class="line">    	<span class="keyword">if</span>(dp[x][y][p] != -<span class="number">1</span>) &#123;</span><br><span class="line">    		<span class="keyword">return</span> dp[x][y][p];</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="comment">// 上下左右依次遍历</span></span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">    		<span class="type">int</span> <span class="variable">nx</span> <span class="operator">=</span> x + dx[i];</span><br><span class="line">    		<span class="type">int</span> <span class="variable">ny</span> <span class="operator">=</span> y + dy[i];</span><br><span class="line">    		<span class="comment">// 判断移动后是否还在地图里</span></span><br><span class="line">    		<span class="keyword">if</span>(!isValid(nx, ny)) <span class="keyword">continue</span>;</span><br><span class="line">    		<span class="comment">// 如果当前喷气背包没有使用</span></span><br><span class="line">    		<span class="keyword">if</span>(p == <span class="number">0</span>) &#123;</span><br><span class="line">    			<span class="comment">// 当前高度比下一个高度高</span></span><br><span class="line">    			<span class="keyword">if</span>(map[x][y] &gt;= map[nx][ny]) &#123;</span><br><span class="line">    				<span class="type">int</span> <span class="variable">canReach</span> <span class="operator">=</span> dfs(nx, ny, <span class="number">0</span>);</span><br><span class="line">    				<span class="comment">// 如果经过当前点可以抵达终点</span></span><br><span class="line">    				<span class="keyword">if</span>(canReach == <span class="number">1</span>) &#123;</span><br><span class="line">    					<span class="comment">// 将dp[x][y][p]置为1并且返回1，向上一层传递</span></span><br><span class="line">    					dp[x][y][p] = <span class="number">1</span>;</span><br><span class="line">    					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    			<span class="comment">// 当前高度比下一个高度低但是使用喷气背包后可以抵达</span></span><br><span class="line">    			<span class="keyword">if</span>(map[x][y] &lt; map[nx][ny] &amp;&amp; map[x][y] + k &gt;= map[nx][ny]) &#123;</span><br><span class="line">    				<span class="type">int</span> <span class="variable">canReach</span> <span class="operator">=</span>dfs(nx, ny, <span class="number">1</span>);</span><br><span class="line">    				<span class="keyword">if</span>(canReach == <span class="number">1</span>) &#123;</span><br><span class="line">    					dp[x][y][p] = <span class="number">1</span>;</span><br><span class="line">    					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125; <span class="keyword">else</span> &#123;	<span class="comment">// 如果当前喷气背包已经使用</span></span><br><span class="line">    			<span class="keyword">if</span>(map[x][y] &gt;= map[nx][ny]) &#123;</span><br><span class="line">    				<span class="type">int</span> <span class="variable">canReach</span> <span class="operator">=</span> dfs(nx, ny, <span class="number">1</span>);</span><br><span class="line">    				<span class="keyword">if</span>(canReach == <span class="number">1</span>) &#123;</span><br><span class="line">    					dp[x][y][p] = <span class="number">1</span>;</span><br><span class="line">    					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	dp[x][y][p] = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">fillArrays</span><span class="params">()</span> &#123;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">    			<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; <span class="number">2</span>; k++) &#123;</span><br><span class="line">    				dp[i][j][k] = -<span class="number">1</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="comment">//在此输入您的代码...</span></span><br><span class="line">        n = scan.nextInt();</span><br><span class="line">        m = scan.nextInt();</span><br><span class="line">        k = scan.nextInt();</span><br><span class="line">        sx = scan.nextInt();</span><br><span class="line">        sy = scan.nextInt();</span><br><span class="line">        fx = scan.nextInt();</span><br><span class="line">        fy = scan.nextInt();</span><br><span class="line">        fillArrays();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">        		map[i][j] = scan.nextInt();</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dfs(sx, sy, <span class="number">0</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">        	System.out.println(<span class="string">&quot;Yes&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	System.out.println(<span class="string">&quot;No&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        scan.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/1370e9cf.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1056,521 +1569,10 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/1d3e51f96e99ba43706b
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/1adefb1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/1adefb1.html" class="post-title-link" itemprop="url">Acw730机器人跳跃问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-04 18:46:15" itemprop="dateCreated datePublished" datetime="2024-02-04T18:46:15+08:00">2024-02-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E4%BA%8C%E5%88%86/" itemprop="url" rel="index"><span itemprop="name">二分</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E4%BA%8C%E5%88%86/%E4%B8%AD%E7%AD%89%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">中等题</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/1adefb1.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/1adefb1.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a
-target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/732/">题目</a></h1>
-<p>机器人正在玩一个古老的基于 DOS 的游戏。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/1adefb1.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6ebcf9d0.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/6ebcf9d0.html" class="post-title-link" itemprop="url">前缀和基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-04 13:55:55" itemprop="dateCreated datePublished" datetime="2024-02-04T13:55:55+08:00">2024-02-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 19:09:34" itemprop="dateModified" datetime="2024-03-26T19:09:34+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%89%8D%E7%BC%80%E5%92%8C/" itemprop="url" rel="index"><span itemprop="name">前缀和</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%89%8D%E7%BC%80%E5%92%8C/%E7%AE%80%E5%8D%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">简单题</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/6ebcf9d0.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/6ebcf9d0.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>774</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a
-target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/797/">题目</a></h1>
-<p>输入一个长度为 n 的整数序列。</p>
-<p>接下来再输入 m 个询问，每个询问输入一对 l,r , 。</p>
-<p>对于每个询问，输出原序列中从第 l 个数到第 r 个数的和。</p>
-<h2 id="输入格式">输入格式</h2>
-<p>第一行包含两个整数 n 和 m 。</p>
-<p>第二行包含 n 个整数，表示整数数列。</p>
-<p>接下来 m 行，每行包含两个整数 l 和 r ，表示一个询问的区间范围。</p>
-<h2 id="输出格式">输出格式</h2>
-<p>共 m 行，每行输出一个询问的结果。</p>
-<h2 id="数据范围">数据范围</h2>
-<p>1≤l≤r≤n, 1≤n,m≤100000 −1000≤数列中元素的值≤1000</p>
-<h2 id="输入样例">输入样例：</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">5 3</span><br><span class="line">2 1 3 6 4</span><br><span class="line">1 2</span><br><span class="line">1 3</span><br><span class="line">2 4</span><br></pre></td></tr></table></figure>
-<h2 id="输出样例">输出样例：</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">6</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
-<h1 id="分析">分析</h1>
-<p><span class="math inline">\(前缀和s[i] = a[1] + a[2] + …… +
-a[i]\)</span></p>
-<h1 id="代码">代码</h1>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span>[] data = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">100010</span>];</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span>[] prefixSum = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">100010</span>];</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			data[i] = scan.nextInt();</span><br><span class="line">			prefixSum[i] = prefixSum[i - <span class="number">1</span>] + data[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">			<span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">			System.out.println(prefixSum[right] - prefixSum[left - <span class="number">1</span>]);</span><br><span class="line">		&#125;</span><br><span class="line">		scan.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c9bce4fa.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/c9bce4fa.html" class="post-title-link" itemprop="url">Acwing789数的范围-二分基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-04 11:14:45" itemprop="dateCreated datePublished" datetime="2024-02-04T11:14:45+08:00">2024-02-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 19:06:00" itemprop="dateModified" datetime="2024-03-26T19:06:00+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E4%BA%8C%E5%88%86/" itemprop="url" rel="index"><span itemprop="name">二分</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E4%BA%8C%E5%88%86/%E7%AE%80%E5%8D%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">简单题</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/c9bce4fa.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/c9bce4fa.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a
-target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/791/">题目</a></h1>
-<p>给定一个按照升序排列的长度为 n的整数数组，以及 q 个查询。</p>
-<p>对于每个查询，返回一个元素 k 的起始位置和终止位置（位置从 0
-开始计数）。</p>
-<p>如果数组中不存在该元素，则返回 <code>-1 -1</code>。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/c9bce4fa.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f19f614d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/f19f614d.html" class="post-title-link" itemprop="url">Acwing1208翻硬币</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-03 16:50:07" itemprop="dateCreated datePublished" datetime="2024-02-03T16:50:07+08:00">2024-02-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 19:07:05" itemprop="dateModified" datetime="2024-03-26T19:07:05+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E8%B4%AA%E5%BF%83/" itemprop="url" rel="index"><span itemprop="name">贪心</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E8%B4%AA%E5%BF%83/%E7%AE%80%E5%8D%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">简单题</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/f19f614d.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/f19f614d.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a
-target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1210/">题目</a></h1>
-<p>小明正在玩一个“翻硬币”的游戏。</p>
-<p>桌上放着排成一排的若干硬币。我们用 * 表示正面，用 o
-表示反面（是小写字母，不是零）。</p>
-<p>比如，可能情形是：<code>**oo***oooo</code></p>
-<p>如果同时翻转左边的两个硬币，则变为：<code>oooo***oooo</code></p>
-<p>现在小明的问题是：如果已知了初始状态和要达到的目标状态，每次只能同时翻转相邻的两个硬币,那么对特定的局面，最少要翻动多少次呢？</p>
-<p>我们约定：把翻动相邻的两个硬币叫做一步操作。</p>
-<h2 id="输入格式">输入格式</h2>
-<p>两行等长的字符串，分别表示初始状态和要达到的目标状态。</p>
-<h2 id="输出格式">输出格式</h2>
-<p>一个整数，表示最小操作步数</p>
-<h2 id="数据范围">数据范围</h2>
-<p>输入字符串的长度均不超过100。 数据保证答案一定有解。</p>
-<h2 id="输入样例1">输入样例1：</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**********</span><br><span class="line">o****o****</span><br></pre></td></tr></table></figure>
-<h2 id="输出样例1">输出样例1：</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
-<h2 id="输入样例2">输入样例2：</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*o**o***o***</span><br><span class="line">*o***o**o***</span><br></pre></td></tr></table></figure>
-<h2 id="输出样例2">输出样例2：</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
-<h1 id="分析">分析</h1>
-<p>贪心：如果当前位置不同，那就要翻转当前位置和当前位置的下一位，而当前位置之前的所有位置已经都是调整到和目标一样了</p>
-<h1 id="代码">代码</h1>
-<h2 id="暴搜超时了">暴搜(超时了)</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">static</span> StringBuffer stringInitial;</span><br><span class="line">	<span class="keyword">static</span> String stringTarget;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">StringBuffer</span> <span class="variable">stringOperation</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> stringLen;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">LEFT</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">RIGHT</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">steps</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">minSteps</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">reverse</span><span class="params">(<span class="type">int</span> count)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(stringInitial.charAt(count) == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">			stringInitial.setCharAt(count, <span class="string">&#x27;o&#x27;</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			stringInitial.setCharAt(count, <span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(<span class="type">int</span> count, <span class="type">int</span> direction)</span> &#123;</span><br><span class="line">		reverse(count);</span><br><span class="line">		reverse(count + direction);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">valid</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(stringInitial.toString().equals(stringTarget)) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">printString</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(stringInitial);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> count)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(count == stringLen) &#123;</span><br><span class="line">			<span class="keyword">if</span>(valid() &amp;&amp; steps &lt; minSteps) &#123;</span><br><span class="line">				minSteps = steps;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 翻当前层</span></span><br><span class="line">		<span class="keyword">if</span>(count == <span class="number">0</span>) &#123;	<span class="comment">// 只能翻右边</span></span><br><span class="line">			change(count, RIGHT);</span><br><span class="line">			steps += <span class="number">1</span>;</span><br><span class="line">			dfs(count + <span class="number">1</span>);</span><br><span class="line">			<span class="comment">// 复位</span></span><br><span class="line">			change(count, RIGHT);</span><br><span class="line">			steps--;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span>(count == stringLen - <span class="number">1</span>) &#123;	<span class="comment">// 只能翻左边</span></span><br><span class="line">			change(count, LEFT);</span><br><span class="line">			steps++;</span><br><span class="line">			dfs(count + <span class="number">1</span>);</span><br><span class="line">			<span class="comment">// 复位</span></span><br><span class="line">			change(count, LEFT);</span><br><span class="line">			steps--;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;	<span class="comment">// 两边都可以翻</span></span><br><span class="line">			<span class="comment">// 翻右边</span></span><br><span class="line">			change(count, RIGHT);</span><br><span class="line">			steps++;</span><br><span class="line">			dfs(count + <span class="number">1</span>);</span><br><span class="line">			<span class="comment">// 复位</span></span><br><span class="line">			change(count, RIGHT);</span><br><span class="line">			steps--;</span><br><span class="line">			<span class="comment">// 翻左边</span></span><br><span class="line">			change(count, LEFT);</span><br><span class="line">			steps++;</span><br><span class="line">			dfs(count + <span class="number">1</span>);</span><br><span class="line">			<span class="comment">// 复位</span></span><br><span class="line">			change(count, LEFT);</span><br><span class="line">			steps--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 不翻当前层</span></span><br><span class="line">		dfs(count + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">String</span> <span class="variable">tmpString</span> <span class="operator">=</span> scan.nextLine();</span><br><span class="line">		stringInitial = <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(tmpString);</span><br><span class="line">		stringTarget = scan.nextLine();</span><br><span class="line">		stringLen = stringInitial.length();</span><br><span class="line">		dfs(<span class="number">0</span>);</span><br><span class="line">		System.out.println(minSteps);</span><br><span class="line">		scan.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="贪心">贪心</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">static</span> StringBuffer stringOperation;</span><br><span class="line">	<span class="keyword">static</span> String stringTarget;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(<span class="type">int</span> count)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(stringOperation.charAt(count) == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">			stringOperation.setCharAt(count, <span class="string">&#x27;o&#x27;</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			stringOperation.setCharAt(count, <span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">String</span> <span class="variable">tmpString</span> <span class="operator">=</span> scan.nextLine();</span><br><span class="line">		stringOperation = <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(tmpString);</span><br><span class="line">		stringTarget = scan.nextLine();</span><br><span class="line">		<span class="type">int</span> <span class="variable">steps</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; stringTarget.length(); i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(stringOperation.charAt(i) != stringTarget.charAt(i)) &#123;</span><br><span class="line">				change(i);</span><br><span class="line">				change(i + <span class="number">1</span>);</span><br><span class="line">				steps++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(steps);</span><br><span class="line">		scan.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1638,7 +1640,7 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/desc
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">112</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1699,13 +1701,13 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/desc
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">311k</span>
+    <span title="站点总字数">325k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:43</span>
+    <span title="站点阅读时长">4:55</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
