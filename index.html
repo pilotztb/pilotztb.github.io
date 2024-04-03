@@ -217,7 +217,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-04-03 18:33:46 / 修改时间：18:58:16" itemprop="dateCreated datePublished" datetime="2024-04-03T18:33:46+08:00">2024-04-03</time>
+              <time title="创建时间：2024-04-03 18:33:46 / 修改时间：19:04:50" itemprop="dateCreated datePublished" datetime="2024-04-03T18:33:46+08:00">2024-04-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,7 +253,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>518</span>
+              <span>9</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -273,10 +273,16 @@
 
       
           <h1 id="汇编语言程序的开发">汇编语言程序的开发</h1>
-<h2 id="语句类型">语句类型</h2>
-<p>指令语句：完成一定操作功能，能够翻译成机器代码</p>
-<p>指示语句：提供有关信息，并不能翻译成机器代码</p>
-<h3 id="定义数据段部分">定义数据段部分</h3>
+<!--more--
+
+## 语句类型
+
+指令语句：完成一定操作功能，能够翻译成机器代码
+
+指示语句：提供有关信息，并不能翻译成机器代码
+
+### 定义数据段部分
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">DATA ENDS</span><br></pre></td></tr></table></figure>
 <h3 id="定义代码段">定义代码段</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CODE SEGMENT</span><br><span class="line">CODE ENDS</span><br></pre></td></tr></table></figure>
@@ -286,6 +292,9 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">【例】 程序的功能是完成两个字节数据相加,BUF1+BUF2→SUM。  </span><br><span class="line">  DATA     SEGMENT      	；段定义开始（DATA段）</span><br><span class="line">          BUF1      DB  34H         ；第1个加数</span><br><span class="line">          BUF2      DB  2AH       	；第2个加数</span><br><span class="line">          SUM       DB     ？         	；准备用来存放和数的单元</span><br><span class="line">  DATA     ENDS                     ；段定义结束（DATA段）</span><br><span class="line">  CODE     SEGMENT      	；段定义开始（CODE段）</span><br><span class="line">                 ASSUME CS:CODE，DS:DATA  </span><br><span class="line">                 ；规定DATA、CODE分别为数据段和代码段                  </span><br><span class="line"> START:    MOV   AX,DATA</span><br><span class="line">                  MOV   DS,AX    	；给数据段寄存器DS赋值</span><br><span class="line">                  MOV   AL,BUF1  	；取第1个加数</span><br><span class="line">                  ADD    AL,BUF2  	；和第2个加数相加</span><br><span class="line">                  MOV    SUM,AL   	；存放结果</span><br><span class="line">                  MOV    AH,4CH   	</span><br><span class="line">                  INT       21H           ；返回DOS状态</span><br><span class="line">CODE   ENDS          	              ；段定义结束（CODE段）</span><br><span class="line">           END START      	；整个源程序结束 </span><br></pre></td></tr></table></figure>
 <h2 id="参数变量和标号">参数、变量和标号</h2>
 <h3 id="等值语句">等值语句</h3>
+<p>语句格式：符号名 EQU 表达式</p>
+<p>功能：用符号名来表示EQU右边的表达式。后面的程序中一旦出现该符号名，汇编程序将把它替换成该表达式。</p>
+<p>举例：</p>
 
       
     </div>

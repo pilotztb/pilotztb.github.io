@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #0d064f;
+  background: #5bff7f;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2554,18 +2554,6 @@ body {
 .main-inner > .pagination {
   background: #000; /* 设置黑色透明底板 */
 }
-/* 修改主体字体颜色 */
-body {
-  color: #fff; /* 设置为纯黑 */
-}
-/* 调整首页文章标题颜色 */
-.posts-expand .post-title-link {
-  color: #fff; /* 设置为黑色 */
-}
-/* 调整标题下的日期颜色 */
-.posts-expand .post-meta-container {
-  color: #fff; /* 设置为黑色 */
-}
 /* 设置侧边栏的透明度 */
 .sidebar {
   opacity: 0.8;
@@ -2576,7 +2564,7 @@ body {
 }
 /* 搜索框透明度设置 */
 .popup {
-  opacity: 0.8;
+  opacity: 1;
 }
 /* 主体背景透明设置及组件位置调整 */
 .main-inner {
