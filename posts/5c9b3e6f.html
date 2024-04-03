@@ -30,7 +30,7 @@
 <meta property="og:description" content="汇编语言程序的开发">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-03T10:33:46.000Z">
-<meta property="article:modified_time" content="2024-04-03T12:30:27.767Z">
+<meta property="article:modified_time" content="2024-04-03T12:42:20.913Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -219,7 +219,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-04-03 18:33:46 / 修改时间：20:30:27" itemprop="dateCreated datePublished" datetime="2024-04-03T18:33:46+08:00">2024-04-03</time>
+              <time title="创建时间：2024-04-03 18:33:46 / 修改时间：20:42:20" itemprop="dateCreated datePublished" datetime="2024-04-03T18:33:46+08:00">2024-04-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -294,11 +294,11 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">START:</span><br><span class="line">	END START</span><br></pre></td></tr></table></figure>
 <p>完整代码组成</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">【例】 程序的功能是完成两个字节数据相加,BUF1+BUF2→SUM。  </span><br><span class="line">  DATA     SEGMENT      	；段定义开始（DATA段）</span><br><span class="line">          BUF1      DB  34H         ；第1个加数</span><br><span class="line">          BUF2      DB  2AH       	；第2个加数</span><br><span class="line">          SUM       DB     ？         	；准备用来存放和数的单元</span><br><span class="line">  DATA     ENDS                     ；段定义结束（DATA段）</span><br><span class="line">  CODE     SEGMENT      	；段定义开始（CODE段）</span><br><span class="line">                 ASSUME CS:CODE，DS:DATA  </span><br><span class="line">                 ；规定DATA、CODE分别为数据段和代码段                  </span><br><span class="line"> START:    MOV   AX,DATA</span><br><span class="line">                  MOV   DS,AX    	；给数据段寄存器DS赋值</span><br><span class="line">                  MOV   AL,BUF1  	；取第1个加数</span><br><span class="line">                  ADD    AL,BUF2  	；和第2个加数相加</span><br><span class="line">                  MOV    SUM,AL   	；存放结果</span><br><span class="line">                  MOV    AH,4CH   	</span><br><span class="line">                  INT       21H           ；返回DOS状态</span><br><span class="line">CODE   ENDS          	              ；段定义结束（CODE段）</span><br><span class="line">           END START      	；整个源程序结束 </span><br></pre></td></tr></table></figure>
-<h2 id="参数变量和标号">参数、变量和标号</h2>
-<h3 id="符号定义语句伪指令">符号定义语句伪指令</h3>
-<h4 id="等值语句">等值语句</h4>
-<p><font color = "red">前替后</font></p>
+<h1 id="参数变量和标号">参数、变量和标号</h1>
+<h2 id="符号定义语句伪指令">符号定义语句伪指令</h2>
+<h3 id="等值语句">等值语句</h3>
 <p>语句格式：符号名 EQU 表达式</p>
+<p><font color = "red">上面的替换是前替后</font></p>
 <p>功能：用符号名来表示EQU右边的表达式。后面的程序中一旦出现该符号名，汇编程序将把它替换成该表达式。</p>
 <hr style = "border:2px solid yellow;">
 <p>1.常数或数值表达式</p>
@@ -312,20 +312,20 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREG  EQU  CX；在后面的程序使用CREG就是使用CX</span><br><span class="line">CBD   EQU  DAA；DAA为十进制调整指令。  </span><br></pre></td></tr></table></figure>
 <hr style = "border:2px solid yellow;">
 <p><font color = "red">敲重点：在同一源程序中，同一符号不能用EQU定义多次。！！！</font></p>
-<h4 id="等号语句">等号语句</h4>
+<h3 id="等号语句">等号语句</h3>
 <p>格式：符号名=表达式</p>
 <p><font color = "red">敲重点</font></p>
 <ol type="1">
 <li>等号语句与等值语句具有相同的作用。但等号语句可以对一个符号进行<font color = "yellow">多次定义</font>。</li>
 <li>等值语句与等号语句都不会为符号分配存储单元。因此所定义的符号<font color = "yellow">没有段、偏移量和类型等属性</font>。</li>
 </ol>
-<h4 id="解除定义伪指令purge">解除定义伪指令PURGE</h4>
+<h3 id="解除定义伪指令purge">解除定义伪指令PURGE</h3>
 <p>功能：解除指定符号的定义</p>
 <hr style = "border:2px solid yellow">
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Y1 EQU 7</span><br><span class="line">PURGE Y1</span><br><span class="line">Y1 EQU 128 </span><br></pre></td></tr></table></figure>
 <hr style = "border:2px solid yellow">
-<h3 id="数据定义伪指令">数据定义伪指令</h3>
-<h4 id="常数">常数</h4>
+<h2 id="数据定义伪指令">数据定义伪指令</h2>
+<h3 id="常数">常数</h3>
 <ol type="1">
 <li><p>十进制缺省</p></li>
 <li><p>实数</p>
@@ -337,6 +337,7 @@
 <li><p>以各个字符的ASCII码值存储在内存。</p></li>
 </ol></li>
 </ol>
+<h3 id="变量">变量</h3>
 
     </div>
 
@@ -432,7 +433,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">汇编语言程序的开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E5%8F%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">语句类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E6%AE%B5%E9%83%A8%E5%88%86"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义数据段部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5"><span class="nav-number">1.1.2.</span> <span class="nav-text">定义代码段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%BA%90%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">定义源程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%98%E9%87%8F%E5%92%8C%E6%A0%87%E5%8F%B7"><span class="nav-number">1.2.</span> <span class="nav-text">参数、变量和标号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E5%AE%9A%E4%B9%89%E8%AF%AD%E5%8F%A5%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.1.</span> <span class="nav-text">符号定义语句伪指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%89%E5%80%BC%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">等值语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%89%E5%8F%B7%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">等号语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%99%A4%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4purge"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">解除定义伪指令PURGE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.2.</span> <span class="nav-text">数据定义伪指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E6%95%B0"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">常数</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">汇编语言程序的开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E5%8F%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">语句类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E6%AE%B5%E9%83%A8%E5%88%86"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义数据段部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5"><span class="nav-number">1.1.2.</span> <span class="nav-text">定义代码段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%BA%90%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">定义源程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%98%E9%87%8F%E5%92%8C%E6%A0%87%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">参数、变量和标号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E5%AE%9A%E4%B9%89%E8%AF%AD%E5%8F%A5%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">符号定义语句伪指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%89%E5%80%BC%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.1.1.</span> <span class="nav-text">等值语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%89%E5%8F%B7%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.1.2.</span> <span class="nav-text">等号语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%99%A4%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4purge"><span class="nav-number">2.1.3.</span> <span class="nav-text">解除定义伪指令PURGE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">数据定义伪指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E6%95%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">常数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">变量</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
