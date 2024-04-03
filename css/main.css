@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #303614;
+  background: #708679;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2550,6 +2550,9 @@ body {
 .main-inner {
   background-color: #000; /* 设置主体背景 */
   padding: 0px 100px 100px 100px; /* 调整组件位置 */
+}
+.comments {
+  background: rgba(255,255,255,0.8); /* 评论区 */
 }
 /* 侧边栏图标格式设置 */
 .bilibili {
