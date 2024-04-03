@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #a822ff;
+  background: #6bfb58;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2552,7 +2552,7 @@ body {
 .main-inner > .tabs-comment,
 .main-inner > .comments,
 .main-inner > .pagination {
-  background: rgba(255,255,255,0.5); /* 黑色半透明底板，透明度为 0.5 */
+  background: #000; /* 黑色半透明底板，透明度为 0.5 */
 }
 /* 主体背景透明及调整组件位置 */
 .main-inner {
