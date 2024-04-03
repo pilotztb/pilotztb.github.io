@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #5bff7f;
+  background: #6bff24;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2546,30 +2546,23 @@ body {
   background-position: 50% 50%;
   background-size: cover;
 }
-/* 文章背板的颜色设置 */
-.main-inner > .sub-menu,
-.main-inner > .post-block,
-.main-inner > .tabs-comment,
-.main-inner > .comments,
-.main-inner > .pagination {
-  background: #000; /* 设置黑色透明底板 */
+.post-block {
+  background: #000 none repeat scroll !important;
 }
-/* 设置侧边栏的透明度 */
-.sidebar {
-  opacity: 0.8;
+.pagination {
+  background: #000;
 }
-/* 菜单栏的调色 */
 .header-inner {
-  background: rgba(0,0,0,0.8); /* 设置黑色 */
+  background: #000;
 }
-/* 搜索框透明度设置 */
+.sidebar-inner {
+  background: #000 none repeat scroll !important;
+}
 .popup {
-  opacity: 1;
+  opacity: 0.9;
 }
-/* 主体背景透明设置及组件位置调整 */
-.main-inner {
-  background-color: #000; /* 设置主体背景 */
-  padding: 0px 40px 40px 40px; /* 调整组件位置 */
+.comments {
+  background: rgba(0,0,0,0.9);
 }
 /* 侧边栏图标格式设置 */
 .bilibili {

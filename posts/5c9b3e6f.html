@@ -30,7 +30,7 @@
 <meta property="og:description" content="汇编语言程序的开发">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-03T10:33:46.000Z">
-<meta property="article:modified_time" content="2024-04-03T11:04:50.160Z">
+<meta property="article:modified_time" content="2024-04-03T11:08:12.474Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -219,7 +219,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-04-03 18:33:46 / 修改时间：19:04:50" itemprop="dateCreated datePublished" datetime="2024-04-03T18:33:46+08:00">2024-04-03</time>
+              <time title="创建时间：2024-04-03 18:33:46 / 修改时间：19:08:12" itemprop="dateCreated datePublished" datetime="2024-04-03T18:33:46+08:00">2024-04-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,7 +262,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>9</span>
+              <span>588</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -282,16 +282,11 @@
 
       
         <h1 id="汇编语言程序的开发">汇编语言程序的开发</h1>
-<!--more--
-
-## 语句类型
-
-指令语句：完成一定操作功能，能够翻译成机器代码
-
-指示语句：提供有关信息，并不能翻译成机器代码
-
-### 定义数据段部分
-
+<span id="more"></span>
+<h2 id="语句类型">语句类型</h2>
+<p>指令语句：完成一定操作功能，能够翻译成机器代码</p>
+<p>指示语句：提供有关信息，并不能翻译成机器代码</p>
+<h3 id="定义数据段部分">定义数据段部分</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">DATA ENDS</span><br></pre></td></tr></table></figure>
 <h3 id="定义代码段">定义代码段</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CODE SEGMENT</span><br><span class="line">CODE ENDS</span><br></pre></td></tr></table></figure>
@@ -301,6 +296,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">【例】 程序的功能是完成两个字节数据相加,BUF1+BUF2→SUM。  </span><br><span class="line">  DATA     SEGMENT      	；段定义开始（DATA段）</span><br><span class="line">          BUF1      DB  34H         ；第1个加数</span><br><span class="line">          BUF2      DB  2AH       	；第2个加数</span><br><span class="line">          SUM       DB     ？         	；准备用来存放和数的单元</span><br><span class="line">  DATA     ENDS                     ；段定义结束（DATA段）</span><br><span class="line">  CODE     SEGMENT      	；段定义开始（CODE段）</span><br><span class="line">                 ASSUME CS:CODE，DS:DATA  </span><br><span class="line">                 ；规定DATA、CODE分别为数据段和代码段                  </span><br><span class="line"> START:    MOV   AX,DATA</span><br><span class="line">                  MOV   DS,AX    	；给数据段寄存器DS赋值</span><br><span class="line">                  MOV   AL,BUF1  	；取第1个加数</span><br><span class="line">                  ADD    AL,BUF2  	；和第2个加数相加</span><br><span class="line">                  MOV    SUM,AL   	；存放结果</span><br><span class="line">                  MOV    AH,4CH   	</span><br><span class="line">                  INT       21H           ；返回DOS状态</span><br><span class="line">CODE   ENDS          	              ；段定义结束（CODE段）</span><br><span class="line">           END START      	；整个源程序结束 </span><br></pre></td></tr></table></figure>
 <h2 id="参数变量和标号">参数、变量和标号</h2>
 <h3 id="等值语句">等值语句</h3>
+<p><font color = "red">前替后</font></p>
 <p>语句格式：符号名 EQU 表达式</p>
 <p>功能：用符号名来表示EQU右边的表达式。后面的程序中一旦出现该符号名，汇编程序将把它替换成该表达式。</p>
 <p>举例：</p>
@@ -399,7 +395,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">汇编语言程序的开发</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">汇编语言程序的开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E5%8F%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">语句类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E6%AE%B5%E9%83%A8%E5%88%86"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义数据段部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5"><span class="nav-number">1.1.2.</span> <span class="nav-text">定义代码段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%BA%90%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">定义源程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%98%E9%87%8F%E5%92%8C%E6%A0%87%E5%8F%B7"><span class="nav-number">1.2.</span> <span class="nav-text">参数、变量和标号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%89%E5%80%BC%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.2.1.</span> <span class="nav-text">等值语句</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -482,7 +478,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:55</span>
+    <span title="站点阅读时长">4:56</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
