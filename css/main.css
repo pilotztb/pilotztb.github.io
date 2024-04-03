@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #5c6a49;
+  background: #8230e0;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2545,14 +2545,6 @@ body {
   background-attachment: fixed;
   background-position: 50% 50%;
   background-size: cover;
-}
-/* 文章背板的颜色 */
-.main-inner > .sub-menu,
-.main-inner > .post-block,
-.main-inner > .tabs-comment,
-.main-inner > .comments,
-.main-inner > .pagination {
-  background: #000; /* 黑色背景 */
 }
 /* 侧边框的透明度设置 */
 .sidebar {
