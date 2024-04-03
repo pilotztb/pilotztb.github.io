@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #cdeb25;
+  background: #fffa67;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2546,9 +2546,17 @@ body {
   background-position: 50% 50%;
   background-size: cover;
 }
+/* 文章背板的颜色 */
+.main-inner > .sub-menu,
+.main-inner > .post-block,
+.main-inner > .tabs-comment,
+.main-inner > .comments,
+.main-inner > .pagination {
+  background: rgba(0,0,0,0); /* 黑色半透明底板，透明度为 0.5 */
+}
 /* 主体背景透明及调整组件位置 */
 .main-inner {
-  background-color: rgba(0,0,0,0.9); /* 主体背景透明 */
+  background-color: rgba(255,255,255,0); /* 主体背景透明 */
   padding: 0px 100px 100px 100px; /* 调整组件位置 */
 }
 /* 侧边框的透明度设置 */
