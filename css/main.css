@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #d2ff6f;
+  background: #21ff37;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2546,41 +2546,42 @@ body {
   background-position: 50% 50%;
   background-size: cover;
 }
-/* 文章背板的颜色设置 */
+/* 文章背板的颜色 */
 .main-inner > .sub-menu,
 .main-inner > .post-block,
 .main-inner > .tabs-comment,
 .main-inner > .comments,
 .main-inner > .pagination {
-  background: rgba(0,0,0,0.7); /* 设置黑色透明底板 */
+  background: rgba(245,245,245,0.42); /* 此处使用十六进制颜色代码，也可以使用 rgba 进行调色，
+                              实际效果为白色透明色底板，rgba 的第四参数即为透明度 */
 }
 /* 修改主体字体颜色 */
 body {
-  color: #fff; /* 设置为纯黑 */
+  color: #000; /* 纯黑 */
 }
-/* 调整首页文章标题颜色 */
+/* 标题颜色 */
 .posts-expand .post-title-link {
-  color: #fff; /* 设置为黑色 */
+  color: #000; /* 首页文章标题颜色，默认为灰色，辨识度不高 */
 }
-/* 调整标题下的日期颜色 */
+/* 标题下的日期颜色 */
 .posts-expand .post-meta-container {
-  color: #fff; /* 设置为黑色 */
+  color: #800; /* 此处修改为红色，可自行调用 rgb 调色 */
 }
-/* 设置侧边栏的透明度 */
+/* 侧边框的透明度设置 */
 .sidebar {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 /* 菜单栏的调色 */
 .header-inner {
-  background: rgba(0,0,0,0.8); /* 设置黑色 */
+  background: rgba(255,255,255,0.7);
 }
-/* 搜索框透明度设置 */
+/* 搜索框透明 */
 .popup {
-  opacity: 0.8;
+  opacity: 0.5;
 }
-/* 主体背景透明设置及组件位置调整 */
+/* 主体背景透明及调整组件位置 */
 .main-inner {
-  background-color: rgba(0,0,0,0.5); /* 设置主体背景 */
+  background-color: rgba(255,255,255,0); /* 主体背景透明 */
   padding: 0px 40px 40px 40px; /* 调整组件位置 */
 }
 /* 侧边栏图标格式设置 */
