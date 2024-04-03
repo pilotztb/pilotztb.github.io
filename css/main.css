@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ac8739;
+  background: #0d064f;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2552,7 +2552,7 @@ body {
 .main-inner > .tabs-comment,
 .main-inner > .comments,
 .main-inner > .pagination {
-  background: rgba(0,0,0,0.7); /* 设置黑色透明底板 */
+  background: #000; /* 设置黑色透明底板 */
 }
 /* 修改主体字体颜色 */
 body {
@@ -2580,7 +2580,7 @@ body {
 }
 /* 主体背景透明设置及组件位置调整 */
 .main-inner {
-  background-color: rgba(0,0,0,0.5); /* 设置主体背景 */
+  background-color: #000; /* 设置主体背景 */
   padding: 0px 40px 40px 40px; /* 调整组件位置 */
 }
 /* 侧边栏图标格式设置 */
