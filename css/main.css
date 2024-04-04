@@ -1193,7 +1193,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #5d0d41;
+  background: #cb75ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2455,7 +2455,7 @@ hr {
   display: none;
 }
 .posts-expand .post-block:not(:first-child) {
-  margin-top: 120px;
+  margin-top: 5px;
 }
 .posts-expand .post-title,
 .posts-expand .post-meta {
@@ -2550,6 +2550,7 @@ body {
   opacity: 1;
 }
 .post-block {
+  border-radius: 12px;
   background: rgba(255,255,255,0.9) none repeat scroll !important;
 }
 .sidebar {
@@ -2562,6 +2563,7 @@ body {
   opacity: 0.8;
 }
 .comments {
+  border-radius: 12px;
   background: rgba(255,255,255,0.7) none repeat scroll !important;
 }
 /* 侧边栏图标格式设置 */
