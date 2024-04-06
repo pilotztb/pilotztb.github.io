@@ -30,7 +30,7 @@
 <meta property="og:description" content="汇编语言程序的开发">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-03T10:33:46.000Z">
-<meta property="article:modified_time" content="2024-04-06T11:36:01.756Z">
+<meta property="article:modified_time" content="2024-04-06T12:05:01.526Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-06 19:36:01" itemprop="dateModified" datetime="2024-04-06T19:36:01+08:00">2024-04-06</time>
+                <time title="修改时间：2024-04-06 20:05:01" itemprop="dateModified" datetime="2024-04-06T20:05:01+08:00">2024-04-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,7 +268,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.9k</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -297,9 +297,15 @@
 <h3 id="定义代码段">定义代码段</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CODE SEGMENT</span><br><span class="line">	ASSUME CS:CODE, DS:DATA</span><br><span class="line">CODE ENDS</span><br></pre></td></tr></table></figure>
 <h3 id="定义源程序">定义源程序</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">START:</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">START:</span><br><span class="line">    MOV AX,DATA</span><br><span class="line">    MOV DS,AX </span><br><span class="line">    INT 21H </span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
 <p>完整代码组成</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">DATA SEGMENT      ; 段定义开始（DATA段）</span><br><span class="line">    BUF1 DB 34H   ; 第1个加数</span><br><span class="line">    BUF2 DB 2AH   ; 第2个加数</span><br><span class="line">    SUM  DB 1     ; 准备用来存放和数的单元</span><br><span class="line">DATA ENDS         ; 段定义结束（DATA段）</span><br><span class="line"></span><br><span class="line">CODE SEGMENT      ; 段定义开始（CODE段）</span><br><span class="line">    ASSUME CS:CODE, DS:DATA  ; 规定DATA、CODE分别为数据段和代码段</span><br><span class="line">START:    </span><br><span class="line">    MOV AX,DATA</span><br><span class="line">    MOV DS,AX       ; 将数据段的起始地址显式加载到DS寄存器中</span><br><span class="line">    MOV AL,BUF1     ; 取第1个加数</span><br><span class="line">    ADD AL,BUF2     ; 和第2个加数相加</span><br><span class="line">    MOV SUM,AL      ; 存放结果</span><br><span class="line">    MOV AH,4CH      ; 设置DOS功能号</span><br><span class="line">    INT 21H         ; 返回DOS状态</span><br><span class="line">CODE ENDS         ; 段定义结束（CODE段）</span><br><span class="line"></span><br><span class="line">END START         ; 整个源程序结束</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解释： MOV AX,DATA MOV DS,AX 为什么不能直接 MOV DS, DATA</p>
+<p>因为在汇编语言中，<code>DATA</code>
+只是一个符号，代表着数据段的起始地址，而不是一个立即数。段寄存器（如
+<code>DS</code>）只能接受立即数作为其操作数，而不是一个符号。</p>
+</blockquote>
 <h1 id="参数变量和标号">参数、变量和标号</h1>
 <h2 id="符号定义语句伪指令">符号定义语句伪指令</h2>
 <h3 id="等值语句">等值语句</h3>
