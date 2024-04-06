@@ -7962,7 +7962,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/dbcdf8d7466a93840c23d3
 <p>如何运用溢出和进位</p>
 <p>如果将参加运算的操作数认为是无符号数，就应该关心进位；</p>
 <p>认为是有符号数，则要注意是否溢出</p>
-<h5 id="溢出的判断"><font color = "red">溢出的判断</font></h5>
+<p><font color = "red">溢出的判断</font></p>
 <p>当两个相同符号数相加（包括不同符号数相减），而运算结果的符号与原数据符号相反时，产生溢出</p>
 <h4 id="零标志zfzero-flag">零标志ZF（Zero Flag）</h4>
 <p>若运算结果为0，则ZF = 1； 否则ZF = 0</p>
