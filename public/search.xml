@@ -5141,7 +5141,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040420431858
 <p>最长公共子序列：A, B, E</p>
 </blockquote>
 <h2 id="状态转移方程">状态转移方程</h2>
-<p><strong>c[ i ][ j ]</strong>记录序列和的 最长公共子序列的长度</p>
+<p><strong>c[ i ][ j ]</strong>记录序列和的最长公共子序列的长度</p>
 <p>其中，
 Xi={x1,x2,…,xi}；Yj={y1,y2,…,yj}。当i=0或j=0时，空序列是Xi和Yj的最长公共子序列。故此时C[i][j]=0。</p>
 <p><img
@@ -5167,8 +5167,18 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0496c608796c48b6712341
 <p>时间复杂度分析（类似快排）</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405053751915.png" /></p>
-<p>代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">![](https:<span class="comment">//cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4634de1a817caf595e3d8ee97132df3.jpg)</span></span><br><span class="line"></span><br><span class="line">## 动归算法</span><br><span class="line"></span><br><span class="line">### 状态转移方程：</span><br><span class="line"></span><br><span class="line">定义数组**b\[ j ]**表示含义为&lt;<span class="type">font</span> <span class="variable">color</span> <span class="operator">=</span> <span class="string">&quot;red&quot;</span>&gt;一定要取数组**a\[ i ]**的情况下&lt;/font&gt;，能得到的最大子列和</span><br><span class="line"></span><br><span class="line">**b[ j ]=max&#123; b[ j-<span class="number">1</span> ]+a[ j ]，a[ j ]&#125;，<span class="number">1</span>≤j≤n**</span><br><span class="line"></span><br><span class="line">### 代码</span><br><span class="line"></span><br><span class="line">![](https:<span class="comment">//cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405060709253.png)</span></span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">maxSum</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[] a)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (b &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                b += a[i];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                b = a[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (b &gt; sum) &#123;</span><br><span class="line">                sum = b;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4634de1a817caf595e3d8ee97132df3.jpg" /></p>
+<h2 id="动归算法">动归算法</h2>
+<h3 id="状态转移方程-1">状态转移方程：</h3>
+<p>定义数组<strong>b[ j
+]</strong>表示含义为<font color = "red">一定要取数组<strong>a[ i
+]</strong>的情况下</font>，能得到的最大子列和</p>
+<p><strong>b[ j ]=max{ b[ j-1 ]+a[ j ]，a[ j ]}，1≤j≤n</strong></p>
+<h3 id="代码">代码</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405060709253.png" /></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">maxSum</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[] a)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            b += a[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            b = a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (b &gt; sum) &#123;</span><br><span class="line">            sum = b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="凸多边形最优三角剖分">凸多边形最优三角剖分</h1>
 <h2 id="定义-1">定义</h2>
 <ol type="1">
@@ -5181,7 +5191,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040505375191
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405061347814.png" /></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/14fae356ce0e5d90eea1611eb8145d5.jpg" /></p>
-<h2 id="状态转移方程-1">状态转移方程</h2>
+<h2 id="状态转移方程-2">状态转移方程</h2>
 <p>• 定义<strong>t[ i ][ j ]</strong><a href="#fn1" class="footnote-ref"
 id="fnref1"
 role="doc-noteref"><sup>1</sup></a>为凸子多边形{vi-1,vi,…,vj}<a
@@ -5195,7 +5205,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040507095633
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405071037433.png" /></p>
 <p><font color = "red">凸多边形是矩阵连乘的拓展，拓展结果就是最后w函数可以是各种自定义</font></p>
-<h2 id="代码">代码</h2>
+<h2 id="代码-1">代码</h2>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a02052d33e6631f72bc6947aba020ca.jpg" /></p>
