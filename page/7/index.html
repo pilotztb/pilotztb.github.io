@@ -192,6 +192,159 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/46a3c91c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/46a3c91c.html" class="post-title-link" itemprop="url">Acwing99激光炸弹-前缀和</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-06 16:20:16" itemprop="dateCreated datePublished" datetime="2024-02-06T16:20:16+08:00">2024-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%89%8D%E7%BC%80%E5%92%8C/" itemprop="url" rel="index"><span itemprop="name">前缀和</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%9F%BA%E7%A1%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">基础题</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/46a3c91c.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/46a3c91c.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题目"><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/101/">题目</a></h1>
+<p>地图上有 N 个目标，用整数 Xi,Yi ,
+表示目标在地图上的位置，每个目标都有一个价值 Wi 。</p>
+<p><strong>注意</strong>：不同目标可能在同一位置。</p>
+<p>现在有一种新型的激光炸弹，可以摧毁一个包含
+R×R个位置的正方形内的所有目标。</p>
+<p>激光炸弹的投放是通过卫星定位的，但其有一个缺点，就是其爆炸范围，即那个正方形的边必须和
+x，y 轴平行。</p>
+<p>求一颗炸弹最多能炸掉地图上总价值为多少的目标。</p>
+<p>## 输入格式</p>
+<p>第一行输入正整数 N 和 R
+，分别代表地图上的目标数目和正方形包含的横纵位置数量，数据用空格隔开。</p>
+<p>接下来 N 行，每行输入一组数据，每组数据包括三个整数 Xi,Yi,Wi , ,
+，分别代表目标的 x 坐标，y 坐标和价值，数据用空格隔开。</p>
+<p>## 输出格式</p>
+<p>输出一个正整数，代表一颗炸弹最多能炸掉地图上目标的总价值数目。</p>
+<p>## 数据范围</p>
+<p><span class="math inline">\(0≤R≤10^9\)</span> <span
+class="math inline">\(0&lt;N≤100000\)</span> <span
+class="math inline">\(0≤Xi,Yi≤50000\)</span> <span
+class="math inline">\(0≤Wi≤10000\)</span></p>
+<p>## 输入样例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2 1</span><br><span class="line">0 0 1</span><br><span class="line">1 1 1</span><br></pre></td></tr></table></figure>
+<p>## 输出样例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
+<h1 id="分析">分析</h1>
+<p>首先讲解下什么是二维前缀和</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/a1be24141cc56e2e06e0925e75b1802.jpg" /></p>
+<p>但是本题的特殊之处在于给的目标是在交叉点上，而上面给的是第几个矩阵</p>
+<p>解决方法：平移坐标系，原来在坐标轴上的目标就变成了在坐标轴内的目标，进一步就是变成了和原来一样的第几个小正方形</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/fa457b993c3966a8faa0491504cb5a3.jpg" /></p>
+<p>所以先将目标的value填充到对应的方格中，然后计算value的前缀和矩阵，最后利用计算出的前缀和矩阵，通过移动覆盖面积的小方形，以其右下角为基准遍历整个矩阵，计算覆盖面积的最大值</p>
+<p><strong>前缀和的灵魂就是将本来时间复杂度<span
+class="math inline">\(O(n)\)</span>甚至<span
+class="math inline">\(O(n^2)\)</span>的循环遍历求和变成<span
+class="math inline">\(O(1)\)</span></strong></p>
+<p>注意：</p>
+<p>1 题目中一个坐标处可能有多个目标</p>
+<p>2 如果火力覆盖面积比最大的5000还大，那就可以不用遍历直接得到答案</p>
+<h1 id="代码">代码</h1>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.chrono.MinguoChronology;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">MAXSIZE</span> <span class="operator">=</span> <span class="number">5010</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span>[][] matrix = <span class="keyword">new</span> <span class="title class_">int</span>[MAXSIZE][MAXSIZE];</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		r = Math.min(r, <span class="number">5001</span>);</span><br><span class="line">		<span class="type">int</span> <span class="variable">max_x</span> <span class="operator">=</span> r;</span><br><span class="line">		<span class="type">int</span> <span class="variable">max_y</span> <span class="operator">=</span> r;</span><br><span class="line">		<span class="comment">// 填充一小格的价值</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">			<span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">			matrix[x + <span class="number">1</span>][y + <span class="number">1</span>] += scan.nextInt();</span><br><span class="line">			max_x = Math.max(x + <span class="number">1</span>, max_x);</span><br><span class="line">			max_y = Math.max(y + <span class="number">1</span>, max_y);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 计算价值的二维前缀和</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= max_x; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= max_y; j++) &#123;</span><br><span class="line">				matrix[i][j] += matrix[i - <span class="number">1</span>][j] + matrix[i][j - <span class="number">1</span>] - matrix[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> <span class="variable">maxValue</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 移动火力覆盖的小方形遍历整个矩阵</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> r; i &lt;= max_x; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> r; j &lt;= max_y; j++) &#123;</span><br><span class="line">				<span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> matrix[i][j] - matrix[i - r][j] - matrix[i][j - r] + matrix[i - r][j - r];</span><br><span class="line">				<span class="keyword">if</span>(value &gt; maxValue) &#123;</span><br><span class="line">					maxValue = value;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(maxValue);</span><br><span class="line">		scan.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/2cc950a3.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1350,99 +1503,6 @@ AssertError</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a8a6c8d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/5a8a6c8d.html" class="post-title-link" itemprop="url">post</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-01-30 19:19:38" itemprop="dateCreated datePublished" datetime="2024-01-30T19:19:38+08:00">2024-01-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/5a8a6c8d.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/5a8a6c8d.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1514,7 +1574,7 @@ AssertError</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">115</span>
+          <span class="site-state-item-count">116</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
