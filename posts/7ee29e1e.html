@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="CNKI的使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中文数据库">
+<meta property="og:url" content="http://example.com/posts/7ee29e1e.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="CNKI的使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-08T10:40:19.000Z">
+<meta property="article:modified_time" content="2024-04-08T10:43:53.335Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/7ee29e1e.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>中文数据库 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/7ee29e1e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          中文数据库
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-08 18:40:19 / 修改时间：18:43:53" itemprop="dateCreated datePublished" datetime="2024-04-08T18:40:19+08:00">2024-04-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%96%87%E7%8C%AE%E6%A3%80%E7%B4%A2/" itemprop="url" rel="index"><span itemprop="name">文献检索</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/7ee29e1e.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/7ee29e1e.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="cnki的使用">CNKI的使用</h1>
+<span id="more"></span>
+<h2 id="资源类型选择">资源类型选择</h2>
+<p>（1）在首页勾选</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405191151252.png" /></p>
+<p>（2）在高级检索界面页头的检索设置里删除或添加资源类型</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405191505385.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405191548317.png" /></p>
+<h2 id="文献检索的方式">文献检索的方式</h2>
+<h3 id="框式检索">框式检索</h3>
+<h4 id="步骤">步骤：</h4>
+<ol type="1">
+<li>选择所需的文献类型（如学术期刊、学位论文、会议等库）；</li>
+<li>选择所需的检索字段（/检索项）（如主题、题名、作者、单位等）；</li>
+<li>输入相应的检索词。</li>
+</ol>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405191958087.png" /></p>
+<h4 id="检索项">检索项</h4>
+<ol type="1">
+<li><p><font color = "red">主题检索</font>
+在中国知网标引出来的主题字段中进行检索，包含一篇文章的所有主题特征，同时在检索过程中嵌入了专业词典、主题词表、中英对照词典、停用词表等工具，并采用关键词截断算法，将低相关或微相关文献进行截断。</p></li>
+<li><p><font color = "red">篇关摘检索</font>
+在<font color = "yellow">篇名、关键词、摘要范围</font>内进行检索。</p></li>
+<li><p><font color = "red">关键词检索</font>(相当于标签)
+包括文献原文给出的中、英文关键词，以及对文献进行分析计算后机器标引出的关键词。机器标引的关键词基于对全文内容的分析，结合专业词典，解决了文献作者给出的关键词不够全面准确的问题。</p></li>
+<li><p><font color = "red">篇名检索</font>
+期刊、会议、学位论文、辑刊的篇名为文章的中、英文标题。报纸文献的篇名包括引题、正标题、副标题。年鉴的篇名为条目题名。专利的篇名为专利名称。标准的篇名为中、英文标准名称。成果的篇名为成果名称。古籍的篇名为卷名。</p></li>
+<li><p>全文检索
+在文献的全部文字范围内进行检索，包括文献篇名、关键词、摘要、正文、参考文献等。</p></li>
+<li><p>作者检索
+期刊、报纸、会议、学位论文、年鉴、辑刊的作者为文章中、英文作者。专利的作者为发明人。标准的作者为起草人或主要起草人。成果的作者为成果完成人。古籍的作者为整书著者。</p></li>
+<li><p>第一作者检索
+只有一位作者时，该作者即为第一作者。有多位作者时，将排在第一个的作者认定为文献的第一责任人。</p></li>
+<li><p>通讯作者检索
+期刊文献对原文的通讯作者进行了标引，可按通讯作者查找期刊文献。通讯作者指课题的总负责人，也是文章和研究材料的联系人。</p></li>
+</ol>
+<h4 id="检索词">检索词</h4>
+<ol type="1">
+<li>输入两个或两个以上的检索词，多个检索词之间的<font color = "red">空格代表了逻辑“与”(AND)。</font></li>
+</ol>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405192521124.png" /></p>
+<ol start="2" type="1">
+<li><p>二次检索</p>
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405192659355.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405192708567.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405192715170.png" /></p></li>
+</ol>
+<h4 id="匹配方式">匹配方式</h4>
+<p>1、相关度匹配
+主题、篇关摘、篇名、全文、摘要、小标题、参考文献、文献来源;根据检索词在该字段的匹配度，得到相关度高的结果。</p>
+<p>2、精确匹配 关键词、作者、第一作者、通讯作者。</p>
+<p>3、模糊匹配 作者单位、基金、分类号、DOI。</p>
+<h4 id="同字段组合运算">同字段组合运算</h4>
+<p>1、支持运算符*、+、-、‘’、""、()进行同一检索项内多个检索词的组合运算，检索框内输入的内容不得超过120个字符。</p>
+<p>2、输入运算符*(与)、+(或)、-(非)时，前后要空一个字节，优先级需用英文半角括号确定。</p>
+<p>3、若检索词本身含空格或*、+、-、()、/、%、=等特殊符号，进行多词组合运算时，为避免歧义，须将检索词用英文半角双引号引起来。</p>
+<hr style = "border:2px solid yellow">
+<p>例如： （1）篇名检索项后输入：神经网络 *<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+自然语言，可以检索到篇名包含“神经网络”及“自然语言”的文献。</p>
+<p>（2）主题检索项后输入：(锻造 + 自由锻) *
+裂纹，可以检索到主题为“锻造”或“自由锻”，且有关“裂纹”的文献。</p>
+<p>（3）检索篇名包含“digital library”和“information
+service”的文献，在篇名检索项后输入：“digital library” * “information
+service”。</p>
+<p>（4）检索篇名包含“2+3”和人才培养的文献，在篇名检索项后输入：“2+3” *
+人才培养。</p>
+<hr style = "border:2px solid yellow">
+<h4 id="检索推荐引导功能">检索推荐/引导功能</h4>
+<p>1、主题词智能提示</p>
+<p>适用字段：主题、篇名、关键词、摘要、全文。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405194018720.png" /></p>
+<p>2、作者引导</p>
+<p>检出所有暨南大学的刘增合所发表的文献，检索时精准定位所查找的作者，排除同名作者，并且不管原文机构是否含“暨南大学”字样，只要规范为暨南大学的，都可以被检到</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405194144805.png" /></p>
+<p>某作者同时有多个单位</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405194301775.png" /></p>
+<h3 id="高级检索">高级检索</h3>
+<h4 id="检索特点">检索特点</h4>
+<ol type="1">
+<li>由多个检索字段进行逻辑组合检索，并可通过选择精确或模糊的匹配方式、控制条件等方法完成较复杂的检索；</li>
+<li>多字段组合检索的运算优先级，按从上到下的顺序依次进行；</li>
+<li>通过“+” 、“-”来增加或减少检索项；</li>
+<li>控制条件：匹配方式、时间范围、文献来源、基金文献、作者、作者单位、文献分类、网络首发、增强出版、数据论文、中英文扩展、同义词扩展等。</li>
+</ol>
+<h4 id="检索区">检索区</h4>
+<p>① 检索条件输入区
+默认显示主题、作者、文献来源三个检索框，可自由选择检索项、检索项间的逻辑关系、检索词的匹配方式。
+点击检索框后的按钮可添加或删除检索项，最多支持10个检索项的组合检索。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195137905.png" /></p>
+<p>② 检索控制区
+主要作用是通过条件筛选、时间选择等，对检索结果进行范围控制。
+控制条件包括：出版模式、基金文献、时间范围、检索扩展。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195230532.png" /></p>
+<p>③ 切库区</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195327336.png" /></p>
+<p>④ 文献导航</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195414849.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195421424.png" /></p>
+<p>⑤匹配方式</p>
+<p>除主题只提供相关度匹配外，其他检索项均提供精确、模糊两种匹配方式。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195459259.png" /></p>
+<p>⑥词频选择</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195530621.png" /></p>
+<p>⑦同字段组合运算</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195627283.png" /></p>
+<p>⑧结果中检索</p>
+<p>举例：</p>
+<p>例如：检索主题“人工智能”后，在结果中检索主题“机器人”</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195850189.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195813416.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405195644126.png" /></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p>检索华北电力大学师生2000年1月1日-2023年1月1日发表的电力系统继电保护方面的学术期刊文献、学位论文、会议论文各有多少篇。</p>
+<p>Step1：点击“检索设置”，选择学术期刊、学位论文、会议，保存设置；
+Step2：选择检索项“主题”, 在检索框中输入：电力系统* 继电保护；
+Step3：控制条件“发表时间”选择从“2000-01-01 ” –“2023-01-01”；
+Step4：作者单位输入“华北电力大学”，默认为“模糊”匹配；
+Step5：点击“检索”按钮。</p>
+<hr style = "border:2px solid yellow">
+<h4 id="作者发文检索">作者发文检索</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405200404813.png" /></p>
+<hr style = "border:2px solid yellow">
+<p>举例</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405200740897.png" /></p>
+<hr style = "border:2px solid yellow">
+<h4
+id="句子检索用于查找论文中的事实信息">句子检索（用于查找论文中的事实信息）</h4>
+<p>通过输入的两个检索词，在全文范围内查找同时包含这两个词的句子，找到有关事实的问题答案。</p>
+<hr style = "border:2px solid yellow">
+<p>举例</p>
+<p>例如：检索同一句包含“人工智能”和“神经网络”的文献</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405200954786.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405201025767.png" /></p>
+<hr style = "border:2px solid yellow">
+<h3 id="专业检索">专业检索</h3>
+<h4 id="构造专业检索式">构造专业检索式</h4>
+<p>①查看检索字段代码。专业检索的检索字段用代码表示，如，主题用SU表示。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">可检索字段和对应代码</span><br><span class="line"></span><br><span class="line">SU=主题,</span><br><span class="line"></span><br><span class="line">TKA=篇关摘,</span><br><span class="line"></span><br><span class="line">KY=关键词,</span><br><span class="line"></span><br><span class="line">TI=篇名,</span><br><span class="line"></span><br><span class="line">FT=全文,</span><br><span class="line"></span><br><span class="line">AU=作者,</span><br><span class="line"></span><br><span class="line">FI=第一作者,</span><br><span class="line"></span><br><span class="line">RP=通讯作者,</span><br><span class="line"></span><br><span class="line">AF=作者单位,</span><br><span class="line"></span><br><span class="line">FU=基金,</span><br><span class="line"></span><br><span class="line">AB=摘要,</span><br><span class="line"></span><br><span class="line">CO=小标题,</span><br><span class="line"></span><br><span class="line">RF=参考文献,</span><br><span class="line"></span><br><span class="line">CLC=分类号,</span><br><span class="line"></span><br><span class="line">LY=文献来源, </span><br><span class="line"></span><br><span class="line">DOI=DOI,</span><br><span class="line"></span><br><span class="line">CF=被引频次</span><br></pre></td></tr></table></figure>
+<p>②查看检索表达式语法。注意CNKI专业检索中，不同检索字段之间的“与”“或”“非”用“AND”、“OR”、“NOT”表示，但同一检索字段中的不同检索词之间的“与”“或”“非”则用*、+、-表示；
+③输入检索式。检索式的表达形式：</p>
+<p><font color = "red">检索字段代码 = 检索式</font></p>
+<hr style = "border:2px solid yellow;">
+<p>举例</p>
+<p>TI=信息素养，</p>
+<p>含义是检索篇名(检索代码是TI)中含有信息素养的论文。</p>
+<hr style = "border:2px solid yellow;">
+<blockquote>
+<p>注意：</p>
+<p>检索式里的符号都必须使用英文半角字符；</p>
+<p>检索词之间用：*、+、-；</p>
+<p>字段之间用 AND、OR、 NOT 。</p>
+<p>如：SU%=大学生 AND （信息素养 + 信息素质）</p>
+</blockquote>
+<h4 id="匹配运算符">匹配运算符</h4>
+<p><font color = "yellow">下面这图表达什么意思呢</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405203647919.png" /></p>
+<hr style = "border:2px solid yellow">
+<p>例如： (1)精确检索关键词包含“数据挖掘”的文献：KY = 数据挖掘。
+(2)模糊检索摘要包含“计算机教学”的文献：AB %
+计算机教学，模糊匹配结果为摘要包含“计算机”和“教学”的文献，“计算机”和“教学”两词不分顺序和间隔。
+(3)检索主题与“大数据”相关的文献：SU %=
+大数据，主题检索推荐使用相关匹配运算符“%=”。</p>
+<hr style = "border:2px solid yellow">
+<h4 id="比较运算符">比较运算符</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405203847162.png" /></p>
+<p>例如： (1)YE BETWEEN ('2010', ‘2020')
+，检索出版年份在2010至2020年的文献。</p>
+<p>(2)CF &gt; 0或CF &gt;=1 ，检索被引频次不为0的文献。</p>
+<h4 id="逻辑运算符">逻辑运算符</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405204417802.png" /></p>
+<hr style = "border:2px solid yellow">
+<p>例如： (1)检索邱均平发表的关键词包含知识管理的文章，检索式：KY =
+知识管理 AND AU = 邱均平。
+(2)检索篇名包含大数据，但不是大数据集的文章，检索式：TI = 大数据 NOT TI
+= 大数据集。 (4)检索钱伟长在清华大学或上海大学时发表的文章，检索式：AU =
+钱伟长 AND (AF =清华大学 OR AF =上海大学)。
+(5)检索钱伟长在清华大学期间发表的题名或摘要中都包含“物理”的文章，检索式：AU
+=钱伟长 AND AF=清华大学 AND (TI =物理 OR AB = 物理)。</p>
+<hr style = "border:2px solid yellow">
+<h2 id="知网研学批量下载">知网研学批量下载</h2>
+<ol type="1">
+<li><p>规范每页显示文章数量、确定检索优先级（比如按照被索引高低），点击全选后批量下载</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240406061749485.png" /></p></li>
+<li><p>将下载的es6放入文件夹后从知网研学中导入题录</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240406061852627.png" /></p></li>
+</ol>
+<h2 id="导出格式引文">导出格式引文</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240406063236898.png" /></p>
+<h1 id="万方">万方</h1>
+<p>与CNKI差不多</p>
+<p>万方不能用与或非，必须用and，or，not替代</p>
+<blockquote>
+<p>注：“分析”不能作为检索词</p>
+</blockquote>
+<h1 id="维普">维普</h1>
+<p>也差不多，就是一个期刊导航可以找什么CSCD、北大核心、CSCCI</p>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>逻辑与<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/7ee29e1e.html" title="中文数据库">http://example.com/posts/7ee29e1e.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/3a9d48aa.html" rel="prev" title="引文检索">
+      <i class="fa fa-chevron-left"></i> 引文检索
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/c21d49b4.html" rel="next" title="英文数据库">
+      英文数据库 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cnki%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">CNKI的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E7%B1%BB%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="nav-number">1.1.</span> <span class="nav-text">资源类型选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%8C%AE%E6%A3%80%E7%B4%A2%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">文献检索的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%86%E5%BC%8F%E6%A3%80%E7%B4%A2"><span class="nav-number">1.2.1.</span> <span class="nav-text">框式检索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">步骤：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E9%A1%B9"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">检索项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E8%AF%8D"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">检索词</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%B9%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">匹配方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E5%AD%97%E6%AE%B5%E7%BB%84%E5%90%88%E8%BF%90%E7%AE%97"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">同字段组合运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E6%8E%A8%E8%8D%90%E5%BC%95%E5%AF%BC%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">检索推荐&#x2F;引导功能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E6%A3%80%E7%B4%A2"><span class="nav-number">1.2.2.</span> <span class="nav-text">高级检索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">检索特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E5%8C%BA"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">检索区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E8%80%85%E5%8F%91%E6%96%87%E6%A3%80%E7%B4%A2"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">作者发文检索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A5%E5%AD%90%E6%A3%80%E7%B4%A2%E7%94%A8%E4%BA%8E%E6%9F%A5%E6%89%BE%E8%AE%BA%E6%96%87%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%AE%9E%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">句子检索（用于查找论文中的事实信息）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%93%E4%B8%9A%E6%A3%80%E7%B4%A2"><span class="nav-number">1.2.3.</span> <span class="nav-text">专业检索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E4%B8%93%E4%B8%9A%E6%A3%80%E7%B4%A2%E5%BC%8F"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">构造专业检索式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%B9%E9%85%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">匹配运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">比较运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">逻辑运算符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E7%BD%91%E7%A0%94%E5%AD%A6%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.3.</span> <span class="nav-text">知网研学批量下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%BC%95%E6%96%87"><span class="nav-number">1.4.</span> <span class="nav-text">导出格式引文</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%87%E6%96%B9"><span class="nav-number">2.</span> <span class="nav-text">万方</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%B4%E6%99%AE"><span class="nav-number">3.</span> <span class="nav-text">维普</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">心有所向，无问西东</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">341k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:10</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
