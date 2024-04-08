@@ -5223,6 +5223,7 @@ role="doc-backlink">↩︎</a></p></li>
 ]]></content>
       <categories>
         <category>算法设计与分析</category>
+        <category>理论</category>
       </categories>
   </entry>
   <entry>
@@ -9410,8 +9411,6 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/23e0372d2cb9036de152
 <li>程序执行前，<font color = "red">指令和数据需要预先存放在存储器中</font></li>
 <li>以运算器为中心，<font color = "red">程序的功能都通过中央处理器执行指令实现</font>。</li>
 </ol>
-<p>冯诺伊曼机基本工作方式是<font color = "red">控制流驱动</font></p>
-<p><font color = "red">按地址访问并顺序执行指令</font>是冯诺依曼机工作方式的基本特点</p>
 <p>冯诺依曼机结构如下图所示</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/e9e73f2d230eba9698155818f817b31.jpg" /></p>
@@ -9434,7 +9433,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/e9e73f2d230eba969815
 <ul>
 <li>CU</li>
 <li>IR</li>
-<li>PC</li>
+<li>PC(程序计数器)</li>
 </ul></li>
 </ul></li>
 <li>主存(程序运行时的存储位置，包括所需的数据。因为计算机只能从主存中取指令与操作数，不能直接与外村交换数据)。</li>
@@ -9580,11 +9579,8 @@ class="math inline">\(MAR\)</span>有直接通路。<font color = "red">存放�
 <li>组合逻辑电路没有统一的时钟控制，而时序逻辑电路则必须在时钟节拍下工作。</li>
 </ul>
 <h3 id="计算机工作过程">计算机工作过程</h3>
-<ol type="1">
-<li>把程序和数据装入主存储器。</li>
-<li>将源程序转成可执行问题。</li>
-<li>从可执行文件的首地址开始逐条执行指令。</li>
-</ol>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0a4709080afbaf35774e53e23af1f6c.jpg" /></p>
 <p>完成一条指令：</p>
 <ol type="1">
 <li>取指令<span class="math inline">\(PC\rightarrow MAR\rightarrow
@@ -9892,8 +9888,10 @@ class="math inline">\(Java\)</span>既可以编译也可以解释。</li>
 上下层可以分割，仅有下层没有上层也可以</font></p>
 <h2 id="计算机性能指标">计算机性能指标</h2>
 <h3 id="字长机器字长">字长/机器字长</h3>
+<p>定义：</p>
 <p>CPU内部用于整数运算的数据通路的宽度 = CPU内部用于整数运算的运算器位数
 = 通用寄存器宽度</p>
+<p><font color = "red">表示计算机内部一次可以处理的二进制数的位数</font></p>
 <p>几个区别：</p>
 <p>字：用来表示被处理信息的单位，用来度量数据类型的宽度</p>
 <p>指令字长：一个指令字中包含的二进制代码的位数</p>
@@ -13121,6 +13119,268 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/635b663711bb4472dc56
 ]]></content>
       <categories>
         <category>操作系统</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>第五章-一阶逻辑等值演算与推理</title>
+    <url>/posts/9973ebf8.html</url>
+    <content><![CDATA[<h1 id="一阶逻辑等值式与置换规则">一阶逻辑等值式与置换规则</h1>
+<span id="more"></span>
+<h2 id="基本等值式">基本等值式</h2>
+<h3
+id="第一组命题逻辑中16组基本等值式">第一组:命题逻辑中16组基本等值式</h3>
+<p>就是下面这些东西</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240408140333849.png" /></p>
+<h3 id="第二组">第二组</h3>
+<h4 id="消去量词等值式">消去量词等值式</h4>
+<p><font color = "yellow">说白了就是任意就是将所有情况并起来，存在就是将所有情况和起来</font></p>
+<p>设D = {a1, a2, … , an}</p>
+<p>① ∀xA(x) ≡ A(a1)∧A(a2)∧…∧A(an)</p>
+<p>② ∃xA(x) ≡ A(a1)∨A(a2)∨…∨A(an)</p>
+<h4 id="量词否定等值式">量词否定等值式</h4>
+<p>① ¬∀xA(x) ≡
+∃x¬A(x)(<font color = "yellow">任意的非就意味着存在非的情况</font>)</p>
+<p>② ¬∃xA(x) ≡
+∀x¬A(x)(<font color = "yellow">存在的非就意味着任意都是非</font>)</p>
+<h4 id="量词辖域收缩与扩张等值式">量词辖域收缩与扩张等值式。</h4>
+<p><font color = "yellow">1. 左边都是扩张的，右边都是收缩的</font></p>
+<p><font color = "yellow">2.
+无论是∨还是∧收缩辖域时，∀或者∃都只能对最近的作用</font></p>
+<p><font color = "yellow">3.
+→收缩辖域时，∀或者∃要么与近的贴贴但要取反，要么与远的贴贴但不用取反，所谓鱼与熊掌不可兼得</font></p>
+<p>关于全称量词的： ① ∀x(A(x)∨B) ≡ ∀xA(x)∨B ② ∀x(A(x)∧B) ≡ ∀xA(x)∧B ③
+∀x(A(x)→B) ≡ ∃xA(x)→B ④ ∀x(B→A(x)) ≡ B→∀xA(x)</p>
+<p>关于存在量词的： ① ∃x(A(x)∨B) ≡ ∃xA(x)∨B ② ∃x(A(x)∧B) ≡ ∃xA(x)∧B ③
+∃x(A(x)→B) ≡ ∀xA(x)→B ④ ∃x(B→A(x)) ≡ B→∃xA(x)</p>
+<h4 id="量词分配等值式">量词分配等值式</h4>
+<p>① ∀x(A(x)∧B(x)) ≡ ∀xA(x)∧∀xB(x)</p>
+<p>② ∃x(A(x)∨B(x)) ≡ ∃xA(x)∨∃xB(x)</p>
+<p>注意：∀对∨，∃对∧无分配律</p>
+<p>（这里是量词分配等值式的表达式）</p>
+]]></content>
+      <categories>
+        <category>离散数学</category>
+        <category>数理逻辑与集合论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>最长递增子序列</title>
+    <url>/posts/f15db2c6.html</url>
+    <content><![CDATA[<p><font color = "red">子序列：可以不连续；子串：必须连续</font></p>
+]]></content>
+      <categories>
+        <category>算法设计与分析</category>
+        <category>实验</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>1.1计算机系统层次结构</title>
+    <url>/posts/15a679ce.html</url>
+    <content><![CDATA[<h1 id="计算机系统层次结构">计算机系统层次结构</h1>
+<span id="more"></span>
+<h2 id="计算机硬件的组成">计算机硬件的组成</h2>
+<h3 id="冯诺依曼计算机">冯·诺依曼计算机</h3>
+<p>将指令以代码的形式存入主存储器中，之后按照顺序依次执行，直到程序执行结束。</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image.png"
+alt="冯诺依曼计算机" />
+<figcaption aria-hidden="true">冯诺依曼计算机</figcaption>
+</figure>
+<p>冯诺依曼计算机</p>
+<h4 id="特点">特点：</h4>
+<ol type="1">
+<li>计算机硬件系统由<strong>运算器</strong>、<strong>存储器</strong>、<strong>控制器</strong>、<strong>输入设备</strong>和<strong>输出设备</strong>5大部件组成；</li>
+<li>指令和数据以同等地位存于存储器内，并可<strong>按地址寻访</strong>；</li>
+<li>指令和数据均用二进制代码表示；</li>
+<li>指令由<strong>操作码</strong>和<strong>地址码</strong>组成
+<ul>
+<li>操作码用来表示操作的性质；</li>
+<li>地址码用来表示操作数在存储器中的位置；</li>
+</ul></li>
+<li>指令在存储器内按顺序存放。通常指令是顺序执行的，在特定条件下，可根据运算结果或根据设定的条件改变执行顺序；</li>
+<li>早期的冯诺依曼机<strong>以运算器为中心</strong>，输入/输出设备通过运算器与存储器传送数据。</li>
+</ol>
+<hr style = "border:2px solid yellow">
+<p>冯诺伊曼机基本工作方式是<font color = "red">控制流驱动</font></p>
+<p><font color = "red">按地址访问并顺序执行指令</font>是冯诺依曼机工作方式的基本特点</p>
+<hr style = "border:2px solid yellow">
+<h3 id="现代计算机的组织结构">现代计算机的组织结构</h3>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image%20(1).png"
+alt="以存储器为核心" />
+<figcaption aria-hidden="true">以存储器为核心</figcaption>
+</figure>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image%20(2).png"
+alt="计算机的功能部件" />
+<figcaption aria-hidden="true">计算机的功能部件</figcaption>
+</figure>
+<h3 id="计算机的功能部件">计算机的功能部件</h3>
+<h4 id="存储器">存储器</h4>
+<p>存储器<font color = "yellow">包括主存储器（主存、内存储器）和辅助存储器（辅存、外存储器）</font>。</p>
+<p><font color = "yellow">主存的组成如图所示：</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image%20(3).png" /></p>
+<ul>
+<li><strong>存储体</strong>：存放二进制信息；</li>
+<li><strong>地址寄存器（MAR，Memory Adders
+Register）</strong>：存放访存地址，经过地址译码后找到相应的存储单元；</li>
+<li><strong>数据寄存器（MDR，Memory Data
+Register）</strong>：暂存要从存储器中读或写的信息。</li>
+</ul>
+<p>主存储器是由若干<strong>存储单元</strong>构成的，每个存储单元包含若干<strong>存储元件</strong>，每一个存储元件可以存储一位二进制代码0或1。因此每一个存储单元可以存储一串二进制码。这串二进制码称为<strong>存储字</strong>，它的位数称为<strong>存储字长</strong>，实际上就是存储单元中存储元件的个数。</p>
+<p>例如，一个存储单元中有8个存储元件，则其存储字长为8位（bit），也可以称为1字节（B，Byte）。</p>
+<p><font color = "red">有n位地址 = 有 <span
+class="math inline">\(2^n\)</span> 个存储单元 = MAR有n位。</font></p>
+<p><font color = "yellow">为什么？有n个存储单元不是可以有<span
+class="math inline">\(2^n\)</span>位地址吗？是不是搞错了？</font></p>
+<h4 id="运算器">运算器</h4>
+<p>用于处理计算机的算术运算和逻辑运算。运算器包括：</p>
+<ul>
+<li><strong>算术逻辑单元</strong>（ALU）（<em>核心</em>）</li>
+<li>累加器（ACC）</li>
+<li>乘商寄存器（MQ）</li>
+<li>操作计数器（X）</li>
+<li>变址寄存器（IX）</li>
+<li>基址寄存器（BR）</li>
+<li>程序状态寄存器（PSW）</li>
+</ul>
+<h4 id="控制器">控制器</h4>
+<p>控制计算机各部件运行。包括：</p>
+<ul>
+<li><strong>控制单元</strong>（CU）</li>
+<li><strong>指令寄存器（IR）</strong>：存放当前执行指令的地址</li>
+<li><strong>程序计数器（PC）</strong>：自动加1以得到下一条指令的地址</li>
+</ul>
+<h2 id="计算机的工作过程">1.2.2 计算机的工作过程</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image%20(4).png" /></p>
+<p>先定义下面会用到的变量含义：</p>
+<p>M：主存中某存储单元 OP(IR)：取操作码 Ad(IR)：取地址码</p>
+<h3 id="取指令">取指令</h3>
+<ol type="1">
+<li>PC --&gt;
+MAR：将指令的地址从PC（程序计数器）传至<strong>地址寄存器</strong></li>
+<li>M(MAR) --&gt;
+MDR：根据地址从存储体（或地址寄存器）中取到指令，并传至<strong>数据寄存器</strong></li>
+<li>(MDR) --&gt; IR：将得到的指令传给<strong>指令寄存器</strong></li>
+</ol>
+<h3 id="分析指令">分析指令</h3>
+<ol type="1">
+<li>OP(IR) --&gt;
+CU：CU（控制单元）分析IR（指令寄存器）中的指令，并做出操作</li>
+</ol>
+<h3 id="执行指令">执行指令</h3>
+<ol type="1">
+<li>Ad(IR) --&gt;
+MAR：IR(指令寄存器)将地址码给<strong>地址寄存器</strong></li>
+<li>M(MAR) --&gt;
+MDR：地址寄存器找到数据，存至<strong>数据寄存器</strong></li>
+<li>(MDR) --&gt; ACC：数据寄存器将数据传至<strong>累加器</strong></li>
+</ol>
+<p><font color = "red">CPU通过指令周期的不同阶段来区分指令和数据</font></p>
+<h2 id="计算机的层次结构">1.2.3 计算机的层次结构</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image%20(5).png" /></p>
+<ul>
+<li>M4：用编译程序<strong>翻译</strong>成机器语言程序</li>
+<li>M3：用汇编程序<strong>汇编</strong>成机器语言程序</li>
+<li>M2：用机器语言<strong>解释</strong>操作系统</li>
+<li>M1：用微指令<strong>解释</strong>机器指令</li>
+<li>M0：由硬件<strong>直接执行</strong>微指令</li>
+<li><strong>翻译程序</strong>：源程序→机器语言
+<ul>
+<li><strong>编译</strong>（C++、Java）
+<ul>
+<li>高级语言→机器语言</li>
+<li>通篇翻译</li>
+<li>仅需执行一次</li>
+</ul></li>
+<li><strong>解释</strong>（python、JS）
+<ul>
+<li>高级语言→机器语言</li>
+<li>翻译一句执行一句</li>
+<li>每次执行都需要翻译</li>
+</ul></li>
+<li><strong>汇编</strong>
+<ul>
+<li>汇编语言→机器语言</li>
+</ul></li>
+</ul></li>
+<li>硬件和软件之间互相依存，协同发展</li>
+<li>两者间没有严格的界限</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>1.2计算机的性能指标.md</title>
+    <url>/posts/68a1692.html</url>
+    <content><![CDATA[<h2 id="主要性能指标">主要性能指标</h2>
+<span id="more"></span>
+<h3 id="主存容量">主存容量</h3>
+<p>总容量=存储单元个数∗存储字长(bit)=存储单元个数∗存储字长/8(byte,
+B)</p>
+<ul>
+<li>MAR的位数：反应存储单元的个数，即 <span
+class="math inline">\(2^n\)</span> 个存储单元（n为位数）；</li>
+<li>MDR的位数：等于<strong>存储字长</strong>。</li>
+</ul>
+<p>例：主存容量为64K*32位，即MAR位数为16位，MDR位数为32位。</p>
+<blockquote>
+<p><span class="math inline">\(2^{10}\)</span>:K</p>
+<p><span class="math inline">\(2^{20}\)</span>:M</p>
+<p><span class="math inline">\(2^{30}\)</span>:G</p>
+<p><span class="math inline">\(2^{40}\)</span>:T</p>
+</blockquote>
+<h3 id="机器字长">机器字长</h3>
+<p>计算机进行<strong>一次整数运算</strong>所能处理的二进制数据的位数。</p>
+<h3 id="cpu时钟周期和主频">CPU时钟周期和主频</h3>
+<p><strong>CPU时钟周期</strong>：<font color = "red">CPU中最小的时间单位，每个动作至少需要一个时钟周期。</font></p>
+<p><strong>主频（CPU时钟频率）</strong>：机器内部主时钟的频率，主频越高，计算机运行速度越快。</p>
+<p><span class="math inline">\(CPU时钟周期 = \frac{1}{主频}\)</span></p>
+<h3 id="cpi">CPI</h3>
+<p><strong>CPI（Clock cycle Per
+Instruction）</strong>：执行一条指令所需的时钟周期。</p>
+<p>指令执行的时间 = CPI ∗ CPU时钟周期</p>
+<h3 id="cpu执行时间">CPU执行时间</h3>
+<p>CPU执行时间，即整个程序的执行时间。</p>
+<p><span class="math inline">\(CPU执行时间 = (平均CPI * 指令条数) *
+CPU时钟周期 = \frac{CPU时钟周期数}{主频}\)</span></p>
+<h3 id="mipsmflopsgflops和tflops">MIPS、MFLOPS、GFLOPS和TFLOPS</h3>
+<p><strong>MIPS (Million Instructions Per
+Second)</strong>：每秒执行多少百万条指令。</p>
+<p><span class="math inline">\(MIPS = \frac{指令条数}{执行时间 * 10^6} =
+\frac{主频}{CPI}\)</span></p>
+<p><strong>MFLOPS ( Mega Floating point Operations Per
+Second)</strong>：每秒执行多少百万次浮点运算。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240408095043116.png" /></p>
+<p><strong>GFLOPS ( Giga Floating point Operations Per
+Second)</strong>：每秒执行多 少十亿次浮点运算。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240408095051254.png" /></p>
+<p><strong>TFLOPS (Tera Floating -point Operations Per
+Second)</strong>：每秒执行多少 万亿次浮点运算。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240408095057575.png" /></p>
+<h2 id="其他相关术语">其他相关术语</h2>
+<h3 id="吞吐量和响应时间">吞吐量和响应时间</h3>
+<p><strong>吞吐量</strong>：系统在单位时间内处理请求的容量</p>
+<p><strong>响应时间</strong>：从用户发出请求到系统响应请求并得到结果的时间，包括CPU运行时间和等待时间。</p>
+<h3 id="数据通路带宽">数据通路带宽</h3>
+<p>数据总线一次能并行传输数据的位数。</p>
+]]></content>
+      <categories>
+        <category>计组</category>
         <category>理论</category>
       </categories>
   </entry>
