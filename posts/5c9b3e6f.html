@@ -30,7 +30,7 @@
 <meta property="og:description" content="汇编语言程序的开发">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-03T10:33:46.000Z">
-<meta property="article:modified_time" content="2024-04-06T12:05:01.526Z">
+<meta property="article:modified_time" content="2024-04-08T22:51:01.070Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-06 20:05:01" itemprop="dateModified" datetime="2024-04-06T20:05:01+08:00">2024-04-06</time>
+                <time title="修改时间：2024-04-09 06:51:01" itemprop="dateModified" datetime="2024-04-09T06:51:01+08:00">2024-04-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,14 +268,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>4.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -471,6 +471,84 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/984d428c1d26418fce2c51
 <p><font color = "red">注意ARRAY[ 1 ]和ARRAY + 1的区别</font></p>
 <p><font color = "yellow">居然不是从0开始数？</font></p>
 <hr style = "border:2px solid yellow">
+<h2 id="标号">标号</h2>
+<p>定义：标号主要用在程序中需要改变程序的执行顺序时，用来标记转移的目的地，即作转移指令的操作数。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/8ef02dbc46243bd657be08fc6f42a5e.jpg" /></p>
+<p>属性</p>
+<p>（1）段属性（SEG）</p>
+<p>表示该标号所代表的地址在哪个逻辑段中，即段基值。</p>
+<p>（2）偏移量属性（OFFSET）</p>
+<p>它表示该标号所代表的地址在段内与段起点间的字节数，即地址的偏移量。</p>
+<p><font color = "yellow">（3）距离属性（也叫类型属性）</font></p>
+<p>它表示该标号可以被段内还是段间的指令调用。</p>
+<ol type="1">
+<li><p>NEAR（近）：该标号<font color = "yellow">只能作段内转移</font>，也就是说只能是与该标号所指指令同在一个逻辑段的转移指令和调用指令才能使用它。<font color = "yellow">缺省的情况下都默认是NEAR</font>
+如 SUB1：MOV AX，30H (也可以显式声明：标号名 LABEL NEAR)</p></li>
+<li><p>FAR（远）：该标号可以被非本段的转移和调用指令使用。需要显式指明。格式为：
+标号名 LABEL FAR</p></li>
+</ol>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SUB1_FAR    LABEL    FAR</span><br><span class="line">SUB1:  MOV  AX,30H</span><br></pre></td></tr></table></figure>
+<p>SUB1_FAR与SUB1两个标号具有相同的段属性和偏移量属性，即相同的逻辑地址。被转移指令或调用指令访问时，是指同一个入口地址，但SUB1-FAR可以被其它段的指令调用。</p>
+<hr style = "border:2px solid yellow">
+<h1 id="表达式与运算符">表达式与运算符</h1>
+<h2 id="算术运算符">算术运算符</h2>
+<ol type="1">
+<li><p>运算符“+”和“-”也可作单目运算符，表示数的正负。</p></li>
+<li><p>使用“+”、“-”、“＊”、和“/”运算符时，参加运算的数和运算结果都是整数。</p></li>
+<li><p>“/”运算为取商的整数部分，而“MOD”运算取除法运算的余数。</p></li>
+<li><p>"SHR"和"SHL"为逻辑移位运算符</p>
+<blockquote>
+<p>注意：移位运算符与移位指令区别在于， <font color = "red">
+移位运算符的操作对象是某一具体的数（常数），而移位指令是对一个寄存器或存储单元</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p>移位运算符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NUM=11011011B</span><br><span class="line">…</span><br><span class="line">MOV   AX, NUM SHL 1</span><br><span class="line">MOV   BX, NUM SHR 2</span><br><span class="line">ADD   DX, NUM SHR 6</span><br></pre></td></tr></table></figure>
+<p>移位指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHL AX 1</span><br></pre></td></tr></table></figure>
+<hr style = "border:2px solid yellow">
+</blockquote></li>
+<li><p>下标运算符“[ ]”具有相加的作用</p>
+<p>作用：将表达式1与表达式2的值相加后形成一个存储器操作数的地址。</p>
+<p><font color = "yellow">下面这两个语句等效</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV   AX, DA_WORD[20H]</span><br><span class="line">MOV   AX, DA_WORD+20H</span><br></pre></td></tr></table></figure>
+<p><font color = "red">敲重点,
+MOV中什么时候是取地址里所保存变量的值，什么时候是取地址</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240409063256494.png" /></p>
+<p><font color = "yellow">总结：寄存器之间如果是[]连接就是取地址里的值，如果是+连接就是取地址</font></p></li>
+</ol>
+<h2 id="逻辑运算符">逻辑运算符</h2>
+<p>逻辑运算符有NOT、AND、OR和XOR等四个，它们执行的都是按位逻辑运算。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MOV  AX, NOT 0F0H   =&gt; MOV  AX, 0FF0FH</span><br><span class="line">MOV  AL, NOT 0F0H   =&gt; MOV  AL, 0FH</span><br><span class="line">MOV  BL, 55H AND 0F0H =&gt; MOV  BL, 50H</span><br><span class="line">MOV  BH, 55H OR 0F0H  =&gt; MOV  BH, 0F5H</span><br><span class="line">MOV  CL, 55H XOR 0F0H =&gt; MOV  CL, 0A5H</span><br></pre></td></tr></table></figure>
+<h2 id="关系运算符">关系运算符</h2>
+<p>关系运算符包括：EQ（等于）、NE（不等于）、LT（小于）、
+LE（小于等于）、GT（大于）、 GE（大于等于）</p>
+<ol type="1">
+<li>关系运算符用于比较两个表达式的大小。关系运算符比较的两个表达式<font color = "yellow">必须同为常数或同一逻辑段中的变量</font></li>
+<li>如果是<font color = "yellow">常量</font>的比较，则按<font color = "yellow">无符号数</font>进行比较；如果是<font color = "yellow">变量</font>的比较，则比较它们的<font color = "yellow">偏移量</font>的大小。</li>
+<li>关系运算符得到结果<font color = "yellow">如果是true，将所有位改为1</font>，相反全部改为0</li>
+</ol>
+<h2 id="数值返回运算符">数值返回运算符</h2>
+<h3 id="seg运算符">SEG运算符</h3>
+<p>取变量或标号所在段的段基值。</p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240409064348465.png" /></p>
+<hr style = "border:2px solid yellow">
+<h3 id="offset运算符">OFFSET运算符</h3>
+<p>该运算符的作用是取变量或标号在段内的偏移量。</p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240409065001320.png" /></p>
+<hr style = "border:2px solid yellow">
+<h3 id="type运算符">TYPE运算符</h3>
+<p>该运算符的作用为取变量或标号的类型属性，并用数字形式来表示。对变量来说就是取它的字节长度。</p>
 
     </div>
 
@@ -569,7 +647,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/984d428c1d26418fce2c51
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">汇编语言程序的开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E5%8F%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">语句类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E6%AE%B5%E9%83%A8%E5%88%86"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义数据段部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5"><span class="nav-number">1.1.2.</span> <span class="nav-text">定义代码段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%BA%90%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">定义源程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%98%E9%87%8F%E5%92%8C%E6%A0%87%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">参数、变量和标号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E5%AE%9A%E4%B9%89%E8%AF%AD%E5%8F%A5%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">符号定义语句伪指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%89%E5%80%BC%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.1.1.</span> <span class="nav-text">等值语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%89%E5%8F%B7%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.1.2.</span> <span class="nav-text">等号语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%99%A4%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4purge"><span class="nav-number">2.1.3.</span> <span class="nav-text">解除定义伪指令PURGE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">数据定义伪指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E6%95%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">常数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E9%A2%84%E7%BD%AE"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">变量的定义与预置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">变量的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AE%B5%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.2.2.1.</span> <span class="nav-text">段属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%81%8F%E7%A7%BB%E9%87%8F%E5%B1%9E%E6%80%A7offset"><span class="nav-number">2.2.2.2.2.</span> <span class="nav-text">偏移量属性（OFFSET)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.2.2.3.</span> <span class="nav-text">类型属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">变量赋值表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.2.3.1.</span> <span class="nav-text">数值表达式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.2.3.2.</span> <span class="nav-text">？表达式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.2.3.3.</span> <span class="nav-text">字符串表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#db"><span class="nav-number">2.2.2.3.3.1.</span> <span class="nav-text">DB</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#dw"><span class="nav-number">2.2.2.3.3.2.</span> <span class="nav-text">DW</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#dd"><span class="nav-number">2.2.2.3.3.3.</span> <span class="nav-text">DD</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dup%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.2.3.4.</span> <span class="nav-text">DUP表达式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">变量的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E6%8C%87%E4%BB%A4%E8%AF%AD%E5%8F%A5%E4%B8%AD%E5%BC%95%E7%94%A8"><span class="nav-number">2.2.2.4.1.</span> <span class="nav-text">在指令语句中引用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%BC%95%E7%94%A8%E5%8F%98%E9%87%8F%E5%90%8D"><span class="nav-number">2.2.2.4.1.1.</span> <span class="nav-text">直接引用变量名</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%90%8D%E5%87%BA%E7%8E%B0%E5%9C%A8%E7%BC%96%E5%88%B6%E5%AF%BB%E5%9D%80"><span class="nav-number">2.2.2.4.1.2.</span> <span class="nav-text">变量名出现在编制寻址</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E4%BC%AA%E6%8C%87%E4%BB%A4%E8%AF%AD%E5%8F%A5%E4%B8%AD%E5%BC%95%E7%94%A8"><span class="nav-number">2.2.2.4.2.</span> <span class="nav-text">在伪指令语句中引用</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">汇编语言程序的开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E5%8F%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">语句类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E6%AE%B5%E9%83%A8%E5%88%86"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义数据段部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E6%AE%B5"><span class="nav-number">1.1.2.</span> <span class="nav-text">定义代码段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%BA%90%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">定义源程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%98%E9%87%8F%E5%92%8C%E6%A0%87%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">参数、变量和标号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E5%AE%9A%E4%B9%89%E8%AF%AD%E5%8F%A5%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">符号定义语句伪指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%89%E5%80%BC%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.1.1.</span> <span class="nav-text">等值语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%89%E5%8F%B7%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.1.2.</span> <span class="nav-text">等号语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%99%A4%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4purge"><span class="nav-number">2.1.3.</span> <span class="nav-text">解除定义伪指令PURGE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">数据定义伪指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E6%95%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">常数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E9%A2%84%E7%BD%AE"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">变量的定义与预置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">变量的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AE%B5%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.2.2.1.</span> <span class="nav-text">段属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%81%8F%E7%A7%BB%E9%87%8F%E5%B1%9E%E6%80%A7offset"><span class="nav-number">2.2.2.2.2.</span> <span class="nav-text">偏移量属性（OFFSET)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.2.2.3.</span> <span class="nav-text">类型属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">变量赋值表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.2.3.1.</span> <span class="nav-text">数值表达式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.2.3.2.</span> <span class="nav-text">？表达式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.2.3.3.</span> <span class="nav-text">字符串表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#db"><span class="nav-number">2.2.2.3.3.1.</span> <span class="nav-text">DB</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#dw"><span class="nav-number">2.2.2.3.3.2.</span> <span class="nav-text">DW</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#dd"><span class="nav-number">2.2.2.3.3.3.</span> <span class="nav-text">DD</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dup%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.2.2.3.4.</span> <span class="nav-text">DUP表达式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">变量的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E6%8C%87%E4%BB%A4%E8%AF%AD%E5%8F%A5%E4%B8%AD%E5%BC%95%E7%94%A8"><span class="nav-number">2.2.2.4.1.</span> <span class="nav-text">在指令语句中引用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%BC%95%E7%94%A8%E5%8F%98%E9%87%8F%E5%90%8D"><span class="nav-number">2.2.2.4.1.1.</span> <span class="nav-text">直接引用变量名</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%90%8D%E5%87%BA%E7%8E%B0%E5%9C%A8%E7%BC%96%E5%88%B6%E5%AF%BB%E5%9D%80"><span class="nav-number">2.2.2.4.1.2.</span> <span class="nav-text">变量名出现在编制寻址</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E4%BC%AA%E6%8C%87%E4%BB%A4%E8%AF%AD%E5%8F%A5%E4%B8%AD%E5%BC%95%E7%94%A8"><span class="nav-number">2.2.2.4.2.</span> <span class="nav-text">在伪指令语句中引用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%8F%B7"><span class="nav-number">2.3.</span> <span class="nav-text">标号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.</span> <span class="nav-text">表达式与运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.1.</span> <span class="nav-text">算术运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.2.</span> <span class="nav-text">逻辑运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.3.</span> <span class="nav-text">关系运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E8%BF%94%E5%9B%9E%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.4.</span> <span class="nav-text">数值返回运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#seg%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.4.1.</span> <span class="nav-text">SEG运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#offset%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.4.2.</span> <span class="nav-text">OFFSET运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#type%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.4.3.</span> <span class="nav-text">TYPE运算符</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -646,13 +724,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/984d428c1d26418fce2c51
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">341k</span>
+    <span title="站点总字数">343k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:10</span>
+    <span title="站点阅读时长">5:12</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
