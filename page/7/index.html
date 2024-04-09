@@ -192,6 +192,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/1cb8774b.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/1cb8774b.html" class="post-title-link" itemprop="url">第四周-作业</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-06 22:47:26" itemprop="dateCreated datePublished" datetime="2024-02-06T22:47:26+08:00">2024-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/1cb8774b.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/1cb8774b.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="exercise6装饰器的使用">exercise6:装饰器的使用</h1>
+<p>user-credentials.txt内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;name&quot;:&quot;xiaoming&quot;, &quot;password&quot;:&quot;123&quot;&#125;</span><br><span class="line">&#123;&quot;name&quot;:&quot;xiaowang&quot;, &quot;password&quot;:&quot;321&quot;&#125;</span><br><span class="line">&#123;&quot;name&quot;:&quot;xiaofang&quot;, &quot;password&quot;:&quot;432&quot;&#125;</span><br><span class="line">&#123;&quot;name&quot;:&quot;xiaobai&quot;, &quot;password&quot;:&quot;111&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_user_credentials</span>(<span class="params">file_path</span>):</span><br><span class="line">    credentials = []</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> file:</span><br><span class="line">            user_info = json.loads(line.strip())</span><br><span class="line">            credentials.append(user_info)</span><br><span class="line">    <span class="keyword">return</span> credentials</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">authentication_required</span>(<span class="params">func</span>):</span><br><span class="line">    authenticated = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">nonlocal</span> authenticated</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> authenticated:</span><br><span class="line">            username = <span class="built_in">input</span>(<span class="string">&quot;Enter your username: &quot;</span>)</span><br><span class="line">            password = <span class="built_in">input</span>(<span class="string">&quot;Enter your password: &quot;</span>)</span><br><span class="line">            user_credentials = read_user_credentials(<span class="string">&quot;user_credentials.txt&quot;</span>)</span><br><span class="line">            <span class="keyword">for</span> user_info <span class="keyword">in</span> user_credentials:</span><br><span class="line">                <span class="keyword">if</span> user_info.get(<span class="string">&#x27;name&#x27;</span>) == username <span class="keyword">and</span> user_info.get(<span class="string">&#x27;password&#x27;</span>) == password:</span><br><span class="line">                    authenticated = <span class="literal">True</span></span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Authentication successful!&quot;</span>)</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;Authentication failed. Please try again.&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@authentication_required</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">function1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;This is function 1.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@authentication_required</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">function2</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;This is function 2.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    function1()</span><br><span class="line">    function1()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>output</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Enter your username: xiaoming</span><br><span class="line">Enter your password: 123</span><br><span class="line">Authentication successful!</span><br><span class="line">This is function 1.</span><br><span class="line">This is function 1.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/46a3c91c.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1380,129 +1492,6 @@ id="exercise1写一个函数求三个数的平均值要求分别使用默认参�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/aaf56f78.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/aaf56f78.html" class="post-title-link" itemprop="url">调试</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-02 21:57:55" itemprop="dateCreated datePublished" datetime="2024-02-02T21:57:55+08:00">2024-02-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/aaf56f78.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/aaf56f78.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>708</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="调试">调试</h1>
-<h2 id="断言assert">断言assert</h2>
-<p>格式：assert expression 等价于： if not expression: raise
-AssertError</p>
-<h2 id="logging">logging</h2>
-<p>导入模块</p>
-<p>添加配置</p>
-<p>写入的信息的类别</p>
-<p>debug,info,warnning,error
-如果指定info,debug不再起作用,如果指定wranning,debug,info不起作用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">导入logging模块</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="comment">#添加一个配置</span></span><br><span class="line">logging.basicConfig(level=logging.DEBUG,<span class="comment">#控制台打印的日志级别</span></span><br><span class="line">                    filename=<span class="string">&#x27;./log/new.log&#x27;</span>,</span><br><span class="line">                    filemode=<span class="string">&#x27;a&#x27;</span>,<span class="comment">##模式，有w和a，w就是写模式，每次都会重新写日志，覆盖之前的日志</span></span><br><span class="line">                    <span class="comment">#a是追加模式，默认如果不写的话，就是追加模式</span></span><br><span class="line">                    <span class="built_in">format</span>=</span><br><span class="line">                    <span class="string">&#x27;%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s&#x27;</span></span><br><span class="line">                    <span class="comment">#日志格式</span></span><br><span class="line">                    )</span><br><span class="line">s = <span class="string">&#x27;0&#x27;</span></span><br><span class="line">n = <span class="built_in">int</span>(s)</span><br><span class="line">logging.info(<span class="string">&#x27;n=%d&#x27;</span>%n)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span>/n)</span><br></pre></td></tr></table></figure>
-<h2 id="pdb">pdb</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">命令           用途</span><br><span class="line"><span class="keyword">break</span> 或则 b  设置断点</span><br><span class="line"><span class="keyword">continue</span>/c    继续执行程序，或者跳到下一个断点</span><br><span class="line"><span class="built_in">next</span>/n       执行下一行</span><br><span class="line">step/s       进入函数</span><br><span class="line"><span class="built_in">list</span>/l      查看当前的代码段</span><br><span class="line"><span class="keyword">return</span>/r    执行代码直到从当前函数的返回</span><br><span class="line">exit/q       终止，退出</span><br><span class="line">p/!          打印变量的值    p c</span><br><span class="line"><span class="built_in">help</span>/h       帮助</span><br></pre></td></tr></table></figure>
-<h1 id="单元测试">单元测试</h1>
-<p>导入unittest模块</p>
-<h2 id="测试函数">测试函数</h2>
-<h2 id="测试类">测试类</h2>
-<h1 id="文档测试">文档测试</h1>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1574,7 +1563,7 @@ AssertError</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-count">117</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1635,13 +1624,13 @@ AssertError</p>
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">343k</span>
+    <span title="站点总字数">346k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:12</span>
+    <span title="站点阅读时长">5:15</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
