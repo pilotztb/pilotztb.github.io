@@ -13335,11 +13335,17 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/1863ccf441d81ea8f204
     <title>2.4死锁</title>
     <url>/posts/fd66707b.html</url>
     <content><![CDATA[<h2 id="死锁的概念">死锁的概念</h2>
+<span id="more"></span>
 <h3 id="死锁的定义">死锁的定义</h3>
 <p>在并发环境下，各进程因竞争资源而造成的一种<strong>相互等待对方手里的资源</strong>，导致这些进程均阻塞。若没有外力干涉，这些进程都无法继续前进。</p>
 <p><strong>死锁</strong>：<font color = "red">互相等待对方手里的资源，导致各进程都阻塞</font>，无法前进的现象</p>
 <p><strong>饥饿</strong>：由于长期得不到资源，<font color = "red">某进程一直得不到处理机</font>的现象</p>
 <p><strong>死循环</strong>：某进程执行过程中一直跳不出某个循环的现象</p>
+<hr style = "border:2px solid yellow">
+<p>举例：资源的极限分配</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/9d187b29f91f2e86a2b8d95923006f6.jpg" /></p>
+<hr style = "border:2px solid yellow">
 <h3 id="死锁产生的必要条件">死锁产生的必要条件</h3>
 <p>死锁的产生，以下四个条件缺一不可：</p>
 <ol type="1">
