@@ -14293,4 +14293,119 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/53ab05236ebab34cdcf4c9
         <category>理论</category>
       </categories>
   </entry>
+  <entry>
+    <title>第六章-集合代数</title>
+    <url>/posts/36cbec99.html</url>
+    <content><![CDATA[<h1 id="集合的基本概念">集合的基本概念</h1>
+<span id="more"></span>
+<h2 id="属于包含">属于、包含</h2>
+<h2 id="幂集空集">幂集、空集</h2>
+<h1 id="集合的基本运算">集合的基本运算</h1>
+<h1 id="有穷集的计数">有穷集的计数</h1>
+<h2 id="文氏图法">文氏图法</h2>
+<p>包含排斥原理 集合恒等式 集合运算的算律、恒等式的证明方法</p>
+]]></content>
+      <categories>
+        <category>离散数学</category>
+        <category>数理逻辑与集合论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>实验三-进程通信</title>
+    <url>/posts/e62e4f7b.html</url>
+    <content><![CDATA[<h1 id="pipe">pipe</h1>
+<span id="more"></span>
+<p>创建管道要在创建子进程之前</p>
+<h2 id="创建管道">创建管道</h2>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> fd[<span class="number">2</span>];</span><br><span class="line">pipe(fd);</span><br></pre></td></tr></table></figure>
+<p>其中fd[1]用来往管道里写，fd[1]用来向管道中读</p>
+<h2 id="向管道中写">向管道中写</h2>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">write(fd1[<span class="number">1</span>], inLine, LENGTH);</span><br></pre></td></tr></table></figure>
+<p>fd[1]表示现在是写，inLine是写入管道字符串的字符数组，LENGTH是写入的长度（一般和写入的长度相同）</p>
+<h2 id="从管道中读">从管道中读</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">read(fd2[0], outLine, LENGTH);</span><br></pre></td></tr></table></figure>
+<p>fd2[0]表示现在是读，outLine是从保存从管道中读取的字符数组，LENGTH是从管道中读取的长度</p>
+<p>完整代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LENGTH 1024</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> fd1[<span class="number">2</span>];</span><br><span class="line">    <span class="type">char</span> outLine[LENGTH];</span><br><span class="line">    <span class="type">int</span> fd2[<span class="number">2</span>];</span><br><span class="line">    <span class="type">char</span> inLine[LENGTH];</span><br><span class="line">    pipe(fd1);</span><br><span class="line">    <span class="type">pid_t</span> p1 = fork();</span><br><span class="line">    <span class="keyword">if</span>(p1 == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;create p1 failed\n&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(p1 == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">sprintf</span>(inLine, <span class="string">&quot;Child 1 is sending a message!&quot;</span>);</span><br><span class="line">        write(fd1[<span class="number">1</span>], inLine, LENGTH);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        read(fd1[<span class="number">0</span>], outLine, LENGTH);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, outLine);</span><br><span class="line">        pipe(fd2);</span><br><span class="line">        <span class="type">pid_t</span> p2 = fork();</span><br><span class="line">        <span class="keyword">if</span>(p2 == <span class="number">-1</span>) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;create p2 failed\n&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(p2 == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">sprintf</span>(inLine, <span class="string">&quot;Child 2 is sending a message!&quot;</span>);</span><br><span class="line">            write(fd2[<span class="number">1</span>], inLine, LENGTH);</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            read(fd2[<span class="number">0</span>], outLine, LENGTH);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, outLine);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="消息队列">消息队列</h1>
+<h2 id="写入消息队列">写入消息队列</h2>
+<h3 id="创建消息队列">创建消息队列</h3>
+<p>创建消息结构体,定义一个全局的消息结构体</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msgbuf</span>&#123;</span></span><br><span class="line">    <span class="type">long</span> mtype;</span><br><span class="line">    <span class="type">char</span> mtext[LENGTH];</span><br><span class="line">&#125;msgbuf;</span><br></pre></td></tr></table></figure>
+<p>再在全局定义一个消息队列的键，这个键就是表示消息队列的编号</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> MSG_KEY;</span><br></pre></td></tr></table></figure>
+<p>然后利用msgget创建消息队列</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">msgNum = msgget(MSG_KEY, IPC_CREAT | <span class="number">0666</span>);</span><br></pre></td></tr></table></figure>
+<p>详细解释：</p>
+<ul>
+<li><p>MSG_KEY作用：</p>
+<p><code>MSG_KEY</code>
+应该是一个用于唯一标识消息队列的键值，但是它在代码中并没有被定义。通常情况下，可以使用
+<code>ftok()</code> 函数来生成一个唯一的键值</p></li>
+<li><p>IPC_CREAT作用</p>
+<p><font color = "yellow"><code>IPC_CREAT</code>
+表示如果消息队列不存在则创建</font></p></li>
+<li><p>0666作用</p>
+<p><font color = "yellow">表示消息队列的权限</font></p>
+<p>在 Linux/Unix
+中，文件权限通常以八进制数表示。每个权限对应的数值如下：</p>
+<ul>
+<li><code>0</code>：没有任何权限</li>
+<li><code>1</code>：执行权限（可执行文件）</li>
+<li><code>2</code>：写权限（写入文件）</li>
+<li><code>4</code>：读权限（读取文件）</li>
+</ul>
+<p>这些权限可以组合使用，通过将对应的数值相加来表示多个权限的组合。例如：</p>
+<ul>
+<li><code>3</code>：执行权限和写权限（1 + 2）</li>
+<li><code>5</code>：执行权限和读权限（1 + 4）</li>
+<li><code>6</code>：写权限和读权限（2 + 4）</li>
+<li><code>7</code>：执行权限、写权限和读权限（1 + 2 + 4）</li>
+</ul>
+<p>在 <code>0666</code> 中，表示的权限是：</p>
+<ul>
+<li><code>0</code>：表示特殊权限位，通常为文件类型或文件特性（如设备文件、管道、套接字等），在这里不涉及文件类型的权限，因此这个位置通常用0填充。</li>
+<li><code>666</code>：表示读权限和写权限，即文件的所有者、所属组和其他用户都有读和写的权限。</li>
+</ul></li>
+</ul>
+<p>整条语句的作用是<font color = "red">用来创建消息队列,
+可以理解返回的是消息队列的地址</font></p>
+<h3 id="将缓存中消息发送到消息队列">将缓存中消息发送到消息队列</h3>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">msgsnd(msgNum, &amp;msgbuf, LENGTH, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>msNum</code>：消息队列的标识符，它是由 <code>msgget</code>
+函数返回的值。</li>
+<li><code>&amp;msgbuf</code>：一个指向消息缓冲区的指针，消息将从这个缓冲区中发送。</li>
+<li><code>1024</code>：消息的大小，以字节为单位。在这里，消息的大小为
+1024 字节。</li>
+<li><code>0</code>：这是一个标志参数，用于指定在发送消息时的行为。在这里，它是一个控制参数，通常可以用来设置一些特殊的行为，但在这个例子中被设置为
+0，表示没有设置特殊的行为。</li>
+</ul>
+<p>代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">client</span><span class="params">()</span> &#123;</span><br><span class="line">    msgNum = msgget(MSG_KEY, IPC_CREAT | <span class="number">0666</span>);</span><br><span class="line">    <span class="comment">// 上面语句用来创建消息队列, 可以理解返回的是消息队列的地址，注意与msgNum的区别</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;input a message\n&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, msgbuf.mtext);</span><br><span class="line">    msgbuf.mtype = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 上面语句用来将要发送的消息暂时存入缓冲区，并设置这种消息的类型为1</span></span><br><span class="line">    msgsnd(msgNum, &amp;msgbuf, LENGTH, <span class="number">0</span>); <span class="comment">// 将内存中消息发送到消息队列中</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="从消息队列中读取">从消息队列中读取</h2>
+<h3 id="获取消息队列">获取消息队列</h3>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">msgNum = msgget(MSG_KEY, IPC_CREAT | <span class="number">0666</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="从消息队列中读取-1">从消息队列中读取</h3>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">msgrcv(msgNum, &amp;msgbuf, LENGTH, <span class="number">0</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>msgNum</code>：消息队列的标识符，它是由 <code>msgget()</code>
+函数返回的值。</li>
+<li><code>&amp;msgbuf</code>：一个指向消息缓冲区的指针，用于存储接收到的消息。</li>
+<li><code>LENGTH</code>：消息的最大长度，以字节为单位。在这里，消息的最大长度被设置为
+1024 字节。</li>
+<li><code>0</code>：这是一个消息的类型，它指定了要接收的消息的类型。在这里，设置为
+0 表示接收队列中的第一个消息。</li>
+<li><code>0</code>：这是一个标志参数，用于指定在接收消息时的行为。在这里，它是一个控制参数，表示没有设置特殊的行为。</li>
+</ul>
+<p>代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">server</span><span class="params">()</span> &#123;</span><br><span class="line">    msgNum = msgget(MSG_KEY, IPC_CREAT | <span class="number">0666</span>);</span><br><span class="line">    msgrcv(msgNum, &amp;msgbuf, LENGTH, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;The save line is %s\n&quot;</span>, msgbuf.mtext);</span><br><span class="line">    msgctl(msgNum, IPC_RMID, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by pilot on 24-4-11.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/msg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ipc.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LENGTH 1024</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MSG_KEY 24</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msgbuf</span>&#123;</span></span><br><span class="line">    <span class="type">long</span> mtype;</span><br><span class="line">    <span class="type">char</span> mtext[LENGTH];</span><br><span class="line">&#125;msgbuf;</span><br><span class="line"><span class="type">int</span> msgNum = <span class="number">0</span>;     <span class="comment">//利用全局变量定义消息队列的序号，这个是1个键，相当于消息队列的编号</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">client</span><span class="params">()</span> &#123;</span><br><span class="line">    msgNum = msgget(MSG_KEY, IPC_CREAT | <span class="number">0666</span>);</span><br><span class="line">    <span class="comment">// 上面语句用来创建消息队列, 可以理解返回的是消息队列的地址，注意与msgNum的区别</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;input a message\n&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, msgbuf.mtext);</span><br><span class="line">    msgbuf.mtype = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 上面语句用来将要发送的消息暂时存入缓冲区，并设置这种消息的类型为1</span></span><br><span class="line">    msgsnd(msgNum, &amp;msgbuf, LENGTH, <span class="number">0</span>); <span class="comment">// 将内存中消息发送到消息队列中</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">server</span><span class="params">()</span> &#123;</span><br><span class="line">    msgNum = msgget(MSG_KEY, IPC_CREAT | <span class="number">0666</span>);</span><br><span class="line">    msgrcv(msgNum, &amp;msgbuf, LENGTH, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;The save line is %s\n&quot;</span>, msgbuf.mtext);</span><br><span class="line">    msgctl(msgNum, IPC_RMID, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">pid_t</span> p1 = fork();</span><br><span class="line">    <span class="keyword">if</span>(p1 == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;create p1 failed\n&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(p1 == <span class="number">0</span>) &#123;</span><br><span class="line">        wait(<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;this is child process1\n&quot;</span>);</span><br><span class="line">        server();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;process1 end\n&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">pid_t</span> p2 = fork();</span><br><span class="line">        <span class="keyword">if</span>(p2 == <span class="number">-1</span>) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;create p2 failed\n&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(p2 == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;this is child process2\n&quot;</span>);</span><br><span class="line">            client();</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;process2 end\n&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            wait(<span class="number">0</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;task end\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+        <category>实验</category>
+      </categories>
+  </entry>
 </search>
