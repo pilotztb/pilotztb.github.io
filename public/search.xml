@@ -3300,10 +3300,10 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040814033384
 无论是∨还是∧收缩辖域时，∀或者∃都只能对最近的作用</font></p>
 <p><font color = "yellow">3.
 →收缩辖域时，∀或者∃如果约束变量<font color = "red">在前面需要取反</font>,如果约束变量<font color = "red">在后面就不用取反</font></font></p>
-<p>关于全称量词的： ① ∀x(A(x)∨B) ≡ ∀xA(x)∨B ② ∀x(A(x)∧B) ≡ ∀xA(x)∧B ③
-∀x(A(x)→B) ≡ ∃xA(x)→B ④ ∀x(B→A(x)) ≡ B→∀xA(x)</p>
-<p>关于存在量词的： ① ∃x(A(x)∨B) ≡ ∃xA(x)∨B ② ∃x(A(x)∧B) ≡ ∃xA(x)∧B ③
-∃x(A(x)→B) ≡ ∀xA(x)→B ④ ∃x(B→A(x)) ≡ B→∃xA(x)</p>
+<p>关于全称量词的： ①∀x(A(x)∨B) ≡ ∀xA(x)∨B ②∀x(A(x)∧B) ≡ ∀xA(x)∧B
+③∀x(A(x)→B) ≡ ∃xA(x)→B ④∀x(B→A(x)) ≡ B→∀xA(x)</p>
+<p>关于存在量词的： ①∃x(A(x)∨B) ≡ ∃xA(x)∨B ②∃x(A(x)∧B) ≡ ∃xA(x)∧B
+③∃x(A(x)→B) ≡ ∀xA(x)→B ④∃x(B→A(x)) ≡ B→∃xA(x)</p>
 <h4 id="量词分配等值式">量词分配等值式</h4>
 <p><font color = "yellow">1.
 与前面收缩扩张的区别在于，将∀（或者∃）分配给所有约束变量</font></p>
@@ -14392,11 +14392,11 @@ alt="集合1树状表示" />
 class="math inline">\(\in\)</span>和 <span
 class="math inline">\(\subseteq\)</span>是不同层次的问题</font>，其中：</p>
 <ul>
-<li>$
-$可以看作是不同层次上的集合元素与集合之间的关系。<font color = "red">通俗点说就是{
+<li><span
+class="math inline">\(\in\)</span>可以看作是不同层次上的集合元素与集合之间的关系。<font color = "red">通俗点说就是{
 }数量不等</font></li>
-<li>$
-$是同一层次上的两个集合之间的关系。<font color = "red">通俗点说就是{
+<li><span
+class="math inline">\(\subseteq\)</span>是同一层次上的两个集合之间的关系。<font color = "red">通俗点说就是{
 }数量相等</font></li>
 </ul>
 <h2 id="空集全集和幂集">空集、全集和幂集</h2>
