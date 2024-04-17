@@ -2888,7 +2888,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/e2a76a38f993148b2fbf
 <p>​ ③先用等值化简再观察</p>
 <ol start="2" type="1">
 <li><p>判断公式类型</p>
-<p>$ q (p q) $</p>
+<p><span class="math inline">\(q \land \neg (p \rightarrow
+q)\)</span></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/949c2cc74f5622a9fac0fc88879c8ca.jpg" /></p></li>
 </ol>
@@ -14364,7 +14365,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/53ab05236ebab34cdcf4c9
     <url>/posts/36cbec99.html</url>
     <content><![CDATA[<h1 id="集合的基本概念">集合的基本概念</h1>
 <span id="more"></span>
-<p>集合表示法中微词表示法举例：$S = { x , | , x x^2 - 1 = 0 } $</p>
+<p>集合表示法中微词表示法举例：<span class="math inline">\(S =
+\{x|x是实数且x^2 - 1 = 0\}\)</span></p>
 <h2 id="元素与集合">元素与集合</h2>
 <h3 id="性质">性质</h3>
 <p>无序性：元素列出的顺序无关 相异性：集合的每个元素只计数一次
@@ -14386,8 +14388,9 @@ alt="集合1树状表示" />
 \subseteq B \land B \subseteq A\)</span></p>
 <p>定义6.3真子集: <span class="math inline">\(A \subsetneq B
 \Leftrightarrow A \subseteq B \land A \neq B\)</span></p>
-<p>注意： <font color = "yellow">$ $和 $
-$是不同层次的问题</font>，其中：</p>
+<p>注意： <font color = "yellow"><span
+class="math inline">\(\in\)</span>和 <span
+class="math inline">\(\subseteq\)</span>是不同层次的问题</font>，其中：</p>
 <ul>
 <li>$
 $可以看作是不同层次上的集合元素与集合之间的关系。<font color = "red">通俗点说就是{
