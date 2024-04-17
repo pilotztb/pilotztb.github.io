@@ -3373,6 +3373,56 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/9c72c5dce9e6f3093ffcd5
 <h3 id="量词分配蕴涵律">量词分配蕴涵律</h3>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(1) ∀x(A(x)∨∀xB(x)) ⇒ ∀x(A(x)∨B(x)) </span><br><span class="line"></span><br><span class="line">(2) ∃x(A(x)∧B(x)) ⇒ ∃xA(x)∧∃xB(x)</span><br><span class="line"></span><br><span class="line">(3) ∀x(A(x)→B(x)) ⇒ ∀xA(x)→∀xB(x)</span><br><span class="line"></span><br><span class="line">(4) ∃x(A(x)→B(x)) ⇒ ∃xA(x)→∃xB(x)</span><br></pre></td></tr></table></figure>
 <h2 id="量词消去引入规则">量词消去引入规则</h2>
+<h3 id="全称量词消去规则-">全称量词消去规则(∀-)</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415142936856.png" /></p>
+<p>全称量词消去规则(∀-)</p>
+<p>其中 x, y 是个体变项符号，c
+是个体常项符号，<font color = "red">并且在 A 中 x 不在 ∀y 和 ∃y
+的辖域内自由出现</font></p>
+<p>来解释下这句绕口令一样的话</p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p>要特别注意使用∀-, ∀+, ∃-, ∃+规则的条件。就是上面那句像绕口令的话</p>
+<p>反例1. 对 A = ∀x∃yF(x,y) 使用 ∀-规则，推得 B = ∃yF(y,y)。 取解释
+I：个体域为 R，F(x, y): x &gt; y 在 I 下 A 被解释为 ∀x∃y(x&gt;y)，真；而
+B 被解释为 ∃y(y&gt;y)，假。 原因：在 A 中 x 自由出现在 ∃y 的辖域 F(x,y)
+内。</p>
+<p>将上述段落重新打印。</p>
+<hr style = "border:2px solid yellow">
+<h3 id="全称量词引入规则">全称量词引入规则（∀+）</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415143917922.png" /></p>
+<p>其中 x
+是个体变项符号，并且<font color = "red">不在前提的任何公式中自由出现</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p>反例2. 前提: P(x)→Q(x), P(x) 结论: ∀xQ(x) 取解释I: 个体域为Z,
+P(x):x是偶数， Q(x):x被2整除</p>
+<p>在 I 下前提为真，结论为假，从而推理不正确</p>
+<p>错误的证明如下</p>
+<p>“证明”: ① P(x)→Q(x) 前提引入 ② P(x) 前提引入 ③ Q(x) ①②假言推理 ④
+∀xQ(x) ③∀+</p>
+<p>错误原因: 在④使用∀+规则，而 x 在前提的公式中自由出现。</p>
+<hr style = "border:2px solid yellow">
+<h3 id="存在量词消去规则-">存在量词消去规则（∃-）</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415144537991.png" /></p>
+<p>其中x是个体变项符号, 且不在前提的任何公式和B中自由出现</p>
+<h3 id="存在量词引入消去规则">存在量词引入消去规则（∃+）</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415150227362.png" /></p>
+<p>其中 x, y 是个体变项符号，c 是个体常项符号，且在 A 中 y 和 c 不在 ∀x
+和 ∃x 的辖域内自由出现。</p>
+<h1 id="自然推理系统的证明">自然推理系统的证明</h1>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b435e0641c7c0e17e51f0c18f399c7b.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e8a5df5c71f58076fc8829a802fb10c.jpg" /></p>
+<hr style = "border:2px solid yellow">
 ]]></content>
       <categories>
         <category>离散数学</category>
@@ -3895,26 +3945,14 @@ class="math inline">\(\bigcap\)</span>B = A</h5>
 <h3 id="题型">题型</h3>
 <h4 id="题型一判断命题是否成立">题型一：判断命题是否成立</h4>
 <h5 id="法一画文氏图">法一：画文氏图</h5>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231113154301.jpg"
-alt="微信图片_20231113154301" />
-<figcaption aria-hidden="true">微信图片_20231113154301</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231113154301.jpg" /></p>
 <h5 id="法二公式推理">法二：公式推理</h5>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231113154944.jpg"
-alt="微信图片_20231113154944" />
-<figcaption aria-hidden="true">微信图片_20231113154944</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231113154944.jpg" /></p>
 <h4 id="题型二关于至少这个事件">题型二：关于“至少”这个事件</h4>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231119152722.jpg"
-alt="微信图片_20231119152722" />
-<figcaption aria-hidden="true">微信图片_20231119152722</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231119152722.jpg" /></p>
 <h5 id="ab中至少有一个发生leftrightarrowab">A，B中至少有一个发生<span
 class="math inline">\(\Leftrightarrow\)</span>A∪B</h5>
 <h5 id="a---b-aoverlineb-a---ab">A - B ↔︎ A<span
@@ -3931,12 +3969,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E
 <h4
 id="组合从n个元素里挑m个成一种组合因为m个元素有m中排列方式而组合只选择其中一种">2
 组合：从n个元素里挑m个成一种组合，因为m个元素有m!中排列方式，而组合只选择其中一种</h4>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210113408.jpg"
-alt="微信图片_20231210113408" />
-<figcaption aria-hidden="true">微信图片_20231210113408</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210113408.jpg" /></p>
 <h4 id="题型-1">3 题型</h4>
 <h5 id="随机分配将n个质点放到n个盒子里">3.1
 随机分配：将n个质点放到N个盒子里</h5>
@@ -4177,7 +4211,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040120533857
   <entry>
     <title>一维随机变量及其分布</title>
     <url>/posts/4583997a.html</url>
-    <content><![CDATA[<p>#一维随机变量及其分布</p>
+    <content><![CDATA[<h1 id="一维随机变量及其分布">一维随机变量及其分布</h1>
 <h2 id="一-一维随机变量分布函数">(一) 一维随机变量分布函数</h2>
 <h3 id="概念fx-px-leqx">1 概念：F(x) = P{X <span
 class="math inline">\(\leq\)</span>x}</h3>
@@ -8522,10 +8556,42 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040507103743
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a02052d33e6631f72bc6947aba020ca.jpg" /></p>
 <h1 id="背包">0-1 背包</h1>
-<p>定义：</p>
+<h2 id="定义-2">定义：</h2>
 <p>给定n种物品和一背包。物品i的重量是wi，其价值为vi，背包的容量为C。问应如何选择装入背包的物品，使得装入背包中物品的总价值最大?</p>
 <p>0-1背包问题是一个特殊的整数规划问题。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4d16b8d8311d7cd652e8117af7b3147.jpg" /></p>
+<h2 id="动态转移方程">动态转移方程</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bd839e9436f7cff13fb968d1d867628.jpg" /></p>
+<h2 id="代码-2">代码</h2>
+<h3 id="原始版本求最大价值">原始版本求最大价值</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/2e4539f504399446b33100d53a2abff.jpg" /></p>
+<h3 id="原始版本求产生最大价值的方法">原始版本求产生最大价值的方法</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b93650f105ff8c2a37a6e03c1e0aee9.jpg" /></p>
+<h3 id="滚动数组优化">滚动数组优化</h3>
 <h1 id="流水作业调度">流水作业调度</h1>
+<h2 id="定义-3">定义</h2>
+<p>n个作业{1，2，…，n}要在由2台机器M1和M2组成的流水线上完成加工。每个作业加工的顺序都是先在M1上加工，然后在M2上加工。M1和M2加工作业i所需的时间分别为ai和bi。
+流水作业调度问题要求<font color = "red">确定这n个作业的最优加工顺序，使得从第一个作业在机器M1上开始加工，到最后一个作业在机器M2上加工完成所需的时间最少</font></p>
+<p>直观来看，最佳调度应该是使机器M1没有空闲时间，同时机器M2的空闲时间最少。通常情况下，机器M2上会出现两种情况：一种是机器空闲，另一种是作业积压。</p>
+<p>假设所有作业的集合为N={1, 2, ...,
+n}。S⊆N是N的作业子集。在<font color = "yellow">一般情况下，当机器M1开始处理S中的作业时，机器M2可能正在处理其他作业，需要等待时间t才能开始处理S中的作业。我们将在这种情况下完成S中作业所需的最短时间记为T(S,
+t)。</font><font color = "red">流水作业调度问题的最优解为T(N,
+0)。</font>(t = 0表示机器M2积压时间为0)</p>
+<h2 id="johnson不等式">Johnson不等式</h2>
+<p>如果作业i和j满足min{bi,aj}≥min{bj,ai}，则称作业i和j满足Johnson不等式。</p>
+<h2 id="算法">算法</h2>
+<p>流水作业调度问题的Johnson算法 (1)令</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240417053251214.png" />
+(2)将N1中作业依ai的递增排序(不严格)；将N2中作业依bi的递减排序(不严格)；
+(3)N1中作业接N2中作业构成满足Johnson法则的最优调度。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/50afce87f860ee16279ee01d4e31883.jpg" /></p>
+<p><a href="">视频讲解</a></p>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
@@ -14298,12 +14364,125 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/53ab05236ebab34cdcf4c9
     <url>/posts/36cbec99.html</url>
     <content><![CDATA[<h1 id="集合的基本概念">集合的基本概念</h1>
 <span id="more"></span>
-<h2 id="属于包含">属于、包含</h2>
-<h2 id="幂集空集">幂集、空集</h2>
+<p>集合表示法中微词表示法举例：$S = { x , | , x x^2 - 1 = 0 } $</p>
+<h2 id="元素与集合">元素与集合</h2>
+<h3 id="性质">性质</h3>
+<p>无序性：元素列出的顺序无关 相异性：集合的每个元素只计数一次
+确定性：对任何元素和集合都能确定这个元素是否为该集合的元素
+任意性：集合的元素也可以是集合</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415082840554.png"
+alt="集合1树状表示" />
+<figcaption aria-hidden="true">集合1树状表示</figcaption>
+</figure>
+<p><font color = "yellow">从上图来看，集合中元素属于这个集合必须是直接属于</font></p>
+<h2 id="集合与集合">集合与集合</h2>
+<p>定义6.1子集: <span class="math inline">\(A \subseteq B
+\Leftrightarrow \forall x (x \in A \rightarrow x \in B\)</span></p>
+<p>定义6.1非子集: <span class="math inline">\(A \nsubseteq B
+\Leftrightarrow \exists x (x \in A \land x \notin B)\)</span></p>
+<p>定义6.2相等: <span class="math inline">\(A = B \Leftrightarrow A
+\subseteq B \land B \subseteq A\)</span></p>
+<p>定义6.3真子集: <span class="math inline">\(A \subsetneq B
+\Leftrightarrow A \subseteq B \land A \neq B\)</span></p>
+<p>注意： <font color = "yellow">$ $和 $
+$是不同层次的问题</font>，其中：</p>
+<ul>
+<li>$
+$可以看作是不同层次上的集合元素与集合之间的关系。<font color = "red">通俗点说就是{
+}数量不等</font></li>
+<li>$
+$是同一层次上的两个集合之间的关系。<font color = "red">通俗点说就是{
+}数量相等</font></li>
+</ul>
+<h2 id="空集全集和幂集">空集、全集和幂集</h2>
+<p>幂集：集合A的全体子集构成的集合，记作 $P(A) = { x , | , x A } $</p>
+<p>实例：$P() = {}, P({}) = {, {}}
+$<font color = "yellow">第二个例子就是把空集当成1个普通元素就行，同时注意集合包含关系要求{
+}层数相等</font></p>
+<p>计数：如果 $ |A| = n ，则 |P(A)| = 2^n $</p>
 <h1 id="集合的基本运算">集合的基本运算</h1>
+<h2 id="初级运算">初级运算</h2>
+<p>并: $ A B = {x , | , x A x B} $</p>
+<p>交: $ A B = {x , | , x A x B} $</p>
+<p>相对补: $ A - B = {x , | , x A x B} $</p>
+<p>对称差: $ A B = (A - B) (B - A) $</p>
+<p>绝对补: $ A = E - A $</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415084558934.png"
+alt="初级运算的文氏图表示" />
+<figcaption aria-hidden="true">初级运算的文氏图表示</figcaption>
+</figure>
+<h2 id="广义运算">广义运算</h2>
+<h3 id="集合的广义并与广义交">集合的广义并与广义交</h3>
+<p>广义并：集合A的元素的元素构成的集合，记作 $A = { x , | , z (z A x z)
+} $</p>
+<p>广义交：非空集合A的所有元素的公共元素构成的集合，记作 $ A = { x , | ,
+z (z A x z) } $</p>
+<h3 id="性质-1">性质</h3>
+<ol type="1">
+<li>$ = ， $无意义</li>
+<li><font color = "red">单元集 <span
+class="math inline">\(\{x\}\)</span> 的广义并和广义交都等于 <span
+class="math inline">\(x\)</span></font></li>
+<li><font color ="red">广义运算减少集合的层次（括弧减少一层）</font></li>
+<li>广义运算的计算：一般情况下可以转变成初级运算</li>
+</ol>
+<h2 id="运算的优先权规定">运算的优先权规定</h2>
+<ol type="1">
+<li><p>类运算：初级运算 $ , , - , $， 优先顺序由括号确定。</p></li>
+<li><p>类运算：广义运算和 $ $运算， 运算由右向左进行。</p></li>
+</ol>
+<p>混合运算：2 类运算优先于 1 类运算。</p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/9b405f93ea904fd3d76b2685b20a14f.jpg" /></p>
+<hr style = "border:2px solid yellow">
 <h1 id="有穷集的计数">有穷集的计数</h1>
-<h2 id="文氏图法">文氏图法</h2>
-<p>包含排斥原理 集合恒等式 集合运算的算律、恒等式的证明方法</p>
+<h2 id="容斥原理">容斥原理</h2>
+<p>(多个字母的并事件)：奇数个字母前面是正号，偶数个字母前面是负号，然后组合排列出所有情况</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210150120.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20231210150328.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/16d2c959ab4666a7647f250f6251e61.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<h1 id="集合恒等式">集合恒等式</h1>
+<h2 id="只涉及一个运算的算律">只涉及一个运算的算律</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415093700840.png" /></p>
+<h2 id="涉及两个不同运算的算律">涉及两个不同运算的算律</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415093725135.png" /></p>
+<h2 id="涉及补运算的算律">涉及补运算的算律</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415093821897.png" /></p>
+<h2 id="涉及全集和空集的算律">涉及全集和空集的算律</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415093841769.png" /></p>
+<h2 id="集合证明题">集合证明题</h2>
+<ol type="1">
+<li><p>证 $ X Y $ 任取 $ x $， $ x X x Y $</p></li>
+<li><p>证 $ X = Y $ 方法一：分别证明 $ X Y $ 和 $ Y X $ 方法二：任取
+<span class="math inline">\(x\)</span>， $ x X x Y $</p></li>
+</ol>
+<h3 id="集合等式的证明">集合等式的证明</h3>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f42b9be412e552825a360c5161bd797.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<h3 id="包含等价条件的证明">包含等价条件的证明</h3>
+<p><font color = "red">确定命题，确定顺序</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<hr style = "border:2px solid yellow">
 ]]></content>
       <categories>
         <category>离散数学</category>
@@ -14407,5 +14586,396 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/53ab05236ebab34cdcf4c9
         <category>操作系统</category>
         <category>实验</category>
       </categories>
+  </entry>
+  <entry>
+    <title>进位计数制与相互转换</title>
+    <url>/posts/10ea6e78.html</url>
+    <content><![CDATA[<h3 id="进位计数法">进位计数法</h3>
+<span id="more"></span>
+<p><strong>基数</strong>：每个数位所要用到的不同符号的个数（二进制就是2个、8进制就是8个、十进制就是10个...）。</p>
+<p>基数越大，<strong>位数</strong>越小，运算情况越多。</p>
+<p>位权：依据进制所决定的一个常数（二级制就是2，十进制就是10...）</p>
+<p>N位r进制的数所能表示的<strong>数字个数</strong>为：<span
+class="math inline">\(r^N\)</span>个</p>
+<h3 id="进制转换">进制转换</h3>
+<h4 id="一任意进制----十进制">（一）、任意进制 --&gt; 十进制</h4>
+<p>用相应位上的数乘以位权即可。</p>
+<blockquote>
+<p>二进制：101.1 --&gt; <span class="math inline">\(1 \times 2^2 + 0
+\times 2^1 + 1 \times 2^0 + 1 \times 2^{-1} = 5.5\)</span></p>
+<p>八进制：5.4 --&gt; <span class="math inline">\(5 \times 8^0 + 4
+\times 8^{-1} = 5.5\)</span></p>
+<p>十六进制：5.8 --&gt; <span class="math inline">\(5 \times 16^0 + 8
+\times 16^{-1} = 5.5\)</span></p>
+</blockquote>
+<h4 id="二十进制----任意进制">（二）、十进制 --&gt; 任意进制</h4>
+<p>例：将十进制123.6875转化为二进制</p>
+<h4 id="除基取余法整数">除基取余法（整数）</h4>
+<p>对整数部分的处理使用短除法，并从下向上，得1111011</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image%20(7).png" /></p>
+<h4 id="乘基取整法小数">乘基取整法（小数）</h4>
+<p>小数部分采用乘基取整的思路，如下所示：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240415115021673.png" /></p>
+<p>一般十进制<strong>无法精确化为</strong>二进制小数，取一定精度即可。</p>
+<h4 id="二-2n-进制之间的转换">（二）、 <span
+class="math inline">\(2^n\)</span> 进制之间的转换</h4>
+<p>每n位一组，进行对应的转换即可。</p>
+<p>例1：将3C2.68H转化为二进制</p>
+<p>3C2.68H = 1111000010.01101B</p>
+<p>例2：将1111000010.01101B转化为八进制</p>
+<p>1111000010.01101B = (1702.32)8</p>
+<h2 id="bcd码">2.1.2 BCD码</h2>
+<p>BCD（Binary-Coded
+Decimal），<strong>使用二进制表示的十进制数</strong>。即使用四位二进制数表示一位十进制数，使得十进制与二进制之间的转换得以快速进行。</p>
+<h3 id="码">1、8421码</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0000</td>
+<td style="text-align: center;">0001</td>
+<td style="text-align: center;">0010</td>
+<td style="text-align: center;">0011</td>
+<td style="text-align: center;">0100</td>
+<td style="text-align: center;">0101</td>
+<td style="text-align: center;">0110</td>
+<td style="text-align: center;">0111</td>
+<td style="text-align: center;">1000</td>
+<td style="text-align: center;">1001</td>
+</tr>
+</tbody>
+</table>
+<p><font color = "red">使用8421码进行运算时，若结果大于等于10，需要<strong>加6修正</strong>（加0110）</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/dece78159862e668a33d5f2fa4d45e7.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<h3 id="余三码">2、余三码</h3>
+<p>将8421码的每一位加3（即加0011B）得到。</p>
+<h3 id="码-1">3、2421码</h3>
+<p>将最高位的权值改为2，特点是大于5的四位二进制码最高位是1，小于5的是0.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0000</td>
+<td style="text-align: center;">0001</td>
+<td style="text-align: center;">0010</td>
+<td style="text-align: center;">0011</td>
+<td style="text-align: center;">0100</td>
+<td style="text-align: center;">1011</td>
+<td style="text-align: center;">1100</td>
+<td style="text-align: center;">1101</td>
+<td style="text-align: center;">1110</td>
+<td style="text-align: center;">1111</td>
+</tr>
+</tbody>
+</table>
+<h2 id="字符与字符串">2.1.3 字符与字符串</h2>
+<h3 id="ascii码">1、ASCII码</h3>
+<ul>
+<li>32~126位称为可印刷字符</li>
+<li>A-Z，a-z是连续的，但是Z和a之间不连续</li>
+<li>以字节的形式存储</li>
+</ul>
+<blockquote>
+<p>例：已知'A'的ASCII码码值是65，H存放在某存储单元M中，求M中存放的值</p>
+<p>65+(8-1)=72</p>
+<p>72 = 0100 1000</p>
+</blockquote>
+<h3 id="字符串">2、字符串</h3>
+<p>字符串：IF_ _A&gt;B THEN READ(C) ，每个存储单元存放4B</p>
+<p><strong>大端模式</strong>：存储单元内<strong>先存储高位字节</strong>、<strong>后存储低位字节</strong>的顺序</p>
+<p><strong>大端方式是正常的</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>I</th>
+<th>F</th>
+<th>空格</th>
+<th>A</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&gt;</td>
+<td>B</td>
+<td>空格</td>
+<td>T</td>
+</tr>
+<tr class="even">
+<td>H</td>
+<td>E</td>
+<td>N</td>
+<td>空格</td>
+</tr>
+<tr class="odd">
+<td>R</td>
+<td>E</td>
+<td>A</td>
+<td>D</td>
+</tr>
+<tr class="even">
+<td>(</td>
+<td>C</td>
+<td>)</td>
+<td>空格</td>
+</tr>
+</tbody>
+</table>
+<p><strong>小端模式</strong>：存储单元内<strong>先存储低位字节</strong>、<strong>后存储高位字节</strong>的顺序</p>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>空格</th>
+<th>F</th>
+<th>I</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T</td>
+<td>空格</td>
+<td>B</td>
+<td>&gt;</td>
+</tr>
+<tr class="even">
+<td>空格</td>
+<td>N</td>
+<td>E</td>
+<td>H</td>
+</tr>
+<tr class="odd">
+<td>D</td>
+<td>A</td>
+<td>E</td>
+<td>R</td>
+</tr>
+<tr class="even">
+<td>空格</td>
+<td>)</td>
+<td>C</td>
+<td>(</td>
+</tr>
+</tbody>
+</table>
+<h3 id="汉字编码">3、汉字编码</h3>
+<p>包括输入的<strong>输入编码</strong>，计算机内部处理的<strong>汉字内码</strong>和输出的<strong>汉字字形码</strong>三种。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image%20(8).png" /></p>
+<h2 id="校验码">2.1.4 校验码</h2>
+<p><strong>码距</strong>：任意两个合法码字之间不同的二进制的位数。</p>
+<ul>
+<li>码距大于等于2时，开始具有检错能力</li>
+<li>码距越大，纠错、检错能力越强</li>
+</ul>
+<h3 id="奇偶校验码">1、奇偶校验码</h3>
+<p>添加一个校验位，校验位的取值满足以下规定：</p>
+<p><strong>奇校验码</strong>：整个校验码（有效信息位和校验位）中“1”的个数为奇数。</p>
+<p><strong>偶校验码</strong>：整个校验码（有效信息位和校验位）中“1”的个数为偶数。</p>
+<p>即在有效信息的前面添加1或者0即可。</p>
+<h3 id="海明校验码">2、海明校验码</h3>
+<ul>
+<li>若信息位的位数为n，海明码的位数为k ，则有：</li>
+</ul>
+<p>2�≥�+�+1(1)2<em>k</em>≥<em>n</em>+<em>k</em>+1(1)</p>
+<ul>
+<li><p>将校验位依次放在位于 2�−12<em>i</em>−1
+位上，并将信息位按照顺序填入剩下的位置</p></li>
+<li><p>海明码的取值相当于将各数据位的第i组的所有位求异或</p></li>
+<li><p>每个校验组分别用校验位和参与计算校验位的信息位进行奇偶校验，并得到响应结果。</p></li>
+</ul>
+<p>例：求1010的海明码</p>
+<h4 id="确定位数">1、确定位数</h4>
+<p>因为 n=4，则由（1）计算得 k=3</p>
+<p>则，设信息位
+�4�3�2�1(1010)<em>D</em>4<em>D</em>3<em>D</em>2<em>D</em>1(1010)
+，共4位，校验位 �3�2�1<em>P</em>3<em>P</em>2<em>P</em>1 ，
+共3位，对应的海明码为
+�7�6�5�4�3�2�1<em>H</em>7<em>H</em>6<em>H</em>5<em>H</em>4<em>H</em>3<em>H</em>2<em>H</em>1
+。</p>
+<h4 id="确定校验位的分布">2、确定校验位的分布</h4>
+<ul>
+<li>将校验码放在2�−12<em>i</em>−1位置上</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>�7<em>H</em>7</th>
+<th>�6<em>H</em>6</th>
+<th>�5<em>H</em>5</th>
+<th>�4<em>H</em>4</th>
+<th>�3<em>H</em>3</th>
+<th>�2<em>H</em>2</th>
+<th>�1<em>H</em>1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td>�3<em>P</em>3</td>
+<td></td>
+<td>�2<em>P</em>2</td>
+<td>�1<em>P</em>1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>将信息位填入剩下的位置</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>�7<em>H</em>7</th>
+<th>�6<em>H</em>6</th>
+<th>�5<em>H</em>5</th>
+<th>�4<em>H</em>4</th>
+<th>�3<em>H</em>3</th>
+<th>�2<em>H</em>2</th>
+<th>�1<em>H</em>1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>�4<em>D</em>4</td>
+<td>�3<em>D</em>3</td>
+<td>�2<em>D</em>2</td>
+<td>�3<em>P</em>3</td>
+<td>�1<em>D</em>1</td>
+<td>�2<em>P</em>2</td>
+<td>�1<em>P</em>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="求校验位的值">3、求校验位的值</h4>
+<p>先将信息位的海明位号表示为二进制，再对相应组含有1的求异或</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fassets%2F-MgTVRt7hyq7APa35yqR%2F-MhLkyniNXPjnhvW6gUK%2F-MhLsP-vuXg4DEzdsNs0%2F%E6%B5%B7%E6%98%8E%E7%A0%81.png%3Falt=media%26token=8107b744-2285-4525-a981-72615da062ee&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=b95d93f9c38583de2d10beaa57f89074aabc460a91f071e0e722bcc33210643f"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>�1=�1⊕�2⊕�4=0⊕1⊕1=0�2=�1⊕�3⊕�4=0⊕0⊕1=1�3=�2⊕�3⊕�4=1⊕0⊕1=0<em>P</em>1=<em>D</em>1⊕<em>D</em>2⊕<em>D</em>4=0⊕1⊕1=0<em>P</em>2=<em>D</em>1⊕<em>D</em>3⊕<em>D</em>4=0⊕0⊕1=1<em>P</em>3=<em>D</em>2⊕<em>D</em>3⊕<em>D</em>4=1⊕0⊕1=0</p>
+<p>因此有</p>
+<table>
+<thead>
+<tr class="header">
+<th>�7<em>H</em>7</th>
+<th>�6<em>H</em>6</th>
+<th>�5<em>H</em>5</th>
+<th>�4<em>H</em>4</th>
+<th>�3<em>H</em>3</th>
+<th>�2<em>H</em>2</th>
+<th>�1<em>H</em>1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>�4<em>D</em>4</td>
+<td>�3<em>D</em>3</td>
+<td>�2<em>D</em>2</td>
+<td>�3<em>P</em>3</td>
+<td>�1<em>D</em>1</td>
+<td>�2<em>P</em>2</td>
+<td>�1<em>P</em>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="纠错">4、纠错</h4>
+<p>将校验码和<strong>与之相应的</strong>数据位进行异或，应当全部为0。</p>
+<p>�1⊕�1⊕�2⊕�4=0�2⊕�1⊕�3⊕�4=0�3⊕�2⊕�3⊕�4=0<em>P</em>1⊕<em>D</em>1⊕<em>D</em>2⊕<em>D</em>4=0<em>P</em>2⊕<em>D</em>1⊕<em>D</em>3⊕<em>D</em>4=0<em>P</em>3⊕<em>D</em>2⊕<em>D</em>3⊕<em>D</em>4=0</p>
+<p>得1则说明有错。</p>
+<h3 id="循环冗余校验码">3、循环冗余校验码</h3>
+<p>循环冗余校验码包括K位数据位和R位校验位。</p>
+<p>例：已知生成多项式
+�(�)=�3+�2+1<em>G</em>(<em>x</em>)=<em>x</em>3+<em>x</em>2+1
+，信息码为101001，求对应的CRC码</p>
+<h4
+id="确定kr及生成多项式对应的二进制码">1、确定K、R及生成多项式对应的二进制码</h4>
+<ul>
+<li><p>K = 7</p></li>
+<li><p>R = 生成多项式的最高次幂 = 3</p>
+<ul>
+<li>则，CRC码的位数 = K + R = 10</li>
+</ul></li>
+<li><p>生成多项式的各次幂的系数就是对应的二进制码：1101（<em>没有x，故第二位为0</em>）</p></li>
+</ul>
+<h4 id="移位">2、移位</h4>
+<p>将信息码<strong>左移R位</strong>，低位补0</p>
+<p>101001000</p>
+<h4 id="模2相除">3、模2相除</h4>
+<p>将 左移后的信息码 除以 生成多项式的二进制码。</p>
+<p>每一次相减时，相同得0，不相同得1，<strong>没有借位</strong>。</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fassets%2F-MgTVRt7hyq7APa35yqR%2F-MhLtlKvk-rJv2l0GNWh%2F-MhLyIiA4No2JafK2Oud%2FCRC%E7%A0%81.png%3Falt=media%26token=447ac1e9-9bdb-4970-88c7-5ff976586c27&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=207abc9a59505840af02a70a31fe79090df253dc62e03fabd40e2e2a4beff3ee"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>最后的<strong>余数</strong>就是校验位</p>
+<p>因此，CRC码 = 101001 001</p>
+<h4 id="检错">4、检错</h4>
+<p>对于CRC码再次用生成多项式的二进制码进行<strong>模2除法</strong>，余数应为000。</p>
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>post</title>
+    <url>/posts/5a8a6c8d.html</url>
+    <content><![CDATA[
+]]></content>
   </entry>
 </search>

@@ -30,7 +30,7 @@
 <meta property="og:description" content="矩阵连乘问题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-04T06:19:40.000Z">
-<meta property="article:modified_time" content="2024-04-10T22:34:01.717Z">
+<meta property="article:modified_time" content="2024-04-16T22:23:45.988Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-11 06:34:01" itemprop="dateModified" datetime="2024-04-11T06:34:01+08:00">2024-04-11</time>
+                <time title="修改时间：2024-04-17 06:23:45" itemprop="dateModified" datetime="2024-04-17T06:23:45+08:00">2024-04-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,7 +268,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.2k</span>
+              <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -406,10 +406,42 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040507103743
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a02052d33e6631f72bc6947aba020ca.jpg" /></p>
 <h1 id="背包">0-1 背包</h1>
-<p>定义：</p>
+<h2 id="定义-2">定义：</h2>
 <p>给定n种物品和一背包。物品i的重量是wi，其价值为vi，背包的容量为C。问应如何选择装入背包的物品，使得装入背包中物品的总价值最大?</p>
 <p>0-1背包问题是一个特殊的整数规划问题。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4d16b8d8311d7cd652e8117af7b3147.jpg" /></p>
+<h2 id="动态转移方程">动态转移方程</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bd839e9436f7cff13fb968d1d867628.jpg" /></p>
+<h2 id="代码-2">代码</h2>
+<h3 id="原始版本求最大价值">原始版本求最大价值</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/2e4539f504399446b33100d53a2abff.jpg" /></p>
+<h3 id="原始版本求产生最大价值的方法">原始版本求产生最大价值的方法</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b93650f105ff8c2a37a6e03c1e0aee9.jpg" /></p>
+<h3 id="滚动数组优化">滚动数组优化</h3>
 <h1 id="流水作业调度">流水作业调度</h1>
+<h2 id="定义-3">定义</h2>
+<p>n个作业{1，2，…，n}要在由2台机器M1和M2组成的流水线上完成加工。每个作业加工的顺序都是先在M1上加工，然后在M2上加工。M1和M2加工作业i所需的时间分别为ai和bi。
+流水作业调度问题要求<font color = "red">确定这n个作业的最优加工顺序，使得从第一个作业在机器M1上开始加工，到最后一个作业在机器M2上加工完成所需的时间最少</font></p>
+<p>直观来看，最佳调度应该是使机器M1没有空闲时间，同时机器M2的空闲时间最少。通常情况下，机器M2上会出现两种情况：一种是机器空闲，另一种是作业积压。</p>
+<p>假设所有作业的集合为N={1, 2, ...,
+n}。S⊆N是N的作业子集。在<font color = "yellow">一般情况下，当机器M1开始处理S中的作业时，机器M2可能正在处理其他作业，需要等待时间t才能开始处理S中的作业。我们将在这种情况下完成S中作业所需的最短时间记为T(S,
+t)。</font><font color = "red">流水作业调度问题的最优解为T(N,
+0)。</font>(t = 0表示机器M2积压时间为0)</p>
+<h2 id="johnson不等式">Johnson不等式</h2>
+<p>如果作业i和j满足min{bi,aj}≥min{bj,ai}，则称作业i和j满足Johnson不等式。</p>
+<h2 id="算法">算法</h2>
+<p>流水作业调度问题的Johnson算法 (1)令</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240417053251214.png" />
+(2)将N1中作业依ai的递增排序(不严格)；将N2中作业依bi的递减排序(不严格)；
+(3)N1中作业接N2中作业构成满足Johnson法则的最优调度。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/50afce87f860ee16279ee01d4e31883.jpg" /></p>
+<p><a href="">视频讲解</a></p>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
@@ -519,7 +551,7 @@ role="doc-backlink">↩︎</a></p></li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">矩阵连乘问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E5%8A%A0%E6%8B%AC%E5%8F%B7%E7%9A%84%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98%E7%A7%AF"><span class="nav-number">1.1.1.</span> <span class="nav-text">完全加括号的矩阵连乘积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E4%B9%98%E6%B3%95%E6%AC%A1%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">计算乘法次数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%B7%E4%B8%BE"><span class="nav-number">1.2.1.</span> <span class="nav-text">穷举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">1.2.2.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E5%BF%98%E5%BD%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">备忘录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">最长公共子序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">状态转移方程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E5%BD%92%E8%AE%A1%E7%AE%97%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97%E9%95%BF%E5%BA%A6"><span class="nav-number">2.3.</span> <span class="nav-text">动归计算最长子序列长度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C"><span class="nav-number">3.</span> <span class="nav-text">最大子段和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">分治算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E5%BD%92%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">动归算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">状态转移方程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.3.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%B8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E6%9C%80%E4%BC%98%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86"><span class="nav-number">4.</span> <span class="nav-text">凸多边形最优三角剖分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="nav-number">4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B-2"><span class="nav-number">4.2.</span> <span class="nav-text">状态转移方程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="nav-number">4.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E5%8C%85"><span class="nav-number">5.</span> <span class="nav-text">0-1 背包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%81%E6%B0%B4%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6"><span class="nav-number">6.</span> <span class="nav-text">流水作业调度</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">矩阵连乘问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E5%8A%A0%E6%8B%AC%E5%8F%B7%E7%9A%84%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98%E7%A7%AF"><span class="nav-number">1.1.1.</span> <span class="nav-text">完全加括号的矩阵连乘积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E4%B9%98%E6%B3%95%E6%AC%A1%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">计算乘法次数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%B7%E4%B8%BE"><span class="nav-number">1.2.1.</span> <span class="nav-text">穷举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">1.2.2.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E5%BF%98%E5%BD%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">备忘录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">最长公共子序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">状态转移方程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E5%BD%92%E8%AE%A1%E7%AE%97%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97%E9%95%BF%E5%BA%A6"><span class="nav-number">2.3.</span> <span class="nav-text">动归计算最长子序列长度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C"><span class="nav-number">3.</span> <span class="nav-text">最大子段和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">分治算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E5%BD%92%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">动归算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">状态转移方程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.3.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%B8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E6%9C%80%E4%BC%98%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86"><span class="nav-number">4.</span> <span class="nav-text">凸多边形最优三角剖分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="nav-number">4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B-2"><span class="nav-number">4.2.</span> <span class="nav-text">状态转移方程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="nav-number">4.3.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E5%8C%85"><span class="nav-number">5.</span> <span class="nav-text">0-1 背包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="nav-number">5.1.</span> <span class="nav-text">定义：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B"><span class="nav-number">5.2.</span> <span class="nav-text">动态转移方程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="nav-number">5.3.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E7%89%88%E6%9C%AC%E6%B1%82%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC"><span class="nav-number">5.3.1.</span> <span class="nav-text">原始版本求最大价值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E7%89%88%E6%9C%AC%E6%B1%82%E4%BA%A7%E7%94%9F%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">5.3.2.</span> <span class="nav-text">原始版本求产生最大价值的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E6%95%B0%E7%BB%84%E4%BC%98%E5%8C%96"><span class="nav-number">5.3.3.</span> <span class="nav-text">滚动数组优化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%81%E6%B0%B4%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6"><span class="nav-number">6.</span> <span class="nav-text">流水作业调度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="nav-number">6.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#johnson%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">6.2.</span> <span class="nav-text">Johnson不等式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">6.3.</span> <span class="nav-text">算法</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -535,7 +567,7 @@ role="doc-backlink">↩︎</a></p></li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">123</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -596,13 +628,13 @@ role="doc-backlink">↩︎</a></p></li>
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">358k</span>
+    <span title="站点总字数">363k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:26</span>
+    <span title="站点阅读时长">5:30</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
