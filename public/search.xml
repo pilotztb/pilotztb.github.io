@@ -3297,13 +3297,17 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040814033384
 <p><font color = "yellow">1.
 收缩是指收到约束变量，把自由变量扔出去，扩张就是将自由变量也考虑进来</font></p>
 <p><font color = "yellow">2.
-无论是∨还是∧收缩辖域时，∀或者∃都只能对最近的作用</font></p>
+无论是∨还是∧收缩辖域时，∀或者∃都只能对含约束变量的作用</font></p>
 <p><font color = "yellow">3.
 →收缩辖域时，∀或者∃如果约束变量<font color = "red">在前面需要取反</font>,如果约束变量<font color = "red">在后面就不用取反</font></font></p>
-<p>关于全称量词的： ①∀x(A(x)∨B) ≡ ∀xA(x)∨B ②∀x(A(x)∧B) ≡ ∀xA(x)∧B
-③∀x(A(x)→B) ≡ ∃xA(x)→B ④∀x(B→A(x)) ≡ B→∀xA(x)</p>
-<p>关于存在量词的： ①∃x(A(x)∨B) ≡ ∃xA(x)∨B ②∃x(A(x)∧B) ≡ ∃xA(x)∧B
-③∃x(A(x)→B) ≡ ∀xA(x)→B ④∃x(B→A(x)) ≡ B→∃xA(x)</p>
+<p>关于全称量词的： ①∀x(A(x)∨B) ≡ ∀xA(x)∨B</p>
+<p>②∀x(A(x)∧B) ≡ ∀xA(x)∧B</p>
+<p>③∀x(A(x)→B) ≡ ∃xA(x)→B</p>
+<p>④∀x(B→A(x)) ≡ B→∀xA(x)</p>
+<p>关于存在量词的： ①∃x(A(x)∨B) ≡ ∃xA(x)∨B</p>
+<p>②∃x(A(x)∧B) ≡ ∃xA(x)∧B</p>
+<p>③∃x(A(x)→B) ≡ ∀xA(x)→B</p>
+<p>④∃x(B→A(x)) ≡ B→∃xA(x)</p>
 <h4 id="量词分配等值式">量词分配等值式</h4>
 <p><font color = "yellow">1.
 与前面收缩扩张的区别在于，将∀（或者∃）分配给所有约束变量</font></p>
