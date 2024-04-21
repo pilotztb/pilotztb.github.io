@@ -14900,7 +14900,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/37b6eeec26fec40b961c6f
 <p><font color = "yellow">二进制除法是两两异或，不是相减！</font></p>
 <p>最后的<strong>余数</strong>就是校验位</p>
 <p>因此，CRC码 = 101001 001</p>
-<p><a href="">视频讲解</a></p>
+<p><a
+href="https://www.bilibili.com/video/BV1G1421d7JA/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
 <h4 id="检错">4、检错</h4>
 <p>对于CRC码再次用生成多项式的二进制码进行<strong>模2除法</strong>，余数应为000。</p>
 ]]></content>
@@ -14916,9 +14917,433 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/37b6eeec26fec40b961c6f
 ]]></content>
   </entry>
   <entry>
-    <title>post</title>
+    <title>定点数的表示与运算</title>
     <url>/posts/5a8a6c8d.html</url>
-    <content><![CDATA[
+    <content><![CDATA[<h2 id="定点数的表示">定点数的表示</h2>
+<span id="more"></span>
+<h3 id="无符号数和有符号数">无符号数和有符号数</h3>
+<p><strong>无符号数</strong>：整个机器字长的全部二进制位均为数值位，没有符号位，相当于数的<strong>绝对值</strong>。</p>
+<p>n位无符号数的表示范围是<span class="math inline">\(0 \sim2^{n -
+1}\)</span></p>
+<h4 id="有符号数">有符号数</h4>
+<ul>
+<li><strong>真值</strong>：该数字的实际值，包含正负；</li>
+<li><strong>机器数</strong>：用数字表示正负号的二进制数</li>
+<li><strong>定点小数</strong>：<font color = "red">约定符号位后面就是小数点</font>
+<ul>
+<li>+0.75D = 0.11B</li>
+<li>-0.75D =1.11B</li>
+<li>n位尾数的定点小数的表示范围：<span class="math inline">\(-(1 -
+2^{-n}) \sim (1 -
+2^{-n})\)</span><font color = "yellow">关于0对称</font></li>
+</ul></li>
+<li><strong>定点整数</strong>：<font color = "red">约定小数点在数值的最后</font>
+<ul>
+<li>+3D = 011.B</li>
+<li>-3D = 111.B</li>
+</ul></li>
+</ul>
+<h3 id="原码补码反码移码">原码、补码、反码、移码</h3>
+<p>整数的“，”和小数的“.”都是用于表示分割，在计算机中实际不存在</p>
+<h4 id="原码">原码</h4>
+<p>无论整数还是小数</p>
+<p>正数就是直接表示</p>
+<p><font color = "yellow">负数就是先求出绝对值然后将符号位设置为1</font></p>
+<p>若字长为n+1位，则原码的<strong>表示范围</strong>：</p>
+<h4 id="补码">（2）补码</h4>
+<ul>
+<li><p>正数的补码：补码与原码相同</p></li>
+<li><p>负数的补码：原码符号位不变，数值位取反，末位加1</p></li>
+<li><p>当一个正数和一个负数互为补数时，他们的绝对值之和称为<strong>模数</strong>。</p>
+<ul>
+<li>类似于时钟，+2 = -10，12为模数</li>
+</ul></li>
+<li><p>[+0]补=[−0]补=0.0000[+0]补=[−0]补=0.0000</p></li>
+</ul>
+<p>纯小数的补码：</p>
+<p>[�]补={�1&gt;�⩾02+�=2−∣�∣0&gt;�⩾−1( mod 2)[<em>x</em>]补={<em>x</em>2+<em>x</em>=2−∣<em>x</em>∣1&gt;<em>x</em>⩾00&gt;<em>x</em>⩾−1(mod2)</p>
+<p>纯整数的补码</p>
+<p>[�]补={0,�2�&gt;�⩾02�+1+�=2�+1−∣�∣0⩾�⩾−2�( mod 2n+1)[<em>x</em>]补={0,<em>x</em>2<em>n</em>+1+<em>x</em>=2<em>n</em>+1−∣<em>x</em>∣2<em>n</em>&gt;<em>x</em>⩾00⩾<em>x</em>⩾−2<em>n</em>(mod2n+1)</p>
+<p>若字长为n+1位，则补码的<strong>表示范围</strong>：−2�≤�≤2�−1−2<em>n</em>≤<em>x</em>≤2<em>n</em>−1</p>
+<h4 id="反码">（3）反码</h4>
+<ul>
+<li><p>正数的反码：反码与原码相同</p></li>
+<li><p>负数的反码：原码符号位不变，数值位取反</p></li>
+</ul>
+<h4 id="移码">（4）移码</h4>
+<p>移码就是在真值X上加上一个常数(偏置值) ，通常这个常数取 2�2<em>n</em>
+。</p>
+<blockquote>
+<p>例：
+�1=+10101<em>x</em>1=+10101，�2=−10101<em>x</em>2=−10101，字长为8位，则其移码表示为:</p>
+<p>移[�1]移=27+10101=10000000+10101=1,0010101
+移[�2]移=27+(−10101)=10000000+(−10101)=0,1101011</p>
+</blockquote>
+<ul>
+<li><p>同一个数，补码和移码<strong>只有符号位相反</strong></p></li>
+<li><p>移码大真值就大，移码小真值就小</p>
+<ul>
+<li><p>移码全为0：−2�−2<em>n</em></p></li>
+<li><p>移码全为1：2�−12<em>n</em>−1</p></li>
+</ul></li>
+<li><p>移码的0唯一</p></li>
+</ul>
+<h2 id="定点数的运算">2.2.2 定点数的运算</h2>
+<h3 id="定点数的移位运算">1、定点数的移位运算</h3>
+<p>对于r进制而言：</p>
+<ul>
+<li><p>右移n位： ÷��÷*r**n*</p></li>
+<li><p>左移n位： ×��×*r**n*</p></li>
+</ul>
+<p>可以与加减法结合实现乘除法。</p>
+<h4 id="算术移位">（1）算术移位</h4>
+<p>机器码采用有符号数，符号位不参与</p>
+<ul>
+<li><p>正数</p>
+<ul>
+<li>空位补0</li>
+</ul></li>
+<li><p>负数</p>
+<ul>
+<li><p>原码：0</p></li>
+<li><p>补码：</p>
+<ul>
+<li><p>左移：0</p></li>
+<li><p>右移：1</p></li>
+</ul></li>
+<li><p>反码：1</p></li>
+</ul></li>
+</ul>
+<h4 id="逻辑移位">（2）逻辑移位</h4>
+<p>机器码采用<strong>无符号数</strong>，直接补0。</p>
+<h4 id="循环移位">（3）循环移位</h4>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fassets%2F-MgTVRt7hyq7APa35yqR%2F-Mhc-5ujXxhMYjPxEg4s%2F-Mhc5sid93GdiJryN6YB%2F%E5%BE%AA%E7%8E%AF%E7%A7%BB%E4%BD%8D.png%3Falt=media%26token=6f628791-3800-4e25-9988-6d65311f04c1&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=07f063ffcb185a8f217d3de9ae019c9622473b6e6d409145b83475be35da8e35"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="加减法">2、加减法</h3>
+<p>补码直接相加即可</p>
+<blockquote>
+<p>例：设机器字长为8位（含一位符号位），A=15，B=-24，求
+[�+�]补[<em>A</em>+<em>B</em>]补 和[�−�]补[<em>A</em>−<em>B</em>]补</p>
+<p>先求原码：</p>
+<p>�=+1111=0,1111=0,0001111�=−11000=1,11000=1,0011000<em>A</em>=+1111=0,1111=0,0001111<em>B</em>=−11000=1,11000=1,0011000</p>
+<p>则可得补码：</p>
+<p>�=0,0001111�=1,1101000<em>A</em>=0,0001111<em>B</em>=1,1101000</p>
+<p>另外 [−�]补:[�]补[−<em>B</em>]补:[<em>B</em>]补
+连同符号位一起取反再+1</p>
+<p>可得结果：</p>
+<p>[�+�]补=[�]补+[�]补=0,0001111+1,1101000=1,1110111[�−�]补=[�]补+[−�]补=0,0001111+0,0011000=0,0100111[<em>A</em>+<em>B</em>]补=[<em>A</em>]补+[<em>B</em>]补=0,0001111+1,1101000=1,1110111[<em>A</em>−<em>B</em>]补=[<em>A</em>]补+[−<em>B</em>]补=0,0001111+0,0011000=0,0100111</p>
+</blockquote>
+<h3 id="溢出的概念和判断方式">3、溢出的概念和判断方式</h3>
+<ul>
+<li><p>大于机器所能表示的最大正数称为<strong>上溢</strong>；</p></li>
+<li><p>小于机器所能表示的最小负数称为<strong>下溢</strong>。</p></li>
+<li><p>当两个符号<strong>相同</strong>的数<strong>相加</strong>或者两个符号<strong>相异</strong>的数<strong>相减</strong>时才会发生溢出。</p></li>
+</ul>
+<p>对溢出的判断有几种方式：</p>
+<h4 id="一采用一位符号位">（一）采用一位符号位</h4>
+<p>设A的符号位为 ��*A**S*
+，B的符号位为��<em>B<strong>S<em>，运算结果的符号位为��</em>S</strong>S</em>，则溢出的逻辑表达式为：</p>
+<p>�=�S�S�S‾+�S‾�S‾�S<em>V</em>=<em>A</em>S<em>B</em>S<em>S</em>S+<em>A</em>S<em>B</em>S<em>S</em>S</p>
+<ul>
+<li><p>若V=0，则无溢出</p></li>
+<li><p>若V=1，则发生了溢出</p></li>
+</ul>
+<h4
+id="二采用一位符号位根据数据位进位情况判断溢出">（二）采用一位符号位根据数据位进位情况判断溢出</h4>
+<p>即“模2补码”</p>
+<p>设符号位的进位 ��*C**S*
+，最高数位的进位�1<em>C</em>1，则当��*C**S<em>和�1</em>C*1不同时发生溢出。</p>
+<h4 id="三采用双符号位">（三）采用双符号位</h4>
+<p>即“模4补码”</p>
+<p>正数符号位为00，负数符号位为11。</p>
+<p>记两个符号位分别为�1<em>S</em>1和�2<em>S</em>2，则
+�=��1⊕��2<em>V</em>=<em>S<strong>S<em>1⊕</em>S</strong>S</em>2
+，若V=0，无溢出；V=1，有溢出。</p>
+<ul>
+<li><p>00：正数无溢出</p></li>
+<li><p>01：正数有溢出</p></li>
+<li><p>11：负数无溢出</p></li>
+<li><p>10：负数有溢出</p></li>
+</ul>
+<p>模4补码存储时仍然为一个符号位，因为正确的表示两位符号位必然是相同的</p>
+<p>当送入ALU时，才将原来的符号位同时送入ALU的双符号位中</p>
+<h3 id="定点数的乘法运算">4、定点数的乘法运算</h3>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fassets%2F-MgTVRt7hyq7APa35yqR%2F-MhqH9PoCzN_vY06x05c%2F-MhrDpNfo3Fm2_7M6x3D%2F%E4%B9%98%E6%B3%95.png%3Falt=media%26token=a6b966c6-fb2a-4638-b388-cfea956fe631&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=12c53876713d8d1fa2786d2ab3d704a33dd41ceacd2e547083f541502ca07a76"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="一原码一位乘法">（一）原码一位乘法</h4>
+<ul>
+<li><p>符号位单独处理：乘数与被乘数异或</p></li>
+<li><p>绝对值相乘</p>
+<ul>
+<li><p>ACC存放乘积高位，MQ存放乘数、乘积低位，X存放被乘数</p></li>
+<li><p>每次看MQ中最低位</p>
+<ul>
+<li><p>为1，ACC加上被乘数</p></li>
+<li><p>为0，ACC加上0</p></li>
+</ul></li>
+<li><p>每次运算后右移一位，高位补0</p></li>
+<li><p>直到MQ仅剩原符号位，舍去不参与运算</p></li>
+</ul></li>
+<li><p>小数点位于ACC第一位（乘积符号位）后</p></li>
+</ul>
+<blockquote>
+<p>例：机器字长5位（含一位符号位），[�]原[<em>x</em>]原=1.1101，[�]原[<em>y</em>]原=0.1011，采用原码一位乘法求x*y</p>
+<ul>
+<li><p>符号位：1⊕⊕0=1</p></li>
+<li><p>绝对值相乘</p>
+<ul>
+<li><p>[∣�∣]原[∣<em>x</em>∣]原=0.1101，[∣�∣]原[∣<em>y</em>∣]原=0.1011</p></li>
+<li><p>ACC=00000，X=01101，MQ=0101<strong>1</strong></p>
+<ul>
+<li>1，ACC=0.0000+0.1101=0.1101</li>
+</ul></li>
+<li><p>ACC=00110，MQ=1010<strong>1</strong></p>
+<ul>
+<li>1，ACC=00110+01101=10011</li>
+</ul></li>
+<li><p>ACC=01001，MQ=1101<strong>0</strong></p>
+<ul>
+<li>0，ACC=01001</li>
+</ul></li>
+<li><p>ACC=00100，MQ=1110<strong>1</strong></p>
+<ul>
+<li>1，ACC=00100+01101=10001</li>
+</ul></li>
+<li><p>ACC=01000，MQ=11110，MQ此时仅剩最后一位</p></li>
+<li><p>结果：0.10001111</p></li>
+</ul></li>
+<li><p>修改符号位：1.10001111</p></li>
+</ul>
+</blockquote>
+<h4 id="二补码一位乘法">（二）补码一位乘法</h4>
+<ul>
+<li><p>符号位参与运算</p></li>
+<li><p>移位相加</p>
+<ul>
+<li><p>ACC存放乘积高位，X存放被乘数，采用双符号位补码</p></li>
+<li><p>MQ采用单符号位补码，最后一位为辅助位</p></li>
+<li><p>每次看MQ中最低位与辅助位</p>
+<ul>
+<li><p>辅助位-MQ最低位=1：(ACC)+[�]补(ACC)+[<em>x</em>]补</p></li>
+<li><p>辅助位-MQ最低位=0：(ACC)+0(ACC)+0</p></li>
+<li><p>辅助位-MQ最低位=-1：(ACC)+[−�]补(ACC)+[−<em>x</em>]补</p></li>
+</ul></li>
+<li><p>每次运算后右移一位</p>
+<ul>
+<li><p>正数高位补0</p></li>
+<li><p>负数高位补1</p></li>
+</ul></li>
+<li><p>直到MQ仅剩原符号位，再做一次加法，不再移位得到结果</p></li>
+</ul></li>
+<li><p>小数点位于ACC第二位（乘积符号位）后</p></li>
+</ul>
+<blockquote>
+<p>例：机器字长5位（含一位符号位），[�]原[<em>x</em>]原=-0.1101，[�]原[<em>y</em>]原=+0.1011，采用booth算法求x*y</p>
+<ul>
+<li><p>[�]补[<em>x</em>]补=11.0011，[−�]补[−<em>x</em>]补=00.1101，[�]补[<em>y</em>]补=0.1101</p></li>
+<li><p>ACC=00.0000，X=00.1101，MQ=0.101<strong>10</strong></p>
+<ul>
+<li>0-1=-1，ACC=00.0000+00.1101=00.1101</li>
+</ul></li>
+<li><p>ACC=00.0110，MQ=1.010<strong>11</strong></p>
+<ul>
+<li>1-1=0，ACC=00.0110</li>
+</ul></li>
+<li><p>ACC=00.0011，MQ=0.101<strong>01</strong></p>
+<ul>
+<li>1-0=1，ACC=00.0011+11.0011=11.0110</li>
+</ul></li>
+<li><p>ACC=11.1011，MQ=0.010<strong>10</strong></p>
+<ul>
+<li>0-1=-1，ACC=11.1011+00.1101=00.1000</li>
+</ul></li>
+<li><p>ACC=00.0100，MQ=0.001<strong>01</strong>，此时MQ仅剩最后一位原符号位</p>
+<ul>
+<li>1-0=1，ACC=00.0100+11.0011=11.0111</li>
+</ul></li>
+<li><p>结果：11.01110001</p></li>
+</ul>
+</blockquote>
+<h3 id="定点数除法运算">5、定点数除法运算</h3>
+<h4 id="一原码恢复余数法">（一）原码恢复余数法</h4>
+<ul>
+<li><p>符号位单独处理：除数与被除数异或</p></li>
+<li><p>绝对值相除</p>
+<ul>
+<li><p>ACC存放被除数、余数，MQ存放商，X存放除数</p></li>
+<li><p>每次先默认商1，ACC-除数</p>
+<ul>
+<li><p>结果为负数，错误，商0，ACC+除数</p></li>
+<li><p>结果为正数，ACC保持不变</p></li>
+</ul></li>
+<li><p>每次运算后左移一位，低位补0</p></li>
+<li><p>直到相应字长的商全部求出</p></li>
+</ul></li>
+<li><p>小数点位于MQ第一位（商符号位）后</p></li>
+</ul>
+<blockquote>
+<p>例：机器字长为5位（含一位符号位），x=0.1011，y=0.1101，采用原码恢复余数法求x/y</p>
+<ul>
+<li><p>符号位：0⊕⊕0=0</p></li>
+<li><p>绝对值相除</p>
+<ul>
+<li><p>[∣�∣]原[∣<em>x</em>∣]原=0.1011，[∣�∣]原[∣<em>y</em>∣]原=0.1101，[∣�∣]补[∣<em>y</em>∣]补=0.1101，[−∣�∣]补[−∣<em>y</em>∣]补=1.0011</p></li>
+<li><p>ACC=01011，X=01101，MQ=00000</p>
+<ul>
+<li><p>商1，MQ=0000<strong>1</strong>，ACC+=[−∣�∣]补[−∣<em>y</em>∣]补=01011+10011=<strong>1</strong>1110</p></li>
+<li><p>商0，MQ=0000<strong>0</strong>，ACC+=[∣�∣]补[∣<em>y</em>∣]补=11110+01101=01011</p></li>
+</ul></li>
+<li><p>ACC=10110，MQ=00000</p>
+<ul>
+<li>商1，MQ=0000<strong>1</strong>，ACC+=[−∣�∣]补[−∣<em>y</em>∣]补=10110+10011=<strong>0</strong>1001</li>
+</ul></li>
+<li><p>ACC=10010，MQ=00010</p>
+<ul>
+<li>商1，MQ=0001<strong>1</strong>，ACC+=[−∣�∣]补[−∣<em>y</em>∣]补=10010+10011=<strong>0</strong>0101</li>
+</ul></li>
+<li><p>ACC=01010，MQ=00110</p>
+<ul>
+<li><p>商1，MQ=0011<strong>1</strong>，ACC+=[−∣�∣]补[−∣<em>y</em>∣]补=01010+10011=<strong>1</strong>1101</p></li>
+<li><p>商0，MQ=0011<strong>0</strong>，ACC+=[∣�∣]补[∣<em>y</em>∣]补=11101+01101=01010</p></li>
+</ul></li>
+<li><p>ACC=10100，MQ=01100</p>
+<ul>
+<li>商1，MQ=0110<strong>1</strong>，ACC+=[−∣�∣]补[−∣<em>y</em>∣]补=10100+10011=<strong>0</strong>0111，此时五位商已经全部得到</li>
+</ul></li>
+<li><p>结果：01101</p></li>
+</ul></li>
+<li><p>加上符号位：0.1101</p></li>
+</ul>
+</blockquote>
+<h4 id="二原码加减交替法">（二）原码加减交替法</h4>
+<p><strong>不恢复余数</strong></p>
+<p>与恢复余数法相比，当商1结果为负数时</p>
+<ul>
+<li><p>直接将商置0</p></li>
+<li><p>ACC左移一位+|除数|：直接得到新余数</p>
+<ul>
+<li><p>结果为正数：商直接置1</p></li>
+<li><p>负数：继续</p></li>
+</ul></li>
+<li><p>只有最后一位商0时需要恢复余数</p></li>
+</ul>
+<blockquote>
+<p>例：机器字长为5位（含一位符号位），x=0.1011，y=0.1101，采用原码恢复余数法求x/y</p>
+<ul>
+<li><p>符号位：0⊕⊕0=0</p></li>
+<li><p>绝对值相除</p>
+<ul>
+<li><p>[∣�∣]原[∣<em>x</em>∣]原=0.1011，[∣�∣]原[∣<em>y</em>∣]原=0.1101，[∣�∣]补[∣<em>y</em>∣]补=0.1101，[−∣�∣]补[−∣<em>y</em>∣]补=1.0011</p></li>
+<li><p>ACC=01011，X=01101，MQ=00000</p>
+<ul>
+<li><p>商1，MQ=0000<strong>1</strong>，ACC+=[−∣�∣]补[−∣<em>y</em>∣]补=01011+10011=<strong>1</strong>1110</p></li>
+<li><p>MQ=0000<strong>0</strong>，ACC=11100</p></li>
+<li><p>ACC+=[∣�∣]补[∣<em>y</em>∣]补=11100+01101=<strong>0</strong>1001，MQ=0000<strong>1</strong></p></li>
+</ul></li>
+<li><p>ACC=10010，MQ=00010</p>
+<ul>
+<li>商1，MQ=0001<strong>1</strong>，ACC+=[−∣�∣]补[−∣<em>y</em>∣]补=10010+10011=<strong>0</strong>0101</li>
+</ul></li>
+<li><p>ACC=01010，MQ=00110</p>
+<ul>
+<li><p>商1，MQ=0011<strong>1</strong>，ACC+=[−∣�∣]补[−∣<em>y</em>∣]补=01010+10011=<strong>1</strong>1101</p></li>
+<li><p>MQ=0011<strong>0</strong>，ACC=11010</p></li>
+<li><p>ACC+=[∣�∣]补[∣<em>y</em>∣]补=11010+01101=<strong>0</strong>0111，MQ=0110<strong>1</strong>，此时五位商已经全部得到</p></li>
+</ul></li>
+<li><p>结果：01101</p></li>
+</ul></li>
+<li><p>加上符号位：0.1101</p></li>
+</ul>
+</blockquote>
+<h4 id="三补码加减交替法">（三）补码加减交替法</h4>
+<ul>
+<li><p>符号位参与运算</p></li>
+<li><p>移位相加</p>
+<ul>
+<li><p>ACC、X，采用双符号位补码</p></li>
+<li><p>MQ采用单符号位补码，最后一位为辅助位</p></li>
+<li><p>第一步</p>
+<ul>
+<li><p>被除数与除数同号：ACC - 除数</p></li>
+<li><p>被除数与除数异号：ACC + 除数</p></li>
+</ul></li>
+<li><p>对比余数和除数（ACC和X）</p>
+<ul>
+<li><p>同号：商1，余数左移一位 - 除数</p></li>
+<li><p>异号：商0，余数左移一位 + 除数</p></li>
+</ul></li>
+</ul></li>
+<li><p>最后一位的商恒置为1</p></li>
+</ul>
+<blockquote>
+<p>例：机器字长5位（含一位符号位），[�]原[<em>x</em>]原=+0.1000，[�]原[<em>y</em>]原=-0.1011，采用补码加减交替法求x/y</p>
+<ul>
+<li><p>[�]补[<em>x</em>]补=00.1000，[�]补[<em>y</em>]补=11.0101，[−�]补[−<em>y</em>]补=00.1011</p></li>
+<li><p>ACC=00.1000，X=11.0101，MQ=0.0000</p>
+<ul>
+<li>异号，ACC+=[�]补[<em>y</em>]补=00.1000+11.0101=11.1101</li>
+</ul></li>
+<li><p>同号，MQ=0000<strong>1</strong>，ACC=11.1010</p>
+<ul>
+<li>ACC+=[−�]补[−<em>y</em>]补=11.1010+00.1011=00.0101</li>
+</ul></li>
+<li><p>异号，Q=0001<strong>0</strong>，ACC=00.1010</p>
+<ul>
+<li>ACC+=[�]补[<em>y</em>]补=00.1010+11.0101=11.1111</li>
+</ul></li>
+<li><p>同号，MQ=0010<strong>1</strong>，ACC=11.1110</p>
+<ul>
+<li>ACC+=[−�]补[−<em>y</em>]补=11.1110+00.1011=00.1001</li>
+</ul></li>
+<li><p>异号，Q=0101<strong>0</strong>，ACC=01.0010</p>
+<ul>
+<li>ACC+=[�]补[<em>y</em>]补=01.0010+11.0101=00.0111</li>
+</ul></li>
+<li><p>最后一位固定为1</p></li>
+<li><p>结果：1.0101 余 0.0111×24×24</p></li>
+</ul>
+</blockquote>
+<h2 id="整数型及类型转换">2.2.3 整数型及类型转换</h2>
+<ul>
+<li><p>长整数变为短整数：0x000286a1 --&gt; 0x86a1（截断高位）</p></li>
+<li><p>短整数变为长整数：<strong>符号扩展</strong></p></li>
+<li><p>有符号数变为无符号数：0xef1f（真值-3421） --&gt;
+0xef1f（真值61215）</p></li>
+</ul>
+<h2 id="数据的存储和排列">2.2.4 数据的存储和排列</h2>
+<h3 id="大小端模式">1、大小端模式</h3>
+<p>都是对于多字节数据</p>
+<ul>
+<li><p><strong>大端</strong>：类似正常阅读方式</p></li>
+<li><p><strong>小端</strong>：倒过来</p></li>
+</ul>
+<p>例：分别用大端和小端模式存储12345678H</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-7b6b7c7fdaa8368905a25f88311079d00501888d%2F%E5%A4%A7%E5%B0%8F%E7%AB%AF%E6%A8%A1%E5%BC%8F.png%3Falt=media&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=cc9947806edb6923cf5decad424461839ad38bdf75ac65858d558b86f6f5cf26"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>image-20221012102050857</p>
+<h3 id="边界对齐">2、边界对齐</h3>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-251c206b61b4dad30167b5e7909129ad2ad7465b%2F%E8%BE%B9%E7%95%8C%E5%AF%B9%E9%BD%90.png%3Falt=media&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=bda41aa788b98955b37868da19d730ba1098b7d360ab858cb1d5bc57698a8839"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
 ]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+      </categories>
   </entry>
 </search>
