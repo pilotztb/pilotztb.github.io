@@ -30,7 +30,7 @@
 <meta property="og:description" content="进位计数法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-15T03:44:15.000Z">
-<meta property="article:modified_time" content="2024-04-16T06:13:17.152Z">
+<meta property="article:modified_time" content="2024-04-21T03:42:06.468Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-16 14:13:17" itemprop="dateModified" datetime="2024-04-16T14:13:17+08:00">2024-04-16</time>
+                <time title="修改时间：2024-04-21 11:42:06" itemprop="dateModified" datetime="2024-04-21T11:42:06+08:00">2024-04-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,7 +268,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -323,10 +323,10 @@ class="math inline">\(2^n\)</span> 进制之间的转换</h4>
 <p>3C2.68H = 1111000010.01101B</p>
 <p>例2：将1111000010.01101B转化为八进制</p>
 <p>1111000010.01101B = (1702.32)8</p>
-<h2 id="bcd码">2.1.2 BCD码</h2>
+<h2 id="bcd码">BCD码</h2>
 <p>BCD（Binary-Coded
 Decimal），<strong>使用二进制表示的十进制数</strong>。即使用四位二进制数表示一位十进制数，使得十进制与二进制之间的转换得以快速进行。</p>
-<h3 id="码">1、8421码</h3>
+<h3 id="码">8421码</h3>
 <table>
 <thead>
 <tr class="header">
@@ -363,9 +363,9 @@ Decimal），<strong>使用二进制表示的十进制数</strong>。即使用�
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/dece78159862e668a33d5f2fa4d45e7.jpg" /></p>
 <hr style = "border:2px solid yellow">
-<h3 id="余三码">2、余三码</h3>
+<h3 id="余三码">余三码</h3>
 <p>将8421码的每一位加3（即加0011B）得到。</p>
-<h3 id="码-1">3、2421码</h3>
+<h3 id="码-1">2421码</h3>
 <p>将最高位的权值改为2，特点是大于5的四位二进制码最高位是1，小于5的是0.</p>
 <table>
 <thead>
@@ -397,21 +397,23 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/dece78159862e668a33d5f
 </tr>
 </tbody>
 </table>
-<h2 id="字符与字符串">2.1.3 字符与字符串</h2>
-<h3 id="ascii码">1、ASCII码</h3>
+<h2 id="字符与字符串">字符与字符串</h2>
+<h3 id="ascii码">ASCII码</h3>
 <ul>
-<li>32~126位称为可印刷字符</li>
-<li>A-Z，a-z是连续的，但是Z和a之间不连续</li>
-<li>以字节的形式存储</li>
+<li><font color = "red">32~126位称为可印刷字符</font></li>
+<li><font color = "red">A-Z，a-z是连续的，但是Z和a之间不连续</font></li>
+<li><font color = "red">以字节的形式存储</font></li>
 </ul>
+<hr style = "border:2px solid yellow">
 <blockquote>
 <p>例：已知'A'的ASCII码码值是65，H存放在某存储单元M中，求M中存放的值</p>
 <p>65+(8-1)=72</p>
 <p>72 = 0100 1000</p>
 </blockquote>
-<h3 id="字符串">2、字符串</h3>
-<p>字符串：IF_ _A&gt;B THEN READ(C) ，每个存储单元存放4B</p>
-<p><strong>大端模式</strong>：存储单元内<strong>先存储高位字节</strong>、<strong>后存储低位字节</strong>的顺序</p>
+<hr style = "border:2px solid yellow">
+<h3 id="字符串">字符串</h3>
+<p>字符串：IF A&gt;B THEN READ(C) ，每个存储单元存放4B</p>
+<p><strong>大端模式</strong>：存储单元内<font color = "red"><strong>先存储高位字节</strong>、<strong>后存储低位字节</strong></font>的顺序</p>
 <p><strong>大端方式是正常的</strong></p>
 <table>
 <thead>
@@ -486,179 +488,49 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/dece78159862e668a33d5f
 </tr>
 </tbody>
 </table>
-<h3 id="汉字编码">3、汉字编码</h3>
+<h3 id="汉字编码">汉字编码</h3>
 <p>包括输入的<strong>输入编码</strong>，计算机内部处理的<strong>汉字内码</strong>和输出的<strong>汉字字形码</strong>三种。</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image%20(8).png" /></p>
-<h2 id="校验码">2.1.4 校验码</h2>
+<h2 id="校验码">校验码</h2>
 <p><strong>码距</strong>：任意两个合法码字之间不同的二进制的位数。</p>
 <ul>
 <li>码距大于等于2时，开始具有检错能力</li>
 <li>码距越大，纠错、检错能力越强</li>
 </ul>
-<h3 id="奇偶校验码">1、奇偶校验码</h3>
+<h3 id="奇偶校验码">奇偶校验码</h3>
 <p>添加一个校验位，校验位的取值满足以下规定：</p>
-<p><strong>奇校验码</strong>：整个校验码（有效信息位和校验位）中“1”的个数为奇数。</p>
-<p><strong>偶校验码</strong>：整个校验码（有效信息位和校验位）中“1”的个数为偶数。</p>
-<p>即在有效信息的前面添加1或者0即可。</p>
-<h3 id="海明校验码">2、海明校验码</h3>
-<ul>
-<li>若信息位的位数为n，海明码的位数为k ，则有：</li>
-</ul>
-<p>2�≥�+�+1(1)2<em>k</em>≥<em>n</em>+<em>k</em>+1(1)</p>
-<ul>
-<li><p>将校验位依次放在位于 2�−12<em>i</em>−1
-位上，并将信息位按照顺序填入剩下的位置</p></li>
-<li><p>海明码的取值相当于将各数据位的第i组的所有位求异或</p></li>
-<li><p>每个校验组分别用校验位和参与计算校验位的信息位进行奇偶校验，并得到响应结果。</p></li>
-</ul>
-<p>例：求1010的海明码</p>
-<h4 id="确定位数">1、确定位数</h4>
-<p>因为 n=4，则由（1）计算得 k=3</p>
-<p>则，设信息位
-�4�3�2�1(1010)<em>D</em>4<em>D</em>3<em>D</em>2<em>D</em>1(1010)
-，共4位，校验位 �3�2�1<em>P</em>3<em>P</em>2<em>P</em>1 ，
-共3位，对应的海明码为
-�7�6�5�4�3�2�1<em>H</em>7<em>H</em>6<em>H</em>5<em>H</em>4<em>H</em>3<em>H</em>2<em>H</em>1
-。</p>
-<h4 id="确定校验位的分布">2、确定校验位的分布</h4>
-<ul>
-<li>将校验码放在2�−12<em>i</em>−1位置上</li>
-</ul>
-<table>
-<thead>
-<tr class="header">
-<th>�7<em>H</em>7</th>
-<th>�6<em>H</em>6</th>
-<th>�5<em>H</em>5</th>
-<th>�4<em>H</em>4</th>
-<th>�3<em>H</em>3</th>
-<th>�2<em>H</em>2</th>
-<th>�1<em>H</em>1</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td>�3<em>P</em>3</td>
-<td></td>
-<td>�2<em>P</em>2</td>
-<td>�1<em>P</em>1</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>将信息位填入剩下的位置</li>
-</ul>
-<table>
-<thead>
-<tr class="header">
-<th>�7<em>H</em>7</th>
-<th>�6<em>H</em>6</th>
-<th>�5<em>H</em>5</th>
-<th>�4<em>H</em>4</th>
-<th>�3<em>H</em>3</th>
-<th>�2<em>H</em>2</th>
-<th>�1<em>H</em>1</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>�4<em>D</em>4</td>
-<td>�3<em>D</em>3</td>
-<td>�2<em>D</em>2</td>
-<td>�3<em>P</em>3</td>
-<td>�1<em>D</em>1</td>
-<td>�2<em>P</em>2</td>
-<td>�1<em>P</em>1</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td></td>
-<td>0</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h4 id="求校验位的值">3、求校验位的值</h4>
-<p>先将信息位的海明位号表示为二进制，再对相应组含有1的求异或</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fassets%2F-MgTVRt7hyq7APa35yqR%2F-MhLkyniNXPjnhvW6gUK%2F-MhLsP-vuXg4DEzdsNs0%2F%E6%B5%B7%E6%98%8E%E7%A0%81.png%3Falt=media%26token=8107b744-2285-4525-a981-72615da062ee&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=b95d93f9c38583de2d10beaa57f89074aabc460a91f071e0e722bcc33210643f"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>�1=�1⊕�2⊕�4=0⊕1⊕1=0�2=�1⊕�3⊕�4=0⊕0⊕1=1�3=�2⊕�3⊕�4=1⊕0⊕1=0<em>P</em>1=<em>D</em>1⊕<em>D</em>2⊕<em>D</em>4=0⊕1⊕1=0<em>P</em>2=<em>D</em>1⊕<em>D</em>3⊕<em>D</em>4=0⊕0⊕1=1<em>P</em>3=<em>D</em>2⊕<em>D</em>3⊕<em>D</em>4=1⊕0⊕1=0</p>
-<p>因此有</p>
-<table>
-<thead>
-<tr class="header">
-<th>�7<em>H</em>7</th>
-<th>�6<em>H</em>6</th>
-<th>�5<em>H</em>5</th>
-<th>�4<em>H</em>4</th>
-<th>�3<em>H</em>3</th>
-<th>�2<em>H</em>2</th>
-<th>�1<em>H</em>1</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>�4<em>D</em>4</td>
-<td>�3<em>D</em>3</td>
-<td>�2<em>D</em>2</td>
-<td>�3<em>P</em>3</td>
-<td>�1<em>D</em>1</td>
-<td>�2<em>P</em>2</td>
-<td>�1<em>P</em>1</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<h4 id="纠错">4、纠错</h4>
-<p>将校验码和<strong>与之相应的</strong>数据位进行异或，应当全部为0。</p>
-<p>�1⊕�1⊕�2⊕�4=0�2⊕�1⊕�3⊕�4=0�3⊕�2⊕�3⊕�4=0<em>P</em>1⊕<em>D</em>1⊕<em>D</em>2⊕<em>D</em>4=0<em>P</em>2⊕<em>D</em>1⊕<em>D</em>3⊕<em>D</em>4=0<em>P</em>3⊕<em>D</em>2⊕<em>D</em>3⊕<em>D</em>4=0</p>
-<p>得1则说明有错。</p>
-<h3 id="循环冗余校验码">3、循环冗余校验码</h3>
+<p>奇校验：这串序列1的个数如果为偶数则在前面加个1，使1的个数变成奇数，否则加0。<font color = "yellow">将1的个数凑成偶数</font>
+偶校验：这串序列1的个数如果为奇数则在前面加个1，使1的个数变成偶数，否则加0。<font color = "yellow">将1的个数凑成奇数</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例： 1111 奇校验就是 11111 偶校验就是 01111 1110 奇校验就是 01110
+偶校验就是 11110</p>
+<p>特性是检测一位错，无法纠错。</p>
+<hr style = "border:2px solid yellow">
+<h3 id="海明校验码">海明校验码</h3>
+<p><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/godoforange/p/12003676.html">参考博客</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1EJ4m1H7nz/?spm_id_from=333.999.0.0">视频讲解</a></p>
+<h3 id="循环冗余校验码">循环冗余校验码</h3>
 <p>循环冗余校验码包括K位数据位和R位校验位。</p>
-<p>例：已知生成多项式
-�(�)=�3+�2+1<em>G</em>(<em>x</em>)=<em>x</em>3+<em>x</em>2+1
-，信息码为101001，求对应的CRC码</p>
+<p>例：已知生成多项式<span class="math inline">\(G(x) = x^3 + x^2 +
+1\)</span> ，信息码为101001，求对应的CRC码</p>
 <h4
-id="确定kr及生成多项式对应的二进制码">1、确定K、R及生成多项式对应的二进制码</h4>
-<ul>
-<li><p>K = 7</p></li>
-<li><p>R = 生成多项式的最高次幂 = 3</p>
-<ul>
-<li>则，CRC码的位数 = K + R = 10</li>
-</ul></li>
-<li><p>生成多项式的各次幂的系数就是对应的二进制码：1101（<em>没有x，故第二位为0</em>）</p></li>
-</ul>
-<h4 id="移位">2、移位</h4>
+id="确定kr及生成多项式对应的二进制码">确定K、R及生成多项式对应的二进制码</h4>
+<p>K = 7</p>
+<p>R = 生成多项式的最高次幂 = 3</p>
+<p>则，CRC码的位数 = K + R = 10</p>
+<p>生成多项式的各次幂的系数就是对应的二进制码：1101（<em>没有x，故第二位为0</em>）</p>
+<h4 id="移位">移位</h4>
 <p>将信息码<strong>左移R位</strong>，低位补0</p>
 <p>101001000</p>
-<h4 id="模2相除">3、模2相除</h4>
+<h4 id="模2相除">模2相除</h4>
 <p>将 左移后的信息码 除以 生成多项式的二进制码。</p>
 <p>每一次相减时，相同得0，不相同得1，<strong>没有借位</strong>。</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fassets%2F-MgTVRt7hyq7APa35yqR%2F-MhLtlKvk-rJv2l0GNWh%2F-MhLyIiA4No2JafK2Oud%2FCRC%E7%A0%81.png%3Falt=media%26token=447ac1e9-9bdb-4970-88c7-5ff976586c27&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=207abc9a59505840af02a70a31fe79090df253dc62e03fabd40e2e2a4beff3ee"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/37b6eeec26fec40b961c6fa1c197585.png" /></p>
+<p>&lt;font color = "yellow"</p>
 <p>最后的<strong>余数</strong>就是校验位</p>
 <p>因此，CRC码 = 101001 001</p>
 <h4 id="检错">4、检错</h4>
@@ -761,7 +633,7 @@ alt="img" />
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E4%BD%8D%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">进位计数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">进制转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%BB%BB%E6%84%8F%E8%BF%9B%E5%88%B6----%E5%8D%81%E8%BF%9B%E5%88%B6"><span class="nav-number">2.1.</span> <span class="nav-text">（一）、任意进制 --&gt; 十进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E8%BF%9B%E5%88%B6----%E4%BB%BB%E6%84%8F%E8%BF%9B%E5%88%B6"><span class="nav-number">2.2.</span> <span class="nav-text">（二）、十进制 --&gt; 任意进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%A4%E5%9F%BA%E5%8F%96%E4%BD%99%E6%B3%95%E6%95%B4%E6%95%B0"><span class="nav-number">2.3.</span> <span class="nav-text">除基取余法（整数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%98%E5%9F%BA%E5%8F%96%E6%95%B4%E6%B3%95%E5%B0%8F%E6%95%B0"><span class="nav-number">2.4.</span> <span class="nav-text">乘基取整法（小数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C-2n-%E8%BF%9B%E5%88%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.5.</span> <span class="nav-text">（二）、 \(2^n\) 进制之间的转换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bcd%E7%A0%81"><span class="nav-number"></span> <span class="nav-text">2.1.2 BCD码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">1、8421码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%99%E4%B8%89%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">2、余三码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%81-1"><span class="nav-number">3.</span> <span class="nav-text">3、2421码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number"></span> <span class="nav-text">2.1.3 字符与字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ascii%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">1、ASCII码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.</span> <span class="nav-text">2、字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%89%E5%AD%97%E7%BC%96%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">3、汉字编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="nav-number"></span> <span class="nav-text">2.1.4 校验码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%87%E5%81%B6%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">1、奇偶校验码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%B7%E6%98%8E%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">2、海明校验码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E4%BD%8D%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">1、确定位数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%A0%A1%E9%AA%8C%E4%BD%8D%E7%9A%84%E5%88%86%E5%B8%83"><span class="nav-number">2.2.</span> <span class="nav-text">2、确定校验位的分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82%E6%A0%A1%E9%AA%8C%E4%BD%8D%E7%9A%84%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">3、求校验位的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A0%E9%94%99"><span class="nav-number">2.4.</span> <span class="nav-text">4、纠错</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">3、循环冗余校验码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9Akr%E5%8F%8A%E7%94%9F%E6%88%90%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%AF%B9%E5%BA%94%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%A0%81"><span class="nav-number">3.1.</span> <span class="nav-text">1、确定K、R及生成多项式对应的二进制码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D"><span class="nav-number">3.2.</span> <span class="nav-text">2、移位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A12%E7%9B%B8%E9%99%A4"><span class="nav-number">3.3.</span> <span class="nav-text">3、模2相除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E9%94%99"><span class="nav-number">3.4.</span> <span class="nav-text">4、检错</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E4%BD%8D%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">进位计数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">进制转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%BB%BB%E6%84%8F%E8%BF%9B%E5%88%B6----%E5%8D%81%E8%BF%9B%E5%88%B6"><span class="nav-number">2.1.</span> <span class="nav-text">（一）、任意进制 --&gt; 十进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%8D%81%E8%BF%9B%E5%88%B6----%E4%BB%BB%E6%84%8F%E8%BF%9B%E5%88%B6"><span class="nav-number">2.2.</span> <span class="nav-text">（二）、十进制 --&gt; 任意进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%A4%E5%9F%BA%E5%8F%96%E4%BD%99%E6%B3%95%E6%95%B4%E6%95%B0"><span class="nav-number">2.3.</span> <span class="nav-text">除基取余法（整数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%98%E5%9F%BA%E5%8F%96%E6%95%B4%E6%B3%95%E5%B0%8F%E6%95%B0"><span class="nav-number">2.4.</span> <span class="nav-text">乘基取整法（小数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C-2n-%E8%BF%9B%E5%88%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.5.</span> <span class="nav-text">（二）、 \(2^n\) 进制之间的转换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bcd%E7%A0%81"><span class="nav-number"></span> <span class="nav-text">BCD码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">8421码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%99%E4%B8%89%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">余三码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%81-1"><span class="nav-number">3.</span> <span class="nav-text">2421码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number"></span> <span class="nav-text">字符与字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ascii%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">ASCII码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%89%E5%AD%97%E7%BC%96%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">汉字编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="nav-number"></span> <span class="nav-text">校验码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%87%E5%81%B6%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">奇偶校验码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%B7%E6%98%8E%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">海明校验码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">循环冗余校验码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9Akr%E5%8F%8A%E7%94%9F%E6%88%90%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%AF%B9%E5%BA%94%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%A0%81"><span class="nav-number">3.1.</span> <span class="nav-text">确定K、R及生成多项式对应的二进制码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D"><span class="nav-number">3.2.</span> <span class="nav-text">移位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A12%E7%9B%B8%E9%99%A4"><span class="nav-number">3.3.</span> <span class="nav-text">模2相除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E9%94%99"><span class="nav-number">3.4.</span> <span class="nav-text">4、检错</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -838,13 +710,13 @@ alt="img" />
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">363k</span>
+    <span title="站点总字数">362k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:30</span>
+    <span title="站点阅读时长">5:29</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
