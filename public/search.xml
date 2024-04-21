@@ -14895,12 +14895,12 @@ id="确定kr及生成多项式对应的二进制码">确定K、R及生成多项�
 <p>101001000</p>
 <h4 id="模2相除">模2相除</h4>
 <p>将 左移后的信息码 除以 生成多项式的二进制码。</p>
-<p>每一次相减时，相同得0，不相同得1，<strong>没有借位</strong>。</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/37b6eeec26fec40b961c6fa1c197585.png" /></p>
-<p>&lt;font color = "yellow"</p>
+<p><font color = "yellow">二进制除法是两两异或，不是相减！</font></p>
 <p>最后的<strong>余数</strong>就是校验位</p>
 <p>因此，CRC码 = 101001 001</p>
+<p><a href="">视频讲解</a></p>
 <h4 id="检错">4、检错</h4>
 <p>对于CRC码再次用生成多项式的二进制码进行<strong>模2除法</strong>，余数应为000。</p>
 ]]></content>
@@ -14908,6 +14908,12 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/37b6eeec26fec40b961c6f
         <category>计组</category>
         <category>理论</category>
       </categories>
+  </entry>
+  <entry>
+    <title>post</title>
+    <url>/posts/5a8a6c8d.html</url>
+    <content><![CDATA[
+]]></content>
   </entry>
   <entry>
     <title>post</title>
