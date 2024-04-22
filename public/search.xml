@@ -8349,16 +8349,6 @@ href="http://www.sund-xys.cn/emu8086%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97%EF%BC%8
       </categories>
   </entry>
   <entry>
-    <title>实验2-指令的使用</title>
-    <url>/posts/6f8aa595.html</url>
-    <content><![CDATA[
-]]></content>
-      <categories>
-        <category>汇编语言</category>
-        <category>实验</category>
-      </categories>
-  </entry>
-  <entry>
     <title>第一章概述</title>
     <url>/posts/7cc56e97.html</url>
     <content><![CDATA[<h1 id="算法复杂性分析">算法复杂性分析</h1>
@@ -15852,5 +15842,68 @@ double，不会损失精度。</p>
 int：可能<strong>溢出</strong>（超出int表示范围）及损失精度（小数部分）</p></li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>汇编常用脚本</title>
+    <url>/posts/4e8adcf4.html</url>
+    <content><![CDATA[<h1 id="通用启动模版">通用启动模版</h1>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; 定义数据段</span><br><span class="line">数据段名  SEGMENT</span><br><span class="line">                      </span><br><span class="line">数据段名  ENDS</span><br><span class="line">; 定义堆栈段</span><br><span class="line">堆栈段名  SEGMENT</span><br><span class="line">                      </span><br><span class="line">堆栈段名  ENDS</span><br><span class="line">; 定义代码段</span><br><span class="line">代码段名  SEGMENT</span><br><span class="line">	; 定义映射关系</span><br><span class="line">    ASSUME ┅</span><br><span class="line">START：</span><br><span class="line">	段地址装填</span><br><span class="line">    </span><br><span class="line">    ; 结束扫尾工作</span><br><span class="line">    MOV AH,4CH</span><br><span class="line">    INT 21H                   </span><br><span class="line">代码段名  ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
+<h1 id="判断一个数的正负">判断一个数的正负</h1>
+<p><strong>使用指令TEST</strong></p>
+<p>TEST功能简介：将两个操作数<font color = "red">进行逻辑与运算，并根据运算结果设置相关的标志位</font>。但是，Test命令的<font color = "yellow">两个操作数<strong>不会</strong>被改变</font>。运算结果在设置过相关标记位后会被丢弃。</p>
+<p>作用详细说明</p>
+<p>将两个操作数进行按位AND,设结果是TEMP</p>
+<ol type="1">
+<li>SF =
+<font color = "red">将结果的最高位赋给SF标志位</font>，例如结果最高位是1，SF就是1</li>
+<li><font color = "red">看TEMP是不是0，如果TEMP是0，ZF位置1；如果TEMP不是0，ZF位置0</font></li>
+</ol>
+<p>指令书写</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TEST AL 80H</span><br></pre></td></tr></table></figure>
+<p>解释：</p>
+<p>根据补码表示，最高位是符号位，如果符号位是1，那么这个数就是负数。所以选择十六进制中8（二进制表示1000H）作为测试数据。如果寄存器中数据第一位不是1，那么SF=0，ZF
+= 1。反之SF=1，ZF = 0</p>
+<p><font color = "yellow">上面这个例子体现的是TEST可以比较指定位（设置测试数据中指定位为1），</font>但只能测试1位，多位目前没碰到</p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422144353872.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422144420203.png" /></p>
+<hr style = "border:2px solid yellow">
+<h1 id="求一个数的相反数">求一个数的相反数</h1>
+<p>所用指令：NEG</p>
+<p>指令语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">NEG AX</span><br></pre></td></tr></table></figure>
+<h1 id="高精度数的运算">高精度数的运算</h1>
+<p>所用指令：ADD,ADC;SUB, SBB</p>
+<p>总结</p>
+<ol type="1">
+<li>用DX、AX表示双精度数</li>
+<li>低位用AX，高位用DX</li>
+<li>先用非进位运算低位，再用进位运算高位</li>
+</ol>
+<hr style = "border:2px solid yellow">
+<p>举例</p>
+<p>题1：高精度加减</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV   AX，X       ；用DX，AX来表示双精度数</span><br><span class="line">MOV   DX，X+2     ；低位用AX，高位用DX</span><br><span class="line">ADD    AX，Y       ；先低位运算</span><br><span class="line">ADC    DX，Y+2    ；完成X+Y </span><br><span class="line">ADD    AX，24      ；低位运算</span><br><span class="line">ADC    DX，0       ；高位运算，该语句不能少</span><br><span class="line">SUB     AX，Z      ；先低位减法</span><br><span class="line">SBB      DX，Z+2   ；完成运算</span><br><span class="line">MOV    W，AX      ；存储结果</span><br><span class="line">MOV    W+2，DX</span><br></pre></td></tr></table></figure>
+<p>题2：高精度取反</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">NEG AX            ; Negate AX if negative</span><br><span class="line">NEG DX            ; Negate DX since DX is higher order word</span><br><span class="line">SBB DX, 0         ; Subtract 1 from DX if borrow occurred from AX</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：最后一行很关键，因为取反的本质是用0减，所以存在借位，高精度计算就需要考虑这点</p>
+</blockquote>
+<hr style = "border:2px solid yellow">
+<h1 id="寻址">寻址</h1>
+<p>寻址没有什么特别的脚本，但是有一点需要注意</p>
+<p>内存与[内存]没有区别</p>
+<p>寄存器与[寄存器]有区别</p>
+<p>寄存器表示取的是寄存器的地址值</p>
+<p>[寄存器]表示取的是寄存器里面的值</p>
+<h1 id="寻找最值">寻找最值</h1>
+]]></content>
+      <categories>
+        <category>汇编</category>
+        <category>实验</category>
+      </categories>
   </entry>
 </search>
