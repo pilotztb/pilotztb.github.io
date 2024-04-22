@@ -30,7 +30,7 @@
 <meta property="og:description" content="算数逻辑单元（ALU）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-22T02:38:55.000Z">
-<meta property="article:modified_time" content="2024-04-22T06:03:22.803Z">
+<meta property="article:modified_time" content="2024-04-22T08:18:40.964Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -219,7 +219,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-04-22 10:38:55 / 修改时间：14:03:22" itemprop="dateCreated datePublished" datetime="2024-04-22T10:38:55+08:00">2024-04-22</time>
+              <time title="创建时间：2024-04-22 10:38:55 / 修改时间：16:18:40" itemprop="dateCreated datePublished" datetime="2024-04-22T10:38:55+08:00">2024-04-22</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,7 +262,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>881</span>
+              <span>890</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -299,22 +299,17 @@ target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1DE421L729
 <p><a
 target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1uT421C7FB/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解：并行进位的并行加法器的简单介绍</a></p>
 <p>加张图片补个公式，有题目再说</p>
-<h2 id="补码加减法运算器">2.4.3 补码加/减法运算器</h2>
-<h3 id="加法器原理">1、加法器原理</h3>
+<h2 id="补码加减法运算器">补码加/减法运算器</h2>
+<h3 id="加法器原理">加法器原理</h3>
 <p><a href="">视频讲解：加法器原理</a></p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-8b59f52fd4e979b1dd6cbb584bc842d853c05bc3%2F%E5%8A%A0%E6%B3%95%E5%99%A8%E5%8E%9F%E7%90%86.png%3Falt=media&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=efba752c5842fd34fe16c3d8036174d69deafa70f6fc4041bd01ab8e35a18484"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
 <blockquote>
 <p>例1：A=1000，B=0111，Cin=0</p>
 <p>则：F=1111，Cout=0</p>
 <p>例2：A=1000，B=0111，Cin=1</p>
 <p>则：F=0000，Cout=1</p>
 </blockquote>
-<h3 id="补码加减器">2、补码加减器</h3>
+<h3 id="补码加减器">补码加减器</h3>
+<p><a href="">视频讲解：补码加减器的设计</a></p>
 <p><strong>补码加减法原理</strong>：</p>
 <p>X+Y：直接按位相加</p>
 <p>X-Y：</p>
@@ -340,14 +335,8 @@ class="math inline">\(\text{Y}*{补} = 0111\)</span></p>
 <p>X+Y：直接输出：1111B（补）=-1D</p>
 <p>X-Y：1000+（1000+1）=0001B（补）（产生溢出）</p>
 </blockquote>
-<p><strong>这一电路同样适用于无符号数的加减法</strong>，原理完全一致</p>
+<p><strong>这一电路同样适用于无符号数的加减法</strong>，原理完全一致，<font color = "red">但是判断溢出标准不同</font></p>
 <h2 id="标志位">2.4.2 标志位</h2>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-2b77d8cd70e4b7b18a5dfc52897a5b6d5ac476d0%2F%E6%A0%87%E5%BF%97%E4%BD%8D.png%3Falt=media&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=af4e3db1ebb842798a576e3a784e555403dfa25274509710d60fbb6ccf89aeb7"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
 <p>标志位</p>
 <ul>
 <li><p>有符号数</p>
@@ -512,7 +501,7 @@ alt="img" />
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E9%80%BB%E8%BE%91%E5%8D%95%E5%85%83alu"><span class="nav-number">1.</span> <span class="nav-text">算数逻辑单元（ALU）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B2%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8%E5%92%8C%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">串行加法器和并行加法器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BD%8D%E5%85%A8%E5%8A%A0%E5%99%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">一位全加器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">并行加法器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B2%E8%A1%8C%E8%BF%9B%E4%BD%8D%E7%9A%84%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">串行进位的并行加法器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E8%BF%9B%E4%BD%8D%E7%9A%84%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">并行进位的并行加法器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E5%8A%A0%E5%87%8F%E6%B3%95%E8%BF%90%E7%AE%97%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">2.4.3 补码加&#x2F;减法运算器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95%E5%99%A8%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、加法器原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E5%8A%A0%E5%87%8F%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、补码加减器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.3.</span> <span class="nav-text">2.4.2 标志位</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E9%80%BB%E8%BE%91%E5%8D%95%E5%85%83alu"><span class="nav-number">1.</span> <span class="nav-text">算数逻辑单元（ALU）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B2%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8%E5%92%8C%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">串行加法器和并行加法器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BD%8D%E5%85%A8%E5%8A%A0%E5%99%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">一位全加器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">并行加法器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B2%E8%A1%8C%E8%BF%9B%E4%BD%8D%E7%9A%84%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">串行进位的并行加法器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E8%BF%9B%E4%BD%8D%E7%9A%84%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">并行进位的并行加法器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E5%8A%A0%E5%87%8F%E6%B3%95%E8%BF%90%E7%AE%97%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">补码加&#x2F;减法运算器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95%E5%99%A8%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">加法器原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E5%8A%A0%E5%87%8F%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">补码加减器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.3.</span> <span class="nav-text">2.4.2 标志位</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
