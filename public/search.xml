@@ -14922,177 +14922,145 @@ href="https://www.bilibili.com/video/BV1G1421d7JA/?spm_id_from=333.999.0.0&amp;v
     <content><![CDATA[<h2 id="定点数的表示">定点数的表示</h2>
 <span id="more"></span>
 <h3 id="无符号数和有符号数">无符号数和有符号数</h3>
-<p><strong>无符号数</strong>：整个机器字长的全部二进制位均为数值位，没有符号位，相当于数的<strong>绝对值</strong>。</p>
-<p>n位无符号数的表示范围是<span class="math inline">\(0 \sim2^{n -
-1}\)</span></p>
+<h4 id="无符号数"><strong>无符号数</strong>：</h4>
+<p>整个机器字长的全部二进制位均为数值位，没有符号位，相当于数的<strong>绝对值</strong>。</p>
+<p>n位无符号数的表示范围是<span class="math inline">\(0 \sim2^n -
+1\)</span></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0aebb4140cbbd50e56019031b3e20ce.jpg" style="zoom: 50%;" /></p>
 <h4 id="有符号数">有符号数</h4>
 <ul>
-<li><strong>真值</strong>：该数字的实际值，包含正负；</li>
-<li><strong>机器数</strong>：用数字表示正负号的二进制数</li>
-<li><strong>定点小数</strong>：<font color = "red">约定符号位后面就是小数点</font>
+<li><p><strong>真值</strong>：该数字的实际值，包含正负；</p></li>
+<li><p><strong>机器数</strong>：用数字表示正负号的二进制数</p></li>
+<li><p><strong>定点小数</strong>：<font color = "red">约定符号位后面就是小数点</font></p>
 <ul>
 <li>+0.75D = 0.11B</li>
 <li>-0.75D =1.11B</li>
-<li>n位尾数的定点小数的表示范围：<span class="math inline">\(-(1 -
-2^{-n}) \sim (1 -
-2^{-n})\)</span><font color = "yellow">关于0对称</font></li>
 </ul></li>
-<li><strong>定点整数</strong>：<font color = "red">约定小数点在数值的最后</font>
+<li><p><strong>定点整数</strong>：<font color = "red">约定小数点在数值的最后</font></p>
 <ul>
 <li>+3D = 011.B</li>
 <li>-3D = 111.B</li>
 </ul></li>
+<li><p>定点小数和定点小数区别和联系</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3b93aab2a8038ff1a900ffe55c2852a.jpg" style="zoom: 50%;" /></p></li>
 </ul>
 <h3 id="原码补码反码移码">原码、补码、反码、移码</h3>
-<p>整数的“，”和小数的“.”都是用于表示分割，在计算机中实际不存在</p>
 <h4 id="原码">原码</h4>
-<p>无论整数还是小数</p>
-<p>正数就是直接表示</p>
-<p><font color = "yellow">负数就是先求出绝对值然后将符号位设置为1</font></p>
-<p>若字长为n+1位，则原码的<strong>表示范围</strong>：</p>
-<h4 id="补码">（2）补码</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/848000f06f9bab43c0caf5c3442d2f1.jpg" style="zoom: 50%;" /></p>
+<h4 id="补码和原码转换">补码和原码转换</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/6b15e5dcbaaea21aa92ee60bfc6d2e2.jpg" style="zoom:25%;" /></p>
+<p><font color = "yellow">补码数值位不能解读为位权，而应该先转换为原码</font></p>
+<h4 id="求一个数的相反数的补码">求一个数的相反数的补码</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/fb6ab00f2f1d51ce4ff8cc08d4ccb56.jpg" /></p>
+<h4 id="不同码之间相互转换">不同码之间相互转换</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421190235043.png" /></p>
+<h4 id="各种码的总结">各种码的总结</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421193311420.png" /></p>
+<p><font color = "red">补码的-128是无法转换成原码的</font></p>
+<h2 id="定点数的运算">定点数的运算</h2>
+<h3 id="定点数的移位运算">定点数的移位运算</h3>
+<h4 id="算术移位">算术移位</h4>
+<h5 id="原码-1">原码</h5>
+<p><a
+href="https://www.bilibili.com/video/BV1ju4m1F7LR/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">原码视频讲解</a></p>
+<p>符号位保持不变，仅对数值位进行移位。</p>
+<p>右移:高位补0，低位舍弃。若舍弃的位=0，则相当于-2;若舍弃的位0，则会丢失精度</p>
+<p>左移:低位补0，高位舍弃。若舍弃的位=0，则相当于x2:若舍弃的位0，则会出现严重误差</p>
+<p><a
+href="https://www.bilibili.com/video/BV13J4m1H7JZ/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解为什么右移能实现除以2</a></p>
+<h5 id="反码">反码</h5>
+<p><font color = "yellow">正数与原码相同，负数补1</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421205101972.png" /></p>
+<hr style = "border:2px solid yellow">
+<h5 id="补码">补码</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421212010461.png" /></p>
+<p><a
+href="https://www.bilibili.com/video/BV1GF4m1P7NR/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">补码的左右移视频讲解</a></p>
+<p><font color = "yellow">正数与原码相同</font></p>
+<p><font color = "yellow">负数右移，高位出现空位，高位与反码相同，所以补1</font></p>
+<p><font color = "yellow">负数左移，低位出现空位，低位与原码相同，所以补0</font></p>
+<p><font color = "yellow">左移的时候逻辑左移和算术左移没有区别，都是低位补0</font></p>
+<p>循环移位</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f4f2c08cbf25c629cf98b343c2420b9.png" /></p>
+<h5 id="不同码移位">不同码移位</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421210532352.png" /></p>
+<p><a href="">视频讲解：如何通过移位实现乘法</a></p>
+<h4 id="逻辑移位">逻辑移位</h4>
+<p><font color = "red">都补0</font></p>
+<p><a href="">视频讲解：逻辑移位在RGB颜色表示中的应用</a></p>
+<h4 id="循环移位">循环移位</h4>
+<p><a href="">视频讲解：循环移位</a></p>
+<h3 id="加减法">加减法</h3>
+<p><font color  = "yellow">全部转换得到补码后相加，其中减法就是转换成相反数的的补码后再相加</font>即可（无论有符号数还是无符号数，都转成补码）</p>
+<hr style = "border:2px solid yellow">
+<p>举例：
+<img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/1210195b519767f284585841a64be1c.jpg" style="zoom: 33%;" /></p>
+<hr style = "border:2px solid yellow">
+<h3 id="溢出的概念和判断方式">溢出的概念和判断方式</h3>
 <ul>
-<li><p>正数的补码：补码与原码相同</p></li>
-<li><p>负数的补码：原码符号位不变，数值位取反，末位加1</p></li>
-<li><p>当一个正数和一个负数互为补数时，他们的绝对值之和称为<strong>模数</strong>。</p>
-<ul>
-<li>类似于时钟，+2 = -10，12为模数</li>
-</ul></li>
-<li><p>[+0]补=[−0]补=0.0000[+0]补=[−0]补=0.0000</p></li>
-</ul>
-<p>纯小数的补码：</p>
-<p>[�]补={�1&gt;�⩾02+�=2−∣�∣0&gt;�⩾−1( mod 2)[<em>x</em>]补={<em>x</em>2+<em>x</em>=2−∣<em>x</em>∣1&gt;<em>x</em>⩾00&gt;<em>x</em>⩾−1(mod2)</p>
-<p>纯整数的补码</p>
-<p>[�]补={0,�2�&gt;�⩾02�+1+�=2�+1−∣�∣0⩾�⩾−2�( mod 2n+1)[<em>x</em>]补={0,<em>x</em>2<em>n</em>+1+<em>x</em>=2<em>n</em>+1−∣<em>x</em>∣2<em>n</em>&gt;<em>x</em>⩾00⩾<em>x</em>⩾−2<em>n</em>(mod2n+1)</p>
-<p>若字长为n+1位，则补码的<strong>表示范围</strong>：−2�≤�≤2�−1−2<em>n</em>≤<em>x</em>≤2<em>n</em>−1</p>
-<h4 id="反码">（3）反码</h4>
-<ul>
-<li><p>正数的反码：反码与原码相同</p></li>
-<li><p>负数的反码：原码符号位不变，数值位取反</p></li>
-</ul>
-<h4 id="移码">（4）移码</h4>
-<p>移码就是在真值X上加上一个常数(偏置值) ，通常这个常数取 2�2<em>n</em>
-。</p>
-<blockquote>
-<p>例：
-�1=+10101<em>x</em>1=+10101，�2=−10101<em>x</em>2=−10101，字长为8位，则其移码表示为:</p>
-<p>移[�1]移=27+10101=10000000+10101=1,0010101
-移[�2]移=27+(−10101)=10000000+(−10101)=0,1101011</p>
-</blockquote>
-<ul>
-<li><p>同一个数，补码和移码<strong>只有符号位相反</strong></p></li>
-<li><p>移码大真值就大，移码小真值就小</p>
-<ul>
-<li><p>移码全为0：−2�−2<em>n</em></p></li>
-<li><p>移码全为1：2�−12<em>n</em>−1</p></li>
-</ul></li>
-<li><p>移码的0唯一</p></li>
-</ul>
-<h2 id="定点数的运算">2.2.2 定点数的运算</h2>
-<h3 id="定点数的移位运算">1、定点数的移位运算</h3>
-<p>对于r进制而言：</p>
-<ul>
-<li><p>右移n位： ÷��÷*r**n*</p></li>
-<li><p>左移n位： ×��×*r**n*</p></li>
-</ul>
-<p>可以与加减法结合实现乘除法。</p>
-<h4 id="算术移位">（1）算术移位</h4>
-<p>机器码采用有符号数，符号位不参与</p>
-<ul>
-<li><p>正数</p>
-<ul>
-<li>空位补0</li>
-</ul></li>
-<li><p>负数</p>
-<ul>
-<li><p>原码：0</p></li>
-<li><p>补码：</p>
-<ul>
-<li><p>左移：0</p></li>
-<li><p>右移：1</p></li>
-</ul></li>
-<li><p>反码：1</p></li>
-</ul></li>
-</ul>
-<h4 id="逻辑移位">（2）逻辑移位</h4>
-<p>机器码采用<strong>无符号数</strong>，直接补0。</p>
-<h4 id="循环移位">（3）循环移位</h4>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fassets%2F-MgTVRt7hyq7APa35yqR%2F-Mhc-5ujXxhMYjPxEg4s%2F-Mhc5sid93GdiJryN6YB%2F%E5%BE%AA%E7%8E%AF%E7%A7%BB%E4%BD%8D.png%3Falt=media%26token=6f628791-3800-4e25-9988-6d65311f04c1&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=07f063ffcb185a8f217d3de9ae019c9622473b6e6d409145b83475be35da8e35"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h3 id="加减法">2、加减法</h3>
-<p>补码直接相加即可</p>
-<blockquote>
-<p>例：设机器字长为8位（含一位符号位），A=15，B=-24，求
-[�+�]补[<em>A</em>+<em>B</em>]补 和[�−�]补[<em>A</em>−<em>B</em>]补</p>
-<p>先求原码：</p>
-<p>�=+1111=0,1111=0,0001111�=−11000=1,11000=1,0011000<em>A</em>=+1111=0,1111=0,0001111<em>B</em>=−11000=1,11000=1,0011000</p>
-<p>则可得补码：</p>
-<p>�=0,0001111�=1,1101000<em>A</em>=0,0001111<em>B</em>=1,1101000</p>
-<p>另外 [−�]补:[�]补[−<em>B</em>]补:[<em>B</em>]补
-连同符号位一起取反再+1</p>
-<p>可得结果：</p>
-<p>[�+�]补=[�]补+[�]补=0,0001111+1,1101000=1,1110111[�−�]补=[�]补+[−�]补=0,0001111+0,0011000=0,0100111[<em>A</em>+<em>B</em>]补=[<em>A</em>]补+[<em>B</em>]补=0,0001111+1,1101000=1,1110111[<em>A</em>−<em>B</em>]补=[<em>A</em>]补+[−<em>B</em>]补=0,0001111+0,0011000=0,0100111</p>
-</blockquote>
-<h3 id="溢出的概念和判断方式">3、溢出的概念和判断方式</h3>
-<ul>
-<li><p>大于机器所能表示的最大正数称为<strong>上溢</strong>；</p></li>
-<li><p>小于机器所能表示的最小负数称为<strong>下溢</strong>。</p></li>
-<li><p>当两个符号<strong>相同</strong>的数<strong>相加</strong>或者两个符号<strong>相异</strong>的数<strong>相减</strong>时才会发生溢出。</p></li>
+<li>大于机器所能表示的最大正数称为<strong>上溢</strong>；</li>
+<li>小于机器所能表示的最小负数称为<strong>下溢</strong>。</li>
+<li>当两个符号<strong>相同</strong>的数<strong>相加</strong>或者两个符号<strong>相异</strong>的数<strong>相减</strong>时才会发生溢出。</li>
 </ul>
 <p>对溢出的判断有几种方式：</p>
-<h4 id="一采用一位符号位">（一）采用一位符号位</h4>
+<h4 id="采用一位符号位">采用一位符号位</h4>
 <p>设A的符号位为 ��*A**S*
 ，B的符号位为��<em>B<strong>S<em>，运算结果的符号位为��</em>S</strong>S</em>，则溢出的逻辑表达式为：</p>
 <p>�=�S�S�S‾+�S‾�S‾�S<em>V</em>=<em>A</em>S<em>B</em>S<em>S</em>S+<em>A</em>S<em>B</em>S<em>S</em>S</p>
 <ul>
-<li><p>若V=0，则无溢出</p></li>
-<li><p>若V=1，则发生了溢出</p></li>
+<li>若V=0，则无溢出</li>
+<li>若V=1，则发生了溢出</li>
 </ul>
 <h4
-id="二采用一位符号位根据数据位进位情况判断溢出">（二）采用一位符号位根据数据位进位情况判断溢出</h4>
+id="采用一位符号位根据数据位进位情况判断溢出">采用一位符号位根据数据位进位情况判断溢出</h4>
 <p>即“模2补码”</p>
 <p>设符号位的进位 ��*C**S*
 ，最高数位的进位�1<em>C</em>1，则当��*C**S<em>和�1</em>C*1不同时发生溢出。</p>
-<h4 id="三采用双符号位">（三）采用双符号位</h4>
+<h4 id="采用双符号位">采用双符号位</h4>
 <p>即“模4补码”</p>
 <p>正数符号位为00，负数符号位为11。</p>
 <p>记两个符号位分别为�1<em>S</em>1和�2<em>S</em>2，则
 �=��1⊕��2<em>V</em>=<em>S<strong>S<em>1⊕</em>S</strong>S</em>2
 ，若V=0，无溢出；V=1，有溢出。</p>
 <ul>
-<li><p>00：正数无溢出</p></li>
-<li><p>01：正数有溢出</p></li>
-<li><p>11：负数无溢出</p></li>
-<li><p>10：负数有溢出</p></li>
+<li>00：正数无溢出</li>
+<li>01：正数有溢出</li>
+<li>11：负数无溢出</li>
+<li>10：负数有溢出</li>
 </ul>
 <p>模4补码存储时仍然为一个符号位，因为正确的表示两位符号位必然是相同的</p>
 <p>当送入ALU时，才将原来的符号位同时送入ALU的双符号位中</p>
-<h3 id="定点数的乘法运算">4、定点数的乘法运算</h3>
+<h3 id="定点数的乘法运算">定点数的乘法运算</h3>
 <figure>
 <img
 src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fassets%2F-MgTVRt7hyq7APa35yqR%2F-MhqH9PoCzN_vY06x05c%2F-MhrDpNfo3Fm2_7M6x3D%2F%E4%B9%98%E6%B3%95.png%3Falt=media%26token=a6b966c6-fb2a-4638-b388-cfea956fe631&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=12c53876713d8d1fa2786d2ab3d704a33dd41ceacd2e547083f541502ca07a76"
 alt="img" />
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
-<h4 id="一原码一位乘法">（一）原码一位乘法</h4>
+<h4 id="原码一位乘法">原码一位乘法</h4>
 <ul>
-<li><p>符号位单独处理：乘数与被乘数异或</p></li>
-<li><p>绝对值相乘</p>
+<li>符号位单独处理：乘数与被乘数异或</li>
+<li>绝对值相乘
 <ul>
-<li><p>ACC存放乘积高位，MQ存放乘数、乘积低位，X存放被乘数</p></li>
-<li><p>每次看MQ中最低位</p>
+<li>ACC存放乘积高位，MQ存放乘数、乘积低位，X存放被乘数</li>
+<li>每次看MQ中最低位
 <ul>
-<li><p>为1，ACC加上被乘数</p></li>
-<li><p>为0，ACC加上0</p></li>
+<li>为1，ACC加上被乘数</li>
+<li>为0，ACC加上0</li>
 </ul></li>
-<li><p>每次运算后右移一位，高位补0</p></li>
-<li><p>直到MQ仅剩原符号位，舍去不参与运算</p></li>
+<li>每次运算后右移一位，高位补0</li>
+<li>直到MQ仅剩原符号位，舍去不参与运算</li>
 </ul></li>
-<li><p>小数点位于ACC第一位（乘积符号位）后</p></li>
+<li>小数点位于ACC第一位（乘积符号位）后</li>
 </ul>
 <blockquote>
 <p>例：机器字长5位（含一位符号位），[�]原[<em>x</em>]原=1.1101，[�]原[<em>y</em>]原=0.1011，采用原码一位乘法求x*y</p>
@@ -15345,5 +15313,544 @@ alt="img" />
         <category>计组</category>
         <category>理论</category>
       </categories>
+  </entry>
+  <entry>
+    <title>算数逻辑单元（ALU）</title>
+    <url>/posts/cef77967.html</url>
+    <content><![CDATA[<h1 id="算数逻辑单元alu">算数逻辑单元（ALU）</h1>
+<span id="more"></span>
+<p><a
+href="https://www.bilibili.com/video/BV1pD421H7mr/?spm_id_from=333.999.0.0">视频讲解：ALU简单介绍</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7843cf0508bb476543d2c1c547f52cd.png" /></p>
+<h2 id="串行加法器和并行加法器">串行加法器和并行加法器</h2>
+<h3 id="一位全加器">一位全加器</h3>
+<p><a
+href="https://www.bilibili.com/video/BV1DE421L729/?spm_id_from=333.999.0.0">视频讲解：对于一位全加器的基本介绍</a></p>
+<p>加张图片，在补个公式，有题目再说</p>
+<h3 id="并行加法器">并行加法器</h3>
+<h4 id="串行进位的并行加法器">串行进位的并行加法器</h4>
+<p>把n个全加器串接起来，就可进行两个n位数的相加。</p>
+<h4 id="并行进位的并行加法器">并行进位的并行加法器</h4>
+<p><a
+href="https://www.bilibili.com/video/BV1uT421C7FB/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解：并行进位的并行加法器的简单介绍</a></p>
+<p>加张图片补个公式，有题目再说</p>
+<h2 id="补码加减法运算器">2.4.3 补码加/减法运算器</h2>
+<h3 id="加法器原理">1、加法器原理</h3>
+<p><a href="">视频讲解：加法器原理</a></p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-8b59f52fd4e979b1dd6cbb584bc842d853c05bc3%2F%E5%8A%A0%E6%B3%95%E5%99%A8%E5%8E%9F%E7%90%86.png%3Falt=media&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=efba752c5842fd34fe16c3d8036174d69deafa70f6fc4041bd01ab8e35a18484"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<blockquote>
+<p>例1：A=1000，B=0111，Cin=0</p>
+<p>则：F=1111，Cout=0</p>
+<p>例2：A=1000，B=0111，Cin=1</p>
+<p>则：F=0000，Cout=1</p>
+</blockquote>
+<h3 id="补码加减器">2、补码加减器</h3>
+<p><strong>补码加减法原理</strong>：</p>
+<p>X+Y：直接按位相加</p>
+<p>X-Y：</p>
+<ol type="1">
+<li><p>Y全部按位取反，末位+1</p></li>
+<li><p>减法变加法</p></li>
+</ol>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-4b121a5862ba6ca089301390122ddaa4cebe35db%2F%E8%A1%A5%E7%A0%81%E5%8A%A0%E5%87%8F%E5%99%A8.png%3Falt=media&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=7a0a0589e1061852897c90690bf66927365927464885b7b539586d12c9d858b7"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Sub信号的作用</strong></p>
+<ul>
+<li><p>控制多路选择器的输出</p></li>
+<li><p>若计算减法时，1同时输入到Cin，用作补码取反后的+1</p></li>
+</ul>
+<blockquote>
+<p>例：4bit补码，X=-8，Y=7</p>
+<p><span class="math inline">\(\text{X}*{补} = 1000\)</span>，<span
+class="math inline">\(\text{Y}*{补} = 0111\)</span></p>
+<p>X+Y：直接输出：1111B（补）=-1D</p>
+<p>X-Y：1000+（1000+1）=0001B（补）（产生溢出）</p>
+</blockquote>
+<p><strong>这一电路同样适用于无符号数的加减法</strong>，原理完全一致</p>
+<h2 id="标志位">2.4.2 标志位</h2>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https:%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-2b77d8cd70e4b7b18a5dfc52897a5b6d5ac476d0%2F%E6%A0%87%E5%BF%97%E4%BD%8D.png%3Falt=media&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=af4e3db1ebb842798a576e3a784e555403dfa25274509710d60fbb6ccf89aeb7"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>标志位</p>
+<ul>
+<li><p>有符号数</p>
+<ul>
+<li><p>OF：溢出标志位</p>
+<ul>
+<li><p>最高位产生的进位与次高位产生的进位异或</p></li>
+<li><p><strong>判断有符号数的溢出</strong></p></li>
+</ul></li>
+<li><p>SF：符号标志位</p>
+<ul>
+<li>取运算结果的最高位</li>
+</ul></li>
+</ul></li>
+</ul>
+<blockquote>
+<p>例：4bit补码，X=-8，Y=7</p>
+<p>X补=1000X补=1000，Y补=0111Y补=0111</p>
+<ul>
+<li><p>X+Y</p>
+<ul>
+<li><p>直接输出：1111B（补）=-1D</p></li>
+<li><p>OF=0⊕⊕0=0：没有溢出</p></li>
+<li><p>SF=1：结果是负数</p></li>
+</ul></li>
+<li><p>X-Y</p>
+<ul>
+<li><p>1000+(1000+1)=0001B</p></li>
+<li><p>OF=1⊕⊕0=1：产生了溢出</p></li>
+<li><p>SF=0：结果是正数</p></li>
+</ul></li>
+</ul>
+</blockquote>
+<ul>
+<li><p>无符号数</p>
+<ul>
+<li><p>ZF：零标志位</p>
+<ul>
+<li>运算结果全部为零</li>
+</ul></li>
+<li><p>CF：进位标志</p>
+<ul>
+<li><p>最高位的进位信号与sub进行异或</p></li>
+<li><p>为1代表发生了借位，产生溢出</p></li>
+<li><p><strong>判断无符号数的溢出</strong></p></li>
+</ul></li>
+</ul></li>
+</ul>
+<blockquote>
+<p>例：4bit原码，无符号数X=3，Y=4</p>
+<p>X=0011B，Y=0100B</p>
+<ul>
+<li><p>X+Y</p>
+<ul>
+<li><p>直接输出：0111B（原）=7D</p></li>
+<li><p>ZF：0</p></li>
+<li><p>CF：0⊕⊕0=0</p></li>
+</ul></li>
+<li><p>X-Y</p>
+<ul>
+<li><p>0011+(1011+1)=1111B（原）</p></li>
+<li><p>ZF：0</p></li>
+<li><p>CF：0⊕⊕1=1（产生了借位溢出）</p></li>
+</ul></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>浮点数的表示和运算</title>
+    <url>/posts/9b0b5055.html</url>
+    <content><![CDATA[<h2 id="前置知识">前置知识</h2>
+<span id="more"></span>
+<h3 id="大端存储与小端存储">大端存储与小端存储</h3>
+<p><a
+href="https://www.bilibili.com/video/BV1xC4113747/?spm_id_from=333.999.0.0">视频讲解：大端与小端</a></p>
+<p>边界对齐</p>
+<p><a
+href="https://www.bilibili.com/video/BV1rF4m1P7mM/?spm_id_from=333.999.0.0">视频讲解：边界对齐</a></p>
+<p>如何将字地址转换成与之对应的字节地址</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5b5e6e4dc2fdfeefde9626c6676916b.jpg" /></p>
+<h2 id="浮点数的表示">浮点数的表示</h2>
+<h3 id="浮点数的表示-1">浮点数的表示</h3>
+<p><a
+href="https://www.bilibili.com/video/BV1st421j7RQ/?spm_id_from=333.999.0.0">视频讲解：浮点数表示</a></p>
+<p>浮点数通常表示为：</p>
+<p>$ N = r^E * M$</p>
+<ul>
+<li>r：阶码的底，通常为2</li>
+<li>E：<strong>阶码</strong>，反映浮点数的表示范围和小数点的实际位置，用<strong>补码或移码</strong>表示</li>
+<li>M：<strong>尾数</strong>，其位数反映了小数的精度，用<strong>原码或补码</strong>表示</li>
+</ul>
+<blockquote>
+<p>例：阶码和尾数都用补码表示，求a、b的真值</p>
+<ul>
+<li>a = 0,01; 1.1001</li>
+<li>b = 0,01; 0.01001</li>
+</ul>
+<p>a：</p>
+<ul>
+<li>阶码0,01对应真值+1</li>
+<li>尾数1.1001(补码)对应真值(先转换成原码)-0.0111</li>
+<li>故 a=-0.111(B)(上面二进制小数点右移1位) = <span
+class="math inline">\(-\frac{7}{8}\)</span></li>
+</ul>
+<p>b：</p>
+<ul>
+<li>阶码对应真值+1</li>
+<li>尾数0.01001对应真值+0.01001</li>
+<li>故 b=0.1001=<span class="math inline">\(\frac{9}{16}\)</span></li>
+</ul>
+</blockquote>
+<h3 id="浮点数的规格化">浮点数的规格化</h3>
+<p><a
+href="https://www.bilibili.com/video/BV11u4m1F7gQ/?spm_id_from=333.999.0.0">视频讲解：浮点数规格化</a></p>
+<p>规定尾数的最高位必须是一个有效值。</p>
+<p><strong>左规</strong>：当浮点数运算的结果为非规格化时要进行规格化处理，将<font color = "red">尾数左移一位，阶码减1
+( 基数为2时)</font>：</p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/06fd8146622a1827a81f5e657cea78f.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<p><strong>右规</strong>：当浮点数运算的结果尾数出现溢出(双符号位为01或10)时，将<font color = "red">尾数右移一位，阶码加1
+(基数为2时)</font></p>
+<blockquote>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422070143607.png" /></p>
+</blockquote>
+<h3 id="规格化数的特点">规格化数的特点</h3>
+<h4 id="如何判断需要规格化">如何判断需要规格化</h4>
+<p><font color = "yellow">1. 原码位数最高位必须是</font></p>
+<p><font color = "yellow">2. 补码尾数最高位必须和尾数符号相反</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/de3c63bb5369dbe0536bb24b31f925d.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<h4 id="规格化的小数所能表示范围">规格化的小数所能表示范围</h4>
+<p>原码</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422074440544.png" /></p>
+<p>补码</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422074452583.png" /></p>
+<p>上溢和下溢</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422074712134.png" /></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/92426731dcfb987b1187617cd2ad0c2.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<h3 id="ieee-754-标准">IEEE 754 标准</h3>
+<p><a
+href="https://www.bilibili.com/video/BV1Zm421x7UD/?spm_id_from=333.999.0.0">视频讲解：移码拓展知识</a></p>
+<p><font color = "yellow">移码的求法1：移码 = 真值 + 偏置值
+，通常偏置值取常数 <span class="math inline">\(2^{n -
+1}\)</span></font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422083436691.png" /></p>
+<hr style = "border:2px solid yellow">
+<p><font color = "yellow">移码的求法2：说白了就是将符号位取反</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421193207355.png" style="zoom:50%;" /></p>
+<blockquote>
+<p>注：<font color = "red">移码只能表示整数，不能表示小数</font></p>
+</blockquote>
+<p><a href="">视频讲解：IEEE754标准下的移码</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4e18cf2d9006af81e5b770b83f3165a.png" /></p>
+<hr style = "border:2px solid yellow">
+<p>例1：十进制小数转单精度浮点数</p>
+<p>例2：单精度浮点数转十进制</p>
+<hr style = "border:2px solid yellow">
+<p>尾数前隐含一位1</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">类型</th>
+<th style="text-align: center;">数阶</th>
+<th style="text-align: center;">阶码</th>
+<th style="text-align: center;">尾数数值</th>
+<th style="text-align: center;">总位数</th>
+<th style="text-align: center;">偏置值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">短浮点数</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">7FH（127）</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">长浮点数</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">52</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">3FFH（1023）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">临时浮点数</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">3FFFH</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>规格化的短浮点数的真值为：(−1)�×1.�×2�−127(−1)<em>S</em>×1.<em>M</em>×2<em>E</em>−127
+；</li>
+<li>规格化的长浮点数的真值为：(−1)�×1.�×2�−1023(−1)<em>S</em>×1.<em>M</em>×2<em>E</em>−1023。</li>
+</ul>
+<p>对于短浮点数而言，<strong>偏置值取127</strong>，此时阶码（移码）的表示范围为<strong>-126~127</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">真值</th>
+<th style="text-align: center;">补码</th>
+<th style="text-align: center;">移码</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">-128*</td>
+<td style="text-align: center;">1000 0000</td>
+<td style="text-align: center;">1111 1111</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">-127*</td>
+<td style="text-align: center;">1000 0001</td>
+<td style="text-align: center;">0000 0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">-126</td>
+<td style="text-align: center;">1000 0010</td>
+<td style="text-align: center;">0000 0001</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">……</td>
+<td style="text-align: center;">……</td>
+<td style="text-align: center;">……</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0000 0000</td>
+<td style="text-align: center;">0111 1111</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">……</td>
+<td style="text-align: center;">……</td>
+<td style="text-align: center;">……</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">127</td>
+<td style="text-align: center;">0111 1111</td>
+<td style="text-align: center;">1111 1110</td>
+</tr>
+</tbody>
+</table>
+<p>-128和-127的作用：</p>
+<ul>
+<li><p>�=0<em>E</em>=0且�=0<em>M</em>=0，则真值为0；</p></li>
+<li><p>�=0<em>E</em>=0且�≠0<em>M</em>=0 ，为非规格化数，真值
+=(−1)�×0.�×2−126=(−1)<em>S</em>×0.<em>M</em>×2−126 ；</p></li>
+<li><p>�=255<em>E</em>=255且�≠0<em>M</em>=0，真值为‘NaN’（非数值）；</p></li>
+<li><p>�=255<em>E</em>=255且�=0<em>M</em>=0，真值为正或负无穷。</p></li>
+</ul>
+<blockquote>
+<p>例：将 -0.75D 转换为IEEE 754 的单精度浮点数格式表示</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>将十进制转化为二进制</p>
+<ul>
+<li>−0.75D=−0.11B−0.75D=−0.11B</li>
+</ul></li>
+<li><p>将小数的高位变为1 （对应尾数隐含的1）</p>
+<ul>
+<li>−0.11=−(1.1)2×2−1−0.11=−(1.1)2×2−1</li>
+</ul></li>
+<li><p>数符：1</p></li>
+<li><p>尾数：取小数点后面部分，并补0</p>
+<ul>
+<li>.1000 0000 0000 0000 0000 000</li>
+</ul></li>
+<li><p>阶码：真值+偏移量</p>
+<ul>
+<li>(−1+127)D=126D=01111110B(−1+127)D=126D=01111110B</li>
+</ul></li>
+<li><p>结果：1 0111 1110 1000 0000 0000 0000 0000 000</p></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>例：IEEE 754的单精度浮点数 C0 A0 00 00 H的值是多少</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>化为二进制</p>
+<ul>
+<li><p>1100 0000 1010 0000 0000 0000 0000 0000</p></li>
+<li><p>数符：1</p></li>
+<li><p>阶码：1000 0001</p></li>
+<li><p>尾数：0100 0000 0000 0000 0000 000</p></li>
+</ul></li>
+<li><p>尾数：加上隐含的1</p>
+<ul>
+<li>(1.01)2(1.01)2</li>
+</ul></li>
+<li><p>阶码</p>
+<ul>
+<li><p>先看作无符号数：1000 0001B = 129D</p></li>
+<li><p>移码-偏置值：129-127=2</p></li>
+</ul></li>
+<li><p>真值：−(1.01)2×22=−(1.25)10×22=−5.0−(1.01)2×22=−(1.25)10×22=−5.0</p></li>
+</ul>
+</blockquote>
+<h2 id="浮点数的运算">2.3.2 浮点数的运算</h2>
+<h3 id="加减运算">1、加减运算</h3>
+<p><strong>步骤</strong>：</p>
+<ol type="1">
+<li><p>对阶</p></li>
+<li><p>尾数加减</p></li>
+<li><p>规格化</p></li>
+<li><p>舍入</p></li>
+<li><p>判溢出</p></li>
+</ol>
+<blockquote>
+<p>例：已知十进制数�=−5256<em>X</em>=−2565、�=+591024<em>Y</em>=+102459，按机器补码浮点运算规则计算X-Y，结果用二进制表示，浮点数格式如下：阶符取2位，阶码取3位，数符取2位，尾数取9位</p>
+</blockquote>
+<blockquote>
+<p>5�=101�,1256=2−8�=−101×2−8=−0.101×2−5�=−0.101×2−101</p>
+<ul>
+<li><p>阶码</p>
+<ul>
+<li><p>-101，补码为：1011</p></li>
+<li><p>阶符取两位、阶码取三位：11011</p></li>
+</ul></li>
+<li><p>尾数</p>
+<ul>
+<li><p>-0.101，补码为1.011</p></li>
+<li><p>数符取两位，尾数取九位：11.011000000</p></li>
+</ul></li>
+<li><p>可得X：11011；11.011000000</p></li>
+</ul>
+<p>同理：59�=111011�,11024=2−10�=+111011×2−10=+0.111011×2−4�=+0.111011×2−100</p>
+<ul>
+<li><p>阶码</p>
+<ul>
+<li><p>-100，补码为1100</p></li>
+<li><p>阶符取两位、阶码取三位：11100</p></li>
+</ul></li>
+<li><p>尾数</p>
+<ul>
+<li><p>+0.111011，补码为0.111011</p></li>
+<li><p>数符取两位，尾数取九位：00.111011000</p></li>
+</ul></li>
+</ul>
+</blockquote>
+<h4 id="对阶">（1）对阶</h4>
+<p>使两个数的阶码相等，小阶向大阶看齐，尾数每右移一位，阶码加1。</p>
+<blockquote>
+<p>[Δ�]补=11011−11100=11011+00100=11111[Δ<em>E</em>]补=11011−11100=11011+00100=11111</p>
+<p>11111为-1的补码，故 Δ�=−1Δ<em>E</em>=−1 ，X的阶码比Y的阶码小1</p>
+<p>阶码每加1，尾数右移一位，则有新的X：11100；11.101100000（右移之后前面补1）</p>
+<p>此时， �=−0.0101×2−100<em>X</em>=−0.0101×2−100</p>
+</blockquote>
+<h4 id="尾数相加减">（2）尾数相加减</h4>
+<blockquote>
+<p>首先有 -Y= 11100；11.000101000</p>
+<p>尾数相加，得：</p>
+<p>11.101100000+11.00010100010.11000100011.101100000+11.00010100010.110001000</p>
+<p>相当于提取公因式</p>
+</blockquote>
+<h4 id="规格化">（3）规格化</h4>
+<blockquote>
+<p>由于上一步发生了溢出，因此需要右规</p>
+<p>尾数右移一位，阶码加1，得：X-Y=11101；11.011000100</p>
+</blockquote>
+<h4 id="舍入">（4）舍入</h4>
+<p><strong>“0”舍“1”入法</strong>：类似于十进制数运算中的“四舍五入”法，即在尾数右移时，被移去的最高数值位为0，则舍去;被移去的最高数值位为1，
+则在尾数的末位加1。这样做可能会使尾数又溢出，此时需再做一次右规。</p>
+<p><strong>恒置“1”法</strong>：尾数右移时，不论丢掉的最高数值位是“1”还是“0”，
+都使右移后的尾数末位恒置“1”。这种方法同样有使尾数变大和变小的两种可能。</p>
+<p>无舍入</p>
+<h4 id="判断溢出">（5）判断溢出</h4>
+<p>未发生溢出</p>
+<p>结果真值为 2−3×(−0.1001111)22−3×(−0.1001111)2</p>
+<h3 id="强制类型转换">2、强制类型转换</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">数据类型</th>
+<th style="text-align: center;">16位机器</th>
+<th style="text-align: center;">32位机器</th>
+<th style="text-align: center;">64位机器</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">char</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">short</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">int</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">32</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">long</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">long long</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">64</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">float</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">64</td>
+</tr>
+</tbody>
+</table>
+<p>char --&gt; int --&gt; long --&gt; double 以及 float --&gt;
+double，不会损失精度。</p>
+<p>对于32位系统：</p>
+<ul>
+<li><p>int：表示整数，范围为 −231∼231−1−231∼231−1，有效数字32位</p></li>
+<li><p>float：表示整数及小数，范围
+±[2−126∼2127×(2−2−23)]±[2−126∼2127×(2−2−23)]
+，有效数字23+1=24位</p></li>
+<li><p>int --&gt; float：可能损失精度（有效数字比float多）</p></li>
+<li><p>float --&gt;
+int：可能<strong>溢出</strong>（超出int表示范围）及损失精度（小数部分）</p></li>
+</ul>
+]]></content>
   </entry>
 </search>

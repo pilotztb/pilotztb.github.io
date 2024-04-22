@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="前置知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浮点数的表示和运算">
+<meta property="og:url" content="http://example.com/posts/9b0b5055.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="前置知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421193207355.png">
+<meta property="article:published_time" content="2024-04-21T21:49:47.000Z">
+<meta property="article:modified_time" content="2024-04-22T01:37:23.513Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421193207355.png">
+
+<link rel="canonical" href="http://example.com/posts/9b0b5055.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>浮点数的表示和运算 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9b0b5055.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浮点数的表示和运算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-22 05:49:47 / 修改时间：09:37:23" itemprop="dateCreated datePublished" datetime="2024-04-22T05:49:47+08:00">2024-04-22</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/9b0b5055.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/9b0b5055.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前置知识">前置知识</h2>
+<span id="more"></span>
+<h3 id="大端存储与小端存储">大端存储与小端存储</h3>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xC4113747/?spm_id_from=333.999.0.0">视频讲解：大端与小端</a></p>
+<p>边界对齐</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1rF4m1P7mM/?spm_id_from=333.999.0.0">视频讲解：边界对齐</a></p>
+<p>如何将字地址转换成与之对应的字节地址</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5b5e6e4dc2fdfeefde9626c6676916b.jpg" /></p>
+<h2 id="浮点数的表示">浮点数的表示</h2>
+<h3 id="浮点数的表示-1">浮点数的表示</h3>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1st421j7RQ/?spm_id_from=333.999.0.0">视频讲解：浮点数表示</a></p>
+<p>浮点数通常表示为：</p>
+<p>$ N = r^E * M$</p>
+<ul>
+<li>r：阶码的底，通常为2</li>
+<li>E：<strong>阶码</strong>，反映浮点数的表示范围和小数点的实际位置，用<strong>补码或移码</strong>表示</li>
+<li>M：<strong>尾数</strong>，其位数反映了小数的精度，用<strong>原码或补码</strong>表示</li>
+</ul>
+<blockquote>
+<p>例：阶码和尾数都用补码表示，求a、b的真值</p>
+<ul>
+<li>a = 0,01; 1.1001</li>
+<li>b = 0,01; 0.01001</li>
+</ul>
+<p>a：</p>
+<ul>
+<li>阶码0,01对应真值+1</li>
+<li>尾数1.1001(补码)对应真值(先转换成原码)-0.0111</li>
+<li>故 a=-0.111(B)(上面二进制小数点右移1位) = <span
+class="math inline">\(-\frac{7}{8}\)</span></li>
+</ul>
+<p>b：</p>
+<ul>
+<li>阶码对应真值+1</li>
+<li>尾数0.01001对应真值+0.01001</li>
+<li>故 b=0.1001=<span class="math inline">\(\frac{9}{16}\)</span></li>
+</ul>
+</blockquote>
+<h3 id="浮点数的规格化">浮点数的规格化</h3>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11u4m1F7gQ/?spm_id_from=333.999.0.0">视频讲解：浮点数规格化</a></p>
+<p>规定尾数的最高位必须是一个有效值。</p>
+<p><strong>左规</strong>：当浮点数运算的结果为非规格化时要进行规格化处理，将<font color = "red">尾数左移一位，阶码减1
+( 基数为2时)</font>：</p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/06fd8146622a1827a81f5e657cea78f.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<p><strong>右规</strong>：当浮点数运算的结果尾数出现溢出(双符号位为01或10)时，将<font color = "red">尾数右移一位，阶码加1
+(基数为2时)</font></p>
+<blockquote>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422070143607.png" /></p>
+</blockquote>
+<h3 id="规格化数的特点">规格化数的特点</h3>
+<h4 id="如何判断需要规格化">如何判断需要规格化</h4>
+<p><font color = "yellow">1. 原码位数最高位必须是</font></p>
+<p><font color = "yellow">2. 补码尾数最高位必须和尾数符号相反</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/de3c63bb5369dbe0536bb24b31f925d.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<h4 id="规格化的小数所能表示范围">规格化的小数所能表示范围</h4>
+<p>原码</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422074440544.png" /></p>
+<p>补码</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422074452583.png" /></p>
+<p>上溢和下溢</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422074712134.png" /></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/92426731dcfb987b1187617cd2ad0c2.jpg" /></p>
+<hr style = "border:2px solid yellow">
+<h3 id="ieee-754-标准">IEEE 754 标准</h3>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zm421x7UD/?spm_id_from=333.999.0.0">视频讲解：移码拓展知识</a></p>
+<p><font color = "yellow">移码的求法1：移码 = 真值 + 偏置值
+，通常偏置值取常数 <span class="math inline">\(2^{n -
+1}\)</span></font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240422083436691.png" /></p>
+<hr style = "border:2px solid yellow">
+<p><font color = "yellow">移码的求法2：说白了就是将符号位取反</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421193207355.png" style="zoom:50%;" /></p>
+<blockquote>
+<p>注：<font color = "red">移码只能表示整数，不能表示小数</font></p>
+</blockquote>
+<p><a href="">视频讲解：IEEE754标准下的移码</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4e18cf2d9006af81e5b770b83f3165a.png" /></p>
+<hr style = "border:2px solid yellow">
+<p>例1：十进制小数转单精度浮点数</p>
+<p>例2：单精度浮点数转十进制</p>
+<hr style = "border:2px solid yellow">
+<p>尾数前隐含一位1</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">类型</th>
+<th style="text-align: center;">数阶</th>
+<th style="text-align: center;">阶码</th>
+<th style="text-align: center;">尾数数值</th>
+<th style="text-align: center;">总位数</th>
+<th style="text-align: center;">偏置值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">短浮点数</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">7FH（127）</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">长浮点数</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">52</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">3FFH（1023）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">临时浮点数</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">3FFFH</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>规格化的短浮点数的真值为：(−1)�×1.�×2�−127(−1)<em>S</em>×1.<em>M</em>×2<em>E</em>−127
+；</li>
+<li>规格化的长浮点数的真值为：(−1)�×1.�×2�−1023(−1)<em>S</em>×1.<em>M</em>×2<em>E</em>−1023。</li>
+</ul>
+<p>对于短浮点数而言，<strong>偏置值取127</strong>，此时阶码（移码）的表示范围为<strong>-126~127</strong>：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">真值</th>
+<th style="text-align: center;">补码</th>
+<th style="text-align: center;">移码</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">-128*</td>
+<td style="text-align: center;">1000 0000</td>
+<td style="text-align: center;">1111 1111</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">-127*</td>
+<td style="text-align: center;">1000 0001</td>
+<td style="text-align: center;">0000 0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">-126</td>
+<td style="text-align: center;">1000 0010</td>
+<td style="text-align: center;">0000 0001</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">……</td>
+<td style="text-align: center;">……</td>
+<td style="text-align: center;">……</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0000 0000</td>
+<td style="text-align: center;">0111 1111</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">……</td>
+<td style="text-align: center;">……</td>
+<td style="text-align: center;">……</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">127</td>
+<td style="text-align: center;">0111 1111</td>
+<td style="text-align: center;">1111 1110</td>
+</tr>
+</tbody>
+</table>
+<p>-128和-127的作用：</p>
+<ul>
+<li><p>�=0<em>E</em>=0且�=0<em>M</em>=0，则真值为0；</p></li>
+<li><p>�=0<em>E</em>=0且�≠0<em>M</em>=0 ，为非规格化数，真值
+=(−1)�×0.�×2−126=(−1)<em>S</em>×0.<em>M</em>×2−126 ；</p></li>
+<li><p>�=255<em>E</em>=255且�≠0<em>M</em>=0，真值为‘NaN’（非数值）；</p></li>
+<li><p>�=255<em>E</em>=255且�=0<em>M</em>=0，真值为正或负无穷。</p></li>
+</ul>
+<blockquote>
+<p>例：将 -0.75D 转换为IEEE 754 的单精度浮点数格式表示</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>将十进制转化为二进制</p>
+<ul>
+<li>−0.75D=−0.11B−0.75D=−0.11B</li>
+</ul></li>
+<li><p>将小数的高位变为1 （对应尾数隐含的1）</p>
+<ul>
+<li>−0.11=−(1.1)2×2−1−0.11=−(1.1)2×2−1</li>
+</ul></li>
+<li><p>数符：1</p></li>
+<li><p>尾数：取小数点后面部分，并补0</p>
+<ul>
+<li>.1000 0000 0000 0000 0000 000</li>
+</ul></li>
+<li><p>阶码：真值+偏移量</p>
+<ul>
+<li>(−1+127)D=126D=01111110B(−1+127)D=126D=01111110B</li>
+</ul></li>
+<li><p>结果：1 0111 1110 1000 0000 0000 0000 0000 000</p></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>例：IEEE 754的单精度浮点数 C0 A0 00 00 H的值是多少</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>化为二进制</p>
+<ul>
+<li><p>1100 0000 1010 0000 0000 0000 0000 0000</p></li>
+<li><p>数符：1</p></li>
+<li><p>阶码：1000 0001</p></li>
+<li><p>尾数：0100 0000 0000 0000 0000 000</p></li>
+</ul></li>
+<li><p>尾数：加上隐含的1</p>
+<ul>
+<li>(1.01)2(1.01)2</li>
+</ul></li>
+<li><p>阶码</p>
+<ul>
+<li><p>先看作无符号数：1000 0001B = 129D</p></li>
+<li><p>移码-偏置值：129-127=2</p></li>
+</ul></li>
+<li><p>真值：−(1.01)2×22=−(1.25)10×22=−5.0−(1.01)2×22=−(1.25)10×22=−5.0</p></li>
+</ul>
+</blockquote>
+<h2 id="浮点数的运算">2.3.2 浮点数的运算</h2>
+<h3 id="加减运算">1、加减运算</h3>
+<p><strong>步骤</strong>：</p>
+<ol type="1">
+<li><p>对阶</p></li>
+<li><p>尾数加减</p></li>
+<li><p>规格化</p></li>
+<li><p>舍入</p></li>
+<li><p>判溢出</p></li>
+</ol>
+<blockquote>
+<p>例：已知十进制数�=−5256<em>X</em>=−2565、�=+591024<em>Y</em>=+102459，按机器补码浮点运算规则计算X-Y，结果用二进制表示，浮点数格式如下：阶符取2位，阶码取3位，数符取2位，尾数取9位</p>
+</blockquote>
+<blockquote>
+<p>5�=101�,1256=2−8�=−101×2−8=−0.101×2−5�=−0.101×2−101</p>
+<ul>
+<li><p>阶码</p>
+<ul>
+<li><p>-101，补码为：1011</p></li>
+<li><p>阶符取两位、阶码取三位：11011</p></li>
+</ul></li>
+<li><p>尾数</p>
+<ul>
+<li><p>-0.101，补码为1.011</p></li>
+<li><p>数符取两位，尾数取九位：11.011000000</p></li>
+</ul></li>
+<li><p>可得X：11011；11.011000000</p></li>
+</ul>
+<p>同理：59�=111011�,11024=2−10�=+111011×2−10=+0.111011×2−4�=+0.111011×2−100</p>
+<ul>
+<li><p>阶码</p>
+<ul>
+<li><p>-100，补码为1100</p></li>
+<li><p>阶符取两位、阶码取三位：11100</p></li>
+</ul></li>
+<li><p>尾数</p>
+<ul>
+<li><p>+0.111011，补码为0.111011</p></li>
+<li><p>数符取两位，尾数取九位：00.111011000</p></li>
+</ul></li>
+</ul>
+</blockquote>
+<h4 id="对阶">（1）对阶</h4>
+<p>使两个数的阶码相等，小阶向大阶看齐，尾数每右移一位，阶码加1。</p>
+<blockquote>
+<p>[Δ�]补=11011−11100=11011+00100=11111[Δ<em>E</em>]补=11011−11100=11011+00100=11111</p>
+<p>11111为-1的补码，故 Δ�=−1Δ<em>E</em>=−1 ，X的阶码比Y的阶码小1</p>
+<p>阶码每加1，尾数右移一位，则有新的X：11100；11.101100000（右移之后前面补1）</p>
+<p>此时， �=−0.0101×2−100<em>X</em>=−0.0101×2−100</p>
+</blockquote>
+<h4 id="尾数相加减">（2）尾数相加减</h4>
+<blockquote>
+<p>首先有 -Y= 11100；11.000101000</p>
+<p>尾数相加，得：</p>
+<p>11.101100000+11.00010100010.11000100011.101100000+11.00010100010.110001000</p>
+<p>相当于提取公因式</p>
+</blockquote>
+<h4 id="规格化">（3）规格化</h4>
+<blockquote>
+<p>由于上一步发生了溢出，因此需要右规</p>
+<p>尾数右移一位，阶码加1，得：X-Y=11101；11.011000100</p>
+</blockquote>
+<h4 id="舍入">（4）舍入</h4>
+<p><strong>“0”舍“1”入法</strong>：类似于十进制数运算中的“四舍五入”法，即在尾数右移时，被移去的最高数值位为0，则舍去;被移去的最高数值位为1，
+则在尾数的末位加1。这样做可能会使尾数又溢出，此时需再做一次右规。</p>
+<p><strong>恒置“1”法</strong>：尾数右移时，不论丢掉的最高数值位是“1”还是“0”，
+都使右移后的尾数末位恒置“1”。这种方法同样有使尾数变大和变小的两种可能。</p>
+<p>无舍入</p>
+<h4 id="判断溢出">（5）判断溢出</h4>
+<p>未发生溢出</p>
+<p>结果真值为 2−3×(−0.1001111)22−3×(−0.1001111)2</p>
+<h3 id="强制类型转换">2、强制类型转换</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">数据类型</th>
+<th style="text-align: center;">16位机器</th>
+<th style="text-align: center;">32位机器</th>
+<th style="text-align: center;">64位机器</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">char</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">short</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">int</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">32</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">long</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">long long</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">64</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">float</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">64</td>
+</tr>
+</tbody>
+</table>
+<p>char --&gt; int --&gt; long --&gt; double 以及 float --&gt;
+double，不会损失精度。</p>
+<p>对于32位系统：</p>
+<ul>
+<li><p>int：表示整数，范围为 −231∼231−1−231∼231−1，有效数字32位</p></li>
+<li><p>float：表示整数及小数，范围
+±[2−126∼2127×(2−2−23)]±[2−126∼2127×(2−2−23)]
+，有效数字23+1=24位</p></li>
+<li><p>int --&gt; float：可能损失精度（有效数字比float多）</p></li>
+<li><p>float --&gt;
+int：可能<strong>溢出</strong>（超出int表示范围）及损失精度（小数部分）</p></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/9b0b5055.html" title="浮点数的表示和运算">http://example.com/posts/9b0b5055.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/5a8a6c8d.html" rel="prev" title="定点数的表示与运算">
+      <i class="fa fa-chevron-left"></i> 定点数的表示与运算
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/cef77967.html" rel="next" title="算数逻辑单元（ALU）">
+      算数逻辑单元（ALU） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E7%AB%AF%E5%AD%98%E5%82%A8%E4%B8%8E%E5%B0%8F%E7%AB%AF%E5%AD%98%E5%82%A8"><span class="nav-number">1.1.</span> <span class="nav-text">大端存储与小端存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.</span> <span class="nav-text">浮点数的表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA-1"><span class="nav-number">2.1.</span> <span class="nav-text">浮点数的表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="nav-number">2.2.</span> <span class="nav-text">浮点数的规格化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96%E6%95%B0%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">规格化数的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E9%9C%80%E8%A6%81%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="nav-number">2.3.1.</span> <span class="nav-text">如何判断需要规格化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96%E7%9A%84%E5%B0%8F%E6%95%B0%E6%89%80%E8%83%BD%E8%A1%A8%E7%A4%BA%E8%8C%83%E5%9B%B4"><span class="nav-number">2.3.2.</span> <span class="nav-text">规格化的小数所能表示范围</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ieee-754-%E6%A0%87%E5%87%86"><span class="nav-number">2.4.</span> <span class="nav-text">IEEE 754 标准</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">2.3.2 浮点数的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97"><span class="nav-number">3.1.</span> <span class="nav-text">1、加减运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E9%98%B6"><span class="nav-number">3.1.1.</span> <span class="nav-text">（1）对阶</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%BE%E6%95%B0%E7%9B%B8%E5%8A%A0%E5%87%8F"><span class="nav-number">3.1.2.</span> <span class="nav-text">（2）尾数相加减</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="nav-number">3.1.3.</span> <span class="nav-text">（3）规格化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%88%8D%E5%85%A5"><span class="nav-number">3.1.4.</span> <span class="nav-text">（4）舍入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%BA%A2%E5%87%BA"><span class="nav-number">3.1.5.</span> <span class="nav-text">（5）判断溢出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.2.</span> <span class="nav-text">2、强制类型转换</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">心有所向，无问西东</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">371k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:37</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
