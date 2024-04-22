@@ -29,12 +29,15 @@
 <meta property="og:site_name" content="Pilot&#39;s Blog">
 <meta property="og:description" content="前置知识">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/06fd8146622a1827a81f5e657cea78f.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421193207355.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/af766190e0070c5504a7528d5b4c821.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/60fc6faf0ce444809c6004dab570fc8.jpg">
 <meta property="article:published_time" content="2024-04-21T21:49:47.000Z">
-<meta property="article:modified_time" content="2024-04-22T09:14:14.127Z">
+<meta property="article:modified_time" content="2024-04-22T23:22:39.233Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240421193207355.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/06fd8146622a1827a81f5e657cea78f.jpg">
 
 <link rel="canonical" href="http://example.com/posts/9b0b5055.html">
 
@@ -219,10 +222,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-04-22 05:49:47 / 修改时间：17:14:14" itemprop="dateCreated datePublished" datetime="2024-04-22T05:49:47+08:00">2024-04-22</time>
+              <time title="创建时间：2024-04-22 05:49:47" itemprop="dateCreated datePublished" datetime="2024-04-22T05:49:47+08:00">2024-04-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-23 07:22:39" itemprop="dateModified" datetime="2024-04-23T07:22:39+08:00">2024-04-23</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -264,14 +273,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -332,9 +341,8 @@ target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11u4m1F7gQ
 <p><strong>左规</strong>：当浮点数运算的结果为非规格化时要进行规格化处理，将<font color = "red">尾数左移一位，阶码减1
 ( 基数为2时)</font>：</p>
 <hr style = "border:2px solid yellow">
-<p>举例：</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/06fd8146622a1827a81f5e657cea78f.jpg" /></p>
+<p>举例：
+<img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/06fd8146622a1827a81f5e657cea78f.jpg" style="zoom:50%;" /></p>
 <hr style = "border:2px solid yellow">
 <p><strong>右规</strong>：当浮点数运算的结果尾数出现溢出(双符号位为01或10)时，将<font color = "red">尾数右移一位，阶码加1
 (基数为2时)</font></p>
@@ -344,7 +352,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024042207014360
 </blockquote>
 <h3 id="规格化数的特点">规格化数的特点</h3>
 <h4 id="如何判断需要规格化">如何判断需要规格化</h4>
-<p><font color = "yellow">1. 原码位数最高位必须是</font></p>
+<p><font color = "yellow">1. 原码位数最高位必须是1</font></p>
 <p><font color = "yellow">2. 补码尾数最高位必须和尾数符号相反</font></p>
 <hr style = "border:2px solid yellow">
 <p>举例：</p>
@@ -366,9 +374,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024042207471213
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/92426731dcfb987b1187617cd2ad0c2.jpg" /></p>
 <hr style = "border:2px solid yellow">
-<h3 id="ieee-754-标准">IEEE 754 标准</h3>
-<p><a
-target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zm421x7UD/?spm_id_from=333.999.0.0">视频讲解：移码拓展知识</a></p>
+<h3 id="ieee754-标准">IEEE754 标准</h3>
+<h4 id="移码的2种求法">移码的2种求法</h4>
 <p><font color = "yellow">移码的求法1：移码 = 真值 + 偏置值
 ，通常偏置值取常数 <span class="math inline">\(2^{n -
 1}\)</span></font></p>
@@ -382,13 +389,11 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024042208343669
 <blockquote>
 <p>注：<font color = "red">移码只能表示整数，不能表示小数</font></p>
 </blockquote>
-<p><a href="">视频讲解：IEEE754标准下的移码</a></p>
+<h4 id="ieee754标准下的浮点数表示">IEEE754标准下的浮点数表示</h4>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zm421x7UD/?spm_id_from=333.999.0.0">视频讲解：IEEE754标准下的移码</a></p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4e18cf2d9006af81e5b770b83f3165a.png" /></p>
-<hr style = "border:2px solid yellow">
-<p>例1：十进制小数转单精度浮点数</p>
-<p>例2：单精度浮点数转十进制</p>
-<hr style = "border:2px solid yellow">
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240423071008688.png" /></p>
 <p>尾数前隐含一位1</p>
 <table>
 <thead>
@@ -428,11 +433,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4e18cf2d9006af81e5b770
 </tr>
 </tbody>
 </table>
-<ul>
-<li>规格化的短浮点数的真值为：(−1)�×1.�×2�−127(−1)<em>S</em>×1.<em>M</em>×2<em>E</em>−127
-；</li>
-<li>规格化的长浮点数的真值为：(−1)�×1.�×2�−1023(−1)<em>S</em>×1.<em>M</em>×2<em>E</em>−1023。</li>
-</ul>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240423065106995.png" /></p>
 <p>对于短浮点数而言，<strong>偏置值取127</strong>，此时阶码（移码）的表示范围为<strong>-126~127</strong>：</p>
 <table>
 <thead>
@@ -444,12 +446,12 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4e18cf2d9006af81e5b770
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">-128*</td>
+<td style="text-align: center;">-128</td>
 <td style="text-align: center;">1000 0000</td>
 <td style="text-align: center;">1111 1111</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">-127*</td>
+<td style="text-align: center;">-127</td>
 <td style="text-align: center;">1000 0001</td>
 <td style="text-align: center;">0000 0000</td>
 </tr>
@@ -481,64 +483,18 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4e18cf2d9006af81e5b770
 </tbody>
 </table>
 <p>-128和-127的作用：</p>
-<ul>
-<li><p>�=0<em>E</em>=0且�=0<em>M</em>=0，则真值为0；</p></li>
-<li><p>�=0<em>E</em>=0且�≠0<em>M</em>=0 ，为非规格化数，真值
-=(−1)�×0.�×2−126=(−1)<em>S</em>×0.<em>M</em>×2−126 ；</p></li>
-<li><p>�=255<em>E</em>=255且�≠0<em>M</em>=0，真值为‘NaN’（非数值）；</p></li>
-<li><p>�=255<em>E</em>=255且�=0<em>M</em>=0，真值为正或负无穷。</p></li>
-</ul>
-<blockquote>
-<p>例：将 -0.75D 转换为IEEE 754 的单精度浮点数格式表示</p>
-</blockquote>
-<blockquote>
-<ul>
-<li><p>将十进制转化为二进制</p>
-<ul>
-<li>−0.75D=−0.11B−0.75D=−0.11B</li>
-</ul></li>
-<li><p>将小数的高位变为1 （对应尾数隐含的1）</p>
-<ul>
-<li>−0.11=−(1.1)2×2−1−0.11=−(1.1)2×2−1</li>
-</ul></li>
-<li><p>数符：1</p></li>
-<li><p>尾数：取小数点后面部分，并补0</p>
-<ul>
-<li>.1000 0000 0000 0000 0000 000</li>
-</ul></li>
-<li><p>阶码：真值+偏移量</p>
-<ul>
-<li>(−1+127)D=126D=01111110B(−1+127)D=126D=01111110B</li>
-</ul></li>
-<li><p>结果：1 0111 1110 1000 0000 0000 0000 0000 000</p></li>
-</ul>
-</blockquote>
-<blockquote>
-<p>例：IEEE 754的单精度浮点数 C0 A0 00 00 H的值是多少</p>
-</blockquote>
-<blockquote>
-<ul>
-<li><p>化为二进制</p>
-<ul>
-<li><p>1100 0000 1010 0000 0000 0000 0000 0000</p></li>
-<li><p>数符：1</p></li>
-<li><p>阶码：1000 0001</p></li>
-<li><p>尾数：0100 0000 0000 0000 0000 000</p></li>
-</ul></li>
-<li><p>尾数：加上隐含的1</p>
-<ul>
-<li>(1.01)2(1.01)2</li>
-</ul></li>
-<li><p>阶码</p>
-<ul>
-<li><p>先看作无符号数：1000 0001B = 129D</p></li>
-<li><p>移码-偏置值：129-127=2</p></li>
-</ul></li>
-<li><p>真值：−(1.01)2×22=−(1.25)10×22=−5.0−(1.01)2×22=−(1.25)10×22=−5.0</p></li>
-</ul>
-</blockquote>
-<h2 id="浮点数的运算">2.3.2 浮点数的运算</h2>
-<h3 id="加减运算">1、加减运算</h3>
+<p>E=0且 M=0，则真值为0；</p>
+<p>E=0且 E≠0 M≠0，为非规格化数，真值 = (-1)^S ×0.M×2^(-126)；</p>
+<p>E=255且 E≠0 M≠0，真值为‘NaN’（非数值）；</p>
+<p>E=255且 E=0 M=0，真值为正或负无穷。</p>
+<hr style = "border:2px solid yellow">
+<p>例1：十进制小数转单精度浮点数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/af766190e0070c5504a7528d5b4c821.jpg" style="zoom:50%;" /></p>
+<p>例2：单精度浮点数转十进制</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/60fc6faf0ce444809c6004dab570fc8.jpg" style="zoom:50%;" /></p>
+<hr style = "border:2px solid yellow">
+<h2 id="浮点数的运算">浮点数的运算</h2>
+<h3 id="加减运算">加减运算</h3>
 <p><strong>步骤</strong>：</p>
 <ol type="1">
 <li><p>对阶</p></li>
@@ -773,7 +729,7 @@ int：可能<strong>溢出</strong>（超出int表示范围）及损失精度（
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E7%AB%AF%E5%AD%98%E5%82%A8%E4%B8%8E%E5%B0%8F%E7%AB%AF%E5%AD%98%E5%82%A8"><span class="nav-number">1.1.</span> <span class="nav-text">大端存储与小端存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.</span> <span class="nav-text">浮点数的表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA-1"><span class="nav-number">2.1.</span> <span class="nav-text">浮点数的表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="nav-number">2.2.</span> <span class="nav-text">浮点数的规格化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96%E6%95%B0%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">规格化数的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E9%9C%80%E8%A6%81%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="nav-number">2.3.1.</span> <span class="nav-text">如何判断需要规格化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96%E7%9A%84%E5%B0%8F%E6%95%B0%E6%89%80%E8%83%BD%E8%A1%A8%E7%A4%BA%E8%8C%83%E5%9B%B4"><span class="nav-number">2.3.2.</span> <span class="nav-text">规格化的小数所能表示范围</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ieee-754-%E6%A0%87%E5%87%86"><span class="nav-number">2.4.</span> <span class="nav-text">IEEE 754 标准</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">2.3.2 浮点数的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97"><span class="nav-number">3.1.</span> <span class="nav-text">1、加减运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E9%98%B6"><span class="nav-number">3.1.1.</span> <span class="nav-text">（1）对阶</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%BE%E6%95%B0%E7%9B%B8%E5%8A%A0%E5%87%8F"><span class="nav-number">3.1.2.</span> <span class="nav-text">（2）尾数相加减</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="nav-number">3.1.3.</span> <span class="nav-text">（3）规格化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%88%8D%E5%85%A5"><span class="nav-number">3.1.4.</span> <span class="nav-text">（4）舍入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%BA%A2%E5%87%BA"><span class="nav-number">3.1.5.</span> <span class="nav-text">（5）判断溢出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.2.</span> <span class="nav-text">2、强制类型转换</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E7%AB%AF%E5%AD%98%E5%82%A8%E4%B8%8E%E5%B0%8F%E7%AB%AF%E5%AD%98%E5%82%A8"><span class="nav-number">1.1.</span> <span class="nav-text">大端存储与小端存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.</span> <span class="nav-text">浮点数的表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA-1"><span class="nav-number">2.1.</span> <span class="nav-text">浮点数的表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="nav-number">2.2.</span> <span class="nav-text">浮点数的规格化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96%E6%95%B0%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">规格化数的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E9%9C%80%E8%A6%81%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="nav-number">2.3.1.</span> <span class="nav-text">如何判断需要规格化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96%E7%9A%84%E5%B0%8F%E6%95%B0%E6%89%80%E8%83%BD%E8%A1%A8%E7%A4%BA%E8%8C%83%E5%9B%B4"><span class="nav-number">2.3.2.</span> <span class="nav-text">规格化的小数所能表示范围</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ieee754-%E6%A0%87%E5%87%86"><span class="nav-number">2.4.</span> <span class="nav-text">IEEE754 标准</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E7%A0%81%E7%9A%842%E7%A7%8D%E6%B1%82%E6%B3%95"><span class="nav-number">2.4.1.</span> <span class="nav-text">移码的2种求法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ieee754%E6%A0%87%E5%87%86%E4%B8%8B%E7%9A%84%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.4.2.</span> <span class="nav-text">IEEE754标准下的浮点数表示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">浮点数的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97"><span class="nav-number">3.1.</span> <span class="nav-text">加减运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E9%98%B6"><span class="nav-number">3.1.1.</span> <span class="nav-text">（1）对阶</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%BE%E6%95%B0%E7%9B%B8%E5%8A%A0%E5%87%8F"><span class="nav-number">3.1.2.</span> <span class="nav-text">（2）尾数相加减</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="nav-number">3.1.3.</span> <span class="nav-text">（3）规格化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%88%8D%E5%85%A5"><span class="nav-number">3.1.4.</span> <span class="nav-text">（4）舍入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%BA%A2%E5%87%BA"><span class="nav-number">3.1.5.</span> <span class="nav-text">（5）判断溢出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.2.</span> <span class="nav-text">2、强制类型转换</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -850,7 +806,7 @@ int：可能<strong>溢出</strong>（超出int表示范围）及损失精度（
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">361k</span>
+    <span title="站点总字数">360k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
