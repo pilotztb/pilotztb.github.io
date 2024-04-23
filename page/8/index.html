@@ -192,6 +192,167 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2cc950a3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/2cc950a3.html" class="post-title-link" itemprop="url">第四周-面向对象</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-05 21:44:42" itemprop="dateCreated datePublished" datetime="2024-02-05T21:44:42+08:00">2024-02-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/2cc950a3.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/2cc950a3.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="定义一个类">定义一个类</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):	<span class="comment">#objectobject 是所有类的基类，也称为顶级类或根类。在定义类时，如果没有明确指定继承的父类，则默认继承自 object 类，可以省略</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">eat</span>(<span class="params">self</span>):	<span class="comment"># self 是一个惯用的命名约定，用来表示对象自身。在类的方法定义中，self 参数指向类的实例，也就是调用该方法的对象本身。通过 self，可以在方法内部访问和操作对象的属性和方法。是 Python 中定义类方法的标准做法，不可省略</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">jump</span>(<span class="params">self</span>):</span><br></pre></td></tr></table></figure>
+<h1 id="类中几种常见方法">类中几种常见方法</h1>
+<h2
+id="init__方法类似与java类的构造函数">__init__方法（类似与java类的构造函数）</h2>
+<h2
+id="del方法删除对象时自动调用在对一个对象引用次数为0才算彻底删除">del()方法：删除对象时自动调用，在对一个对象引用次数为0才算彻底删除</h2>
+<p>举个例子</p>
+<p>定义一个动物的类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="comment">#定义初始化方法  创建对象时候自动调用</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name</span>):</span><br><span class="line">        <span class="comment"># print(&#x27;__init__方法被调用&#x27;)</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义普通方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">walk</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;动物会跑&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义一个析构方法  删除对象的时候自动调用</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__del__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># print(&#x27;__del__方法被调用&#x27;)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;%s对象被干掉&#x27;</span>%(self.name))</span><br></pre></td></tr></table></figure>
+<p>然后实例化一个猫的对象，并且多次引用</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat = Animal(<span class="string">&#x27;波斯猫&#x27;</span>)</span><br><span class="line">cat2 = cat</span><br><span class="line">cat3 = cat</span><br></pre></td></tr></table></figure>
+<p>发现创建了多个cat对象</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240220170553004.png" /></p>
+<p>如果只删除一个，另外两个还存在</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240220170715549.png" /></p>
+<h2
+id="魔法方法python中的一种特殊方法它们以双下划线开头和结尾例如-__init____str____add__-等这些方法在特定的情况下会被python解释器自动调用而不需要我们显式地调用它们">魔法方法：Python中的一种特殊方法，它们以双下划线开头和结尾，例如
+<code>__init__</code>、<code>__str__</code>、<code>__add__</code>
+等。这些方法在特定的情况下会被Python解释器自动调用，而不需要我们显式地调用它们。</h2>
+<p>举个例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义一个车类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Car</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="comment">#定义初始化方法  创建对象的时候被自动调用</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,newColor,newWheelNum</span>):</span><br><span class="line">        self.color = newColor</span><br><span class="line">        self.wheelNum = newWheelNum</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义一个析构方法  删除对象的时候被自动调用</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__del__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;%s对象被删除&#x27;</span>%(self.color))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义一个魔方方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># msg = &#x27;%s-%d&#x27;%(self.color,self.wheelNum)</span></span><br><span class="line">        <span class="comment"># return msg</span></span><br><span class="line">        <span class="keyword">return</span> self.color</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建一个对象laosi</span></span><br><span class="line">laosi = Car(<span class="string">&#x27;红色&#x27;</span>,<span class="number">4</span>)</span><br><span class="line"><span class="comment"># 通过print打印对象的时候,如果类中定义__str__方法,自动调用,一般方便查看类中属性值</span></span><br><span class="line"><span class="built_in">print</span>(laosi)</span><br><span class="line"><span class="comment"># 后面做开发的时候,想直接返回对象中属性值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#总结:如果类的属性比较多,可以重写__str__()方法打印属性,方便阅读,无需手动调用,当使用print打印对象的时候,自动调用</span></span><br></pre></td></tr></table></figure>
+<p>定义一个魔法方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">return</span> self.color</span><br></pre></td></tr></table></figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240220172039437.png" /></p>
+<p>如果类的属性比较多,可以重写__str__()方法打印属性,方便阅读,无需手动调用,当使用print打印对象的时候,自动调用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">    msg = <span class="string">&#x27;%s-%d&#x27;</span>%(self.color,self.wheelNum)</span><br><span class="line">    <span class="keyword">return</span> msg</span><br></pre></td></tr></table></figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240220172155163.png" /></p>
+<h2 id="str和repr">str()和repr()</h2>
+<h3
+id="str_用于将数值转化为人阅读的形式调用print的时候自动调用">_<strong>str</strong>_()用于将数值转化为人阅读的形式，调用print的时候自动调用</h3>
+<h3
+id="repr__用于转化为解释器读取的形式">__repr__()用于转化为解释器读取的形式</h3>
+<p>注：在没有__str__的时候，认为str == repr</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取当前的时间</span></span><br><span class="line">now = datetime.datetime.now()</span><br><span class="line"><span class="built_in">print</span>(now)</span><br><span class="line"><span class="comment"># output 2024-02-05 22:12:48.663497</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(now))</span><br><span class="line"><span class="comment"># output &lt;class &#x27;datetime.datetime&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(now))  <span class="comment">#转换成字符串</span></span><br><span class="line"><span class="comment"># output: 2024-02-05 22:12:48.663497</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="built_in">str</span>(now)))</span><br><span class="line"><span class="comment"># output: &lt;class &#x27;str&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">repr</span>(now))</span><br><span class="line"><span class="comment"># output: datetime.datetime(2024, 2, 5, 22, 12, 48, 663497)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">eval</span>(<span class="built_in">repr</span>(now)))  <span class="comment">#eval参数是字符串表达式 repr(now)当成整体作为参数执行 再返回repr之后的结果</span></span><br><span class="line"><span class="comment"># output: 2024-02-05 22:12:48.663497</span></span><br></pre></td></tr></table></figure>
+<p>总结: repr返回的是字符串,一般用来获取对象</p>
+<p>obj == eval(repr(obj)) 这个公式是成立的</p>
+<h1 id="继承">继承</h1>
+<h2 id="定义">定义</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    attribute1, attribute2</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">method1</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">method2</span>(<span class="params">self</span>):</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(<span class="title class_ inherited__">A</span>):	<span class="comment"># 表示B继承A</span></span><br></pre></td></tr></table></figure>
+<p>如果有两个类,一个父类,一个子类,定义了同名的方法,如果实例化子类对象调用方法的时候先从子类查找
+，再一级一级往上查找</p>
+<h2 id="初始化">初始化</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="comment">#定义初始化方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,age,sex</span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">        self.sex = sex</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义普通方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">eat</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;人都需要吃饭&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义普通方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">speak</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;我会汉语&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#定义子类Student继承父类Person</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>(<span class="title class_ inherited__">Person</span>):</span><br><span class="line">    <span class="comment">#定义初始化方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,no,name,age,sex</span>):</span><br><span class="line">        self.no = no</span><br><span class="line">        <span class="comment"># 调用父类同名方法</span></span><br><span class="line">        <span class="comment"># 1.父类类名.父类方法</span></span><br><span class="line">        <span class="comment"># Person.__init__(self,name,age,sex)  直接调用父类的初始化方法，并将 self（当前实例）以及需要传递的参数传递给它。</span></span><br><span class="line">        <span class="comment"># 2.super()</span></span><br><span class="line">        <span class="comment"># super().__init__(name,age,sex) 使用 super() 函数获取父类的引用，并调用其初始化方法，无需手动传递 self，它会自动传递。</span></span><br><span class="line">        <span class="built_in">super</span>(Student, self).__init__(name,age,sex)</span><br><span class="line">        <span class="comment"># 调用父类 Person 的 __init__ 方法，以便在创建 Student 对象时对父类属性进行初始化。</span></span><br></pre></td></tr></table></figure>
+<h1 id="访问限制">访问限制</h1>
+<h2
+id="私有就是按java中私有属性的来理解">私有，就是按java中私有属性的来理解</h2>
+<p>__双下划线后面跟属性名</p>
+<p>举个例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="comment">#定义一个初始化方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,money</span>):</span><br><span class="line">        self.__name = name</span><br><span class="line">        self._money = money</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义普通方法对属性设置</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">setName</span>(<span class="params">self,value</span>):</span><br><span class="line">        <span class="comment">#数据过滤</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(value) &lt;= <span class="number">4</span>:</span><br><span class="line">            self.__name = value</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;名称的长度不能大于4个字符&#x27;</span>)</span><br><span class="line">    <span class="comment">#定义普通方法获取属性值</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">getName</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.__name</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义私有方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__sayHello</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;我的名字是:%s,我有%s存款&#x27;</span>%(self.__name,self._money))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义公有方法获取私有属性</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">self</span>):</span><br><span class="line">        self.__sayHello()</span><br></pre></td></tr></table></figure>
+<h2 id="半公开_单下划线后面跟属性名">半公开：_单下划线后面跟属性名</h2>
+<h2 id="公开直接属性名">公开：直接属性名</h2>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/d57017e8.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1282,106 +1443,6 @@ AssertError</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/48543190.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/48543190.html" class="post-title-link" itemprop="url">虚拟环境</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-01-26 22:02:01" itemprop="dateCreated datePublished" datetime="2024-01-26T22:02:01+08:00">2024-01-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/48543190.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/48543190.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>269</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>conda管理环境与vir管理环境</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/48543190.html">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1453,7 +1514,7 @@ AssertError</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">125</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1514,7 +1575,7 @@ AssertError</p>
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">354k</span>
+    <span title="站点总字数">355k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
