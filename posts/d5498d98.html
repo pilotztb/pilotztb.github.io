@@ -30,7 +30,7 @@
 <meta property="og:description" content="循环loop">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-26T09:07:45.000Z">
-<meta property="article:modified_time" content="2024-04-26T11:26:49.024Z">
+<meta property="article:modified_time" content="2024-04-26T14:49:08.443Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -219,7 +219,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-04-26 17:07:45 / 修改时间：19:26:49" itemprop="dateCreated datePublished" datetime="2024-04-26T17:07:45+08:00">2024-04-26</time>
+              <time title="创建时间：2024-04-26 17:07:45 / 修改时间：22:49:08" itemprop="dateCreated datePublished" datetime="2024-04-26T17:07:45+08:00">2024-04-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,7 +262,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>224</span>
+              <span>754</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -289,7 +289,50 @@
 <p>举例：等差数列求和，第一项是1，公差是2，一共有5项</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:</span><br><span class="line">    MOV CX, 4</span><br><span class="line">    MOV AX, 1  </span><br><span class="line">    MOV BX, 1</span><br><span class="line">    LABEL: </span><br><span class="line">        ADD BX, 2 </span><br><span class="line">        ADD AX, BX </span><br><span class="line">        LOOP LABEL   </span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
 <hr style = "border:2px solid yellow">
-<h1 id="call和ret的使用">CALL和RET的使用</h1>
+<h1 id="汇编中函数的封装">汇编中函数的封装</h1>
+<h2 id="call和ret">CALL和RET</h2>
+<p>CALL相当于压栈，压入的是IP,这个IP是CALL的下一个语句的IP，否则就死循环了</p>
+<p>RET相当于弹栈，弹出的是IP</p>
+<p><a target="_blank" rel="noopener" href="https://youtube.com/watch?v=P-ppy8iRcEY">视频讲解</a></p>
+<h2 id="call-far-和-retf">CALL FAR 和 RETF</h2>
+<p>相对于上面同时压/弹CS和IP</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=MdKNEJp09L8">视频讲解</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9Nyugxx2_gw">视频讲解：单独使用RET会陷入死循环</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=OSla3HtKmeQ">视频讲解：单独使用CALL程序会跳转后顺序执行</a></p>
+<p>一个段的大小是16字节，从物理地址 = 段地址 * 16 +
+偏移地址就可以看出来</p>
+<h1 id="offset">OFFSET</h1>
+<p>取偏移地址</p>
+<hr style = "border:2px solid yellow">
+<p>举例：将s处一条指令复制到s0</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=rV23Eewgdu8">视频讲解</a></p>
+<hr style = "border:2px solid yellow">
+<h1 id="jmp">JMP</h1>
+<h2 id="短跳转和长跳转">短跳转和长跳转</h2>
+<p>短跳转只修改IP，且只存储相对距离（从JMP的下一条指令开始计算）</p>
+<p>长跳转修改CS和IP，同时存储目标跳转的CS和IP</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=OwuuAYreMho">视频讲解</a></p>
+<h2 id="word-ptr-和-dword-ptr">word ptr 和 dword ptr</h2>
+<p>word ptr读1个字，所以作为IP</p>
+<p>dword ptr 读2个字，所以作为CS和IP</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=6-PeurxPXMs">视频讲解</a></p>
+<h1 id="数组">数组</h1>
+<ol type="1">
+<li><p>arr[2]:这个表示先找到arr对应地址，再在这个地址基础上加2个字节，而不是表示找arr数字第三个元素</p></li>
+<li><p>虽然ASSUME DS:DATA表示将DATA段映射到DS寄存器，但是如果没有MOV AX,
+DATA MOV DS,
+AX依然无效。因为此时DS寄存器里的值和代码段DATA不一样</p></li>
+<li><p>可以在一个数组前添上1个标号表示这个数组（相当于变量名）ARR DB
+01H, 02H, 03H ARR就是标号</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=C70HwHfBURc">视频讲解</a></p></li>
+</ol>
 
     </div>
 
@@ -325,7 +368,10 @@
     <a href="/posts/8e5029c4.html" rel="prev" title="第二部分_寄存器">
       <i class="fa fa-chevron-left"></i> 第二部分_寄存器
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/posts/1e229983.html" rel="next" title="第四部分_实战代码">
+      第四部分_实战代码 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -385,7 +431,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AFloop"><span class="nav-number">1.</span> <span class="nav-text">循环loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#call%E5%92%8Cret%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">CALL和RET的使用</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AFloop"><span class="nav-number">1.</span> <span class="nav-text">循环loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E4%B8%AD%E5%87%BD%E6%95%B0%E7%9A%84%E5%B0%81%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">汇编中函数的封装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#call%E5%92%8Cret"><span class="nav-number">2.1.</span> <span class="nav-text">CALL和RET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-far-%E5%92%8C-retf"><span class="nav-number">2.2.</span> <span class="nav-text">CALL FAR 和 RETF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#offset"><span class="nav-number">3.</span> <span class="nav-text">OFFSET</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jmp"><span class="nav-number">4.</span> <span class="nav-text">JMP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%AD%E8%B7%B3%E8%BD%AC%E5%92%8C%E9%95%BF%E8%B7%B3%E8%BD%AC"><span class="nav-number">4.1.</span> <span class="nav-text">短跳转和长跳转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#word-ptr-%E5%92%8C-dword-ptr"><span class="nav-number">4.2.</span> <span class="nav-text">word ptr 和 dword ptr</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">5.</span> <span class="nav-text">数组</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -401,7 +447,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -462,13 +508,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">361k</span>
+    <span title="站点总字数">362k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:28</span>
+    <span title="站点阅读时长">5:29</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

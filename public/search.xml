@@ -14582,7 +14582,50 @@ href="https://www.youtube.com/watch?v=zgTDIypy7II">视频讲解</a></p>
 <p>举例：等差数列求和，第一项是1，公差是2，一共有5项</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:</span><br><span class="line">    MOV CX, 4</span><br><span class="line">    MOV AX, 1  </span><br><span class="line">    MOV BX, 1</span><br><span class="line">    LABEL: </span><br><span class="line">        ADD BX, 2 </span><br><span class="line">        ADD AX, BX </span><br><span class="line">        LOOP LABEL   </span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
 <hr style = "border:2px solid yellow">
-<h1 id="call和ret的使用">CALL和RET的使用</h1>
+<h1 id="汇编中函数的封装">汇编中函数的封装</h1>
+<h2 id="call和ret">CALL和RET</h2>
+<p>CALL相当于压栈，压入的是IP,这个IP是CALL的下一个语句的IP，否则就死循环了</p>
+<p>RET相当于弹栈，弹出的是IP</p>
+<p><a href="https://youtube.com/watch?v=P-ppy8iRcEY">视频讲解</a></p>
+<h2 id="call-far-和-retf">CALL FAR 和 RETF</h2>
+<p>相对于上面同时压/弹CS和IP</p>
+<p><a
+href="https://www.youtube.com/watch?v=MdKNEJp09L8">视频讲解</a></p>
+<p><a
+href="https://www.youtube.com/watch?v=9Nyugxx2_gw">视频讲解：单独使用RET会陷入死循环</a></p>
+<p><a
+href="https://www.youtube.com/watch?v=OSla3HtKmeQ">视频讲解：单独使用CALL程序会跳转后顺序执行</a></p>
+<p>一个段的大小是16字节，从物理地址 = 段地址 * 16 +
+偏移地址就可以看出来</p>
+<h1 id="offset">OFFSET</h1>
+<p>取偏移地址</p>
+<hr style = "border:2px solid yellow">
+<p>举例：将s处一条指令复制到s0</p>
+<p><a
+href="https://www.youtube.com/watch?v=rV23Eewgdu8">视频讲解</a></p>
+<hr style = "border:2px solid yellow">
+<h1 id="jmp">JMP</h1>
+<h2 id="短跳转和长跳转">短跳转和长跳转</h2>
+<p>短跳转只修改IP，且只存储相对距离（从JMP的下一条指令开始计算）</p>
+<p>长跳转修改CS和IP，同时存储目标跳转的CS和IP</p>
+<p><a
+href="https://www.youtube.com/watch?v=OwuuAYreMho">视频讲解</a></p>
+<h2 id="word-ptr-和-dword-ptr">word ptr 和 dword ptr</h2>
+<p>word ptr读1个字，所以作为IP</p>
+<p>dword ptr 读2个字，所以作为CS和IP</p>
+<p><a
+href="https://www.youtube.com/watch?v=6-PeurxPXMs">视频讲解</a></p>
+<h1 id="数组">数组</h1>
+<ol type="1">
+<li><p>arr[2]:这个表示先找到arr对应地址，再在这个地址基础上加2个字节，而不是表示找arr数字第三个元素</p></li>
+<li><p>虽然ASSUME DS:DATA表示将DATA段映射到DS寄存器，但是如果没有MOV AX,
+DATA MOV DS,
+AX依然无效。因为此时DS寄存器里的值和代码段DATA不一样</p></li>
+<li><p>可以在一个数组前添上1个标号表示这个数组（相当于变量名）ARR DB
+01H, 02H, 03H ARR就是标号</p>
+<p><a
+href="https://www.youtube.com/watch?v=C70HwHfBURc">视频讲解</a></p></li>
+</ol>
 ]]></content>
       <categories>
         <category>汇编语言</category>
@@ -14593,7 +14636,7 @@ href="https://www.youtube.com/watch?v=zgTDIypy7II">视频讲解</a></p>
     <title>第二部分_寄存器</title>
     <url>/posts/8e5029c4.html</url>
     <content><![CDATA[<h1 id="逻辑地址和物理地址">逻辑地址和物理地址</h1>
-<p>&lt;!-</p>
+<p>&lt;!--mor</p>
 <p>物理地址 = 逻辑地址 * 16 + 偏移地址</p>
 <p>如果有[]，默认情况下相当于将[]里面的地址加到DS上，形成物理地址</p>
 <p><a
@@ -15121,6 +15164,24 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040922513948
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA_BYTE  EQU THIS BYTE</span><br><span class="line">DATA_WORD  DW 10 DUP(0)</span><br><span class="line">          ……</span><br><span class="line">          MOV AX, DATA_WORD</span><br><span class="line">          MOV BL, DATA_BYTE</span><br><span class="line">          …...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><font color = "yellow">问题：什么意思？</font></p>
 <hr style = "border:2px solid yellow">
+]]></content>
+      <categories>
+        <category>汇编语言</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>第四部分_实战代码</title>
+    <url>/posts/1e229983.html</url>
+    <content><![CDATA[<h1 id="输出hello-world">输出hello world</h1>
+<span id="more"></span>
+<h1 id="求数组最值">求数组最值</h1>
+<h1 id="字符串大小写转换">字符串大小写转换</h1>
+<h1 id="数组求和">数组求和</h1>
+<h1 id="数组赋值">数组赋值</h1>
+<h1 id="数组反转">数组反转</h1>
+<h1 id="动态规划">动态规划</h1>
+<h1 id="二重循环">二重循环</h1>
 ]]></content>
       <categories>
         <category>汇编语言</category>
