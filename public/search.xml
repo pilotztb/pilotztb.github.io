@@ -14636,7 +14636,7 @@ href="https://www.youtube.com/watch?v=C70HwHfBURc">视频讲解</a></p></li>
     <title>第二部分_寄存器</title>
     <url>/posts/8e5029c4.html</url>
     <content><![CDATA[<h1 id="逻辑地址和物理地址">逻辑地址和物理地址</h1>
-<p>&lt;!--mor</p>
+<span id="more"></span>
 <p>物理地址 = 逻辑地址 * 16 + 偏移地址</p>
 <p>如果有[]，默认情况下相当于将[]里面的地址加到DS上，形成物理地址</p>
 <p><a
