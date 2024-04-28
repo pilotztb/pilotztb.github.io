@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/848000f06f9bab43c0caf5c3442d2f1.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/1210195b519767f284585841a64be1c.jpg">
 <meta property="article:published_time" content="2024-04-24T09:12:45.000Z">
-<meta property="article:modified_time" content="2024-04-28T12:59:52.055Z">
+<meta property="article:modified_time" content="2024-04-28T23:24:55.394Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0aebb4140cbbd50e56019031b3e20ce.jpg">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-28 20:59:52" itemprop="dateModified" datetime="2024-04-28T20:59:52+08:00">2024-04-28</time>
+                <time title="修改时间：2024-04-29 07:24:55" itemprop="dateModified" datetime="2024-04-29T07:24:55+08:00">2024-04-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,14 +273,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -404,6 +404,21 @@ S2，若V=0，无溢出；V=1，有溢出。</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c5e7a3ddf5eee94a722539bd7a34175.png" /></p>
 <h4 id="原码一位乘法">原码一位乘法</h4>
+<ul>
+<li>符号位单独处理：乘数与被乘数异或</li>
+<li>绝对值相乘
+<ul>
+<li>ACC存放乘积高位，MQ存放乘数、乘积低位，X存放被乘数</li>
+<li>每次看MQ中最低位
+<ul>
+<li>为1，ACC加上被乘数</li>
+<li>为0，ACC加上0</li>
+</ul></li>
+<li>每次运算后右移一位，高位补0</li>
+<li>直到MQ仅剩原符号位，舍去不参与运算</li>
+</ul></li>
+<li>小数点位于ACC第一位（乘积符号位）后</li>
+</ul>
 <p><a
 target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1qE421K7BK/?spm_id_from=333.999.0.0">视频讲解：计算机原码一位乘法原理</a></p>
 <p><a
@@ -418,7 +433,8 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=SAFbPZ4H2dQ
 <p><font color = "red">3. 三种选择</font></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240423233748320.png" /></p>
-<p><a href="">视频讲解：实操手工模拟计算机补码一位乘法运算</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1sb421Y7Lw/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解：实操手工模拟计算机补码一位乘法运算</a></p>
 <h3 id="定点数除法运算">定点数除法运算</h3>
 <h4 id="原码恢复余数法">原码恢复余数法</h4>
 <p><a
