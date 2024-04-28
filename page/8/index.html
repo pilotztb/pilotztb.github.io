@@ -192,6 +192,175 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/fdcdf70e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/fdcdf70e.html" class="post-title-link" itemprop="url">论文笔记：Beyond the Prior Forgery Knowledge Mining</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-14 08:46:00" itemprop="dateCreated datePublished" datetime="2024-02-14T08:46:00+08:00">2024-02-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deepfake/" itemprop="url" rel="index"><span itemprop="name">Deepfake</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deepfake/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文阅读</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/fdcdf70e.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/fdcdf70e.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="abstract">Abstract</h1>
+<h2 id="以前方法存在的问题">以前方法存在的问题：</h2>
+<p>都只是为了捕获特定的伪造线索，比如噪声(noise patterns),
+混合边界(blending boundaries)和频率(frequency
+artifacts),导致容易陷入局部最优，从而降低鲁棒性和泛化能力</p>
+<h2 id="创新点">创新点</h2>
+<p>提出CFM框架，原文which can be flexibly assembled with various
+backbones to boost their generalization and robustness
+performance，那么是一种模块吗？</p>
+<h3
+id="cfm框架组成先把原文放在这看后面怎么说">CFM框架组成(先把原文放在这，看后面怎么说)</h3>
+<h4
+id="首先构建了一个细粒度的三元组并通过先验知识不可知的数据增强来抑制特定的伪造痕迹">首先构建了一个细粒度的三元组，并通过先验知识不可知的数据增强来抑制特定的伪造痕迹</h4>
+<p>Specifically, we first build a fine-grained triplet and suppress
+specific forgery traces through prior knowledge-agnostic data
+augmentation</p>
+<h4
+id="随后我们提出了一个细粒度的关系学习原型通过实例和局部相似感知损失来挖掘伪造中的关键信息">随后，我们提出了一个细粒度的关系学习原型，通过实例和局部相似感知损失来挖掘伪造中的关键信息</h4>
+<p>Subsequently, we propose a fine-grained relation learning prototype
+to mine critical information in forgeries through instance and local
+similarity-aware losses</p>
+<h4
+id="此外我们设计了一种新颖的渐进式学习控制器来引导模型专注于主要特征组件使其能够以从粗到精的方式学习关键伪造特征">此外，我们设计了一种新颖的渐进式学习控制器来引导模型专注于主要特征组件，使其能够以从粗到精的方式学习关键伪造特征</h4>
+<p>Moreover, we design a novel progressive learning controller to guide
+the model to focus on principal feature components, enabling it to learn
+critical forgery features in a coarse-to-fine manner</p>
+<h1 id="introduction">INTRODUCTION</h1>
+<h2 id="研究背景">研究背景：</h2>
+<p>以常见的4种伪造手段Deepfakes , Face2Face ,FaceSwap and
+NeuralTextures为代表的深度伪造技术不断发展，并且越来越多现成的伪造软件被开发被人利用，导致了严重的金融欺诈，假新闻和身份假冒。</p>
+<h2 id="早期检测">早期检测</h2>
+<p>生物信息，比如眨眼，头部位置不一致和面部扭曲伪影，效果差</p>
+<p>基于深度学习的检测，泛化性差</p>
+<p>基于深度学习与捕获先验已知的特征，对图像失真的鲁棒性差</p>
+<h2 id="目标">目标</h2>
+<p>抗过拟合的同时挖掘出尽可能多的伪造线索</p>
+<h2 id="实现">实现</h2>
+<h3 id="数据集准备">数据集准备</h3>
+<p>利用先验知识不可知的数据增强来防止模型陷入局部最优，并驱动模型学习更广义的伪造知识;</p>
+<h3 id="学习框架">学习框架</h3>
+<p>引入细粒度三元关系学习方案，使模型能够学习更多的固有特征表示</p>
+<h3 id="正则化方案">正则化方案</h3>
+<p>用PLC正则化</p>
+<h3 id="目标函数">目标函数</h3>
+<p>实例相似度感知损失和局部相似度感知损失来同时学习全局关键特征和局部细微伪影</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240214092733347.png"
+alt="基于EfficientNet-B4的不同线索提取器的注意图" />
+<figcaption
+aria-hidden="true">基于EfficientNet-B4的不同线索提取器的注意图</figcaption>
+</figure>
+<p>上图每个部分图像第一列是不同形式伪造的图片</p>
+<p>提取特征的主干网络都是EfficientNet-B4(可以换成线性transformer试试)</p>
+<p>第二列是用普通卷积层提取出的基本伪造特征</p>
+<p>第三列是用低频提取出的噪声线索</p>
+<p>第四列是用本文提出的CFM框架提取出的关键伪造线索</p>
+<p>a部分的图像并没有经过任何变换，b部分的图像经过了下采样，c部分的图像加入了高斯噪声，对比可以看出根据基础线索（估计即使边界）和根据频率线索的检测都受到了干扰</p>
+<h1 id="related-work">RELATED WORK</h1>
+<h2 id="a.-prior-knowledge-based-face-forgery-detection">A. Prior
+Knowledge-Based Face Forgery Detection</h2>
+<p>缺点：抗扰动性差</p>
+<h2 id="b.-face-forgery-detection-via-representation-learning">B. Face
+Forgery Detection via Representation Learning</h2>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/b018e611.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1400,125 +1569,6 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/1d3e51f96e99ba43706b
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/1adefb1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/1adefb1.html" class="post-title-link" itemprop="url">Acw730机器人跳跃问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-04 18:46:15" itemprop="dateCreated datePublished" datetime="2024-02-04T18:46:15+08:00">2024-02-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E4%BA%8C%E5%88%86/" itemprop="url" rel="index"><span itemprop="name">二分</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E4%BA%8C%E5%88%86/%E4%B8%AD%E7%AD%89%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">中等题</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/1adefb1.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/1adefb1.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a
-target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/732/">题目</a></h1>
-<p>机器人正在玩一个古老的基于 DOS 的游戏。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/1adefb1.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1590,7 +1640,7 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/desc
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1651,13 +1701,13 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/desc
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">362k</span>
+    <span title="站点总字数">366k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:29</span>
+    <span title="站点阅读时长">5:33</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
