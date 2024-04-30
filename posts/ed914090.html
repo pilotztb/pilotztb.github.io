@@ -22,20 +22,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="半导体存储芯片的结构">
+  <meta name="description" content="#基本的半导体原件及原理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3.2_SRAM和DRAM">
+<meta property="og:title" content="3.2_半导体随机存储器">
 <meta property="og:url" content="http://example.com/posts/ed914090.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
-<meta property="og:description" content="半导体存储芯片的结构">
+<meta property="og:description" content="#基本的半导体原件及原理">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071912303.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072201789.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072531019.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430142802775.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430143603217.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430152445001.png">
 <meta property="article:published_time" content="2024-04-29T22:07:39.000Z">
-<meta property="article:modified_time" content="2024-04-30T07:16:22.901Z">
+<meta property="article:modified_time" content="2024-04-30T08:28:17.535Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430142802775.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071912303.png">
 
 <link rel="canonical" href="http://example.com/posts/ed914090.html">
 
@@ -50,7 +54,7 @@
   };
 </script>
 
-  <title>3.2_SRAM和DRAM | Pilot's Blog</title>
+  <title>3.2_半导体随机存储器 | Pilot's Blog</title>
   
 
 
@@ -211,7 +215,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          3.2_SRAM和DRAM
+          3.2_半导体随机存储器
         </h1>
 
         <div class="post-meta">
@@ -222,7 +226,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-04-30 06:07:39 / 修改时间：15:16:22" itemprop="dateCreated datePublished" datetime="2024-04-30T06:07:39+08:00">2024-04-30</time>
+              <time title="创建时间：2024-04-30 06:07:39 / 修改时间：16:28:17" itemprop="dateCreated datePublished" datetime="2024-04-30T06:07:39+08:00">2024-04-30</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,14 +269,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -284,8 +288,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="半导体存储芯片的结构">半导体存储芯片的结构</h1>
+        <p>#基本的半导体原件及原理</p>
 <span id="more"></span>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=grkXoxG_Wqs">视频讲解:基本的半导体原件及原理</a></p>
+<h2 id="存储元">存储元</h2>
+<p>利用MOS管实现“高通低阻”</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430070558021.png" /></p>
+<h2 id="存储体结构组成">存储体结构组成</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430070637587.png" /></p>
+<blockquote>
+<p>注：1个字节8个bit，一个存储字多少个bit看具体设计</p>
+</blockquote>
+<h2 id="存储芯片的基本原理">存储芯片的基本原理</h2>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8GfnWZktHdk">视频讲解：存储芯片的基本原理</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071453570.png" /></p>
+<p>译码器将MAR中信号转换为选择信号，选择自选线(比如上图有3位，对应8个地址，从0~7)，被选择的字选线得到一个高电平信号，这根线对应的存储字中的存储的数据一起通过数据线传送</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071912303.png" style="zoom:50%;" /></p>
+<p>控制电路用来控制MAR与MDR中电信号稳定才传输</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072201789.png" style="zoom:50%;" /></p>
+<p>芯片的选择控制与读写控制如上图</p>
+<p>封装前后芯片组成如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072531019.png" style="zoom:50%;" /></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=7iP6daJ_EwA">视频讲解：存储芯片的封装和引脚数量的计算</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=juOp0XLhOl0">视频讲解：存储芯片中的地址数量和存储字长的表示和计算</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430073723378.png" /></p>
+<h1 id="半导体存储芯片的结构">半导体存储芯片的结构</h1>
+<!--more-->
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/57f794b2ede60ee204ec064557c09c8.png" /></p>
 <ul>
@@ -394,6 +430,12 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=pJL39mmLPt4
 <h2 id="每次刷新多少存储单元">每次刷新多少存储单元：</h2>
 <p>以行为单位，一次刷新一行</p>
 <p>使用行列地址的目的：减少选通线</p>
+<p>解释：什么叫行，为什么要拆成行</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430152445001.png" style="zoom:50%;" /></p>
+<p><font color = "yellow">原因：降低选通线的数量，比如如果地址线有8位，一个平面需要<span
+class="math inline">\(2^8 =
+256\)</span>根选通线，而展开成二维后需要<span class="math inline">\(2^4
++ 2^4 = 32\)</span>根选通线</font></p>
 <h2 id="如何刷新">如何刷新</h2>
 <p>通过硬件支持，读出一行的信息后重新写入，占用1个读/写周期</p>
 <h2 id="何时刷新">何时刷新</h2>
@@ -419,6 +461,13 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=pJL39mmLPt4
 </ul>
 <p><a
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3fzfdsz-DNk">视频讲解：DRAM的刷新</a></p>
+<h1 id="darm地址复用技术">DARM地址复用技术</h1>
+<p>DRAM芯片容量较大，通常采用<strong>地址复用技术</strong>，即行地址和列地址分两次用同样的地址线输入</p>
+<ul>
+<li>地址线数量变为一半</li>
+<li>选通线变为行选通和列选通线共计两根</li>
+</ul>
+<p><a href="">视频讲解：DARM地址复用技术</a></p>
 <h1 id="ram的读写周期">RAM的读写周期</h1>
 <h2 id="sram的读周期">SRAM的读周期</h2>
 <p><img
@@ -437,12 +486,6 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/162e0be361888a1e337e58
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5eaf1af7fb19.png" /></p>
 <p>过程原理与读类似，等待信号稳定。</p>
-<h1 id="地址复用技术">地址复用技术</h1>
-<p>DRAM芯片容量较大，通常采用<strong>地址复用技术</strong>，即行地址和列地址分两次用同样的地址线输入</p>
-<ul>
-<li>地址线数量变为一半</li>
-<li>选通线变为行选通和列选通线共计两根</li>
-</ul>
 <h1 id="只读存储器rom">只读存储器（ROM）</h1>
 <h2 id="rom的特点">ROM的特点</h2>
 <ul>
@@ -488,7 +531,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5ea
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/posts/ed914090.html" title="3.2_SRAM和DRAM">http://example.com/posts/ed914090.html</a>
+    <a href="http://example.com/posts/ed914090.html" title="3.2_半导体随机存储器">http://example.com/posts/ed914090.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -509,8 +552,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5ea
       <i class="fa fa-chevron-left"></i> 3.1_存储器概述
     </a></div>
       <div class="post-nav-item">
-    <a href="/posts/df1c2374.html" rel="next" title="3.2_半导体随机存储器">
-      3.2_半导体随机存储器 <i class="fa fa-chevron-right"></i>
+    <a href="/posts/df1c2374.html" rel="next" title="3.3_主存储器与CPU的连接">
+      3.3_主存储器与CPU的连接 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -571,7 +614,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5ea
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">半导体存储芯片的结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sram%E5%92%8Cdram%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">SRAM和DRAM的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dram%E8%8A%AF%E7%89%87"><span class="nav-number">2.1.</span> <span class="nav-text">DRAM芯片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sram%E8%8A%AF%E7%89%87"><span class="nav-number">2.2.</span> <span class="nav-text">SRAM芯片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dram%E7%9A%84%E5%88%B7%E6%96%B0"><span class="nav-number">3.</span> <span class="nav-text">DRAM的刷新</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B7%E6%96%B0%E7%9A%84%E9%A2%91%E7%8E%87"><span class="nav-number">3.1.</span> <span class="nav-text">刷新的频率：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E6%AC%A1%E5%88%B7%E6%96%B0%E5%A4%9A%E5%B0%91%E5%AD%98%E5%82%A8%E5%8D%95%E5%85%83"><span class="nav-number">3.2.</span> <span class="nav-text">每次刷新多少存储单元：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%B7%E6%96%B0"><span class="nav-number">3.3.</span> <span class="nav-text">如何刷新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E5%88%B7%E6%96%B0"><span class="nav-number">3.4.</span> <span class="nav-text">何时刷新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ram%E7%9A%84%E8%AF%BB%E5%86%99%E5%91%A8%E6%9C%9F"><span class="nav-number">4.</span> <span class="nav-text">RAM的读写周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sram%E7%9A%84%E8%AF%BB%E5%91%A8%E6%9C%9F"><span class="nav-number">4.1.</span> <span class="nav-text">SRAM的读周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sram%E7%9A%84%E5%86%99%E5%91%A8%E6%9C%9F"><span class="nav-number">4.2.</span> <span class="nav-text">SRAM的写周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E5%A4%8D%E7%94%A8%E6%8A%80%E6%9C%AF"><span class="nav-number">5.</span> <span class="nav-text">地址复用技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8rom"><span class="nav-number">6.</span> <span class="nav-text">只读存储器（ROM）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#rom%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">6.1.</span> <span class="nav-text">ROM的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rom%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">6.2.</span> <span class="nav-text">ROM的分类</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%85%83"><span class="nav-number">1.</span> <span class="nav-text">存储元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E4%BD%93%E7%BB%93%E6%9E%84%E7%BB%84%E6%88%90"><span class="nav-number">2.</span> <span class="nav-text">存储体结构组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">存储芯片的基本原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">半导体存储芯片的结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sram%E5%92%8Cdram%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number"></span> <span class="nav-text">SRAM和DRAM的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dram%E8%8A%AF%E7%89%87"><span class="nav-number">1.</span> <span class="nav-text">DRAM芯片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sram%E8%8A%AF%E7%89%87"><span class="nav-number">2.</span> <span class="nav-text">SRAM芯片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dram%E7%9A%84%E5%88%B7%E6%96%B0"><span class="nav-number"></span> <span class="nav-text">DRAM的刷新</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B7%E6%96%B0%E7%9A%84%E9%A2%91%E7%8E%87"><span class="nav-number">1.</span> <span class="nav-text">刷新的频率：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E6%AC%A1%E5%88%B7%E6%96%B0%E5%A4%9A%E5%B0%91%E5%AD%98%E5%82%A8%E5%8D%95%E5%85%83"><span class="nav-number">2.</span> <span class="nav-text">每次刷新多少存储单元：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%B7%E6%96%B0"><span class="nav-number">3.</span> <span class="nav-text">如何刷新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E5%88%B7%E6%96%B0"><span class="nav-number">4.</span> <span class="nav-text">何时刷新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#darm%E5%9C%B0%E5%9D%80%E5%A4%8D%E7%94%A8%E6%8A%80%E6%9C%AF"><span class="nav-number"></span> <span class="nav-text">DARM地址复用技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ram%E7%9A%84%E8%AF%BB%E5%86%99%E5%91%A8%E6%9C%9F"><span class="nav-number"></span> <span class="nav-text">RAM的读写周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sram%E7%9A%84%E8%AF%BB%E5%91%A8%E6%9C%9F"><span class="nav-number">1.</span> <span class="nav-text">SRAM的读周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sram%E7%9A%84%E5%86%99%E5%91%A8%E6%9C%9F"><span class="nav-number">2.</span> <span class="nav-text">SRAM的写周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8rom"><span class="nav-number"></span> <span class="nav-text">只读存储器（ROM）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#rom%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">ROM的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rom%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">ROM的分类</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -648,7 +691,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5ea
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">364k</span>
+    <span title="站点总字数">365k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

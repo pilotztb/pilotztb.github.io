@@ -14177,329 +14177,6 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024043006211752
       </categories>
   </entry>
   <entry>
-    <title>3.2_SRAM和DRAM</title>
-    <url>/posts/ed914090.html</url>
-    <content><![CDATA[<h1 id="半导体存储芯片的结构">半导体存储芯片的结构</h1>
-<span id="more"></span>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/57f794b2ede60ee204ec064557c09c8.png" /></p>
-<ul>
-<li><strong>存储矩阵</strong>：由大量相同的位存储单元阵列构成</li>
-<li><strong>译码驱动</strong>：将来自地址总线的地址信号翻译成对应存储单元的选通信号，
-该信号在读写电路的配合下完成对被选中单元的读/写操作</li>
-<li><strong>读写电路</strong>：包括读出放大器和写入电路，用来完成读/写操作</li>
-<li><strong>地址线</strong>：决定CPU访问存储矩阵的哪里，<strong>单向</strong>输入，位数取决于芯片的容量</li>
-<li><strong>数据线</strong>：进行数据的读写，<strong>双向</strong>读写，位数取决于芯片能够读/写的位数</li>
-<li><strong>片选线</strong>：用于确定哪一个存储芯片被选中，可以表示为
-<ul>
-<li>CS‾CS：芯片选择，低电平有效</li>
-<li>CE‾CE：芯片使能，低电平有效</li>
-</ul></li>
-<li>读写控制线：可以有一根，也可以有两根
-<ul>
-<li>一根
-<ul>
-<li>WE‾WE：低电平写有效，高电平读有效</li>
-</ul></li>
-<li>两根
-<ul>
-<li>OW‾OW：允许读，低电平有效</li>
-<li>WE‾WE：允许写，低电平有效</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>芯片的容量由地址线和数据线一起决定：</p>
-<p>芯片的容量=2地址线根数×数据线根数芯片的容量=2地址线根数×数据线根数</p>
-<h1 id="sram和dram的区别">SRAM和DRAM的区别</h1>
-<h2 id="dram芯片">DRAM芯片</h2>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430142802775.png" style="zoom:50%;" /></p>
-<p>写入：字选择线加5V，数据线加5V，电容内存储电荷，表示写入1，反之就是0</p>
-<p>读出：字选择线加5V，如果此时电容有点，电容就放电，就表示输出1，反之就是0</p>
-<p><a
-href="https://www.youtube.com/watch?v=MsayKaswc6g">视频讲解</a></p>
-<h2 id="sram芯片">SRAM芯片</h2>
-<p>双稳态触发器</p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430143603217.png" style="zoom:50%;" /></p>
-<p>A高B低：1</p>
-<p>A低B高：0</p>
-<p>相应的读/写就是相应的2根数据线BL和BLX就是根据上面高低输出/输出，比如BL输出高电平，BLX输出低电平，那么就是1</p>
-<p><a
-href="https://www.youtube.com/watch?v=pJL39mmLPt4">视频讲解:SRAM</a></p>
-<table>
-<colgroup>
-<col style="width: 37%" />
-<col style="width: 21%" />
-<col style="width: 41%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">特点</th>
-<th style="text-align: center;">SRAM</th>
-<th style="text-align: center;">DRAM</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">存储信息（0、1）</td>
-<td style="text-align: center;">触发器（双稳态）</td>
-<td style="text-align: center;">电容（充放电）</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">破坏性读出</td>
-<td style="text-align: center;">非</td>
-<td style="text-align: center;">是</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">需要刷新</td>
-<td style="text-align: center;">不要</td>
-<td style="text-align: center;">需要（电容上的电荷只能维持2ms）</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">送行列地址（行地址，列地址）</td>
-<td style="text-align: center;">同时传送</td>
-<td style="text-align: center;">分两次送</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">运行速度</td>
-<td style="text-align: center;">块</td>
-<td style="text-align: center;">慢</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">集成度</td>
-<td style="text-align: center;">低</td>
-<td style="text-align: center;">高</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">发热量</td>
-<td style="text-align: center;">大</td>
-<td style="text-align: center;">小</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">存储成本</td>
-<td style="text-align: center;">高</td>
-<td style="text-align: center;">低</td>
-</tr>
-</tbody>
-</table>
-<p><a
-href="https://www.youtube.com/watch?v=pJL39mmLPt4">视频讲解：SRAM和DRAM对比</a></p>
-<h1 id="dram的刷新">DRAM的刷新</h1>
-<h2 id="刷新的频率">刷新的频率：</h2>
-<p>一般为2ms</p>
-<h2 id="每次刷新多少存储单元">每次刷新多少存储单元：</h2>
-<p>以行为单位，一次刷新一行</p>
-<p>使用行列地址的目的：减少选通线</p>
-<h2 id="如何刷新">如何刷新</h2>
-<p>通过硬件支持，读出一行的信息后重新写入，占用1个读/写周期</p>
-<h2 id="何时刷新">何时刷新</h2>
-<p>假设DRAM内部结构排列成 128X128 的形式，读/写周期0.5μs</p>
-<ul>
-<li><strong>分散刷新</strong>
-<ul>
-<li>每读写一次就刷新该行</li>
-<li>前0.5μs用于读写、后0.5μs用于刷新</li>
-<li>系统的存取周期变为1μs</li>
-</ul></li>
-<li><strong>集中刷新</strong>
-<ul>
-<li>2ms内集中安排时间刷新</li>
-<li>例如最后128个周期（64μs）全部用于刷新128行</li>
-<li>用于刷新的存储周期内无法访问存储器，称为<strong>访存死区</strong></li>
-</ul></li>
-<li><strong>异步刷新</strong>
-<ul>
-<li>将128次刷新平均分布在2ms内</li>
-<li>每15.6μs会有一个0.5μs的<strong>死时间</strong></li>
-</ul></li>
-</ul>
-<p><a
-href="https://www.youtube.com/watch?v=3fzfdsz-DNk">视频讲解：DRAM的刷新</a></p>
-<h1 id="ram的读写周期">RAM的读写周期</h1>
-<h2 id="sram的读周期">SRAM的读周期</h2>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/162e0be361888a1e337e58c42f7ddc1.png" /></p>
-<ul>
-<li><span class="math inline">\(t_{CO}\)</span>
-之前：等待地址线稳定</li>
-<li><span class="math inline">\(t_{CO}\)</span>：片选保持时间</li>
-<li>数据全部读出之后，在外部总线上稳定的出现，片选信号失效</li>
-<li><span class="math inline">\(t_{A}\)</span>：读出时间</li>
-<li><span class="math inline">\(t_{RC}\)</span> ：读周期</li>
-</ul>
-<p>当使用一根读写控制线时，写使能信号WE全程保持高电平。</p>
-<p>这些时序参数描述了存储器操作时各种信号的作用和持续时间，确保正确的数据传输和存储器操作。</p>
-<h2 id="sram的写周期">SRAM的写周期</h2>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5eaf1af7fb19.png" /></p>
-<p>过程原理与读类似，等待信号稳定。</p>
-<h1 id="地址复用技术">地址复用技术</h1>
-<p>DRAM芯片容量较大，通常采用<strong>地址复用技术</strong>，即行地址和列地址分两次用同样的地址线输入</p>
-<ul>
-<li>地址线数量变为一半</li>
-<li>选通线变为行选通和列选通线共计两根</li>
-</ul>
-<h1 id="只读存储器rom">只读存储器（ROM）</h1>
-<h2 id="rom的特点">ROM的特点</h2>
-<ul>
-<li>断电不丢失信息</li>
-<li>只读</li>
-</ul>
-<h2 id="rom的分类">ROM的分类</h2>
-<ul>
-<li>掩膜式只读存储器（MROM）
-<ul>
-<li>出厂时写入</li>
-</ul></li>
-<li>一次可编程只读存储器（PROM）
-<ul>
-<li>通过专门设备一次性写入</li>
-</ul></li>
-<li>可擦除可编程只读存储器（EPROM）
-<ul>
-<li>修改次数有限</li>
-<li>写入时间很长</li>
-</ul></li>
-<li>闪速存储器（Flash Memory）
-<ul>
-<li>如U盘</li>
-</ul></li>
-<li>固态硬盘（Solid State Drives）
-<ul>
-<li>控制端元+闪存芯片</li>
-</ul></li>
-</ul>
-]]></content>
-      <categories>
-        <category>计组</category>
-        <category>理论</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>3.2_半导体随机存储器</title>
-    <url>/posts/df1c2374.html</url>
-    <content><![CDATA[<h2 id="基本的半导体原件及原理">基本的半导体原件及原理</h2>
-<span id="more"></span>
-<p><a
-href="https://www.youtube.com/watch?v=grkXoxG_Wqs">视频讲解:基本的半导体原件及原理</a></p>
-<h3 id="存储元">存储元</h3>
-<p>利用MOS管实现“高通低阻”</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430070558021.png" /></p>
-<h3 id="存储体结构组成">存储体结构组成</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430070637587.png" /></p>
-<blockquote>
-<p>注：1个字节8个bit，一个存储字多少个bit看具体设计</p>
-</blockquote>
-<h2 id="存储芯片的基本原理">存储芯片的基本原理</h2>
-<p><a
-href="https://www.youtube.com/watch?v=8GfnWZktHdk">视频讲解：存储芯片的基本原理</a></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071453570.png" /></p>
-<p>译码器将MAR中信号转换为选择信号，选择自选线(比如上图有3位，对应8个地址，从0~7)，被选择的字选线得到一个高电平信号，这根线对应的存储字中的存储的数据一起通过数据线传送</p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071912303.png" style="zoom:50%;" /></p>
-<p>控制电路用来控制MAR与MDR中电信号稳定才传输</p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072201789.png" style="zoom:50%;" /></p>
-<p>芯片的选择控制与读写控制如上图</p>
-<p>封装前后芯片组成如下</p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072531019.png" style="zoom:50%;" /></p>
-<p><a
-href="https://www.youtube.com/watch?v=7iP6daJ_EwA">视频讲解：存储芯片的封装和引脚数量的计算</a></p>
-<p><a
-href="https://www.youtube.com/watch?v=juOp0XLhOl0">视频讲解：存储芯片中的地址数量和存储字长的表示和计算</a></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430073723378.png" /></p>
-<h2 id="主存连接原理">主存连接原理</h2>
-<h3 id="主存简单模型">主存简单模型</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b22791b744630498703ad51ca08a619.png" /></p>
-<p>三个输入信号：读/写信号、要读写的数据、数据的主存地址</p>
-<h3 id="连接原理">连接原理</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/6a3fec97c6d0d1f1aa0fe006b769e6c.png" /></p>
-<p>三个总线：数据总线、地址总线、控制总线（读/写）</p>
-<h3 id="主存的地址单元分配">主存的地址单元分配</h3>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/747950ef7f07cbf5549e0c5f212842b.jpg" style="zoom: 67%;" /></p>
-<ul>
-<li>存储单元的数量：总容量 ÷ 每个单元的容量</li>
-<li>地址线的数量应该等于总容量的位数。根据图中所示，1KB等于2的10次方字节（1KB
-= <span class="math inline">\(2^{10}\)</span>
-B），因此有10根地址线。</li>
-<li>如何存放一个字
-<ul>
-<li>字长为4B，实际上寻址时将四个存储单元看作一个</li>
-<li>一组内有4个存储单元，后两位表示序号，前面表示所在组</li>
-<li>每个存储单元存放两位十六进制数（8位二进制数）</li>
-<li>共四个存储单元，也就是一个字</li>
-</ul></li>
-</ul>
-<p><a
-href="https://www.youtube.com/watch?v=JVT9yXLECGE">视频讲解：寻址</a></p>
-<h2 id="主存容量的扩展">主存容量的扩展</h2>
-<h3 id="位扩展法">位扩展法</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f556c33ce71954c3de7f59502e725f7.png" /></p>
-<ul>
-<li><p>地址线、片选线和读写控制线<strong>并联</strong></p></li>
-<li><p>数据线依次连接CPU数据线的一位</p></li>
-</ul>
-<p>如上图中就将8片 8�×18<em>K</em>×1位的储芯片扩展为了
-8�×88<em>K</em>×8位</p>
-<h3 id="字扩展法">2、字扩展法</h3>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fassets%2F-MgTVRt7hyq7APa35yqR%2F-Mkw3JWDXPsOV-9B-gs-%2F-MkwDPf7nsbahYysOTqB%2F%E5%AD%97%E6%89%A9%E5%B1%95.png%3Falt%3Dmedia%26token%3D971813ee-cf70-4266-9690-dc0f85fb6cf9&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=5073ffb7375b50ef127e4b5410d545bd5ec2733a64ba185b4352b74c45a088d9"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<ul>
-<li><p>数据线、读写控制线和地址线<strong>并联</strong></p></li>
-<li><p>使用PU剩下的地址线连接片选线，选择当前读/写的芯片</p>
-<ul>
-<li><p>线选法：直接将地址线与片选线连接，一根地址线对应一根片选线</p></li>
-<li><p>译码器片选法：使用译码器将连接CPU地址线与片选线</p></li>
-</ul></li>
-</ul>
-<table>
-<colgroup>
-<col style="width: 58%" />
-<col style="width: 41%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>线选法</th>
-<th>译码器片选法</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>n条线 → n个选片信号</td>
-<td>n条线 → 2�2<em>n</em>个选片信号</td>
-</tr>
-<tr class="even">
-<td>电路简单</td>
-<td>电路复杂</td>
-</tr>
-<tr class="odd">
-<td>地址空间不连续（形如11、00的信号是无效的）</td>
-<td>地址空间可连续可以增加逻辑设计</td>
-</tr>
-</tbody>
-</table>
-<h3 id="字位扩展">3、字位扩展</h3>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fassets%2F-MgTVRt7hyq7APa35yqR%2F-MkwEzRZYnMs0LotKMID%2F-MkwGNv4ZVFQwoL_IFZ8%2F%E5%AD%97%E4%BD%8D%E6%89%A9%E5%B1%95.png%3Falt%3Dmedia%26token%3D3235b161-87f4-4282-ac3e-f33f0751636b&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=e56d034e4c24b6c32969e63d623575e4976a627b9d3c34b083d97eadbab7076c"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>计组</category>
-        <category>理论</category>
-      </categories>
-  </entry>
-  <entry>
     <title>2.3_同步与互斥</title>
     <url>/posts/971699ba.html</url>
     <content><![CDATA[<h2 id="进程同步的概念">进程同步的概念</h2>
@@ -15399,6 +15076,329 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5f648bda9a66a57c791fec
 ]]></content>
       <categories>
         <category>操作系统</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>3.2_半导体随机存储器</title>
+    <url>/posts/ed914090.html</url>
+    <content><![CDATA[<p>#基本的半导体原件及原理</p>
+<span id="more"></span>
+<p><a
+href="https://www.youtube.com/watch?v=grkXoxG_Wqs">视频讲解:基本的半导体原件及原理</a></p>
+<h2 id="存储元">存储元</h2>
+<p>利用MOS管实现“高通低阻”</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430070558021.png" /></p>
+<h2 id="存储体结构组成">存储体结构组成</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430070637587.png" /></p>
+<blockquote>
+<p>注：1个字节8个bit，一个存储字多少个bit看具体设计</p>
+</blockquote>
+<h2 id="存储芯片的基本原理">存储芯片的基本原理</h2>
+<p><a
+href="https://www.youtube.com/watch?v=8GfnWZktHdk">视频讲解：存储芯片的基本原理</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071453570.png" /></p>
+<p>译码器将MAR中信号转换为选择信号，选择自选线(比如上图有3位，对应8个地址，从0~7)，被选择的字选线得到一个高电平信号，这根线对应的存储字中的存储的数据一起通过数据线传送</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071912303.png" style="zoom:50%;" /></p>
+<p>控制电路用来控制MAR与MDR中电信号稳定才传输</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072201789.png" style="zoom:50%;" /></p>
+<p>芯片的选择控制与读写控制如上图</p>
+<p>封装前后芯片组成如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072531019.png" style="zoom:50%;" /></p>
+<p><a
+href="https://www.youtube.com/watch?v=7iP6daJ_EwA">视频讲解：存储芯片的封装和引脚数量的计算</a></p>
+<p><a
+href="https://www.youtube.com/watch?v=juOp0XLhOl0">视频讲解：存储芯片中的地址数量和存储字长的表示和计算</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430073723378.png" /></p>
+<h1 id="半导体存储芯片的结构">半导体存储芯片的结构</h1>
+<!--more-->
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/57f794b2ede60ee204ec064557c09c8.png" /></p>
+<ul>
+<li><strong>存储矩阵</strong>：由大量相同的位存储单元阵列构成</li>
+<li><strong>译码驱动</strong>：将来自地址总线的地址信号翻译成对应存储单元的选通信号，
+该信号在读写电路的配合下完成对被选中单元的读/写操作</li>
+<li><strong>读写电路</strong>：包括读出放大器和写入电路，用来完成读/写操作</li>
+<li><strong>地址线</strong>：决定CPU访问存储矩阵的哪里，<strong>单向</strong>输入，位数取决于芯片的容量</li>
+<li><strong>数据线</strong>：进行数据的读写，<strong>双向</strong>读写，位数取决于芯片能够读/写的位数</li>
+<li><strong>片选线</strong>：用于确定哪一个存储芯片被选中，可以表示为
+<ul>
+<li>CS‾CS：芯片选择，低电平有效</li>
+<li>CE‾CE：芯片使能，低电平有效</li>
+</ul></li>
+<li>读写控制线：可以有一根，也可以有两根
+<ul>
+<li>一根
+<ul>
+<li>WE‾WE：低电平写有效，高电平读有效</li>
+</ul></li>
+<li>两根
+<ul>
+<li>OW‾OW：允许读，低电平有效</li>
+<li>WE‾WE：允许写，低电平有效</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>芯片的容量由地址线和数据线一起决定：</p>
+<p>芯片的容量=2地址线根数×数据线根数芯片的容量=2地址线根数×数据线根数</p>
+<h1 id="sram和dram的区别">SRAM和DRAM的区别</h1>
+<h2 id="dram芯片">DRAM芯片</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430142802775.png" style="zoom:50%;" /></p>
+<p>写入：字选择线加5V，数据线加5V，电容内存储电荷，表示写入1，反之就是0</p>
+<p>读出：字选择线加5V，如果此时电容有点，电容就放电，就表示输出1，反之就是0</p>
+<p><a
+href="https://www.youtube.com/watch?v=MsayKaswc6g">视频讲解</a></p>
+<h2 id="sram芯片">SRAM芯片</h2>
+<p>双稳态触发器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430143603217.png" style="zoom:50%;" /></p>
+<p>A高B低：1</p>
+<p>A低B高：0</p>
+<p>相应的读/写就是相应的2根数据线BL和BLX就是根据上面高低输出/输出，比如BL输出高电平，BLX输出低电平，那么就是1</p>
+<p><a
+href="https://www.youtube.com/watch?v=pJL39mmLPt4">视频讲解:SRAM</a></p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 21%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">特点</th>
+<th style="text-align: center;">SRAM</th>
+<th style="text-align: center;">DRAM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">存储信息（0、1）</td>
+<td style="text-align: center;">触发器（双稳态）</td>
+<td style="text-align: center;">电容（充放电）</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">破坏性读出</td>
+<td style="text-align: center;">非</td>
+<td style="text-align: center;">是</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">需要刷新</td>
+<td style="text-align: center;">不要</td>
+<td style="text-align: center;">需要（电容上的电荷只能维持2ms）</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">送行列地址（行地址，列地址）</td>
+<td style="text-align: center;">同时传送</td>
+<td style="text-align: center;">分两次送</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">运行速度</td>
+<td style="text-align: center;">块</td>
+<td style="text-align: center;">慢</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">集成度</td>
+<td style="text-align: center;">低</td>
+<td style="text-align: center;">高</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">发热量</td>
+<td style="text-align: center;">大</td>
+<td style="text-align: center;">小</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">存储成本</td>
+<td style="text-align: center;">高</td>
+<td style="text-align: center;">低</td>
+</tr>
+</tbody>
+</table>
+<p><a
+href="https://www.youtube.com/watch?v=pJL39mmLPt4">视频讲解：SRAM和DRAM对比</a></p>
+<h1 id="dram的刷新">DRAM的刷新</h1>
+<h2 id="刷新的频率">刷新的频率：</h2>
+<p>一般为2ms</p>
+<h2 id="每次刷新多少存储单元">每次刷新多少存储单元：</h2>
+<p>以行为单位，一次刷新一行</p>
+<p>使用行列地址的目的：减少选通线</p>
+<p>解释：什么叫行，为什么要拆成行</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430152445001.png" style="zoom:50%;" /></p>
+<p><font color = "yellow">原因：降低选通线的数量，比如如果地址线有8位，一个平面需要<span
+class="math inline">\(2^8 =
+256\)</span>根选通线，而展开成二维后需要<span class="math inline">\(2^4
++ 2^4 = 32\)</span>根选通线</font></p>
+<h2 id="如何刷新">如何刷新</h2>
+<p>通过硬件支持，读出一行的信息后重新写入，占用1个读/写周期</p>
+<h2 id="何时刷新">何时刷新</h2>
+<p>假设DRAM内部结构排列成 128X128 的形式，读/写周期0.5μs</p>
+<ul>
+<li><strong>分散刷新</strong>
+<ul>
+<li>每读写一次就刷新该行</li>
+<li>前0.5μs用于读写、后0.5μs用于刷新</li>
+<li>系统的存取周期变为1μs</li>
+</ul></li>
+<li><strong>集中刷新</strong>
+<ul>
+<li>2ms内集中安排时间刷新</li>
+<li>例如最后128个周期（64μs）全部用于刷新128行</li>
+<li>用于刷新的存储周期内无法访问存储器，称为<strong>访存死区</strong></li>
+</ul></li>
+<li><strong>异步刷新</strong>
+<ul>
+<li>将128次刷新平均分布在2ms内</li>
+<li>每15.6μs会有一个0.5μs的<strong>死时间</strong></li>
+</ul></li>
+</ul>
+<p><a
+href="https://www.youtube.com/watch?v=3fzfdsz-DNk">视频讲解：DRAM的刷新</a></p>
+<h1 id="darm地址复用技术">DARM地址复用技术</h1>
+<p>DRAM芯片容量较大，通常采用<strong>地址复用技术</strong>，即行地址和列地址分两次用同样的地址线输入</p>
+<ul>
+<li>地址线数量变为一半</li>
+<li>选通线变为行选通和列选通线共计两根</li>
+</ul>
+<p><a href="">视频讲解：DARM地址复用技术</a></p>
+<h1 id="ram的读写周期">RAM的读写周期</h1>
+<h2 id="sram的读周期">SRAM的读周期</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/162e0be361888a1e337e58c42f7ddc1.png" /></p>
+<ul>
+<li><span class="math inline">\(t_{CO}\)</span>
+之前：等待地址线稳定</li>
+<li><span class="math inline">\(t_{CO}\)</span>：片选保持时间</li>
+<li>数据全部读出之后，在外部总线上稳定的出现，片选信号失效</li>
+<li><span class="math inline">\(t_{A}\)</span>：读出时间</li>
+<li><span class="math inline">\(t_{RC}\)</span> ：读周期</li>
+</ul>
+<p>当使用一根读写控制线时，写使能信号WE全程保持高电平。</p>
+<p>这些时序参数描述了存储器操作时各种信号的作用和持续时间，确保正确的数据传输和存储器操作。</p>
+<h2 id="sram的写周期">SRAM的写周期</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5eaf1af7fb19.png" /></p>
+<p>过程原理与读类似，等待信号稳定。</p>
+<h1 id="只读存储器rom">只读存储器（ROM）</h1>
+<h2 id="rom的特点">ROM的特点</h2>
+<ul>
+<li>断电不丢失信息</li>
+<li>只读</li>
+</ul>
+<h2 id="rom的分类">ROM的分类</h2>
+<ul>
+<li>掩膜式只读存储器（MROM）
+<ul>
+<li>出厂时写入</li>
+</ul></li>
+<li>一次可编程只读存储器（PROM）
+<ul>
+<li>通过专门设备一次性写入</li>
+</ul></li>
+<li>可擦除可编程只读存储器（EPROM）
+<ul>
+<li>修改次数有限</li>
+<li>写入时间很长</li>
+</ul></li>
+<li>闪速存储器（Flash Memory）
+<ul>
+<li>如U盘</li>
+</ul></li>
+<li>固态硬盘（Solid State Drives）
+<ul>
+<li>控制端元+闪存芯片</li>
+</ul></li>
+</ul>
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>3.3_主存储器与CPU的连接</title>
+    <url>/posts/df1c2374.html</url>
+    <content><![CDATA[<h2 id="主存连接原理">主存连接原理</h2>
+<p>&lt;!--mor</p>
+<h3 id="主存简单模型">主存简单模型</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b22791b744630498703ad51ca08a619.png" /></p>
+<p>三个输入信号：读/写信号、要读写的数据、数据的主存地址</p>
+<h3 id="连接原理">连接原理</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/6a3fec97c6d0d1f1aa0fe006b769e6c.png" /></p>
+<p>三个总线：数据总线、地址总线、控制总线（读/写）</p>
+<h3 id="主存的地址单元分配">主存的地址单元分配</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/747950ef7f07cbf5549e0c5f212842b.jpg" style="zoom: 67%;" /></p>
+<ul>
+<li>存储单元的数量：总容量 ÷ 每个单元的容量</li>
+<li>地址线的数量应该等于总容量的位数。根据图中所示，1KB等于2的10次方字节（1KB
+= <span class="math inline">\(2^{10}\)</span>
+B），因此有10根地址线。</li>
+<li>如何存放一个字
+<ul>
+<li>字长为4B，实际上寻址时将四个存储单元看作一个</li>
+<li>一组内有4个存储单元，后两位表示序号，前面表示所在组</li>
+<li>每个存储单元存放两位十六进制数（8位二进制数）</li>
+<li>共四个存储单元，也就是一个字</li>
+</ul></li>
+</ul>
+<p><a
+href="https://www.youtube.com/watch?v=JVT9yXLECGE">视频讲解：寻址</a></p>
+<h2 id="主存容量的扩展">主存容量的扩展</h2>
+<h3 id="位扩展法">位扩展法</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f556c33ce71954c3de7f59502e725f7.png" /></p>
+<ul>
+<li><p>地址线、片选线和读写控制线<strong>并联</strong></p></li>
+<li><p>数据线依次连接CPU数据线的一位</p></li>
+</ul>
+<p>如上图中就将8片 8�×18<em>K</em>×1位的储芯片扩展为了
+8�×88<em>K</em>×8位</p>
+<h3 id="字扩展法">字扩展法</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/efe6c142bb12db18c2e7aceea4155b7.png" /></p>
+<ul>
+<li><p>数据线、读写控制线和地址线<strong>并联</strong></p></li>
+<li><p>使用PU剩下的地址线连接片选线，选择当前读/写的芯片</p>
+<ul>
+<li><p>线选法：直接将地址线与片选线连接，一根地址线对应一根片选线</p></li>
+<li><p>译码器片选法：使用译码器将连接CPU地址线与片选线</p></li>
+</ul></li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 58%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>线选法</th>
+<th>译码器片选法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>n条线 → n个选片信号</td>
+<td>n条线 → 2�2<em>n</em>个选片信号</td>
+</tr>
+<tr class="even">
+<td>电路简单</td>
+<td>电路复杂</td>
+</tr>
+<tr class="odd">
+<td>地址空间不连续（形如11、00的信号是无效的）</td>
+<td>地址空间可连续可以增加逻辑设计</td>
+</tr>
+</tbody>
+</table>
+<h3 id="字位扩展">字位扩展</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/da523bbb75f333c121b384232099848.png" /></p>
+]]></content>
+      <categories>
+        <category>计组</category>
         <category>理论</category>
       </categories>
   </entry>
