@@ -30,7 +30,7 @@
 <meta property="og:description" content="进程同步的概念">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-28T01:41:29.000Z">
-<meta property="article:modified_time" content="2024-04-28T15:38:43.436Z">
+<meta property="article:modified_time" content="2024-04-30T02:44:21.967Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -217,10 +217,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-04-28 09:41:29 / 修改时间：23:38:43" itemprop="dateCreated datePublished" datetime="2024-04-28T09:41:29+08:00">2024-04-28</time>
+              <time title="创建时间：2024-04-28 09:41:29" itemprop="dateCreated datePublished" datetime="2024-04-28T09:41:29+08:00">2024-04-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-30 10:44:21" itemprop="dateModified" datetime="2024-04-30T10:44:21+08:00">2024-04-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -262,7 +268,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.7k</span>
+              <span>7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -310,6 +316,51 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=eUvtNDHsq98
 <li>有限等待：对请求访问的进程，应保证能在有限时间内进入临界区（保证不会饥饿）；</li>
 <li>让权等待：当进程不能进入临界区时，应立即释放处理机，防止进程忙等待。</li>
 </ol>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p>题1：为什么需要进程同步</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/52688d13cae644c1b6933db5f00727f.jpg"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>选C：</p>
+<p>因为进程同步的是管理多个程序运行，而这些进程都是异步的</p>
+<p>题2：进程之间的关系</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/4262ad18f0462b3266be5527e1d9164.jpg"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>进程B必须在A写入后才能读取，体现互斥（进程之间争夺互斥资源产生的制约）</p>
+<p>进程B和A存在数据交换，体现同步（进程之间需要交换信息和，相互等待而产生的制约）</p>
+<hr style = "border:2px solid yellow">
+<p>题3：临界区和临界资源的判断</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/9a235df8ff1b692ca5d0da913b7ccc1.jpg" /></p>
+<p>临界资源是互斥共享，一次只能给一个进程使用</p>
+<hr style = "border:2px solid yellow;">
+<p>题4：临界资源与互斥</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0d5463069e1401cbaffa89d9cf7a9b0.jpg" /></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1v1421D74W/?spm_id_from=333.1007.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
+<ol type="1">
+<li>共享资源,是共享资源就要互斥，不是就不用</li>
+<li>不同进程之间互不影响</li>
+</ol>
+<hr style = "border:2px solid yellow">
+<p>题5：对同步/互斥设计准则的理解</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/27c6a73cf98872fb9c87ae7911af464.jpg" /></p>
+<p>解析：</p>
+<p>1：体现了忙则等待</p>
+<p>2：体现了空闲让进</p>
+<p>3：体现了有限等待</p>
+<p>4：体现了让权等待</p>
+<hr style = "border:2px solid yellow;">
 <h2 id="临界区互斥的实现">临界区互斥的实现</h2>
 <h3 id="软件实现">软件实现</h3>
 <h4 id="单标志法">单标志法</h4>
@@ -345,6 +396,11 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=g1M9w_smOqI
 <li>遵循了空闲让进、忙则等待和有限等待原则；</li>
 <li>但是<strong>没有遵循让权等待原则</strong>（需要在CPU上不断循环检测）。</li>
 </ul>
+<hr style = "border:2px solid yellow">
+<p>举例：Peterson算法的考察</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/d8d62bc5a9e286b9f02538a34b01ad2.jpg" /></p>
+<hr style = "border:2px solid yellow">
 <h3 id="硬件实现">硬件实现</h3>
 <h4 id="中断屏蔽方法">中断屏蔽方法</h4>
 <p>利用开关中断的方式实现</p>
@@ -450,6 +506,119 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=6ATKzrA17mk
 </ol>
 <p><font color = "yellow">上面简称为“前V后P”,在实际解题时，每一对前驱关系都是一个进程同步问题</font></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">P1()&#123;</span><br><span class="line">    ...</span><br><span class="line">    S1;</span><br><span class="line">    V(a);</span><br><span class="line">    V(b);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P2()&#123;</span><br><span class="line">    ...</span><br><span class="line">    P(a);</span><br><span class="line">    S2;</span><br><span class="line">    V(c);</span><br><span class="line">    V(d);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P3()&#123;</span><br><span class="line">    ...</span><br><span class="line">    P(b);</span><br><span class="line">    S3;</span><br><span class="line">    V(g);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P4()&#123;</span><br><span class="line">    ...</span><br><span class="line">    P(c);</span><br><span class="line">    S4;</span><br><span class="line">    V(e);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P5()&#123;</span><br><span class="line">    ...</span><br><span class="line">    P(d);</span><br><span class="line">    S5;</span><br><span class="line">    V(f);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P6()&#123;</span><br><span class="line">    ...</span><br><span class="line">    P(e);</span><br><span class="line">    P(f);</span><br><span class="line">    P(g);</span><br><span class="line">    S6;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p>题1：信号量与进程数之间关系</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ab2cc7968b751cd4e4f29634741e51b.jpg" /></p>
+<p>互斥量</p>
+<p>互斥量初值一般为1，表示临界区只允许1个进程进入，从而实现互斥</p>
+<p>互斥量等于0时，表示临界区已有1个进程进入，临界区外无等待进程</p>
+<p>互斥量小于0时，表示临界区中有1个进程，临界区外等待的进程数量等于互斥量的绝对值</p>
+<p>资源量</p>
+<p>资源量初值可以是任何数，表示可用的资源数</p>
+<p>资源量小于0，表示所有进程已用完，等待的进程数就是资源量的绝对值</p>
+<hr style = "border: 2px solid yellow;">
+<p>题2：信号量与进程联系</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f4954fbcadca68b0f7dd56f3afa1e72.jpg" /></p>
+<p>解：每次允许2个，所以信号量初始值为2，同时有3个进程，所以可能有1个进程在临界区等待，所以最小值是1。所以答案是A</p>
+<hr style = "border: 2px solid yellow;">
+<p>题3：信号量与进程之间关系</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/40a765c00740c3b6e1f3f07504be624.jpg" /></p>
+<p>分析：</p>
+<p>唤醒另一个进程，但只是唤醒，说明这个进程要么在临界区，要么在临界区外等待，所以信号量的值小于等于0</p>
+<hr style="border: 2px solid yellow;">
+<p>题4：不同同步机制的比较</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/微信图片_20240331160825.jpg" />
+解析</p>
+<details>
+<summary>
+A：Peterson方法
+</summary>
+<pre><code>while(1) &#123;
+    turn = j;    // 表示谦让给对方
+    flag[i] = true;    // 表示自己希望进入
+    while(turn == j && flag[j] == true)    // 对方也希望进入并且自己还把机会谦让给对方了
+    // 临界区
+    flag[i] = false;
+    // 剩余区
+&#125;</code></pre>
+Peterson方法可以实现<br> 空闲让进<br> 忙则等待<br> 有限等待<br>
+但不能实现让权等待，因为是while循环就算无法获取临界资源也会占用CPU
+</details>
+<details>
+<summary>
+B:swap指令
+</summary>
+<pre><code>void swap(boolean *a, boolean *b) &#123;
+        boolean tmp = *a;
+        *a = *b;
+        *b = tmp;
+&#125;</code></pre>
+对于每个临界资源，<code>Swap</code>指令为其设置一个全局布尔变量<code>lock</code>，其初值为<code>FALSE</code>。<br>
+在每个进程中还会设置一个局部布尔变量<code>key</code>，其初值为<code>TRUE</code>。<br>
+有进程在临界区时，重复交换和检查过程，直到临界区里的进程退出<br>
+<pre><code>do &#123;
+    key = true;
+    do &#123;
+        swap(&lock, &key);
+    &#125;while(key == true);
+    // 临界区
+    lock = false;
+    // 剩余区
+&#125;while(true);</code></pre>
+swap可以实现空闲让进<br>
+但是swap不能实现让权等待，因为swap其实是硬件实现，所以会一鼓作气执行完，这就意味着不会中断，那么就不能实现让权等待
+</details>
+<details>
+<summary>
+C: 信号量方法
+</summary>
+<pre><code>typedef struct &#123;
+    int value;  //表示资源的数量
+    struct process *L;  //一个链表，用来链接所有等待当前资源的进程
+&#125;semaphore;
+void wait(semaphore S) &#123;
+    S.value--;  //表示申请一个资源
+    if(S.value < 0)&#123; //如果进程已经使用完了
+        将这个进程加到当前信号量S相应的阻塞队列中
+        block(S.L); //自我阻塞，放弃处理机，并且加入对应资源的阻塞队列中
+    &#125;   
+&#125;
+void signal(semaphore S) &#123;
+    S.value++;  //表示对应资源可以申请的数量增加1
+    if(S.value <= 0) &#123;  // 如果当前资源依然在被需求，仍有等待该进程的资源被阻塞
+        将S.L中第一个被阻塞的进程移除
+        wakeup(S.L) //唤醒S.L中第一个被阻塞的进程。与上面移除对应，从阻塞态转变为就绪态
+    &#125;
+&#125;</code></pre>
+信号量是同时满足了同步/阻塞的四种要求
+</details>
+<details>
+<summary>
+D: TSL指令
+</summary>
+<pre><code>boolean TSL(boolean *lock)&#123;
+    boolean old = *lock;
+    *lock = true;
+    return old;
+&#125;
+do &#123;
+    while(TSL(&lock));  //判断当前临界资源是否可以使用
+    临界区
+    lock = false;
+    剩余区
+&#125;(true)</code></pre>
+TSL也可以满足闲则让进，但和B的swap一样,TSL也是由机器代码实现，所以一口气执行完，所以不会中途退出，也就不能满足让权等待
+</details>
+<hr style = "border:2px solid yellow">
+<p>题5 信号量的使用</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/742d6f24bec32f2ab468dfd8bb3048f.jpg" /></p>
+<hr style = "border:2px solid yellow">
 <h2 id="管程">管程</h2>
 <h3 id="管程的定义和基本特征">管程的定义和基本特征</h3>
 <h4 id="什么是管程">什么是管程：</h4>
@@ -514,6 +683,29 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b6a96fe50423fdde236a2d
 </tr>
 </tbody>
 </table>
+<hr style = "border:2px solid yellow">
+<p>题1：管程的定义与特点考察</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/693515d869526eefdd1662014da3c60.jpg" /></p>
+<p>解析：</p>
+<p>A：管程既能实现互斥也能实现同步</p>
+<hr style = "border:2px solid yellow">
+<p>题2：管程组成</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f46ac2ec4358b3a0d85e60f9e826369.jpg" /></p>
+<p><font color = "red">管程只对自己负责</font></p>
+<p>题3：管程中wait和信号量中V操作区别与联系</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f271da63da1219c133a381104d17dc8.jpg" /></p>
+<p>解析</p>
+<p>信号量机制中的V操作一定会改变信号量S的值：S = S + 1</p>
+<p>管程中signal操作是针对某个条件变量，若不存在因该条件而阻塞的进程，则signal不会产生任何影响</p>
+<hr style = "border:2px solid yellow;">
+<p>题4：条件变量中各个操作的使用 <img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f836844501930974768b9a92cdf47c7.jpg" /></p>
+<p>解析：</p>
+<p>若进程A执行x.wait()操作，则进程A会被阻塞，并挂到条件变量x的阻塞队列上。如果进程B执行x.signal()，会唤醒x对应阻塞队列的队首进程，进程B不受影响</p>
+<hr style = "border:2px solid yellow">
 
     </div>
 
@@ -689,13 +881,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b6a96fe50423fdde236a2d
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">369k</span>
+    <span title="站点总字数">364k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:35</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
