@@ -328,10 +328,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-04-30 06:36:33 / 修改时间：16:54:58" itemprop="dateCreated datePublished" datetime="2024-04-30T06:36:33+08:00">2024-04-30</time>
+              <time title="创建时间：2024-04-30 06:36:33" itemprop="dateCreated datePublished" datetime="2024-04-30T06:36:33+08:00">2024-04-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-04 08:23:00" itemprop="dateModified" datetime="2024-05-04T08:23:00+08:00">2024-05-04</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -366,7 +372,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>527</span>
+              <span>517</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -386,83 +392,14 @@
 
       
           <h2 id="主存连接原理">主存连接原理</h2>
-<p>&lt;!--mor</p>
-<h3 id="主存简单模型">主存简单模型</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b22791b744630498703ad51ca08a619.png" /></p>
-<p>三个输入信号：读/写信号、要读写的数据、数据的主存地址</p>
-<h3 id="连接原理">连接原理</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/6a3fec97c6d0d1f1aa0fe006b769e6c.png" /></p>
-<p>三个总线：数据总线、地址总线、控制总线（读/写）</p>
-<h3 id="主存的地址单元分配">主存的地址单元分配</h3>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/747950ef7f07cbf5549e0c5f212842b.jpg" style="zoom: 67%;" /></p>
-<ul>
-<li>存储单元的数量：总容量 ÷ 每个单元的容量</li>
-<li>地址线的数量应该等于总容量的位数。根据图中所示，1KB等于2的10次方字节（1KB
-= <span class="math inline">\(2^{10}\)</span>
-B），因此有10根地址线。</li>
-<li>如何存放一个字
-<ul>
-<li>字长为4B，实际上寻址时将四个存储单元看作一个</li>
-<li>一组内有4个存储单元，后两位表示序号，前面表示所在组</li>
-<li>每个存储单元存放两位十六进制数（8位二进制数）</li>
-<li>共四个存储单元，也就是一个字</li>
-</ul></li>
-</ul>
-<p><a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=JVT9yXLECGE">视频讲解：寻址</a></p>
-<h2 id="主存容量的扩展">主存容量的扩展</h2>
-<h3 id="位扩展法">位扩展法</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f556c33ce71954c3de7f59502e725f7.png" /></p>
-<ul>
-<li><p>地址线、片选线和读写控制线<strong>并联</strong></p></li>
-<li><p>数据线依次连接CPU数据线的一位</p></li>
-</ul>
-<p>如上图中就将8片 8�×18<em>K</em>×1位的储芯片扩展为了
-8�×88<em>K</em>×8位</p>
-<h3 id="字扩展法">字扩展法</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/efe6c142bb12db18c2e7aceea4155b7.png" /></p>
-<ul>
-<li><p>数据线、读写控制线和地址线<strong>并联</strong></p></li>
-<li><p>使用PU剩下的地址线连接片选线，选择当前读/写的芯片</p>
-<ul>
-<li><p>线选法：直接将地址线与片选线连接，一根地址线对应一根片选线</p></li>
-<li><p>译码器片选法：使用译码器将连接CPU地址线与片选线</p></li>
-</ul></li>
-</ul>
-<table>
-<colgroup>
-<col style="width: 58%" />
-<col style="width: 41%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>线选法</th>
-<th>译码器片选法</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>n条线 → n个选片信号</td>
-<td>n条线 → 2�2<em>n</em>个选片信号</td>
-</tr>
-<tr class="even">
-<td>电路简单</td>
-<td>电路复杂</td>
-</tr>
-<tr class="odd">
-<td>地址空间不连续（形如11、00的信号是无效的）</td>
-<td>地址空间可连续可以增加逻辑设计</td>
-</tr>
-</tbody>
-</table>
-<h3 id="字位扩展">字位扩展</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/da523bbb75f333c121b384232099848.png" /></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/df1c2374.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
