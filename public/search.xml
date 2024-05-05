@@ -7521,7 +7521,7 @@ href="http://www.sund-xys.cn/emu8086%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97%EF%BC%8
     <url>/posts/4e8adcf4.html</url>
     <content><![CDATA[<h1 id="通用启动模版">通用启动模版</h1>
 <span id="more"></span>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; 定义数据段</span><br><span class="line">数据段名  SEGMENT</span><br><span class="line">                      </span><br><span class="line">数据段名  ENDS</span><br><span class="line">; 定义堆栈段</span><br><span class="line">堆栈段名  SEGMENT</span><br><span class="line">                      </span><br><span class="line">堆栈段名  ENDS</span><br><span class="line">; 定义代码段</span><br><span class="line">代码段名  SEGMENT</span><br><span class="line">	; 定义映射关系</span><br><span class="line">    ASSUME ┅</span><br><span class="line">START:</span><br><span class="line">	段地址装填</span><br><span class="line">    </span><br><span class="line">    ; 结束扫尾工作</span><br><span class="line">    MOV AH,4CH</span><br><span class="line">    INT 21H                   </span><br><span class="line">代码段名  ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    STR DB &#x27;Hello world&#x27;, &#x27;$&#x27;</span><br><span class="line">DATA ENDS</span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:                       </span><br><span class="line">    MOV AX, DATA</span><br><span class="line">    MOV DS, AX</span><br><span class="line"></span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
 <h1 id="判断一个数的正负">判断一个数的正负</h1>
 <p><strong>使用指令TEST</strong></p>
 <p>TEST功能简介：将两个操作数<font color = "red">进行逻辑与运算，并根据运算结果设置相关的标志位</font>。但是，Test命令的<font color = "yellow">两个操作数<strong>不会</strong>被改变</font>。运算结果在设置过相关标记位后会被丢弃。</p>
@@ -7629,6 +7629,8 @@ href="https://www.youtube.com/watch?v=zgTDIypy7II">视频讲解</a></p>
 <span id="more"></span>
 <p>先CX -
 1，然后判断CX是否为0，如果不是0跳转到之前设置的LABEL出，如果是0继续向下执行</p>
+<p>公式化记忆：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV CX NUM	; NUM表示循环次数</span><br><span class="line">LABEL:		; 循环跳回的位置</span><br><span class="line">	……</span><br><span class="line">	……</span><br><span class="line">	……</span><br><span class="line">	LOOP LABEL	; 循环</span><br></pre></td></tr></table></figure>
 <hr style = "border:2px solid yellow">
 <p>举例：等差数列求和，第一项是1，公差是2，一共有5项</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:</span><br><span class="line">    MOV CX, 4</span><br><span class="line">    MOV AX, 1  </span><br><span class="line">    MOV BX, 1</span><br><span class="line">    LABEL: </span><br><span class="line">        ADD BX, 2 </span><br><span class="line">        ADD AX, BX </span><br><span class="line">        LOOP LABEL   </span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
@@ -7735,8 +7737,20 @@ href="https://www.bilibili.com/video/BV1uT421C7rz/?spm_id_from=333.999.0.0">视�
     <url>/posts/1e229983.html</url>
     <content><![CDATA[<h1 id="输出hello-world">输出hello world</h1>
 <span id="more"></span>
-<h1 id="求数组最值">求数组最值</h1>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    STR DB &#x27;Hello world&#x27;, &#x27;$&#x27;	; &#x27;$&#x27;表示结尾</span><br><span class="line">DATA ENDS</span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:                       </span><br><span class="line">    MOV AX, DATA</span><br><span class="line">    MOV DS, AX</span><br><span class="line">    MOV DX, OFFSET STR	; 将要打印的东西的首地址的偏移地址移入寄存器DX</span><br><span class="line">    MOV AH, 9H</span><br><span class="line">    INT 21H</span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
 <h1 id="字符串大小写转换">字符串大小写转换</h1>
+<p>难点1：大小写转换</p>
+<p>小写转大写</p>
+<p>小写字母 - 20H = 大写字母</p>
+<p>大写转小写</p>
+<p>大写字母 + 20H = 小写字母</p>
+<p>难点2：写for循环</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV [0] 1	; 错误，不可以把立即数写到内存里面</span><br></pre></td></tr></table></figure>
+<p>难点3：</p>
+<p>判断字母是大写还是小写，判断空格</p>
+<p>完整代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    STR DB &#x27;HEllo World&#x27;,32,&#x27;$&#x27; </span><br><span class="line">    CHARA DB &#x27;a&#x27;</span><br><span class="line">DATA ENDS</span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:                       </span><br><span class="line">    MOV AX, DATA</span><br><span class="line">    MOV DS, AX     </span><br><span class="line">    ;   全部转为大写   </span><br><span class="line">    ; for(int i = 0; i &lt; str.lentth; i++)</span><br><span class="line">    ;   if(str[i]是小写) str 转大写</span><br><span class="line">    ;</span><br><span class="line">    MOV CX, 11          ;11表示字符串长度</span><br><span class="line">    MOV SI, OFFSET STR</span><br><span class="line">    LABEL1:        </span><br><span class="line">        MOV AL, [SI]    ;将指针BI当前指向的字母放到AL</span><br><span class="line">        CMP AL, 32      ;如果AL里面是空格</span><br><span class="line">        JE LABEL2       ;直接跳到LABEL2</span><br><span class="line">        CMP AL, CHARA   ;将AL和CHARA比较</span><br><span class="line">        JB LABEL2       ;如果AL比CHARA小，说明AL是大写</span><br><span class="line">        ; 如果AX比CHARA大，说明是小写，需要转大写</span><br><span class="line">        SUB AX, 20H</span><br><span class="line">    LABEL2:             ;如果是大写，直接写回并递增</span><br><span class="line">        MOV [SI],AL</span><br><span class="line">        INC SI    </span><br><span class="line">        LOOP LABEL1</span><br><span class="line">    MOV AH, 9H</span><br><span class="line">    INT 21H                              </span><br><span class="line">    </span><br><span class="line">    ; 全部转为小写</span><br><span class="line">    MOV CX, 11</span><br><span class="line">    MOV SI, OFFSET STR   </span><br><span class="line">    LABEL3:              </span><br><span class="line">        MOV AL, [SI] </span><br><span class="line">        CMP AL, 32</span><br><span class="line">        JE LABEL4</span><br><span class="line">        CMP AL, CHARA</span><br><span class="line">        JNB LABEL4</span><br><span class="line">        ADD AL, 20H</span><br><span class="line">    LABEL4:     </span><br><span class="line">        MOV [SI], AL</span><br><span class="line">        INC SI</span><br><span class="line">        LOOP LABEL3</span><br><span class="line">    MOV AH, 9</span><br><span class="line">    INT 21H      </span><br><span class="line">    </span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
+<h1 id="求数组最值">求数组最值</h1>
 <h1 id="数组求和">数组求和</h1>
 <h1 id="数组赋值">数组赋值</h1>
 <h1 id="数组反转">数组反转</h1>
@@ -11610,9 +11624,16 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024050507282920
 <li>页号的位数决定了每个段最多有多少页</li>
 <li>页内偏移量决定了页面的大小和内存块的大小</li>
 </ul>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240505091212442.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240505092216946.png" /></p>
+<p><font color = "yellow">段页式管理结构是二维的，需要显示给出段号和这个段首地址</font></p>
 <h4 id="数据结构">数据结构</h4>
 <p><strong>段表</strong>：段表项包括段号（隐含）、页表长度、页表存放块号（页表起始地址）</p>
 <p><strong>页表</strong>：页表项包含页号（隐含）、页面存放的内存块号</p>
+<p><a
+href="https://www.youtube.com/watch?v=O03Q-B6Z61I">视频讲解：段页式管理</a></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240505090606052.png" /></p>
 <h4 id="地址转化过程">地址转化过程</h4>
@@ -15341,6 +15362,231 @@ class="math inline">\(\text{Y}*{补} = 0111\)</span></p>
 ]]></content>
       <categories>
         <category>计组</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>3.2_虚拟内存</title>
+    <url>/posts/b9d479be.html</url>
+    <content><![CDATA[<h2 id="虚拟内存的概念">虚拟内存的概念</h2>
+<span id="more"></span>
+<h3 id="传统存储管理方式的特征">传统存储管理方式的特征</h3>
+<ol type="1">
+<li><strong>一次性</strong>：作业必须一次性全部装入内存才能开始运行
+<ul>
+<li>作业很大时，内存无法完全装入，导致作业无法运行</li>
+<li>大量作业运行时，内存无法容纳所有作业，导致多道程序并发性下降</li>
+</ul></li>
+<li><strong>驻留性</strong>：作业一旦进入内存，就会一直驻留在内存中，直到作业运行结束
+<ul>
+<li>会导致暂时无用的大量数据驻留在内存中，导致内存的浪费</li>
+</ul></li>
+</ol>
+<h3 id="局部性原理">局部性原理</h3>
+<p><strong>时间局部性</strong>：如果执行了程序中的某条指令，那么不久后这条指令很有可能再次执行；如果某个数据被访问过，不久之后该数据很可能再次被访问。(
+因为程序中存在大量的循环)</p>
+<p><strong>空间局部性</strong>：一旦程序访问了某个存储单元，在不久之后，其附近的存储单元也很有可能被访问。
+(因为很多数据在内存中都是连续存放的，并且程序的指令也是顺序地在内存中存放的)</p>
+<h3 id="虚拟存储器的定义和特征">虚拟存储器的定义和特征</h3>
+<p>基于<strong>局部性原理</strong>，</p>
+<ul>
+<li>在程序装入时，可以将程序中很快会用到的部分装入内存，暂时用不到的部分留在外存，
+就可以让程序开始执行。</li>
+<li>在程序执行过程中，当所访问的信息不在内存时，由操作系统负贵将所需信息从外存调入内存，然后继续执行程序。</li>
+<li>若内存空间不够，由操作系统负贵将内存中暂时用不到的信息换出到外存。</li>
+</ul>
+<p>在操作系统的管理下，在用户看来似乎有一个比实际内存大得多的内存，这就是<strong>虚拟内存</strong>。</p>
+<h4 id="虚拟内存的主要特征">虚拟内存的主要特征</h4>
+<ul>
+<li><strong>多次性</strong>：无需在作业运行时一次性全部装入内存，而是允许被分成多次调入内存</li>
+<li><strong>对换性</strong>：在作业运行时无需一直常驻内存，而是允许在作业运行过程中，将作业换入、换出</li>
+<li><strong>虚拟性</strong>：从逻辑上扩充了内存的容量，使用户看到的内存容量，远大于实际的容量</li>
+</ul>
+<h3 id="虚拟内存技术的实现">虚拟内存技术的实现</h3>
+<p>虚拟内存技术，允许一个作业分多次调入内存。如果采用连续分配方式，会不方便实现。因此，虚拟内存的实现需要建立在<strong>离散分配的内存管理方式</strong>基础上。</p>
+<ul>
+<li>请求分页存储管理</li>
+<li>请求分段存储管理</li>
+<li>请求段页式存储管理</li>
+</ul>
+<h2 id="请求分页管理方式">请求分页管理方式</h2>
+<p><strong>请求调页功能</strong>：将不在内存中的页面从外存调入内存</p>
+<p><strong>页面置换功能</strong>：将暂时用不到的页面调出到外存</p>
+<h3 id="页表结构">页表结构</h3>
+<p><a
+href="https://www.youtube.com/watch?v=76TOpLVoUSE">视频讲解：请求分页中页表结构</a></p>
+<p>请求分页式的页表内容包括：</p>
+<ul>
+<li>页号（隐含）</li>
+<li>内存块号</li>
+<li><strong>状态位</strong>：该页面是否已经调入内存</li>
+<li><strong>访问字段</strong>：该页面在一段时间内的被访问次数，用于页面置换参考</li>
+<li><strong>修改位</strong>：页面调入内存后是否被修改过</li>
+<li><strong>外存地址</strong>：页面在外存中的存储位置</li>
+</ul>
+<h3 id="缺页中断机构">缺页中断机构</h3>
+<p><a
+href="https://www.youtube.com/watch?v=yo3GXOep6VY">视频讲解：缺页中断</a></p>
+<p>在请求分页系统中，每当要访问的页面不在内存时，便产生一个<strong>缺页中断</strong>，然后由操作系统的<strong>缺页中断处理程序</strong>处理中断。</p>
+<p>此时<strong>缺页的进程阻塞</strong>，放入阻塞队列，调页完成后再将其唤醒，放回就绪队列。</p>
+<ol type="1">
+<li>如果内存中<strong>有空闲块</strong>，则为进程分配一个空闲块，将所缺页面装入该块，并修改页表中相应的页表项。</li>
+<li>如果内存中<strong>没有空闲块</strong>，则由页面置换算法选择一个页面淘汰，若该页面在内存期间被修改过，则要将其写回外存。未修改过的页面不用写回外存。</li>
+</ol>
+<p>缺页中断属于内中断，属于故障中断（可以被故障处理程序修复）</p>
+<h3 id="地址变换机构">地址变换机构</h3>
+<p><a
+href="https://www.youtube.com/watch?v=POkQILooQDI">视频讲解：地址变换</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/538ffe766624fae73dbdb27721b4a2e.png" style="zoom: 33%;" /></p>
+<ol type="1">
+<li>只有<strong>写指令</strong>才需要修改<strong>修改位</strong>。并且，一般来说只需修改快表中的数据，只有要将快表项删除时才需要写回内存中的慢表。这样可以减少访存次数。</li>
+<li>和普通的中断处理一样，缺页中断处理依然需要保留CPU现场。</li>
+<li>需要用某种页面置换算法来决定一个换出页面</li>
+<li>换入/换出页面都需要启动慢速的I/0操作，如果换入/
+换出太频繁，会有很大的开销。</li>
+<li>页面调入内存后，需要修改慢表，同时也需要将表项复制到快表中。</li>
+</ol>
+<h2 id="页面置换算法">页面置换算法</h2>
+<h3 id="最佳置换算法optoptimal">最佳置换算法（OPT，Optimal）</h3>
+<p><a
+href="https://www.youtube.com/watch?v=HQGlrb0jo-M">视频讲解：最佳置换</a></p>
+<p>每次选择淘汰的页面将是<strong>以后永不使用</strong>，或者<strong>在最长时间内不再被访问的页面</strong>，这样可以保证最低的缺页率。</p>
+<p>最佳置换算法可以保证最低的缺页率，但实际运行中无法预知接下来访问页面的顺序，因此<strong>最佳置换算法时无法实现的</strong>。</p>
+<h3 id="先进先出置换算法fifo">先进先出置换算法（FIFO）</h3>
+<p><a
+href="https://www.youtube.com/watch?v=YT9oYI_PwVY">视频讲解：先进先出</a></p>
+<p>每次选择淘汰的页面是<strong>最早进入内存的页面</strong>。</p>
+<p><strong>实现方法</strong>：把调入内存的页面根据调入的先后顺序排成一个队列，需要换出页面时选择队头页面即可。
+队列的最大长度取决于系统为进程分配了多少个内存块。</p>
+<p><strong>Belady异常</strong>：当为进程分配的物理块数增大时，缺页次数不减反增的异常现象。</p>
+<p><strong>只有FIFO算法会产生belady异常</strong>，且FIFO算法虽然实现简单，但是<strong>算法性能差</strong>。</p>
+<h3 id="最近最久未使用置换算法lru">最近最久未使用置换算法（LRU）</h3>
+<p><a
+href="https://www.youtube.com/watch?v=BdsGIDaq4dw">视频讲解：最近最久未使用</a></p>
+<p>每次淘汰的页面是<strong>最近最久未使用的页面</strong>。</p>
+<p><strong>实现方法</strong>：赋予每个页面对应的页表项中，用访问字段记录该页面<strong>自上次被访问以来所经历的时间t</strong>。
+当需要淘汰一个页面时，选择现有页面中t值最大的，即最近最久未使用的页面。</p>
+<p>实现需要硬件支持，<strong>性能较好，但开销较大</strong>。</p>
+<h3 id="时钟置换算法clock">时钟置换算法（CLOCK）</h3>
+<p><a
+href="https://www.youtube.com/watch?v=atnUe6aqdxY">视频讲解：时钟置换算法</a></p>
+<p>时钟置换算法是一种性能和开销较均衡的算法，又称CLOCK算法，或最近未用算法（NRU,
+Not Recently Used）。</p>
+<p>简单的CLOCK算法实现方法：</p>
+<ul>
+<li>为每个页面设置一个访问位，再将内存中的页面都通过链接指针链接成
+一个循环队列</li>
+<li>当某页被访问时，其访问位置为1</li>
+<li>当需要淘汰一个页面时，只需检查页的访问位
+<ul>
+<li>如果是0，就选择该页换出</li>
+<li>如果是1，则将它置为0，暂不换出，继续检查下一个页面</li>
+</ul></li>
+<li>若第一轮扫描中所有页面都是1，则将这些页面的访问位依次置为0后，再进行第二轮扫描
+<ul>
+<li>第二轮扫描中一定会有访问位为0的页面，因此简单的CLOCK算法选择-一个淘汰页面最多会经过两轮扫描</li>
+</ul></li>
+</ul>
+<h4 id="改进型的时钟算法">改进型的时钟算法</h4>
+<p>在原基础上，只有被淘汰的页面被修改过时，才需要写回外存。在其他条件都相同时，应<strong>优先淘汰没有修改过的页面</strong>，避免I/O操作。这就是改进型的时钟置换算法的思想。</p>
+<p><strong>实现方法</strong>：设置一个修改位，用于表示页面被修改过。0表示未被修改，1表示已修改。为方便讨论，用（访问位，修改位）的形式表示各页面状态。</p>
+<ul>
+<li>第一轮：从当前位置开始扫描到第一个（0，0）的帧用于替换。本轮扫描不修改任何标志位</li>
+<li>第二轮：若第一轮扫描失败，则重新扫描，查找第一个（0，1）的帧用于替换。本轮将所有扫描过的帧访问位设为0</li>
+<li>第三轮：若第二轮扫描失败，则重新扫描，查找第一个（0，0）的帧用于替换。本轮扫描不修改任何标志位</li>
+<li>第四轮：若第三轮扫描失败，则重新扫描，查找第一个（0，1）的帧用于替换。</li>
+</ul>
+<h2 id="页面分配策略">页面分配策略</h2>
+<h3 id="驻留集大小">驻留集大小</h3>
+<p><strong>驻留集</strong>：指请求分页存储管理中给进程分配的物理块的集合。</p>
+<p>在采用了虚拟存储技术的系统中，驻留集大小一般小于进程的总大小。</p>
+<ul>
+<li>若驻留集太小，会导致缺页频繁，系统要花大量的时间来处理缺页，实际用于进程推进的时间很少</li>
+<li>驻留集太大，又会导致多道程序并发度下降，资源利用率降低</li>
+</ul>
+<p>分配策略的分类：</p>
+<ul>
+<li>驻留集数量
+<ul>
+<li><strong>固定分配</strong>：操作系统为每个进程分配一组固定数目的物理块，在进程运行期间<strong>驻留集数量不再改变</strong>。</li>
+<li><strong>可变分配</strong>：先为每个进程分配一定数目的物理块，在进程运行期间，可根据情况做适当的增加或减少。</li>
+</ul></li>
+<li>置换策略
+<ul>
+<li><strong>局部置换</strong>：发生缺页时只能选进程自己的物理块进行置换</li>
+<li><strong>全局置换</strong>：可以将操作系统保留的空闲物理块分配给缺页进程，也可以将别的进程持有的物理块置换到外存，再分配给缺页进程</li>
+</ul></li>
+</ul>
+<p>由于采用全局置换必定会导致某个进程的驻留集数量发生变化，故实际上只有三种策略：</p>
+<h4 id="固定分配局部置换">固定分配局部置换</h4>
+<p>系统为每个进程分配一定数量的物理块，在整个运行期间都不改变。</p>
+<p>若进程在运行中发生缺页，则只能从该进程在内存中的页面中选出一页换出，然后再调入需要的页面。</p>
+<p><strong>缺点</strong>：很难在刚开始就确定应为每个进程分配多少个物理块才算合理。</p>
+<h4 id="可变分配全局置换">可变分配全局置换</h4>
+<p>刚开始会为每个进程分配一定数量的物理块。操作系统会保持一个空闲物理块队列。</p>
+<p>当某进程发生缺页时，从空闲物理块中取出一块分配给该进程；若已无空闲物理块，则可选择一个<strong>未锁定</strong>的页面换出外存，再将该物理块分配给缺页的进程。</p>
+<p>操作系统会将一些重要的页面锁定，不允许其被换出内存</p>
+<p>采用这种策略时，只要某进程发生缺页，
+都将获得新的物理块，仅当空闲物理块用完时，系统才选择一个未锁定的页面调出。被选择调出的页可能是系统中任何一个进程中的页，因此这个<strong>被选中的进程拥有的物理块会减少，缺页率会增加</strong>。</p>
+<h4 id="可变分配局部置换">可变分配局部置换</h4>
+<p>刚开始会为每个进程分配一定数量的物理块。</p>
+<p>当某进程发生缺页时，只允许从该进程自己的物理块中选出一个进行换出外存。</p>
+<ul>
+<li>如果进程在运行中<strong>频繁地缺页</strong>，系统会为该进程<strong>多分配</strong>几个物理块，直至该进程缺页率趋势适当程度；</li>
+<li>反之，如果进程在运行中<strong>缺页率特别低</strong>，则可适当<strong>减少</strong>分配给该进程的物理块。</li>
+</ul>
+<p><font color = "red">可变分配全局置换是一定会给分配，可变分配局部置换是需要看频率</font></p>
+<h3 id="调入页面的时机">调入页面的时机</h3>
+<h4 id="预调页策略">预调页策略</h4>
+<ul>
+<li>根据局部性原理
+<ul>
+<li>一次调入若干个相邻的页面可能比一次调入一个页面更高效</li>
+<li>但<strong>如果提前调入的页面中大多数都没被访问过，则又是低效的</strong></li>
+</ul></li>
+<li>因此可以预测不久之后可能访问到的页面，将它们预先调入内存，但目前预测成功率只有50%左右</li>
+<li>故这种策略<strong>主要用于进程的首次调入</strong>，
+由程序员指出应该先调入哪些部分</li>
+</ul>
+<h4 id="请求调页策略">请求调页策略</h4>
+<ul>
+<li>进程在运行期间发现缺页时才将所缺页面调入内存。</li>
+<li>由这种策略调入的页面一定会被访问到，不存在低效</li>
+<li>但由于每次只能调入一页，而每次调页都要磁盘I/O操作，因此I/O开销较大</li>
+<li>这种策略主要在进程运行中使用</li>
+</ul>
+<h3 id="从何处调入页面">从何处调入页面</h3>
+<ol type="1">
+<li><p>系统拥有足够的对换区空间</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240505111006676.png" /></p>
+<ul>
+<li>页面的调入、调出都是在内存与对换区之间进行，这样可以保证页面的调入、调出速度很快。</li>
+<li>在进程运行前，需将进程相关的数据从文件区复制到对换区</li>
+</ul></li>
+<li><p>系统缺少足够的对换区空间</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240505110923776.png" style="zoom:50%;" /></p>
+<ul>
+<li>凡是不会被修改的数据都直接从文件区调入，由于这些页面不会被修改，因此换出时不必写回磁盘，下次需要时再从文件区调入即可。</li>
+<li>对于可能被修改的部分，换出时需写回磁盘对换区，下次需要时再从对换区调入。</li>
+</ul></li>
+<li><p>UNIX方式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240505111105978.png" style="zoom:50%;" /></p>
+<ul>
+<li>运行之前进程有关的数据全部放在文件区，故未使用过的页面，都可从文件区调入。</li>
+<li>若被使用过的页面需要换出，则写回对换区，下次需要时从对换区调入。</li>
+</ul></li>
+</ol>
+<h2 id="抖动">抖动</h2>
+<p>刚刚换出的页面马上又要换入内存，刚刚换入的页面马上又要换出外存，这种频繁的页面调度行为称为<strong>抖动</strong>（颠簸）。</p>
+<p>产生抖动的主要原因是进程频繁访问的页面数目高于可用的物理块数（<strong>分配给进程的物理块不够</strong>）。</p>
+<h2 id="工作集">工作集</h2>
+<p>与驻留集不同，工作集指的是在某段时间间隔里，进程<strong>实际访问页面</strong>的集合。</p>
+<p>这段时间被称为<strong>窗口尺寸</strong>。一般来说，窗口尺寸会设计的比工作集大很多，根据所得的工作集大小，合理的分配驻留集的大小。</p>
+<p>工作集的大小若小于驻留集，则会发生<strong>抖动</strong>现象。</p>
+]]></content>
+      <categories>
+        <category>操作系统</category>
         <category>理论</category>
       </categories>
   </entry>

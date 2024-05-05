@@ -30,7 +30,7 @@
 <meta property="og:description" content="循环loop">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-26T09:07:45.000Z">
-<meta property="article:modified_time" content="2024-04-26T14:49:08.443Z">
+<meta property="article:modified_time" content="2024-05-05T06:52:37.324Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -217,10 +217,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-04-26 17:07:45 / 修改时间：22:49:08" itemprop="dateCreated datePublished" datetime="2024-04-26T17:07:45+08:00">2024-04-26</time>
+              <time title="创建时间：2024-04-26 17:07:45" itemprop="dateCreated datePublished" datetime="2024-04-26T17:07:45+08:00">2024-04-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-05 14:52:37" itemprop="dateModified" datetime="2024-05-05T14:52:37+08:00">2024-05-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -262,7 +268,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>754</span>
+              <span>816</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -285,6 +291,8 @@
 <span id="more"></span>
 <p>先CX -
 1，然后判断CX是否为0，如果不是0跳转到之前设置的LABEL出，如果是0继续向下执行</p>
+<p>公式化记忆：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MOV CX NUM	; NUM表示循环次数</span><br><span class="line">LABEL:		; 循环跳回的位置</span><br><span class="line">	……</span><br><span class="line">	……</span><br><span class="line">	……</span><br><span class="line">	LOOP LABEL	; 循环</span><br></pre></td></tr></table></figure>
 <hr style = "border:2px solid yellow">
 <p>举例：等差数列求和，第一项是1，公差是2，一共有5项</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:</span><br><span class="line">    MOV CX, 4</span><br><span class="line">    MOV AX, 1  </span><br><span class="line">    MOV BX, 1</span><br><span class="line">    LABEL: </span><br><span class="line">        ADD BX, 2 </span><br><span class="line">        ADD AX, BX </span><br><span class="line">        LOOP LABEL   </span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
@@ -447,7 +455,7 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=C70HwHfBURc
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -508,13 +516,13 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=C70HwHfBURc
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">364k</span>
+    <span title="站点总字数">369k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:31</span>
+    <span title="站点阅读时长">5:36</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
