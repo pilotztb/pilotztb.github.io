@@ -7758,6 +7758,23 @@ href="https://www.bilibili.com/video/BV1uT421C7rz/?spm_id_from=333.999.0.0">视�
 <h1 id="数组反转">数组反转</h1>
 <h1 id="动态规划">动态规划</h1>
 <h1 id="二重循环">二重循环</h1>
+<h1 id="十进制转十六进制并打印输出">十进制转十六进制并打印输出</h1>
+<p>字符串表示的十进制“12345” --&gt; 十六进制并在寄存器中3039H --&gt;
+字符串表示的十六进制“3039”</p>
+<p>第一个箭头</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240507203936568.png" /></p>
+<p>上面这个图就是得到10进制，但是只要存放在寄存器中会自动转为十六进制</p>
+<h2
+id="实现string类型转int类型自动由十进制转十六进制存放在寄存器中">实现string类型转int类型，自动由十进制转十六进制存放在寄存器中</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; for(int i = 0; i &lt; str.len; i++) data = data * 10 + (str[i] - &#x27;0&#x27;)</span><br><span class="line">FOR:       </span><br><span class="line">    ; AX = 10 * AX --&gt; AX = 8 * AX + AX  --&gt; AX &lt;&lt; 3 + AX &lt;&lt; 1</span><br><span class="line">    ; 实现乘10</span><br><span class="line">    MOV DX, AX</span><br><span class="line">    SHL AX, 3</span><br><span class="line">    SHL DX, 1</span><br><span class="line">    ADD AX, DX</span><br><span class="line">    ; 实现加上str[i], 不能直接写ADD AX, STR[SI],因为STR中是一个字节，AX是一个字，但又要考虑进位，所以需用ADC AH, 0</span><br><span class="line">    ADD AL, STR[SI]</span><br><span class="line">    ADC AH, 0</span><br><span class="line">    ; - ‘0’</span><br><span class="line">    SUB AX, &#x27;0&#x27;  </span><br><span class="line">    INC SI</span><br><span class="line">    LOOP FOR</span><br></pre></td></tr></table></figure>
+<h2
+id="将十六进制数字转str类型并在屏幕上打印">将十六进制数字转str类型并在屏幕上打印</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240507202358412.png" /></p>
+<p>十六进制0~9加30H得到对应ASCII码</p>
+<p>十六进制A~F加37H得到对饮ASCII码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; 将十六进制转ASCII码打印输出,当前结果保存在AX中</span><br><span class="line">FOR1:</span><br><span class="line">    ; 将AX中数保存到DX中         </span><br><span class="line">    MOV DX, AX </span><br><span class="line">    ; 将DX与0FH相与，那么前面都清0，就保留最后1位         </span><br><span class="line">    AND DX, 0FH</span><br><span class="line">    ; 将当前DX中的数先加上30H看得到的数与40H关系</span><br><span class="line">    ADD DX, 30H</span><br><span class="line">    CMP DX, 40H</span><br><span class="line">    ; 如果比40H小，说明目前得到的就是0~9的ASCII码，否则还要加7H才能得到A~F的ASCII码</span><br><span class="line">    JB DIGIT</span><br><span class="line">    ADD DX, 7H</span><br><span class="line">    DIGIT:    </span><br><span class="line">        ; 将DX中保存的ASCII码保存到内存中</span><br><span class="line">        MOV RES[BX], DL</span><br><span class="line">        DEC BX</span><br><span class="line">        ; 通过将AX右移1位，去掉AX中最后一个数</span><br><span class="line">        SHR AX, 4</span><br><span class="line">        LOOP FOR1</span><br><span class="line"></span><br><span class="line">MOV AH, 9H</span><br><span class="line">; 通过将RES字符串首地址赋给DX从而打印字符串</span><br><span class="line">MOV DX, OFFSET RES</span><br><span class="line">INT 21H</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>汇编语言</category>
@@ -8642,23 +8659,6 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bc3e302c70e3c9e2f4481d
     <url>/posts/7cc56e97.html</url>
     <content><![CDATA[<h1 id="算法复杂性分析">算法复杂性分析</h1>
 <span id="more"></span>
-<p>•<strong>算法复杂性</strong> <strong>=</strong>
-<strong>算法所需要的计算机资源</strong></p>
-<p>•算法的时间复杂性T(n)</p>
-<p>•算法的空间复杂性S(n)</p>
-<p>•其中n是问题的规模（输入大小）</p>
-<h2 id="算法的时间复杂性"><strong>算法的时间复杂性</strong></h2>
-<p>I是问题的规模为n的实例</p>
-<p>p(I)是实例I出现的概率，数学期望</p>
-<p>最坏情况下的时间复杂度</p>
-<p><span class="math inline">\(T_{max}(n) =
-max\{T(I)|size(I)=n\}\)</span></p>
-<p>最好情况下的时间复杂性</p>
-<p><span class="math inline">\(T_{min}(n) = min\{T(I)|size(I)=n
-\}\)</span></p>
-<p>平均情况</p>
-<p><span class="math inline">\(T_{avg}(n) = \sum_{size(I) =
-n}p(I)T(I)\)</span></p>
 <h3 id="算法渐近复杂性"><strong>算法渐近复杂性</strong></h3>
 <h5 id="渐近不严格小大">渐近（不严格小/大）</h5>
 <h6 id="渐近上界o">渐近上界<span class="math inline">\(O\)</span></h6>
@@ -8725,14 +8725,14 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040414284141
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240404143033534.png" /></p>
 <p><a
-href="https://www.bilibili.com/video/BV1Jx4y1v7Pg/?spm_id_from=333.999.0.0">视频讲解</a></p>
+href="https://www.bilibili.com/video/BV1Jx4y1v7Pg/?spm_id_from=333.999.0.0">视频讲解：矩阵连乘中乘法次数的计算</a></p>
 <h2 id="解决方案">解决方案</h2>
 <h3 id="穷举">穷举</h3>
 <p>时间复杂度分析：</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4bb32aa7f3c7a09736383e8366ee372.png" /></p>
 <p><a
-href="https://www.bilibili.com/video/BV1oZ421v7i7/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
+href="https://www.bilibili.com/video/BV1oZ421v7i7/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解：穷举法计算矩阵连乘问题序列数时间复杂度分析</a></p>
 <h3 id="动态规划">动态规划</h3>
 <p>状态转移方程</p>
 <p>其中参数的含义：</p>
@@ -8743,7 +8743,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040416525982
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240404165317052.png" /></p>
 <p><a
-href="https://www.bilibili.com/video/BV1uZ421B7zS/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
+href="https://www.bilibili.com/video/BV1uZ421B7zS/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解：动归解决矩阵连乘中转移方程推导与代码分析</a></p>
 <p>代码</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class MatrixChain &#123;</span><br><span class="line">    public static void matrixChain(int[] p, int n, int[][] m, int[][] s) &#123;</span><br><span class="line">        // Initialize diagonal elements of m to 0</span><br><span class="line">        for (int i = 1; i &lt;= n; i++)</span><br><span class="line">            m[i][i] = 0;</span><br><span class="line"></span><br><span class="line">        for (int r = 2; r &lt;= n; r++) &#123;</span><br><span class="line">            for (int i = 1; i &lt;= n - r + 1; i++) &#123;</span><br><span class="line">                int j = i + r - 1;</span><br><span class="line">                m[i][j] = m[i + 1][j] + p[i - 1] * p[i] * p[j];</span><br><span class="line">                s[i][j] = i;</span><br><span class="line">                for (int k = i + 1; k &lt; j; k++) &#123;</span><br><span class="line">                    int t = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j];</span><br><span class="line">                    if (t &lt; m[i][j]) &#123;</span><br><span class="line">                        m[i][j] = t;</span><br><span class="line">                        s[i][j] = k;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h3 id="备忘录">备忘录</h3>
@@ -8773,10 +8773,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c2f7a9fa4b9a76331c2b73
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lcsLength</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n, <span class="type">char</span>[] x, <span class="type">char</span>[] y, <span class="type">int</span>[][] c, <span class="type">int</span>[][] b)</span> &#123;</span><br><span class="line">    <span class="comment">// Initialize DP tables</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= m; i++) &#123;	<span class="comment">//列代表字符串X</span></span><br><span class="line">        c[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n; i++) &#123;	<span class="comment">//行代表字符串Y</span></span><br><span class="line">        c[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 控制变量法，先固定x的结尾，移动y的结尾</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (x[i] == y[j]) &#123;	<span class="comment">// 如果末尾相同</span></span><br><span class="line">                c[i][j] = c[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;	</span><br><span class="line">                b[i][j] = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c[i - <span class="number">1</span>][j] &gt;= c[i][j - <span class="number">1</span>]) &#123;	<span class="comment">//如果末尾不同且去x尾更长</span></span><br><span class="line">                c[i][j] = c[i - <span class="number">1</span>][j];</span><br><span class="line">                b[i][j] = <span class="number">2</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;	<span class="comment">//如果末尾相同且去y尾更长</span></span><br><span class="line">                c[i][j] = c[i][j - <span class="number">1</span>];</span><br><span class="line">                b[i][j] = <span class="number">3</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>根据上面得到的b矩阵构造最长公共子序列</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lcs</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j, <span class="type">char</span>[] x, <span class="type">int</span>[][] b)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (b[i][j] == <span class="number">1</span>) &#123;	<span class="comment">// 情况一：结尾相等</span></span><br><span class="line">        lcs(i - <span class="number">1</span>, j - <span class="number">1</span>, x, b);</span><br><span class="line">        System.out.print(x[i - <span class="number">1</span>]);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b[i][j] == <span class="number">2</span>) &#123;	<span class="comment">//情况而：结尾是y尾，y不动，去x尾</span></span><br><span class="line">        lcs(i - <span class="number">1</span>, j, x, b);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;	<span class="comment">//情况三：结尾是x尾，y不动，去x尾</span></span><br><span class="line">        lcs(i, j - <span class="number">1</span>, x, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405051912387.png" /></p>
 <p><a
-href="https://www.bilibili.com/video/BV1Cr421t7Ur/?spm_id_from=333.999.0.0">视频讲解</a></p>
+href="https://www.bilibili.com/video/BV1Cr421t7Ur/?spm_id_from=333.999.0.0">视频讲解：最长公共子序列的两种输出</a></p>
 <h1 id="最大子段和">最大子段和</h1>
 <h2 id="定义">定义</h2>
 <p><img

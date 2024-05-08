@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240423094143694.png">
 <meta property="article:published_time" content="2024-04-04T06:19:40.000Z">
-<meta property="article:modified_time" content="2024-04-23T15:26:07.239Z">
+<meta property="article:modified_time" content="2024-05-08T03:31:55.805Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240423094143694.png">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-23 23:26:07" itemprop="dateModified" datetime="2024-04-23T23:26:07+08:00">2024-04-23</time>
+                <time title="修改时间：2024-05-08 11:31:55" itemprop="dateModified" datetime="2024-05-08T11:31:55+08:00">2024-05-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -303,14 +303,14 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040414284141
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240404143033534.png" /></p>
 <p><a
-target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jx4y1v7Pg/?spm_id_from=333.999.0.0">视频讲解</a></p>
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jx4y1v7Pg/?spm_id_from=333.999.0.0">视频讲解：矩阵连乘中乘法次数的计算</a></p>
 <h2 id="解决方案">解决方案</h2>
 <h3 id="穷举">穷举</h3>
 <p>时间复杂度分析：</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4bb32aa7f3c7a09736383e8366ee372.png" /></p>
 <p><a
-target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oZ421v7i7/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oZ421v7i7/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解：穷举法计算矩阵连乘问题序列数时间复杂度分析</a></p>
 <h3 id="动态规划">动态规划</h3>
 <p>状态转移方程</p>
 <p>其中参数的含义：</p>
@@ -321,7 +321,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024040416525982
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240404165317052.png" /></p>
 <p><a
-target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1uZ421B7zS/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1uZ421B7zS/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解：动归解决矩阵连乘中转移方程推导与代码分析</a></p>
 <p>代码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class MatrixChain &#123;</span><br><span class="line">    public static void matrixChain(int[] p, int n, int[][] m, int[][] s) &#123;</span><br><span class="line">        // Initialize diagonal elements of m to 0</span><br><span class="line">        for (int i = 1; i &lt;= n; i++)</span><br><span class="line">            m[i][i] = 0;</span><br><span class="line"></span><br><span class="line">        for (int r = 2; r &lt;= n; r++) &#123;</span><br><span class="line">            for (int i = 1; i &lt;= n - r + 1; i++) &#123;</span><br><span class="line">                int j = i + r - 1;</span><br><span class="line">                m[i][j] = m[i + 1][j] + p[i - 1] * p[i] * p[j];</span><br><span class="line">                s[i][j] = i;</span><br><span class="line">                for (int k = i + 1; k &lt; j; k++) &#123;</span><br><span class="line">                    int t = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j];</span><br><span class="line">                    if (t &lt; m[i][j]) &#123;</span><br><span class="line">                        m[i][j] = t;</span><br><span class="line">                        s[i][j] = k;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h3 id="备忘录">备忘录</h3>
@@ -351,10 +351,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c2f7a9fa4b9a76331c2b73
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lcsLength</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n, <span class="type">char</span>[] x, <span class="type">char</span>[] y, <span class="type">int</span>[][] c, <span class="type">int</span>[][] b)</span> &#123;</span><br><span class="line">    <span class="comment">// Initialize DP tables</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= m; i++) &#123;	<span class="comment">//列代表字符串X</span></span><br><span class="line">        c[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n; i++) &#123;	<span class="comment">//行代表字符串Y</span></span><br><span class="line">        c[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 控制变量法，先固定x的结尾，移动y的结尾</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (x[i] == y[j]) &#123;	<span class="comment">// 如果末尾相同</span></span><br><span class="line">                c[i][j] = c[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;	</span><br><span class="line">                b[i][j] = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c[i - <span class="number">1</span>][j] &gt;= c[i][j - <span class="number">1</span>]) &#123;	<span class="comment">//如果末尾不同且去x尾更长</span></span><br><span class="line">                c[i][j] = c[i - <span class="number">1</span>][j];</span><br><span class="line">                b[i][j] = <span class="number">2</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;	<span class="comment">//如果末尾相同且去y尾更长</span></span><br><span class="line">                c[i][j] = c[i][j - <span class="number">1</span>];</span><br><span class="line">                b[i][j] = <span class="number">3</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>根据上面得到的b矩阵构造最长公共子序列</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lcs</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j, <span class="type">char</span>[] x, <span class="type">int</span>[][] b)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (b[i][j] == <span class="number">1</span>) &#123;	<span class="comment">// 情况一：结尾相等</span></span><br><span class="line">        lcs(i - <span class="number">1</span>, j - <span class="number">1</span>, x, b);</span><br><span class="line">        System.out.print(x[i - <span class="number">1</span>]);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b[i][j] == <span class="number">2</span>) &#123;	<span class="comment">//情况而：结尾是y尾，y不动，去x尾</span></span><br><span class="line">        lcs(i - <span class="number">1</span>, j, x, b);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;	<span class="comment">//情况三：结尾是x尾，y不动，去x尾</span></span><br><span class="line">        lcs(i, j - <span class="number">1</span>, x, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240405051912387.png" /></p>
 <p><a
-target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Cr421t7Ur/?spm_id_from=333.999.0.0">视频讲解</a></p>
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Cr421t7Ur/?spm_id_from=333.999.0.0">视频讲解：最长公共子序列的两种输出</a></p>
 <h1 id="最大子段和">最大子段和</h1>
 <h2 id="定义">定义</h2>
 <p><img
@@ -675,13 +673,13 @@ role="doc-backlink">↩︎</a></p></li>
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">375k</span>
+    <span title="站点总字数">376k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:41</span>
+    <span title="站点阅读时长">5:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
