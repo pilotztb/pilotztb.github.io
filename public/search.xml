@@ -15647,6 +15647,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024050511100667
     <title>第七章_二元关系</title>
     <url>/posts/fc115c62.html</url>
     <content><![CDATA[<h1 id="有序对与笛卡儿积">有序对与笛卡儿积</h1>
+<!--times-->
 <h2 id="有序对">有序对</h2>
 <h3 id="定义">定义</h3>
 <p>由两个元素 x 和
@@ -15709,7 +15710,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/86e37ee02d0eabdef3d7cf
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240506092806904.png" /></p>
 <hr style = "border:2px solid yellow">
 <h1 id="二元关系">二元关系</h1>
-<h2 id="定义-2">定义</h2>
+<h2 id="二元关系定义">二元关系定义</h2>
 <p>如果一个集合满足以下条件之一： (1) 集合非空, 且它的元素都是有序对 (2)
 集合是空集 则称该集合为一个二元关系, 简称为关系，记作R</p>
 <p><img
@@ -15719,6 +15720,86 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024050609352547
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240506093556257.png" /></p>
 <hr style = "border:2px solid yellow">
+<h2 id="a到b的关系与a上的关系">A到B的关系与A上的关系</h2>
+<h3 id="定义-2">定义</h3>
+<p>设A,B为集合, A×B的任何子集所定义的二元关系叫做从A 到B的二元关系,
+当A=B时则叫做A上的二元关系.</p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513135719978.png" /></p>
+<hr style = "border:2px solid yellow">
+<blockquote>
+<p>注：关系数量的计算</p>
+<p><font color = "red">A上的二元关系数量等价于A <span
+class="math inline">\(\times\)</span> A的子集数量</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513135854140.png" /></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0b09339d5af7d6a6189189f4db77df9.jpg" /></p>
+<hr style = "border:2px solid yellow">
+</blockquote>
+<h2 id="a上重要关系">A上重要关系</h2>
+<h3 id="空关系">空关系</h3>
+<p><span class="math inline">\(\emptyset\)</span> 是 $ A $
+上的关系，称为空关系。</p>
+<h3 id="全域关系">全域关系</h3>
+<p>全域关系 $ E_A = { (x,y) x A y A } = A A $</p>
+<h3 id="恒等关系">恒等关系</h3>
+<p>恒等关系 $ I_A = { (x,x) x A } $</p>
+<h3 id="小于等于关系">小于等于关系</h3>
+<p>小于等于关系 $ L_A = { (x,y) x,y A x y } $, $ A $ 为实数子集</p>
+<h3 id="整除关系">整除关系</h3>
+<p>整除关系 $ D_A = { (x,y) x,y A x y } $, $ A $ 为非零整数子集</p>
+<h3 id="包含关系">包含关系</h3>
+<p>包含关系 $ R = { (x,y) x,y A x y } $, $ A $ 是集合族。</p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513141310194.png" /></p>
+<hr style = "border:2px solid yellow">
+<h2 id="关系的表示">关系的表示</h2>
+<p>关系矩阵与关系图</p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513141412610.png" /></p>
+<hr style = "border:2px solid yellow">
+<h1 id="关系的运算">关系的运算</h1>
+<h2 id="定义域值域与域">定义域、值域与域</h2>
+<p><font color = "yellow">定义域：第一个元素组成的集合</font></p>
+<p><font color = "yellow">值域：第二个元素组成的集合</font></p>
+<p><font color = "yellow">域就是定义域和值域合并</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513141717678.png" /></p>
+<hr style = "border:2px solid yellow">
+<h2 id="逆运算">逆运算</h2>
+<p>就是前后交换位置</p>
+<h2 id="右复合运算">右复合运算</h2>
+<p><font color = "yellow">两个不同关系集合之间某两个关系之间传递</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ca5ef66d1cbe16696ec2f6e4365b928.jpg" /></p>
+<p>右复合（合成）画图</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513142250426.png" /></p>
+<hr style = "border:2px solid yellow">
+<h2 id="限制">限制</h2>
+<p><font color = "yellow">依次从A中选择元素，这些元素作为关系集合R中第一位</font></p>
+<p>R在A上的限制记作 R↾A, 其中 R↾A = { &lt;x,y&gt; | xRy∧x∈A }</p>
+<h2 id="像">像</h2>
+<p><font color = "yellow">依次从A中选择元素，这些元素在关系集合R中对应的第二位</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513142837727.png" /></p>
+<hr style = "border:2px solid yellow">
+<h2 id="关系运算的性质">关系运算的性质</h2>
 ]]></content>
       <categories>
         <category>离散数学</category>
