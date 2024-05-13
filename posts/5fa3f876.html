@@ -22,26 +22,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="#基本的半导体原件及原理">
+  <meta name="description" content="局部性原理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3.2_半导体随机存储器">
-<meta property="og:url" content="http://example.com/posts/ed914090.html">
+<meta property="og:title" content="3.6_高速缓冲存储器cache">
+<meta property="og:url" content="http://example.com/posts/5fa3f876.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
-<meta property="og:description" content="#基本的半导体原件及原理">
+<meta property="og:description" content="局部性原理">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071912303.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072201789.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072531019.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430142802775.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430143603217.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430152445001.png">
-<meta property="article:published_time" content="2024-04-29T22:07:39.000Z">
-<meta property="article:modified_time" content="2024-05-06T03:19:08.723Z">
+<meta property="article:published_time" content="2024-05-13T02:53:13.000Z">
+<meta property="article:modified_time" content="2024-05-13T03:59:03.430Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071912303.png">
 
-<link rel="canonical" href="http://example.com/posts/ed914090.html">
+<link rel="canonical" href="http://example.com/posts/5fa3f876.html">
 
 
 <script id="page-configurations">
@@ -54,7 +47,7 @@
   };
 </script>
 
-  <title>3.2_半导体随机存储器 | Pilot's Blog</title>
+  <title>3.6_高速缓冲存储器cache | Pilot's Blog</title>
   
 
 
@@ -202,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ed914090.html">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5fa3f876.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -215,7 +208,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          3.2_半导体随机存储器
+          3.6_高速缓冲存储器cache
         </h1>
 
         <div class="post-meta">
@@ -224,16 +217,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-04-30 06:07:39" itemprop="dateCreated datePublished" datetime="2024-04-30T06:07:39+08:00">2024-04-30</time>
+              <time title="创建时间：2024-05-13 10:53:13 / 修改时间：11:59:03" itemprop="dateCreated datePublished" datetime="2024-05-13T10:53:13+08:00">2024-05-13</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-06 11:19:08" itemprop="dateModified" datetime="2024-05-06T11:19:08+08:00">2024-05-06</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -264,8 +251,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/ed914090.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/ed914090.html" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/5fa3f876.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/5fa3f876.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -275,7 +262,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -294,248 +281,258 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>#基本的半导体原件及原理</p>
+        <h2 id="局部性原理">局部性原理</h2>
 <span id="more"></span>
+<p><strong>时间局部性</strong>：一条指令一旦被执行，不久的将来可能被再次执行</p>
+<p><strong>空间局部性</strong>：一个存储单元呗访问，则其临近的存储单元也将被访问</p>
+<h2 id="cache的工作原理">Cache的工作原理</h2>
+<p>基于局部性原理，可以把CPU目前访问的地址周围的部分数据放到Cache中。</p>
+<p>将主存与Cache分为同样大小的块（见操作系统“分页”相关内容），<strong>主存和Cache之间以块为单位进行数据交换</strong>。系统访问主存时，会将这一块的内容同时复制到Cache中。</p>
+<h3 id="cache的性能分析">Cache的性能分析</h3>
 <p><a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=grkXoxG_Wqs">视频讲解:基本的半导体原件及原理</a></p>
-<h2 id="存储元">存储元</h2>
-<p>利用MOS管实现“高通低阻”</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430070558021.png" /></p>
-<h2 id="存储体结构组成">存储体结构组成</h2>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430070637587.png" /></p>
-<blockquote>
-<p>注：1个字节8个bit，一个存储字多少个bit看具体设计</p>
-</blockquote>
-<h2 id="存储芯片的基本原理">存储芯片的基本原理</h2>
+href="">视频讲解：cache的性能分析</a>https://www.youtube.com/watch?v=mnDTv6nlCZU</p>
+<p>命中率 <span class="math inline">\(H\)</span> 的定义是： <span
+class="math inline">\(H =
+\text{CPU欲访问的信息已在Cache中的比率}\)</span></p>
+<p>缺失（未命中）率 <span class="math inline">\(M\)</span> 的表达式是：
+<span class="math inline">\(M = 1 - H\)</span></p>
+<ol type="1">
+<li><p>先访问Cache，若Cache未命中再访问主存的情况下，Cache-主存系统的平均访问时间
+$ t$ 为： <span class="math inline">\(t = H \cdot t_c + (1 - H) \cdot
+(t_c + t_m)\)</span></p></li>
+<li><p>同时访问Cache和主存，若Cache命中则立即停止访问主存的情况下，Cache-主存系统的平均访问时间
+$ t$ 为： <span class="math inline">\(t = H \cdot t_c + (1 - H) \cdot
+t_m\)</span></p></li>
+</ol>
+<p>其中，<span class="math inline">\(t_c\)</span>
+表示访问一次Cache所需的时间，$ t_m$ 表示访问一次主存所需的时间，$ H$
+表示Cache的命中率。</p>
+<h2 id="cache和主存的映射方式">Cache和主存的映射方式</h2>
+<h3 id="前置知识关于cache与主存分块">前置知识：关于cache与主存分块</h3>
 <p><a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8GfnWZktHdk">视频讲解：存储芯片的基本原理</a></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071453570.png" /></p>
-<p>译码器将MAR中信号转换为选择信号，选择自选线(比如上图有3位，对应8个地址，从0~7)，被选择的字选线得到一个高电平信号，这根线对应的存储字中的存储的数据一起通过数据线传送</p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430071912303.png" style="zoom:50%;" /></p>
-<p>控制电路用来控制MAR与MDR中电信号稳定才传输</p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072201789.png" style="zoom:50%;" /></p>
-<p>芯片的选择控制与读写控制如上图</p>
-<p>封装前后芯片组成如下</p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430072531019.png" style="zoom:50%;" /></p>
-<p><a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=7iP6daJ_EwA">视频讲解：存储芯片的封装和引脚数量的计算</a></p>
-<p><a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=juOp0XLhOl0">视频讲解：存储芯片中的地址数量和存储字长的表示和计算</a></p>
-<figure>
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=DGaeZY4GjhA">视频讲解：关于cache与主存分块</a>
 <img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240506110534863.png"
-alt="芯片总容量计算" />
-<figcaption aria-hidden="true">芯片总容量计算</figcaption>
-</figure>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430073723378.png"
-alt="存储单元1描述" />
-<figcaption aria-hidden="true">存储单元1描述</figcaption>
-</figure>
-<p>第一个数字表示有多少个存储单元</p>
-<p>第二个数字表示存储字长有多少</p>
-<h1 id="半导体存储芯片的结构">半导体存储芯片的结构</h1>
-<!--more-->
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/528c22c45d886d33721c4bc04a332d0.jpg" /></p>
+<p><font color = "yellow">地址空间：需要多少位才能表示整个范围，比如如果一共有<span
+class="math inline">\(2^n\)</span>个字节，那么地址空间就有n位 </font></p>
+<p>Cache需要设置有效位，表明此块是否有效；</p>
+<p>Cache中设置标记，与主存块号相等，表示存储的主存块。</p>
+<p>假设计算机的主存地址空间大小为256MB,
+按字节编址，其数据Cache有8个Cache行，行长为64B。则：</p>
+<h3 id="全相联映射">全相联映射</h3>
+<p>主存块可以存放在Cache的任何位置。</p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/57f794b2ede60ee204ec064557c09c8.png" /></p>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3c4522e52c0bc2992f0bd92a596fa34.png" /></p>
 <ul>
-<li><strong>存储矩阵</strong>：由大量相同的位存储单元阵列构成</li>
-<li><strong>译码驱动</strong>：将来自地址总线的地址信号翻译成对应存储单元的选通信号，
-该信号在读写电路的配合下完成对被选中单元的读/写操作</li>
-<li><strong>读写电路</strong>：包括读出放大器和写入电路，用来完成读/写操作</li>
-<li><strong>地址线</strong>：决定CPU访问存储矩阵的哪里，<strong>单向</strong>输入，位数取决于芯片的容量</li>
-<li><strong>数据线</strong>：进行数据的读写，<strong>双向</strong>读写，位数取决于芯片能够读/写的位数</li>
-<li><strong>片选线</strong>：用于确定哪一个存储芯片被选中，可以表示为
+<li>256M=228256M=228，主存地址共28位</li>
+<li>Cache行与主存块大小相等， 64B=2664B=26，块内地址为6位</li>
+<li>主存共有块号为22位</li>
+<li>Cache中有一位有效位，22位标志位</li>
+</ul>
+<h4 id="访存过程">访存过程</h4>
+<ol type="1">
+<li>用所要访问的主存地址的前22位，对比Cache中所有块的标记；</li>
+<li>若标记匹配且有效位=1，则Cache命中，访问相应块内地址的单元；</li>
+<li>若未命中或有效位=0，则正常访问主存</li>
+</ol>
+<h4 id="优缺点">优缺点</h4>
 <ul>
-<li>CS‾CS：芯片选择，低电平有效</li>
-<li>CE‾CE：芯片使能，低电平有效</li>
+<li>优点
+<ul>
+<li>Cache存储空间利用充分</li>
+<li>命中率高</li>
 </ul></li>
-<li>读写控制线：可以有一根，也可以有两根
+<li>缺点
 <ul>
-<li>一根
-<ul>
-<li>WE‾WE：低电平写有效，高电平读有效</li>
-</ul></li>
-<li>两根
-<ul>
-<li>OW‾OW：允许读，低电平有效</li>
-<li>WE‾WE：允许写，低电平有效</li>
-</ul></li>
+<li>查找标记最慢</li>
+<li>有可能需要对比所有行的标记</li>
 </ul></li>
 </ul>
-<p>芯片的容量由地址线和数据线一起决定：</p>
-<p>芯片的容量=2地址线根数×数据线根数芯片的容量=2地址线根数×数据线根数</p>
-<h1 id="sram和dram的区别">SRAM和DRAM的区别</h1>
-<h2 id="dram芯片">DRAM芯片</h2>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430142802775.png" style="zoom:50%;" /></p>
-<p>写入：字选择线加5V，数据线加5V，电容内存储电荷，表示写入1，反之就是0</p>
-<p>读出：字选择线加5V，如果此时电容有点，电容就放电，就表示输出1，反之就是0</p>
-<p><a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=MsayKaswc6g">视频讲解</a></p>
-<h2 id="sram芯片">SRAM芯片</h2>
-<p>双稳态触发器</p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430143603217.png" style="zoom:50%;" /></p>
-<p>A高B低：1</p>
-<p>A低B高：0</p>
-<p>相应的读/写就是相应的2根数据线BL和BLX就是根据上面高低输出/输出，比如BL输出高电平，BLX输出低电平，那么就是1</p>
-<p><a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=pJL39mmLPt4">视频讲解:SRAM</a></p>
-<table>
-<colgroup>
-<col style="width: 37%" />
-<col style="width: 21%" />
-<col style="width: 41%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">特点</th>
-<th style="text-align: center;">SRAM</th>
-<th style="text-align: center;">DRAM</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">存储信息（0、1）</td>
-<td style="text-align: center;">触发器（双稳态）</td>
-<td style="text-align: center;">电容（充放电）</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">破坏性读出</td>
-<td style="text-align: center;">非</td>
-<td style="text-align: center;">是</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">需要刷新</td>
-<td style="text-align: center;">不要</td>
-<td style="text-align: center;">需要（电容上的电荷只能维持2ms）</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">送行列地址（行地址，列地址）</td>
-<td style="text-align: center;">同时传送</td>
-<td style="text-align: center;">分两次送</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">运行速度</td>
-<td style="text-align: center;">块</td>
-<td style="text-align: center;">慢</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">集成度</td>
-<td style="text-align: center;">低</td>
-<td style="text-align: center;">高</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">发热量</td>
-<td style="text-align: center;">大</td>
-<td style="text-align: center;">小</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">存储成本</td>
-<td style="text-align: center;">高</td>
-<td style="text-align: center;">低</td>
-</tr>
-</tbody>
-</table>
-<p><a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=pJL39mmLPt4">视频讲解：SRAM和DRAM对比</a></p>
-<h1 id="dram的刷新">DRAM的刷新</h1>
-<h2 id="刷新的频率">刷新的频率：</h2>
-<p>一般为2ms</p>
-<h2 id="每次刷新多少存储单元">每次刷新多少存储单元：</h2>
-<p>以行为单位，一次刷新一行</p>
-<p>使用行列地址的目的：减少选通线</p>
-<p>解释：什么叫行，为什么要拆成行</p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240430152445001.png" style="zoom:50%;" /></p>
-<p><font color = "yellow">原因：降低选通线的数量，比如如果地址线有8位，一个平面需要<span
-class="math inline">\(2^8 =
-256\)</span>根选通线，而展开成二维后需要<span class="math inline">\(2^4
-+ 2^4 = 32\)</span>根选通线</font></p>
-<h2 id="如何刷新">如何刷新</h2>
-<p>通过硬件支持，读出一行的信息后重新写入，占用1个读/写周期</p>
-<h2 id="何时刷新">何时刷新</h2>
-<p>假设DRAM内部结构排列成 128X128 的形式，读/写周期0.5μs</p>
-<ul>
-<li><strong>分散刷新</strong>
-<ul>
-<li>每读写一次就刷新该行</li>
-<li>前0.5μs用于读写、后0.5μs用于刷新</li>
-<li>系统的存取周期变为1μs</li>
-</ul></li>
-<li><strong>集中刷新</strong>
-<ul>
-<li>2ms内集中安排时间刷新</li>
-<li>例如最后128个周期（64μs）全部用于刷新128行</li>
-<li>用于刷新的存储周期内无法访问存储器，称为<strong>访存死区</strong></li>
-</ul></li>
-<li><strong>异步刷新</strong>
-<ul>
-<li>将128次刷新平均分布在2ms内</li>
-<li>每15.6μs会有一个0.5μs的<strong>死时间</strong></li>
-</ul></li>
-</ul>
-<p><a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3fzfdsz-DNk">视频讲解：DRAM的刷新</a></p>
-<h1 id="darm地址复用技术">DARM地址复用技术</h1>
-<p>DRAM芯片容量较大，通常采用<strong>地址复用技术</strong>，即行地址和列地址分两次用同样的地址线输入</p>
-<ul>
-<li>地址线数量变为一半</li>
-<li>选通线变为行选通和列选通线共计两根</li>
-</ul>
+<h3 id="直接映射">直接映射</h3>
+<p>每个主存块只能放在特定的位置。</p>
+<p>主存块在Cache中的位置=主存块号%Cache总块数主存块在Cache中的位置=主存块号%Cache总块数</p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240506104336977.png" /></p>
-<p><a href="">视频讲解：DARM地址复用技术</a></p>
-<h1 id="ram的读写周期">RAM的读写周期</h1>
-<h2 id="sram的读周期">SRAM的读周期</h2>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/8e7186cab67b7d7fecd8588c7944c15.png" /></p>
+<ul>
+<li>本例中有8个Cache块，对8取余的实质是<strong>取二进制的后三位</strong></li>
+<li>Cache的序号即可反映主存块的后三位，因此标记中不再记录后三位，节省空间</li>
+<li>主存块号可以依此细分为<strong>19位标记</strong>和<strong>3位行号</strong></li>
+</ul>
+<h4 id="访存过程-1">访存过程</h4>
+<ol type="1">
+<li>根据主存块号的后3位确定<strong>Cache行；</strong></li>
+<li>若主存块号的前19位与Cache标记匹配，且有效位=1，则Cache命中，访问相应块内地址的单元；</li>
+<li>若未命中或有效位=0，则正常访问主存</li>
+</ol>
+<h4 id="优缺点-1">优缺点</h4>
+<ul>
+<li>优点
+<ul>
+<li>对于任意一个地址，只需对比一个标记，速度最快</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>Cache存储空间利用不充分</li>
+<li>命中率低</li>
+</ul></li>
+</ul>
+<h3 id="组相联映射">组相联映射</h3>
+<p>将Cache块分组，每个主存块只能存放到特定的分组中。当分组中有空位时，就将该主存块中的内容存入。</p>
+<p>主存块在Cache中的位置=主存块号%Cache分组数主存块在Cache中的位置=主存块号%Cache分组数</p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/162e0be361888a1e337e58c42f7ddc1.png" /></p>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7de5b501309eee16c3a408f215c7eff.png" /></p>
 <ul>
-<li><span class="math inline">\(t_{CO}\)</span>
-之前：等待地址线稳定</li>
-<li><span class="math inline">\(t_{CO}\)</span>：片选保持时间</li>
-<li>数据全部读出之后，在外部总线上稳定的出现，片选信号失效</li>
-<li><span class="math inline">\(t_{A}\)</span>：读出时间</li>
-<li><span class="math inline">\(t_{RC}\)</span> ：读周期</li>
+<li>本例中分了4组，对4取余实际上是<strong>取二进制的后两位</strong></li>
+<li>同理，不记录后两位，节省标志位空间</li>
+<li>主存块号可以依此细分为<strong>20位标记</strong>和<strong>2位组号</strong></li>
 </ul>
-<p>当使用一根读写控制线时，写使能信号WE全程保持高电平。</p>
-<p>这些时序参数描述了存储器操作时各种信号的作用和持续时间，确保正确的数据传输和存储器操作。</p>
-<h2 id="sram的写周期">SRAM的写周期</h2>
+<h4 id="访存过程-2">访存过程</h4>
+<ol type="1">
+<li>根据主存块号的后2位确定所属分组号</li>
+<li>若主存块号的前20 位与分组内的某个标记匹配且有效位=1，
+则Cache命中，访问相应块内地址的单元；</li>
+<li>若未命中或有效位=0，则正常访问主存</li>
+</ol>
+<h4 id="优缺点-2">优缺点</h4>
+<p>两种方法的折中，效果最好</p>
+<h2 id="cache替换算法">Cache替换算法</h2>
+<p>Cache不会产生中断！</p>
+<p>当Cache中存满时，需要用相应的算法替换掉已有的数据。</p>
+<p>根据映射方式不同，存在不同的替换方式。其中<strong>直接映射不需要替换算法</strong>（是一对一的，直接顶替就行）。</p>
+<h3 id="随机算法rand">随机算法（RAND）</h3>
+<p>若Cache已满，则随机选择一块替换。</p>
+<ul>
+<li>优点
+<ul>
+<li>实现简单</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>没有考虑局部性原理</li>
+<li>命中率低</li>
+</ul></li>
+</ul>
+<h3 id="先进先出算法fifo">先进先出算法（FIFO）</h3>
+<p>若Cache已满，则<strong>替换最先被调入Cache的块</strong>。</p>
+<p>从硬件层面，可以在将主存块存入Cache块时按照Cache块序号<strong>顺序存入</strong>，则替换时也仅需要顺序替换即可替换最先存入的。</p>
+<ul>
+<li>优点
+<ul>
+<li>实现简单</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>没有考虑到局部性原理</li>
+<li>会出现<strong>抖动现象</strong>（块被频繁的换入换出）</li>
+</ul></li>
+</ul>
+<h3 id="近期最少使用算法lru">近期最少使用算法（LRU）</h3>
+<p>为每一个Cache块设置一个计数器，用于记录每个Cache块已经有多久没被访问了。当Cache满后<strong>替换计数器最大的</strong>。</p>
+<p>从题目的角度，仅需要向前数n个访问的块，则第n+1个块就是要替换的。（n为Cache块数）</p>
+<h4 id="算法逻辑">算法逻辑</h4>
+<ul>
+<li>命中时
+<ul>
+<li>所命中的行的计数器清零</li>
+<li><strong>计数器值比被命中的块的值低的块</strong>，计数器加1</li>
+<li>其余不变</li>
+</ul></li>
+<li>未命中
+<ul>
+<li>还有空闲行时
+<ul>
+<li>新装入的行的计数器置0</li>
+<li>其余非空闲行全加1</li>
+</ul></li>
+<li>无空闲行时
+<ul>
+<li>计数值最大的行的信息块被淘汰</li>
+<li>新装行的块的计数器置0</li>
+<li>其余全加1</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Cache块数为 <span
+class="math inline">\(2^n\)</span>个，则计数器的位数仅需要n位。</p>
+<ul>
+<li>优点
+<ul>
+<li>遵循了局部性原理</li>
+<li>Cache命中率高</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>若被频繁访问的<strong>主存块数量&gt;Cache行的数量</strong>，则有可能发生<strong>抖动</strong></li>
+</ul></li>
+</ul>
+<h3 id="最近不经常使用算法lfu">最近不经常使用算法（LFU）</h3>
+<p>为每一个Cache块设置一个计数器，用于记录<strong>每个Cache块被访问过几次</strong>。</p>
+<p>每被访问一次，计数器+1当Cache满后<strong>替换计数器最小的</strong>。</p>
+<ul>
+<li>缺点
+<ul>
+<li>计数器可能需要很大的长度</li>
+<li>曾经被经常访问的主存块在未来不一定会用到</li>
+</ul></li>
+</ul>
+<p>实际运行时效率不如LRU。</p>
+<h2 id="cache写策略">Cache写策略</h2>
+<h3 id="写命中时">写命中时</h3>
+<h4 id="回写法">回写法</h4>
+<p>当CPU对Cache写命中时，只修改Cache的内容，而不立即写入主
+存，只有当此块<strong>被换出时</strong>才写回主存。</p>
+<p>对每一个Cache行增加一个<strong>脏位</strong>，标记该行是否被修改过。只有被修改过的块才进行写回操作。</p>
+<ul>
+<li>优点
+<ul>
+<li>减少了访存次数</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>存在数据不一致的隐患</li>
+</ul></li>
+</ul>
+<h4 id="全写法">全写法</h4>
+<p>当CPU对Cache写
+命中时，必须把<strong>数据同时写入Cache和主存</strong>，一般使用写缓冲(write
+buffer)。</p>
+<p>写缓冲通过SRAM来实现。</p>
+<ul>
+<li>优点
+<ul>
+<li>能保证数据的一致性</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>访存次数增加</li>
+<li>速度变慢</li>
+<li>当写操作较多时，写缓冲队列会饱和</li>
+</ul></li>
+</ul>
+<h3 id="写不命中">写不命中</h3>
+<h4 id="写分配法">写分配法</h4>
+<p>当CPU对Cache写不命中时，把主存中的块调入Cache，<strong>在Cache中修改</strong>。</p>
+<p>通常<strong>搭配写回法使用</strong>。</p>
+<h4 id="非写分配法">非写分配法</h4>
+<p>当CPU对Cache写不命中时<strong>只写入主存</strong>，不调入Cache。只有读未命中时才调入Cache。</p>
+<p><strong>搭配全写法使用</strong>。</p>
+<h3 id="多级cache">多级Cache</h3>
+<p>现代计算机采用多级Cache。其中</p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5eaf1af7fb19.png" /></p>
-<p>过程原理与读类似，等待信号稳定。</p>
-<h1 id="只读存储器rom">只读存储器（ROM）</h1>
-<h2 id="rom的特点">ROM的特点</h2>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e6ab0457d0c39a7bd02a16e8a6c30ca.png" /></p>
 <ul>
-<li>断电不丢失信息</li>
-<li>只读</li>
-</ul>
-<h2 id="rom的分类">ROM的分类</h2>
+<li>越靠近CPU
 <ul>
-<li>掩膜式只读存储器（MROM）
-<ul>
-<li>出厂时写入</li>
+<li>容量越小</li>
+<li>速度越快</li>
 </ul></li>
-<li>一次可编程只读存储器（PROM）
+<li>越远离CPU
 <ul>
-<li>通过专门设备一次性写入</li>
-</ul></li>
-<li>可擦除可编程只读存储器（EPROM）
-<ul>
-<li>修改次数有限</li>
-<li>写入时间很长</li>
-</ul></li>
-<li>闪速存储器（Flash Memory）
-<ul>
-<li>如U盘</li>
-</ul></li>
-<li>固态硬盘（Solid State Drives）
-<ul>
-<li>控制端元+闪存芯片</li>
+<li>容量越大</li>
+<li>速度越慢</li>
 </ul></li>
 </ul>
+<p>其中，各级Cache之间一般采用<strong>全写法+非写分配法</strong>传递，而Cache-主存之间<strong>采用写回法+写分配法</strong>。</p>
 
     </div>
 
@@ -551,7 +548,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5ea
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/posts/ed914090.html" title="3.2_半导体随机存储器">http://example.com/posts/ed914090.html</a>
+    <a href="http://example.com/posts/5fa3f876.html" title="3.6_高速缓冲存储器cache">http://example.com/posts/5fa3f876.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -568,13 +565,10 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5ea
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/7e50f3e7.html" rel="prev" title="3.1_存储器概述">
-      <i class="fa fa-chevron-left"></i> 3.1_存储器概述
+    <a href="/posts/23b2db03.html" rel="prev" title="3.5_磁盘存储器和固态硬盘">
+      <i class="fa fa-chevron-left"></i> 3.5_磁盘存储器和固态硬盘
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/df1c2374.html" rel="next" title="3.3_主存储器与CPU的连接">
-      3.3_主存储器与CPU的连接 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -634,7 +628,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/26bf8dc373b2feb32df5ea
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%85%83"><span class="nav-number">1.</span> <span class="nav-text">存储元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E4%BD%93%E7%BB%93%E6%9E%84%E7%BB%84%E6%88%90"><span class="nav-number">2.</span> <span class="nav-text">存储体结构组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">存储芯片的基本原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">半导体存储芯片的结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sram%E5%92%8Cdram%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number"></span> <span class="nav-text">SRAM和DRAM的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dram%E8%8A%AF%E7%89%87"><span class="nav-number">1.</span> <span class="nav-text">DRAM芯片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sram%E8%8A%AF%E7%89%87"><span class="nav-number">2.</span> <span class="nav-text">SRAM芯片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dram%E7%9A%84%E5%88%B7%E6%96%B0"><span class="nav-number"></span> <span class="nav-text">DRAM的刷新</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B7%E6%96%B0%E7%9A%84%E9%A2%91%E7%8E%87"><span class="nav-number">1.</span> <span class="nav-text">刷新的频率：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E6%AC%A1%E5%88%B7%E6%96%B0%E5%A4%9A%E5%B0%91%E5%AD%98%E5%82%A8%E5%8D%95%E5%85%83"><span class="nav-number">2.</span> <span class="nav-text">每次刷新多少存储单元：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%B7%E6%96%B0"><span class="nav-number">3.</span> <span class="nav-text">如何刷新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E5%88%B7%E6%96%B0"><span class="nav-number">4.</span> <span class="nav-text">何时刷新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#darm%E5%9C%B0%E5%9D%80%E5%A4%8D%E7%94%A8%E6%8A%80%E6%9C%AF"><span class="nav-number"></span> <span class="nav-text">DARM地址复用技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ram%E7%9A%84%E8%AF%BB%E5%86%99%E5%91%A8%E6%9C%9F"><span class="nav-number"></span> <span class="nav-text">RAM的读写周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sram%E7%9A%84%E8%AF%BB%E5%91%A8%E6%9C%9F"><span class="nav-number">1.</span> <span class="nav-text">SRAM的读周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sram%E7%9A%84%E5%86%99%E5%91%A8%E6%9C%9F"><span class="nav-number">2.</span> <span class="nav-text">SRAM的写周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8rom"><span class="nav-number"></span> <span class="nav-text">只读存储器（ROM）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#rom%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">ROM的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rom%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">ROM的分类</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">局部性原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">Cache的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cache%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">2.1.</span> <span class="nav-text">Cache的性能分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache%E5%92%8C%E4%B8%BB%E5%AD%98%E7%9A%84%E6%98%A0%E5%B0%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">Cache和主存的映射方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%E5%85%B3%E4%BA%8Ecache%E4%B8%8E%E4%B8%BB%E5%AD%98%E5%88%86%E5%9D%97"><span class="nav-number">3.1.</span> <span class="nav-text">前置知识：关于cache与主存分块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E7%9B%B8%E8%81%94%E6%98%A0%E5%B0%84"><span class="nav-number">3.2.</span> <span class="nav-text">全相联映射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E5%AD%98%E8%BF%87%E7%A8%8B"><span class="nav-number">3.2.1.</span> <span class="nav-text">访存过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">3.2.2.</span> <span class="nav-text">优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84"><span class="nav-number">3.3.</span> <span class="nav-text">直接映射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E5%AD%98%E8%BF%87%E7%A8%8B-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">访存过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-1"><span class="nav-number">3.3.2.</span> <span class="nav-text">优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E7%9B%B8%E8%81%94%E6%98%A0%E5%B0%84"><span class="nav-number">3.4.</span> <span class="nav-text">组相联映射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E5%AD%98%E8%BF%87%E7%A8%8B-2"><span class="nav-number">3.4.1.</span> <span class="nav-text">访存过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-2"><span class="nav-number">3.4.2.</span> <span class="nav-text">优缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">Cache替换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95rand"><span class="nav-number">4.1.</span> <span class="nav-text">随机算法（RAND）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E7%AE%97%E6%B3%95fifo"><span class="nav-number">4.2.</span> <span class="nav-text">先进先出算法（FIFO）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%91%E6%9C%9F%E6%9C%80%E5%B0%91%E4%BD%BF%E7%94%A8%E7%AE%97%E6%B3%95lru"><span class="nav-number">4.3.</span> <span class="nav-text">近期最少使用算法（LRU）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E9%80%BB%E8%BE%91"><span class="nav-number">4.3.1.</span> <span class="nav-text">算法逻辑</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E8%BF%91%E4%B8%8D%E7%BB%8F%E5%B8%B8%E4%BD%BF%E7%94%A8%E7%AE%97%E6%B3%95lfu"><span class="nav-number">4.4.</span> <span class="nav-text">最近不经常使用算法（LFU）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache%E5%86%99%E7%AD%96%E7%95%A5"><span class="nav-number">5.</span> <span class="nav-text">Cache写策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%91%BD%E4%B8%AD%E6%97%B6"><span class="nav-number">5.1.</span> <span class="nav-text">写命中时</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%86%99%E6%B3%95"><span class="nav-number">5.1.1.</span> <span class="nav-text">回写法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%86%99%E6%B3%95"><span class="nav-number">5.1.2.</span> <span class="nav-text">全写法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E4%B8%8D%E5%91%BD%E4%B8%AD"><span class="nav-number">5.2.</span> <span class="nav-text">写不命中</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%99%E5%88%86%E9%85%8D%E6%B3%95"><span class="nav-number">5.2.1.</span> <span class="nav-text">写分配法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E5%86%99%E5%88%86%E9%85%8D%E6%B3%95"><span class="nav-number">5.2.2.</span> <span class="nav-text">非写分配法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7cache"><span class="nav-number">5.3.</span> <span class="nav-text">多级Cache</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

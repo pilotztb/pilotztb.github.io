@@ -7753,6 +7753,31 @@ href="https://www.bilibili.com/video/BV1uT421C7rz/?spm_id_from=333.999.0.0">视�
 <p>完整代码</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    STR DB &#x27;HEllo World&#x27;,32,&#x27;$&#x27; </span><br><span class="line">    CHARA DB &#x27;a&#x27;</span><br><span class="line">DATA ENDS</span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:                       </span><br><span class="line">    MOV AX, DATA</span><br><span class="line">    MOV DS, AX     </span><br><span class="line">    ;   全部转为大写   </span><br><span class="line">    ; for(int i = 0; i &lt; str.lentth; i++)</span><br><span class="line">    ;   if(str[i]是小写) str 转大写</span><br><span class="line">    ;</span><br><span class="line">    MOV CX, 11          ;11表示字符串长度</span><br><span class="line">    MOV SI, OFFSET STR</span><br><span class="line">    LABEL1:        </span><br><span class="line">        MOV AL, [SI]    ;将指针BI当前指向的字母放到AL</span><br><span class="line">        CMP AL, 32      ;如果AL里面是空格</span><br><span class="line">        JE LABEL2       ;直接跳到LABEL2</span><br><span class="line">        CMP AL, CHARA   ;将AL和CHARA比较</span><br><span class="line">        JB LABEL2       ;如果AL比CHARA小，说明AL是大写</span><br><span class="line">        ; 如果AX比CHARA大，说明是小写，需要转大写</span><br><span class="line">        SUB AX, 20H</span><br><span class="line">    LABEL2:             ;如果是大写，直接写回并递增</span><br><span class="line">        MOV [SI],AL</span><br><span class="line">        INC SI    </span><br><span class="line">        LOOP LABEL1</span><br><span class="line">    MOV AH, 9H</span><br><span class="line">    INT 21H                              </span><br><span class="line">    </span><br><span class="line">    ; 全部转为小写</span><br><span class="line">    MOV CX, 11</span><br><span class="line">    MOV SI, OFFSET STR   </span><br><span class="line">    LABEL3:              </span><br><span class="line">        MOV AL, [SI] </span><br><span class="line">        CMP AL, 32</span><br><span class="line">        JE LABEL4</span><br><span class="line">        CMP AL, CHARA</span><br><span class="line">        JNB LABEL4</span><br><span class="line">        ADD AL, 20H</span><br><span class="line">    LABEL4:     </span><br><span class="line">        MOV [SI], AL</span><br><span class="line">        INC SI</span><br><span class="line">        LOOP LABEL3</span><br><span class="line">    MOV AH, 9</span><br><span class="line">    INT 21H      </span><br><span class="line">    </span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
 <h1 id="求数组最值">求数组最值</h1>
+<h2 id="遍历数组">遍历数组</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    BUF DB 08AH,093H,02EH,037H,019H,040H,074H,055H,0H,0A2H</span><br><span class="line">    PLUS DB 100H DUP(0)  </span><br><span class="line">    TMP DB 100H DUP(0)</span><br><span class="line">    POS_NUM DB 0</span><br><span class="line">DATA ENDS</span><br><span class="line">MOV SI, OFFSET BUF	;将数组偏移地址移入SI，SI作为遍历数组的指针</span><br></pre></td></tr></table></figure>
+<h2 id="判断正负">判断正负</h2>
+<h3
+id="注意有符号数和无符号数使用不同跳转">注意有符号数和无符号数使用不同跳转</h3>
+<ol type="1">
+<li><strong>无符号数比较</strong>：
+<ul>
+<li><code>JB</code> (Jump if
+Below)：如果前一个操作数小于后一个操作数，则跳转。</li>
+<li><code>JAE</code> (Jump if Above or
+Equal)：如果前一个操作数大于等于后一个操作数，则跳转。</li>
+<li>这些指令适用于无符号整数比较，因为它们直接比较数值的大小。</li>
+</ul></li>
+<li><strong>有符号数比较</strong>：
+<ul>
+<li><code>JL</code> (Jump if
+Less)：如果前一个操作数小于后一个操作数，则跳转。</li>
+<li><code>JGE</code> (Jump if Greater or
+Equal)：如果前一个操作数大于等于后一个操作数，则跳转。</li>
+<li>这些指令适用于有符号整数比较，因为它们考虑了数的符号</li>
+</ul></li>
+</ol>
+<h2
+id="如何在汇编中写快排要用到递归">如何在汇编中写快排，要用到递归</h2>
 <h1 id="数组求和">数组求和</h1>
 <h1 id="数组赋值">数组赋值</h1>
 <h1 id="数组反转">数组反转</h1>
@@ -7774,7 +7799,12 @@ id="将十六进制数字转str类型并在屏幕上打印">将十六进制数�
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240507202358412.png" /></p>
 <p>十六进制0~9加30H得到对应ASCII码</p>
 <p>十六进制A~F加37H得到对饮ASCII码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; 将十六进制转ASCII码打印输出,当前结果保存在AX中</span><br><span class="line">FOR1:</span><br><span class="line">    ; 将AX中数保存到DX中         </span><br><span class="line">    MOV DX, AX </span><br><span class="line">    ; 将DX与0FH相与，那么前面都清0，就保留最后1位         </span><br><span class="line">    AND DX, 0FH</span><br><span class="line">    ; 将当前DX中的数先加上30H看得到的数与40H关系</span><br><span class="line">    ADD DX, 30H</span><br><span class="line">    CMP DX, 40H</span><br><span class="line">    ; 如果比40H小，说明目前得到的就是0~9的ASCII码，否则还要加7H才能得到A~F的ASCII码</span><br><span class="line">    JB DIGIT</span><br><span class="line">    ADD DX, 7H</span><br><span class="line">    DIGIT:    </span><br><span class="line">        ; 将DX中保存的ASCII码保存到内存中</span><br><span class="line">        MOV RES[BX], DL</span><br><span class="line">        DEC BX</span><br><span class="line">        ; 通过将AX右移1位，去掉AX中最后一个数</span><br><span class="line">        SHR AX, 4</span><br><span class="line">        LOOP FOR1</span><br><span class="line"></span><br><span class="line">MOV AH, 9H</span><br><span class="line">; 通过将RES字符串首地址赋给DX从而打印字符串</span><br><span class="line">MOV DX, OFFSET RES</span><br><span class="line">INT 21H</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; 将十六进制转ASCII码打印输出,当前结果保存在AX中</span><br><span class="line">FOR1:</span><br><span class="line">    ; 将AX中数保存到DX中         </span><br><span class="line">    MOV DX, AX </span><br><span class="line">    ; 将DX与0FH相与，那么前面都清0，就保留最后1位         </span><br><span class="line">    AND DX, 0FH</span><br><span class="line">    ; 将当前DX中的数先加上30H看得到的数与40H关系</span><br><span class="line">    ADD DX, 30H</span><br><span class="line">    CMP DX, 39H</span><br><span class="line">    ; 如果比40H小，说明目前得到的就是0~9的ASCII码，否则还要加7H才能得到A~F的ASCII码</span><br><span class="line">    JB DIGIT</span><br><span class="line">    ADD DX, 7H</span><br><span class="line">    DIGIT:    </span><br><span class="line">        ; 将DX中保存的ASCII码保存到内存中</span><br><span class="line">        MOV RES[BX], DL</span><br><span class="line">        DEC BX</span><br><span class="line">        ; 通过将AX右移1位，去掉AX中最后一个数</span><br><span class="line">        SHR AX, 4</span><br><span class="line">        LOOP FOR1</span><br><span class="line"></span><br><span class="line">MOV AH, 9H</span><br><span class="line">; 通过将RES字符串首地址赋给DX从而打印字符串</span><br><span class="line">MOV DX, OFFSET RES</span><br><span class="line">INT 21H</span><br></pre></td></tr></table></figure>
+<h1 id="字符串">字符串</h1>
+<h2 id="stos">STOS</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    BUFFER DB 10H DUP(0)  ; 假设有一个10字节的缓冲区</span><br><span class="line">DATA ENDS</span><br><span class="line"></span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:</span><br><span class="line">    MOV AX, DATA           ; 将数据段地址加载到 AX 中</span><br><span class="line">    MOV DS, AX             ; 将 AX 中的数据段地址复制到 DS 中</span><br><span class="line">    MOV ES, AX             ; 将 AX 中的数据段地址复制到 ES 中</span><br><span class="line">    XOR DI, DI             ; 清零 DI 寄存器</span><br><span class="line">    </span><br><span class="line">    CLD</span><br><span class="line">    MOV CX, 10             ; 循环10次</span><br><span class="line">    MOV AL, &#x27;A&#x27;            ; 将 &#x27;A&#x27; 存储到 AL 中</span><br><span class="line"></span><br><span class="line">STORE_LOOP:</span><br><span class="line">    STOSB                  ; 将 AL 寄存器中的数据存储到 ES:DI 指定的内存地址中，并递增 DI 寄存器</span><br><span class="line">    LOOP STORE_LOOP        ; 循环</span><br><span class="line"></span><br><span class="line">    ; 这里可以继续添加其他代码</span><br><span class="line">    </span><br><span class="line">    MOV AH, 4Ch            ; 退出程序</span><br><span class="line">    INT 21h</span><br><span class="line"></span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
+<h2 id="movs">MOVS</h2>
+<p>CX中设置为多少就会遍历字符串中多少位</p>
 ]]></content>
       <categories>
         <category>汇编语言</category>
@@ -15889,6 +15919,7 @@ File Directory）和用户文件目录（UFD，User Flie Directory）。</p>
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/08c7d7eed6c64ed338759e1052c7555.png" /></p>
 <p>需要为每个共享结点设置一个<strong>共享计数器</strong>，用于记录此时有多少个地方在共享该结点。用户提出删除节点的请求时，只是删除该用户的FCB、并使共享计数器减1，<strong>并不会直接删除共享结点</strong>。当共享计数器的值为0时，才会删除该结点。</p>
 <h3 id="索引节点">索引节点</h3>
+<p><a href="">视频讲解：索引节点</a></p>
 <p>由于在查找文件时只需要使用到文件名这一信息，因此可以将其他的文件信息放进<strong>索引节点</strong>中。这样目录中只需要存储<strong>文件名和指向索引节点的指针</strong>即可。</p>
 <p>存放在外存中的索引结点称为<strong>磁盘索引结点</strong>，当索引结点放入内存后称为<strong>内存索引结点</strong>。
 相比之下内存索引结点中需要增加一些信息，比如：文件是否被修改、此时有几个进程正在访问该文件等。</p>
@@ -16019,6 +16050,22 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024050716172260
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240507162853821.png" /></p>
 <h3 id="数据传输率">数据传输率</h3>
 <p>磁盘存储器在单位时间内向主机传送数据的字节数，称为数据传输率。</p>
+<h2 id="磁盘阵列">磁盘阵列</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513093628681.png" /></p>
+<p><a
+href="https://www.youtube.com/watch?v=BOXUVUkwY2s">视频讲解</a></p>
+<h1 id="固态硬盘ssd">固态硬盘SSD</h1>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513094653726.png" /></p>
+<h2 id="结构">结构</h2>
+<p><a
+href="https://www.youtube.com/watch?v=Vm-uAqAIQkI">视频讲解：SSD的结构</a></p>
+<h2 id="读写">读写</h2>
+<p><a
+href="https://www.youtube.com/watch?v=iKfc2aVebPE">视频讲解：SSD的读写</a></p>
+<p><a
+href="https://www.youtube.com/watch?v=lhvPdJS2QUs">视频讲解：SSD使用寿命计算</a></p>
 ]]></content>
       <categories>
         <category>计组</category>
@@ -16071,14 +16118,14 @@ href="https://www.youtube.com/watch?v=Fr_msQP-VRQ">视频讲解：存储体数�
 其中r是存入时间，3r是恢复时间</font></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e37d87c88bb390a2d0e3fa3fb56fe8e.jpg" /></p>
-<h4 id="高位交叉编制">高位交叉编制</h4>
+<h4 id="高位交叉编制也称顺序存储">高位交叉编制（也称顺序存储）</h4>
 <p><font color = "yellow">前2位作为区分是第几个存储体</font></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/686a25b1e34450f888ff1063bfdda32.png" /></p>
 <p>连续访问时还是在一个模块内进行，实际上仅仅实现了<strong>扩容</strong>，<strong>不能提高访问速度</strong>。</p>
 <p>高位交叉编制<strong>不满足</strong>程序的<strong>局部性原理</strong>。</p>
 <p><font color = "yellow">编码是从列往下0,1,2……</font></p>
-<h4 id="低位交叉编制">低位交叉编制</h4>
+<h4 id="低位交叉编制也称交叉存储">低位交叉编制（也称交叉存储）</h4>
 <p><font color = "yellow">后2位作为存储体编号</font></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7190903b6e5eae91c22299a472a3de0.png" /></p>
@@ -16103,6 +16150,267 @@ class="math inline">\(\frac{W}{r}\)</span></p>
 <p>单个存储体的带宽： <span
 class="math inline">\(\frac{W}{T}\)</span></p>
 <hr style = "border:2px solid yellow">
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>3.6_高速缓冲存储器cache</title>
+    <url>/posts/5fa3f876.html</url>
+    <content><![CDATA[<h2 id="局部性原理">局部性原理</h2>
+<span id="more"></span>
+<p><strong>时间局部性</strong>：一条指令一旦被执行，不久的将来可能被再次执行</p>
+<p><strong>空间局部性</strong>：一个存储单元呗访问，则其临近的存储单元也将被访问</p>
+<h2 id="cache的工作原理">Cache的工作原理</h2>
+<p>基于局部性原理，可以把CPU目前访问的地址周围的部分数据放到Cache中。</p>
+<p>将主存与Cache分为同样大小的块（见操作系统“分页”相关内容），<strong>主存和Cache之间以块为单位进行数据交换</strong>。系统访问主存时，会将这一块的内容同时复制到Cache中。</p>
+<h3 id="cache的性能分析">Cache的性能分析</h3>
+<p><a
+href="">视频讲解：cache的性能分析</a>https://www.youtube.com/watch?v=mnDTv6nlCZU</p>
+<p>命中率 <span class="math inline">\(H\)</span> 的定义是： <span
+class="math inline">\(H =
+\text{CPU欲访问的信息已在Cache中的比率}\)</span></p>
+<p>缺失（未命中）率 <span class="math inline">\(M\)</span> 的表达式是：
+<span class="math inline">\(M = 1 - H\)</span></p>
+<ol type="1">
+<li><p>先访问Cache，若Cache未命中再访问主存的情况下，Cache-主存系统的平均访问时间
+$ t$ 为： <span class="math inline">\(t = H \cdot t_c + (1 - H) \cdot
+(t_c + t_m)\)</span></p></li>
+<li><p>同时访问Cache和主存，若Cache命中则立即停止访问主存的情况下，Cache-主存系统的平均访问时间
+$ t$ 为： <span class="math inline">\(t = H \cdot t_c + (1 - H) \cdot
+t_m\)</span></p></li>
+</ol>
+<p>其中，<span class="math inline">\(t_c\)</span>
+表示访问一次Cache所需的时间，$ t_m$ 表示访问一次主存所需的时间，$ H$
+表示Cache的命中率。</p>
+<h2 id="cache和主存的映射方式">Cache和主存的映射方式</h2>
+<h3 id="前置知识关于cache与主存分块">前置知识：关于cache与主存分块</h3>
+<p><a
+href="https://www.youtube.com/watch?v=DGaeZY4GjhA">视频讲解：关于cache与主存分块</a>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/528c22c45d886d33721c4bc04a332d0.jpg" /></p>
+<p><font color = "yellow">地址空间：需要多少位才能表示整个范围，比如如果一共有<span
+class="math inline">\(2^n\)</span>个字节，那么地址空间就有n位 </font></p>
+<p>Cache需要设置有效位，表明此块是否有效；</p>
+<p>Cache中设置标记，与主存块号相等，表示存储的主存块。</p>
+<p>假设计算机的主存地址空间大小为256MB,
+按字节编址，其数据Cache有8个Cache行，行长为64B。则：</p>
+<h3 id="全相联映射">全相联映射</h3>
+<p>主存块可以存放在Cache的任何位置。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3c4522e52c0bc2992f0bd92a596fa34.png" /></p>
+<ul>
+<li>256M=228256M=228，主存地址共28位</li>
+<li>Cache行与主存块大小相等， 64B=2664B=26，块内地址为6位</li>
+<li>主存共有块号为22位</li>
+<li>Cache中有一位有效位，22位标志位</li>
+</ul>
+<h4 id="访存过程">访存过程</h4>
+<ol type="1">
+<li>用所要访问的主存地址的前22位，对比Cache中所有块的标记；</li>
+<li>若标记匹配且有效位=1，则Cache命中，访问相应块内地址的单元；</li>
+<li>若未命中或有效位=0，则正常访问主存</li>
+</ol>
+<h4 id="优缺点">优缺点</h4>
+<ul>
+<li>优点
+<ul>
+<li>Cache存储空间利用充分</li>
+<li>命中率高</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>查找标记最慢</li>
+<li>有可能需要对比所有行的标记</li>
+</ul></li>
+</ul>
+<h3 id="直接映射">直接映射</h3>
+<p>每个主存块只能放在特定的位置。</p>
+<p>主存块在Cache中的位置=主存块号%Cache总块数主存块在Cache中的位置=主存块号%Cache总块数</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/8e7186cab67b7d7fecd8588c7944c15.png" /></p>
+<ul>
+<li>本例中有8个Cache块，对8取余的实质是<strong>取二进制的后三位</strong></li>
+<li>Cache的序号即可反映主存块的后三位，因此标记中不再记录后三位，节省空间</li>
+<li>主存块号可以依此细分为<strong>19位标记</strong>和<strong>3位行号</strong></li>
+</ul>
+<h4 id="访存过程-1">访存过程</h4>
+<ol type="1">
+<li>根据主存块号的后3位确定<strong>Cache行；</strong></li>
+<li>若主存块号的前19位与Cache标记匹配，且有效位=1，则Cache命中，访问相应块内地址的单元；</li>
+<li>若未命中或有效位=0，则正常访问主存</li>
+</ol>
+<h4 id="优缺点-1">优缺点</h4>
+<ul>
+<li>优点
+<ul>
+<li>对于任意一个地址，只需对比一个标记，速度最快</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>Cache存储空间利用不充分</li>
+<li>命中率低</li>
+</ul></li>
+</ul>
+<h3 id="组相联映射">组相联映射</h3>
+<p>将Cache块分组，每个主存块只能存放到特定的分组中。当分组中有空位时，就将该主存块中的内容存入。</p>
+<p>主存块在Cache中的位置=主存块号%Cache分组数主存块在Cache中的位置=主存块号%Cache分组数</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7de5b501309eee16c3a408f215c7eff.png" /></p>
+<ul>
+<li>本例中分了4组，对4取余实际上是<strong>取二进制的后两位</strong></li>
+<li>同理，不记录后两位，节省标志位空间</li>
+<li>主存块号可以依此细分为<strong>20位标记</strong>和<strong>2位组号</strong></li>
+</ul>
+<h4 id="访存过程-2">访存过程</h4>
+<ol type="1">
+<li>根据主存块号的后2位确定所属分组号</li>
+<li>若主存块号的前20 位与分组内的某个标记匹配且有效位=1，
+则Cache命中，访问相应块内地址的单元；</li>
+<li>若未命中或有效位=0，则正常访问主存</li>
+</ol>
+<h4 id="优缺点-2">优缺点</h4>
+<p>两种方法的折中，效果最好</p>
+<h2 id="cache替换算法">Cache替换算法</h2>
+<p>Cache不会产生中断！</p>
+<p>当Cache中存满时，需要用相应的算法替换掉已有的数据。</p>
+<p>根据映射方式不同，存在不同的替换方式。其中<strong>直接映射不需要替换算法</strong>（是一对一的，直接顶替就行）。</p>
+<h3 id="随机算法rand">随机算法（RAND）</h3>
+<p>若Cache已满，则随机选择一块替换。</p>
+<ul>
+<li>优点
+<ul>
+<li>实现简单</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>没有考虑局部性原理</li>
+<li>命中率低</li>
+</ul></li>
+</ul>
+<h3 id="先进先出算法fifo">先进先出算法（FIFO）</h3>
+<p>若Cache已满，则<strong>替换最先被调入Cache的块</strong>。</p>
+<p>从硬件层面，可以在将主存块存入Cache块时按照Cache块序号<strong>顺序存入</strong>，则替换时也仅需要顺序替换即可替换最先存入的。</p>
+<ul>
+<li>优点
+<ul>
+<li>实现简单</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>没有考虑到局部性原理</li>
+<li>会出现<strong>抖动现象</strong>（块被频繁的换入换出）</li>
+</ul></li>
+</ul>
+<h3 id="近期最少使用算法lru">近期最少使用算法（LRU）</h3>
+<p>为每一个Cache块设置一个计数器，用于记录每个Cache块已经有多久没被访问了。当Cache满后<strong>替换计数器最大的</strong>。</p>
+<p>从题目的角度，仅需要向前数n个访问的块，则第n+1个块就是要替换的。（n为Cache块数）</p>
+<h4 id="算法逻辑">算法逻辑</h4>
+<ul>
+<li>命中时
+<ul>
+<li>所命中的行的计数器清零</li>
+<li><strong>计数器值比被命中的块的值低的块</strong>，计数器加1</li>
+<li>其余不变</li>
+</ul></li>
+<li>未命中
+<ul>
+<li>还有空闲行时
+<ul>
+<li>新装入的行的计数器置0</li>
+<li>其余非空闲行全加1</li>
+</ul></li>
+<li>无空闲行时
+<ul>
+<li>计数值最大的行的信息块被淘汰</li>
+<li>新装行的块的计数器置0</li>
+<li>其余全加1</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Cache块数为 <span
+class="math inline">\(2^n\)</span>个，则计数器的位数仅需要n位。</p>
+<ul>
+<li>优点
+<ul>
+<li>遵循了局部性原理</li>
+<li>Cache命中率高</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>若被频繁访问的<strong>主存块数量&gt;Cache行的数量</strong>，则有可能发生<strong>抖动</strong></li>
+</ul></li>
+</ul>
+<h3 id="最近不经常使用算法lfu">最近不经常使用算法（LFU）</h3>
+<p>为每一个Cache块设置一个计数器，用于记录<strong>每个Cache块被访问过几次</strong>。</p>
+<p>每被访问一次，计数器+1当Cache满后<strong>替换计数器最小的</strong>。</p>
+<ul>
+<li>缺点
+<ul>
+<li>计数器可能需要很大的长度</li>
+<li>曾经被经常访问的主存块在未来不一定会用到</li>
+</ul></li>
+</ul>
+<p>实际运行时效率不如LRU。</p>
+<h2 id="cache写策略">Cache写策略</h2>
+<h3 id="写命中时">写命中时</h3>
+<h4 id="回写法">回写法</h4>
+<p>当CPU对Cache写命中时，只修改Cache的内容，而不立即写入主
+存，只有当此块<strong>被换出时</strong>才写回主存。</p>
+<p>对每一个Cache行增加一个<strong>脏位</strong>，标记该行是否被修改过。只有被修改过的块才进行写回操作。</p>
+<ul>
+<li>优点
+<ul>
+<li>减少了访存次数</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>存在数据不一致的隐患</li>
+</ul></li>
+</ul>
+<h4 id="全写法">全写法</h4>
+<p>当CPU对Cache写
+命中时，必须把<strong>数据同时写入Cache和主存</strong>，一般使用写缓冲(write
+buffer)。</p>
+<p>写缓冲通过SRAM来实现。</p>
+<ul>
+<li>优点
+<ul>
+<li>能保证数据的一致性</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>访存次数增加</li>
+<li>速度变慢</li>
+<li>当写操作较多时，写缓冲队列会饱和</li>
+</ul></li>
+</ul>
+<h3 id="写不命中">写不命中</h3>
+<h4 id="写分配法">写分配法</h4>
+<p>当CPU对Cache写不命中时，把主存中的块调入Cache，<strong>在Cache中修改</strong>。</p>
+<p>通常<strong>搭配写回法使用</strong>。</p>
+<h4 id="非写分配法">非写分配法</h4>
+<p>当CPU对Cache写不命中时<strong>只写入主存</strong>，不调入Cache。只有读未命中时才调入Cache。</p>
+<p><strong>搭配全写法使用</strong>。</p>
+<h3 id="多级cache">多级Cache</h3>
+<p>现代计算机采用多级Cache。其中</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e6ab0457d0c39a7bd02a16e8a6c30ca.png" /></p>
+<ul>
+<li>越靠近CPU
+<ul>
+<li>容量越小</li>
+<li>速度越快</li>
+</ul></li>
+<li>越远离CPU
+<ul>
+<li>容量越大</li>
+<li>速度越慢</li>
+</ul></li>
+</ul>
+<p>其中，各级Cache之间一般采用<strong>全写法+非写分配法</strong>传递，而Cache-主存之间<strong>采用写回法+写分配法</strong>。</p>
 ]]></content>
       <categories>
         <category>计组</category>
