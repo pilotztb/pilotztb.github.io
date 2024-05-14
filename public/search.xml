@@ -16670,11 +16670,15 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e6ab0457d0c39a7bd02a16
 <p><strong>地址码</strong>：被操作信息的地址</p>
 <h3 id="按照地址码数量分类">按照地址码数量分类</h3>
 <h4 id="零地址指令">零地址指令</h4>
+<p><a
+href="https://www.youtube.com/watch?v=sABYjdij14Q">视频讲解：零地址指令</a></p>
 <ul>
 <li>不需要操作数，如空操作、停机、关中断等指令</li>
 <li>堆栈计算机，两个操作数隐含存放在栈顶和次栈顶，计算结果压回栈顶</li>
 </ul>
 <h4 id="一地址指令">一地址指令</h4>
+<p><a
+href="https://www.youtube.com/watch?v=FwXUCOTrYjc">视频讲解：一地址指令</a></p>
 <ul>
 <li>只需要单操作数，如加1、减1、取反、求补等</li>
 </ul>
@@ -16700,7 +16704,11 @@ A_1\)</span></p>
 <p>需要两个操作数的算术运算、逻辑运算相关指令</p>
 <p>指令含义：[ (A_1) , , (A_2) A_3 ]</p>
 <p>完成一条指令需要<strong>访存4次</strong>：取指→读A1→读A2→写A3</p>
-<h4 id="四地址指令">（5）四地址指令</h4>
+<p><a
+href="https://www.youtube.com/watch?v=c3XrGulTgQE">视频讲解：二、三地址指令</a></p>
+<h4 id="四地址指令">四地址指令</h4>
+<p><a
+href="https://www.youtube.com/watch?v=qHZHBvw4NZ8">视频讲解：四地址指令</a></p>
 <p>与三地址指令相同，A4中存放下一条要执行的指令的地址。</p>
 <blockquote>
 <p>一般来说，程序执行完毕后，会将PC（程序计数器）+1</p>
@@ -16759,10 +16767,14 @@ A_1\)</span></p>
 <h4 id="输入输出操作">输入输出操作</h4>
 <p>CPU寄存器与I/O端口之间的数据传送（端口即I/O接口中的寄存器）</p>
 <h2 id="扩展操作码指令格式">扩展操作码指令格式</h2>
+<p><a
+href="https://www.youtube.com/watch?v=pzdWC4RSEYY">视频讲解：扩展操作码理论</a></p>
 <p>扩展操作码指令格式采用<strong>定长指令字结构</strong>+<strong>可变长操作码结构</strong></p>
 <p>n位操作码代表指令系统最大能够表达<span
 class="math inline">\(2^n\)</span>条指令</p>
 <h3 id="扩展操作码举例">扩展操作码举例</h3>
+<p><a
+href="https://www.youtube.com/watch?v=VwFrOmt3N24">视频讲解：扩展操作码设计举例</a></p>
 <p>设指令字长为16位，每个地址码占4位</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3405c076fc8e0b7096565b62224f5a1.png" /></p>
