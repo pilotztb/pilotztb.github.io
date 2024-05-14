@@ -15800,6 +15800,140 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024051314225042
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513142837727.png" /></p>
 <hr style = "border:2px solid yellow">
 <h2 id="关系运算的性质">关系运算的性质</h2>
+<h3 id="逆关系">逆关系</h3>
+<p><font color = "yellow">"奇变偶不变"，两重含义，一个是这个关系本身与自己的逆，一个是定义域与值域之间的转换</font></p>
+<p>设 $ F $ 是任意的关系，则</p>
+<ol type="1">
+<li><p><span class="math inline">\((F^{-1})^{-1} = F\)</span></p></li>
+<li><p><span class="math inline">\(\text{dom}(F^{-1}) =
+\text{ran}(F)\)</span>, <span class="math inline">\(\text{ran}(F^{-1}) =
+\text{dom}(F)\)</span></p></li>
+</ol>
+<h3 id="结合律">结合律</h3>
+<p><span class="math inline">\((F \circ G) \circ H = F \circ (G \circ
+H)\)</span></p>
+<h3 id="逆关系的分配律">逆关系的分配律</h3>
+<p>分配以后还要调换顺序</p>
+<p><span class="math inline">\((F \circ G)^{-1} = G^{-1} \circ
+F^{-1}\)</span></p>
+<h3 id="单位元">单位元</h3>
+<p><span class="math inline">\(R \circ I_A = I_A \circ R =
+R\)</span></p>
+<h3 id="与并运算的分配律">与并运算的分配律</h3>
+<p>以下是重新使用 LaTeX 语法打印上述内容：</p>
+<p><span class="math inline">\(F \circ (G \cup H) = F \circ G \cup F
+\circ H\)</span></p>
+<p><span class="math inline">\((G \cup H) \circ F = G \circ F \cup H
+\circ F\)</span></p>
+<h3 id="与交运算的分配包含">与交运算的分配包含</h3>
+<p><span class="math inline">\(F \circ (G \cap H) \subseteq F \circ G
+\cap F \circ H\)</span></p>
+<p><span class="math inline">\((G \cap H) \circ F \subseteq G \circ F
+\cap H \circ F\)</span></p>
+<h3 id="限制与交并的分配律">限制↾与交、并的分配律</h3>
+<p>F ↾(A∪B) = F ↾A∪F ↾B</p>
+<p>F ↾(A∩B) = F ↾A∩F ↾B</p>
+<h3 id="像与并分配与交包含">像[]与并分配，与交包含</h3>
+<p>F [A∪B] = F [A]∪F [B]</p>
+<p>以下是重新使用 LaTeX 语法打印上述内容：</p>
+<p><span class="math inline">\(F[A \cap B] \subseteq F[A] \cap
+F[B]\)</span></p>
+<h2 id="关系的幂运算">关系的幂运算</h2>
+<p><a
+href="https://studio.youtube.com/video/E6BcFNKHTFo/edit">视频讲解：如何直接用关系和关系图替代关系矩阵计算</a></p>
+<h3 id="定义-3">定义</h3>
+<p><span class="math inline">\(R^0 = \{ (x,x) \mid x \in A \} =
+I_A\)</span></p>
+<p><span class="math inline">\(R^{n+1} = R^n \circ R\)</span></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a783152b62ca68985def02cad7ec38c.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513152803354.png" /></p>
+<hr style = "border:2px solid yellow">
+<h3 id="幂运算的性质">幂运算的性质</h3>
+<h4 id="循环">循环</h4>
+<p>设 A 为 n 元集, R 是A上的关系, 则存在自然数 s 和 t, 使得 <span
+class="math inline">\(R^s = R^t\)</span>.</p>
+<h4 id="幂的相加和想乘">幂的相加和想乘</h4>
+<p><span class="math inline">\(R^m \circ R^n = R^{m+n}\)</span></p>
+<p><span class="math inline">\((R^m)^n = R^{mn}\)</span></p>
+<h1 id="关系的性质">关系的性质</h1>
+<h2 id="自反与反自反">自反与反自反</h2>
+<h3 id="定义-4">定义</h3>
+<p><a
+href="https://www.youtube.com/watch?v=ZFEm1pAEz2I">视频讲解：自反与反自反</a></p>
+<p><font color = "red">自反就是这种关系能让元素x得到自己本身，反自反就是得不到</font></p>
+<hr style = "border:2px solid yellow">
+<p>举例：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513160034656.png" /></p>
+<hr style = "border:2px solid yellow">
+<h3 id="关系矩阵与关系图">关系矩阵与关系图</h3>
+<p><a
+href="https://www.youtube.com/watch?v=iBiLOkCKu70">视频讲解：自反的关系矩阵与关系图</a></p>
+<p><font color = "red"> 1. 自反的关系矩阵主对角线元素都是1</font>
+<font color = "red"> 2. 自反的关系图每个节点都有自回路</font></p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513161459159.png"
+alt="自反关系的关系矩阵与关系图" />
+<figcaption aria-hidden="true">自反关系的关系矩阵与关系图</figcaption>
+</figure>
+<p><a href="">视频讲解：反自反的关系矩阵与关系图</a></p>
+<p><font color = "red">反自反关系关系矩阵主对角线都是0，关系图每个节点没有自回路</font></p>
+<h2 id="对称与反对称">对称与反对称</h2>
+<h3 id="定义-5">定义</h3>
+<p><a
+href="https://www.youtube.com/watch?v=FyEyeMAH5tg">视频讲解：对称与反对称</a></p>
+<p><font color = "red">对称关系就是两个不同的元素x和y在交换位置后关系依然满足，反对称就是两个元素x和y只有在相等是才能实现调换位置</font></p>
+<p><font color = "red">对称是2个不同元素，自反是1个元素</font></p>
+<h3 id="关系矩阵与关系图-1">关系矩阵与关系图</h3>
+<p>对称关系</p>
+<p><a href="">视频讲解：对称关系的关系矩阵与关系图</a></p>
+<p><font color = "red">1. 对称关系关系矩阵关于主对角线对称</font></p>
+<p><font color = "red"> 2. 对称关系关系图有成对的有向边</font></p>
+<p>反对称关系</p>
+<p><a
+href="https://www.youtube.com/watch?v=Y5swiaJEAJk">视频讲解：反对称关系的关系矩阵与关系图</a></p>
+<p><font color = "red"> 1. 反对称关系的关系矩阵中除了对角线，<span
+class="math inline">\(a_{ij}与a_{ji}\)</span>不能同时为1</font></p>
+<p><font color = "red">2.
+反对称关系的关系图两个节点之间最多只有1条有向边</font></p>
+<h2 id="传递">传递</h2>
+<p><a
+href="https://www.youtube.com/watch?v=lvc6Nb0XxZw">视频讲解：传递</a></p>
+<h1 id="关系的闭包">关系的闭包</h1>
+<h2 id="定义-6">定义</h2>
+<p><a
+href="">视频讲解：关系闭包定义</a>https://www.youtube.com/watch?v=w4itKhPjP8E</p>
+<p><font color = "yellow">关系闭包个人理解就是在原来关系集合R基础上加上尽可能少的关系，组成新集合R'，新集合R’满足自反或者对称或者传递</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513183754873.png" /></p>
+<h2 id="构造闭包">构造闭包</h2>
+<h3 id="自反闭包">自反闭包</h3>
+<p><font color = "yellow">就是并上一个恒等关系</font></p>
+<p><a
+href="https://www.youtube.com/watch?v=7YTXzxuD4Cs">视频讲解：如何构造自反闭包</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/46c5f305326a4098e2c844acf701a1e.jpg" style="zoom:50%;" /></p>
+<h3 id="对称闭包">对称闭包</h3>
+<p><font color = "yellow">就是并上一个逆关系</font></p>
+<p><a
+href="https://www.youtube.com/watch?v=WjGcEOMm_xw">视频讲解：如何构造对称闭包</a></p>
+<h3 id="传递闭包">传递闭包</h3>
+<p><a href="">视频讲解：如何构造传递闭包</a></p>
+<p><font color = "yellow">传递闭包就是将所有独立的幂（就是有的幂最后循环是一样的）并起来</font></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e224953a4d2029027264e9c483010a5.jpg" /></p>
+<h2 id="warshall算法">warshall算法</h2>
+<p><a
+href="https://www.youtube.com/watch?v=hKZXvD0sqg4">视频讲解：warshall算法</a></p>
+<p><font color = "yellow">"看列加行"</font></p>
+<ol type="1">
+<li>这里的加是逻辑加（就是或）</li>
+<li>看一列，这一列如果有1，将对应的行加到另一行</li>
+</ol>
 ]]></content>
       <categories>
         <category>离散数学</category>
@@ -16279,15 +16413,16 @@ class="math inline">\(2^n\)</span>个字节，那么地址空间就有n位 </fo
 <p>假设计算机的主存地址空间大小为256MB,
 按字节编址，其数据Cache有8个Cache行，行长为64B。则：</p>
 <h3 id="全相联映射">全相联映射</h3>
+<p><a href="">视频讲解：全相联映射</a></p>
 <p>主存块可以存放在Cache的任何位置。</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3c4522e52c0bc2992f0bd92a596fa34.png" /></p>
-<ul>
-<li>256M=228256M=228，主存地址共28位</li>
-<li>Cache行与主存块大小相等， 64B=2664B=26，块内地址为6位</li>
-<li>主存共有块号为22位</li>
-<li>Cache中有一位有效位，22位标志位</li>
-</ul>
+<p><span class="math inline">\(256M = 2^{28}\)</span>，主存地址共 28
+位。</p>
+<p>Cache 行与主存块大小相等， <span class="math inline">\(64B =
+2^6\)</span>，块内地址为 6 位。</p>
+<p>主存共有块号为 22 位。</p>
+<p>Cache 中有一位有效位，22 位标志位。</p>
 <h4 id="访存过程">访存过程</h4>
 <ol type="1">
 <li>用所要访问的主存地址的前22位，对比Cache中所有块的标记；</li>
@@ -16308,8 +16443,9 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3c4522e52c0bc2992f0bd9
 </ul></li>
 </ul>
 <h3 id="直接映射">直接映射</h3>
+<p><a href="">视频讲解：直接映射</a></p>
 <p>每个主存块只能放在特定的位置。</p>
-<p>主存块在Cache中的位置=主存块号%Cache总块数主存块在Cache中的位置=主存块号%Cache总块数</p>
+<p>主存块在Cache中的位置=主存块号%Cache总块数</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/8e7186cab67b7d7fecd8588c7944c15.png" /></p>
 <ul>
@@ -16359,6 +16495,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7de5b501309eee16c3a408
 <p>当Cache中存满时，需要用相应的算法替换掉已有的数据。</p>
 <p>根据映射方式不同，存在不同的替换方式。其中<strong>直接映射不需要替换算法</strong>（是一对一的，直接顶替就行）。</p>
 <h3 id="随机算法rand">随机算法（RAND）</h3>
+<p><a
+href="https://www.youtube.com/watch?v=EyBeGGFHHZg">视频讲解：随机算法</a></p>
 <p>若Cache已满，则随机选择一块替换。</p>
 <ul>
 <li>优点
@@ -16372,6 +16510,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7de5b501309eee16c3a408
 </ul></li>
 </ul>
 <h3 id="先进先出算法fifo">先进先出算法（FIFO）</h3>
+<p><a
+href="https://www.youtube.com/watch?v=c7evkkEpOk8">视频讲解：先入先出</a></p>
 <p>若Cache已满，则<strong>替换最先被调入Cache的块</strong>。</p>
 <p>从硬件层面，可以在将主存块存入Cache块时按照Cache块序号<strong>顺序存入</strong>，则替换时也仅需要顺序替换即可替换最先存入的。</p>
 <ul>
@@ -16386,6 +16526,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7de5b501309eee16c3a408
 </ul></li>
 </ul>
 <h3 id="近期最少使用算法lru">近期最少使用算法（LRU）</h3>
+<p><a
+href="https://www.youtube.com/watch?v=DKAYXU5jA8c">视频讲解：近期最少使用算法</a></p>
 <p>为每一个Cache块设置一个计数器，用于记录每个Cache块已经有多久没被访问了。当Cache满后<strong>替换计数器最大的</strong>。</p>
 <p>从题目的角度，仅需要向前数n个访问的块，则第n+1个块就是要替换的。（n为Cache块数）</p>
 <h4 id="算法逻辑">算法逻辑</h4>
@@ -16425,6 +16567,8 @@ class="math inline">\(2^n\)</span>个，则计数器的位数仅需要n位。</p
 </ul></li>
 </ul>
 <h3 id="最近不经常使用算法lfu">最近不经常使用算法（LFU）</h3>
+<p><a
+href="https://www.youtube.com/watch?v=rMpOA2pDXA0">视频讲解：最近不经常使用算法</a></p>
 <p>为每一个Cache块设置一个计数器，用于记录<strong>每个Cache块被访问过几次</strong>。</p>
 <p>每被访问一次，计数器+1当Cache满后<strong>替换计数器最小的</strong>。</p>
 <ul>
@@ -16437,6 +16581,8 @@ class="math inline">\(2^n\)</span>个，则计数器的位数仅需要n位。</p
 <p>实际运行时效率不如LRU。</p>
 <h2 id="cache写策略">Cache写策略</h2>
 <h3 id="写命中时">写命中时</h3>
+<p><a
+href="https://www.youtube.com/watch?v=PILja_eQkJ8">视频讲解：写命中的两种方法</a></p>
 <h4 id="回写法">回写法</h4>
 <p>当CPU对Cache写命中时，只修改Cache的内容，而不立即写入主
 存，只有当此块<strong>被换出时</strong>才写回主存。</p>
@@ -16469,6 +16615,8 @@ buffer)。</p>
 </ul></li>
 </ul>
 <h3 id="写不命中">写不命中</h3>
+<p><a
+href="https://www.youtube.com/watch?v=bwiTnJRmH5c">视频讲解：写不命中的两种处理方法</a></p>
 <h4 id="写分配法">写分配法</h4>
 <p>当CPU对Cache写不命中时，把主存中的块调入Cache，<strong>在Cache中修改</strong>。</p>
 <p>通常<strong>搭配写回法使用</strong>。</p>
@@ -16492,6 +16640,160 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e6ab0457d0c39a7bd02a16
 </ul></li>
 </ul>
 <p>其中，各级Cache之间一般采用<strong>全写法+非写分配法</strong>传递，而Cache-主存之间<strong>采用写回法+写分配法</strong>。</p>
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>4.1_指令格式</title>
+    <url>/posts/48ef267a.html</url>
+    <content><![CDATA[<p>指令是指示计算机执行某种操作的命令，
+是计算机运行的<strong>最小功能单位</strong>。</p>
+<p>一台计算机的所有指令的集合构成该机的指令系统，也称为<strong>指令集</strong>。</p>
+<h2 id="指令的基本格式">指令的基本格式</h2>
+<span id="more"></span>
+<p>指令是一段有意义的二进制码，包括两个部分：操作码字段和地址码字段。</p>
+<p><strong>操作码</strong>：指令要进行什么操作，具有何种功能</p>
+<p><strong>地址码</strong>：被操作信息的地址</p>
+<h3 id="按照地址码数量分类">按照地址码数量分类</h3>
+<h4 id="零地址指令">零地址指令</h4>
+<ul>
+<li>不需要操作数，如空操作、停机、关中断等指令</li>
+<li>堆栈计算机，两个操作数隐含存放在栈顶和次栈顶，计算结果压回栈顶</li>
+</ul>
+<h4 id="一地址指令">一地址指令</h4>
+<ul>
+<li>只需要单操作数，如加1、减1、取反、求补等</li>
+</ul>
+<p>指令含义：<span class="math inline">\(\text{OP}(A_1) \rightarrow
+A_1\)</span></p>
+<p>完成一 条指令需要<strong>3次访存</strong>：取指→读A1→写A1</p>
+<ul>
+<li>需要两个操作数，但其中一个操作数隐含在某个寄存器（如隐含在ACC）</li>
+</ul>
+<p>指令含义：<span class="math inline">\((\text{ACC}) \text{OP}(A_1)
+\rightarrow \text{ACC}\)</span></p>
+<p>完成一条指令需要<strong>2次访存</strong>：取指→读A1</p>
+<blockquote>
+<p>A1指某个主存地址</p>
+<p>(A1)表示A1所指向的地址中的内容</p>
+</blockquote>
+<h4 id="二地址指令">二地址指令</h4>
+<p>需要两个操作数的算术运算、逻辑运算相关指令</p>
+<p>指令含义：<span class="math inline">\((A_1) \, \text{OP} \, (A_2)
+\rightarrow A_1\)</span></p>
+<p>完成一条指令需要<strong>访存4次</strong>：取指→读A1→读A2→写A1</p>
+<h4 id="三地址指令">三地址指令</h4>
+<p>需要两个操作数的算术运算、逻辑运算相关指令</p>
+<p>指令含义：[ (A_1) , , (A_2) A_3 ]</p>
+<p>完成一条指令需要<strong>访存4次</strong>：取指→读A1→读A2→写A3</p>
+<h4 id="四地址指令">（5）四地址指令</h4>
+<p>与三地址指令相同，A4中存放下一条要执行的指令的地址。</p>
+<blockquote>
+<p>一般来说，程序执行完毕后，会将PC（程序计数器）+1</p>
+<p>而四地址指令会将PC的值置为A4</p>
+</blockquote>
+<h3 id="按照指令长度分类">按照指令长度分类</h3>
+<p><strong>指令字长</strong>：一条指令的总长度（可能会变）</p>
+<p><strong>机器字长</strong>：CPU进行一次整数运算所能处理的二进制数据的位数（通常和ALU直接相关）</p>
+<p><strong>存储字长</strong>：一个存储单元中的二进制代码位数（通常和MDR位数相同）</p>
+<p><strong>半字长指令、单字长指令、双字长指令</strong>：指令长度是机器字长的多少倍。指令长度影响取指令的时间。</p>
+<p><strong>定长指令字结构</strong>：指令系统中<strong>所有指令的长度都相等</strong></p>
+<p><strong>变长指令字结构</strong>：指令系统中各种<strong>指令的长度不等</strong></p>
+<h3 id="按照操作码长度分类">按照操作码长度分类</h3>
+<p><strong>定长操作码</strong>：指令系统中所有指令的<strong>操作码长度都相同</strong></p>
+<ul>
+<li>译码电路设计简单</li>
+<li>灵活性较差</li>
+</ul>
+<p><strong>可变长操作码</strong>：指令系统中各指令的<strong>操作码长度可变</strong></p>
+<ul>
+<li>译码电路设计复杂</li>
+<li>灵活性高</li>
+</ul>
+<h3 id="按照操作类型分类">按照操作类型分类</h3>
+<h4 id="数据传送类">数据传送类</h4>
+<p>进行主存与CPU之间的数据传送</p>
+<ul>
+<li>LOAD：把存储器（源）中的数据放到寄存器（目标）中</li>
+<li>STORE：把寄存器（源）中的数据放到存储器（目标）中</li>
+</ul>
+<h4 id="运算类">运算类</h4>
+<ul>
+<li>算数逻辑运算
+<ul>
+<li>算术：加、减、乘、除、增1、减1、求补、浮点运算、十进制运算</li>
+<li>逻辑：与、或、非、异或、位操作、位测试、位清除、位求反</li>
+</ul></li>
+<li>移位操作
+<ul>
+<li>算术移位、逻辑移位、循环移位（带进位和不带进位）</li>
+</ul></li>
+</ul>
+<h4 id="程序控制类">程序控制类</h4>
+<p>改变程序执行的顺序</p>
+<ul>
+<li>无条件转移：JMP</li>
+<li>条件转移
+<ul>
+<li>JZ：结果为0</li>
+<li>JO：结果溢出</li>
+<li>JC：结果有进位</li>
+</ul></li>
+<li>调用和返回：CALL和RETURN</li>
+<li>陷阱(Trap)与陷阱指令</li>
+</ul>
+<h4 id="输入输出操作">输入输出操作</h4>
+<p>CPU寄存器与I/O端口之间的数据传送（端口即I/O接口中的寄存器）</p>
+<h2 id="扩展操作码指令格式">扩展操作码指令格式</h2>
+<p>扩展操作码指令格式采用<strong>定长指令字结构</strong>+<strong>可变长操作码结构</strong></p>
+<p>n位操作码代表指令系统最大能够表达<span
+class="math inline">\(2^n\)</span>条指令</p>
+<h3 id="扩展操作码举例">扩展操作码举例</h3>
+<p>设指令字长为16位，每个地址码占4位</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3405c076fc8e0b7096565b62224f5a1.png" /></p>
+<ul>
+<li>用全部为1标识地址数量，因此实际可用指令数量为<span
+class="math inline">\(2^n - 1\)</span></li>
+<li>地址长度为n，上一层留下m种状态，则协议层可以扩展出<span
+class="math inline">\(m \times 2 ^ n\)</span>种状态</li>
+</ul>
+<p>例：指令字长为16位，设计一套有15条三地址指令、12条二地址指令、62条一地址指令、32条零地址指令的指令系统。</p>
+<ul>
+<li>地址长度：16bit/4=4bit</li>
+<li>三地址指令
+<ul>
+<li>16-3*4 = 4bit 操作码</li>
+<li>24−15=124−15=1，剩余1111</li>
+</ul></li>
+<li>二地址指令
+<ul>
+<li>头部必须为1111，16 - 4 - 2*4 = 4bit</li>
+<li>24−12=424−12=4，剩余1100、1101、1110、1111，头两位全部为11</li>
+</ul></li>
+<li>一地址指令
+<ul>
+<li>头部必须为1111 11，16 - 6 - 4 = 6bit</li>
+<li>26−62=126−62=1，剩余111110</li>
+</ul></li>
+<li>零地址指令
+<ul>
+<li>头部必须为1111 1111 111，16 - 11 = 5bit</li>
+<li>25−32=025−32=0，分配完毕</li>
+</ul></li>
+<li>优点
+<ul>
+<li>在指令字长有限的情况下保证了比较丰富的指令种类</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>增加了指令译码和分析的难度</li>
+<li>使控制器设计复杂</li>
+</ul></li>
+</ul>
 ]]></content>
       <categories>
         <category>计组</category>
