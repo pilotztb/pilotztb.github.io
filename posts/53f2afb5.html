@@ -30,7 +30,7 @@
 <meta property="og:description" content="文件系统结构">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-14T03:48:35.000Z">
-<meta property="article:modified_time" content="2024-05-14T03:58:47.737Z">
+<meta property="article:modified_time" content="2024-05-21T03:38:13.951Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -217,10 +217,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-05-14 11:48:35 / 修改时间：11:58:47" itemprop="dateCreated datePublished" datetime="2024-05-14T11:48:35+08:00">2024-05-14</time>
+              <time title="创建时间：2024-05-14 11:48:35" itemprop="dateCreated datePublished" datetime="2024-05-14T11:48:35+08:00">2024-05-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-21 11:38:13" itemprop="dateModified" datetime="2024-05-21T11:38:13+08:00">2024-05-21</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -384,7 +390,7 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jMQQ3GyQQR0
 <h3 id="链接分配">链接分配</h3>
 <p>链接分配采取离散分配的方式，可以为文件分配离散的磁盘块。</p>
 <p><strong>记录成组分解技术</strong>：存储时不可以跨越“块”存储记录</p>
-<h4 id="隐式链接">（1）隐式链接</h4>
+<h4 id="隐式链接">隐式链接</h4>
 <p>目录中记录了文件存放的<strong>起始块号</strong>和<strong>结束块号</strong>。除了文件的最后一个磁盘块之外，每个磁盘块中都会保存指向下一个盘块的指针，这些指针对用户是透明的。同时，在文件目录中包含了第一块和最后一块的指针。</p>
 <p>要访问某个磁盘块，需要顺序的访问它前面的所有磁盘块来指向它。</p>
 <ul>
@@ -399,7 +405,7 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jMQQ3GyQQR0
 <li><p>指向下一个磁盘块的指针会占用少量空间</p></li>
 </ul></li>
 </ul>
-<h4 id="显式链接">（2）显式链接</h4>
+<h4 id="显式链接">显式链接</h4>
 <p>把用于链接文件各物理块的指针<strong>显式地</strong>存放在一张表中。即文<strong>件分配表</strong>（FAT，File
 Allocation Table）。</p>
 <p><strong>FAT中存放了物理块号和这个物理块指向的下一个物理块号</strong>。一个磁盘仅设一张FAT，开机时读入并在之后常驻内存。其各个表项在物理上连续存储（即实际硬盘中的依次各物理块），表长相同，因此物理块号是隐含的。</p>
@@ -417,9 +423,12 @@ Allocation Table）。</p>
 </ul></li>
 </ul>
 <p>题目中没有说则默认为隐式链接</p>
-<h3 id="索引分配">3、索引分配</h3>
-<p>索引分配允许文件离散地分配在各个磁盘块中，系统会为<strong>每个文件建立一张索引表</strong>，索引表中记录了文
-件的各个逻辑块对应的物理块（类似于内存管理中的页表，建立逻辑页面到物理页之间的映射关系)。</p>
+<h3 id="索引分配">索引分配</h3>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Xq_cNRUVOAU">视频讲解：索引分配</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=epIOk25c3yc">视频讲解：索引分配基础介绍</a></p>
+<p>索引分配允许文件离散地分配在各个磁盘块中，系统会为<strong>每个文件建立一张索引表</strong>，索引表中记录了文件的各个逻辑块对应的物理块（类似于内存管理中的页表，建立逻辑页面到物理页之间的映射关系)。</p>
 <p>索引表存放的磁盘块称为<strong>索引块</strong>。文件数据存放的磁盘块称为<strong>数据块</strong>。</p>
 <p>访问时，先通过FCB找到文件的索引块地址，再根据逻辑地址查找索引块得到实际磁盘块。</p>
 <ul>
@@ -436,10 +445,12 @@ Allocation Table）。</p>
 </ul></li>
 </ul>
 <p>当文件很大，索引表一个物理块装不下时，有三种处理方案：</p>
-<h4 id="链接方案">（1）链接方案</h4>
+<h4 id="链接方案">链接方案</h4>
 <p>如果索引表太大，一个索引块装不下，那么可以将多个索引块链接起来存放。FCB中只需要存放第一个索引块的地址即可。</p>
 <p>要查找一个块，需要将前面的所有索引表都查找一遍，效率低下。</p>
-<h4 id="多层索引">（2）多层索引</h4>
+<h4 id="多层索引">多层索引</h4>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=I0uX0qogqok">视频讲解：多层索引</a></p>
 <p>建立多层索引，使第一层索引块指向第二层的索引块。还可根据
 文件大小的要求再建立第三层、第四层索引块。</p>
 <p>例：假设磁盘块大小为1KB，一个索引表项占4B，则一个
@@ -453,13 +464,15 @@ Allocation Table）。</p>
 <li>即使是小文件，也需要经过K+1次读磁盘（K为索引层数）</li>
 </ul></li>
 </ul>
-<h4 id="混合索引">（3）混合索引</h4>
+<h4 id="混合索引">混合索引</h4>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WK0OxCl7log">视频讲解：混合索引</a></p>
 <p>多种索引分配方式的结合。例如，一个文件的顶级索引表中，既包含直接地址索引（直接指向数据块），又包含一级间接索引（指向单层索引表），还包含两级间接索引（指向两层索引表）
 。</p>
 <p>解决了小文件读磁盘次数过多的问题。</p>
 <p>做题时注意条件中顶级索引块是否已经调入内存。</p>
-<h2 id="文件的存储空间管理">4.2.5 文件的存储空间管理</h2>
-<h3 id="存储空间的划分与初始化">1、存储空间的划分与初始化</h3>
+<h2 id="文件的存储空间管理">文件的存储空间管理</h2>
+<h3 id="存储空间的划分与初始化">存储空间的划分与初始化</h3>
 <ul>
 <li><p>存储空间的划分：将物理磁盘划分为一个个文件卷（逻辑卷、逻辑盘）</p></li>
 <li><p>存储空间的初始化：将各个文件卷划分为目录区、文件区</p>
@@ -468,12 +481,12 @@ Allocation Table）。</p>
 <li><p>文件区：存放文件数据</p></li>
 </ul></li>
 </ul>
-<h3 id="存储空间的管理">2、存储空间的管理</h3>
+<h3 id="存储空间的管理">存储空间的管理</h3>
 <p>文件存储设备的管理实质上就是对空闲块的组织和管理</p>
-<h4 id="空闲表法">（1）空闲表法</h4>
+<h4 id="空闲表法">空闲表法</h4>
 <p><strong>如何分配磁盘块</strong>：与内存管理中的动态分区分配很类似，为一个文件<strong>分配连续的存储空间</strong>。同样可采用首次适应、最佳适应、最坏适应等算法来决定要为文件分配哪个区间。</p>
 <p><strong>如何回收磁盘块</strong>：与内存管理中的动态分区分配很类似，考虑是否合并空闲分区的问题即可。</p>
-<h4 id="空闲链表法">（2）空闲链表法</h4>
+<h4 id="空闲链表法">空闲链表法</h4>
 <p>系统存储链头、链尾指针。</p>
 <ul>
 <li><p><strong>空闲盘块链</strong>：以<strong>盘块为单位</strong>组成空闲链，每一个盘块中保存指向下一个盘块的指针</p>
@@ -483,8 +496,7 @@ Allocation Table）。</p>
 <li><p>如何回收：回收的盘块依次挂到链尾，并修改空闲链的链尾指针</p></li>
 <li><p>适用于离散的物理结构、分配时可能需要<strong>多次重复</strong>的操作</p></li>
 </ul></li>
-<li><p><strong>空闲盘区链</strong>：<strong>以盘区（连续的空闲盘块）为单位</strong>组成空闲链，第一个盘块中保存盘区长度、下一个盘区的指针</p>
-<ul>
+<li><p><strong>空闲盘区链</strong>：<strong>以盘区（连续的空闲盘块）为单位</strong>组成空闲链，第一个盘块中保存盘区长度、下一个盘区的指针</p></li>
 <li><p>如何分配：</p>
 <ul>
 <li><p>若某文件申请K个盘块，则可以采用首次适应、最佳适应等算法，从链头开始检索，
@@ -498,25 +510,20 @@ Allocation Table）。</p>
 <li><p>若回收区没有和任何空闲区相邻，将回收区作为单独的盘区挂到链尾</p></li>
 </ul></li>
 <li><p>离散分配、连续分配均适用，且分配多个盘块时效率更高</p></li>
-</ul></li>
 </ul>
-<h4 id="位示图法">（3）位示图法</h4>
+<h4 id="位示图法">位示图法</h4>
 <p>每个二进制位对应一个盘块，如0代表盘块空闲，1代表盘块已分配。</p>
 <p>位示图一般用连续的字来表示，如一
 个字的字长是16位，字中的每一位对应一个盘块。因此可以用（字号，位号）对应一个盘块号。当然有的题目中也描述为（行号，列号）</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F404566827-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MclRScjG6Fe8bjSwneh%2Fuploads%2Fgit-blob-f6f18eb504f05385d9e4b2592c54f6fed45bc26f%2Fimage.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=7799900005efb7e6948131faebb3cc9dfa65b6a77936dd304a4075d1df94b074"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ceaf808ca2ee916c1d641271a719f02.png" /></p>
 <p>设字长为n，盘块号为b，字号为i，位号为j，则有：</p>
-<p>�=�×�+��=�/�;�=�%�<em>b</em>=<em>n</em>×<em>i</em>+*j**i<em>=</em>b<em>/</em>n<em>;</em>j<em>=</em>b<em>%</em>n*</p>
+<p>b=n×i+j i=b/n; j=b%n</p>
 <p><strong>如何分配</strong>：</p>
 <ul>
 <li><p>若文件需要K个块</p>
 <ol type="1">
-<li><p>顺序扫描位示图，找到K个相邻或不相邻 的0</p></li>
+<li><p>顺序扫描位示图，找到K个相邻或不相邻的0</p></li>
 <li><p>根据字号、位号算出对应的盘块号，将相应盘块分配给文件</p></li>
 <li><p>将相应位设置为1</p></li>
 </ol></li>
@@ -526,7 +533,7 @@ alt="img" />
 <li><p>根据回收的盘块号计算出对应的字号、位号</p></li>
 <li><p>将相应位置的二进制位设为0</p></li>
 </ol>
-<h4 id="成组链接法">（4）成组链接法</h4>
+<h4 id="成组链接法">成组链接法</h4>
 <p>文件卷的目录区中专门用一个磁盘块作为<strong>超级块</strong>，当系统启动时需要<strong>将超级块读入内存</strong>。并且要保证内存与外存中的超级块数据一致。将空闲块进行分组，如100个一组。</p>
 <p>在超级块中，记录了下一个分组的空闲盘块的盘块数和这一组盘块的盘块号。</p>
 <p>在每一组的第一个盘块中记录下一组空闲盘块的开始的盘块号。若是最后一组，则记为某个特殊值如-1。</p>
@@ -640,7 +647,7 @@ alt="img" />
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">文件系统结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%B8%83%E5%B1%80"><span class="nav-number">2.</span> <span class="nav-text">文件系统布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%9C%A8%E7%A3%81%E7%9B%98%E4%B8%AD%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">文件在磁盘中的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%BB%BA%E7%AB%8B"><span class="nav-number">2.1.1.</span> <span class="nav-text">文件系统的建立</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E7%89%B9%E6%AE%8A%E5%9D%97"><span class="nav-number">2.1.2.</span> <span class="nav-text">文件系统中的特殊块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">文件在内存中的结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Fvfs"><span class="nav-number">3.</span> <span class="nav-text">虚拟文件系统（VFS）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">3.1.</span> <span class="nav-text">虚拟文件系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vfs%E6%89%80%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">VFS所定义的对象类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%8C%82%E8%BD%BD"><span class="nav-number">3.3.</span> <span class="nav-text">文件系统挂载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">文件的物理结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D"><span class="nav-number">4.1.</span> <span class="nav-text">连续分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E5%88%86%E9%85%8D"><span class="nav-number">4.2.</span> <span class="nav-text">链接分配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E9%93%BE%E6%8E%A5"><span class="nav-number">4.2.1.</span> <span class="nav-text">（1）隐式链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E9%93%BE%E6%8E%A5"><span class="nav-number">4.2.2.</span> <span class="nav-text">（2）显式链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%88%86%E9%85%8D"><span class="nav-number">4.3.</span> <span class="nav-text">3、索引分配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E6%96%B9%E6%A1%88"><span class="nav-number">4.3.1.</span> <span class="nav-text">（1）链接方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E5%B1%82%E7%B4%A2%E5%BC%95"><span class="nav-number">4.3.2.</span> <span class="nav-text">（2）多层索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-number">4.3.3.</span> <span class="nav-text">（3）混合索引</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">4.2.5 文件的存储空间管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%9A%84%E5%88%92%E5%88%86%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">5.1.</span> <span class="nav-text">1、存储空间的划分与初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%9A%84%E7%AE%A1%E7%90%86"><span class="nav-number">5.2.</span> <span class="nav-text">2、存储空间的管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E8%A1%A8%E6%B3%95"><span class="nav-number">5.2.1.</span> <span class="nav-text">（1）空闲表法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E9%93%BE%E8%A1%A8%E6%B3%95"><span class="nav-number">5.2.2.</span> <span class="nav-text">（2）空闲链表法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%8D%E7%A4%BA%E5%9B%BE%E6%B3%95"><span class="nav-number">5.2.3.</span> <span class="nav-text">（3）位示图法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%90%E7%BB%84%E9%93%BE%E6%8E%A5%E6%B3%95"><span class="nav-number">5.2.4.</span> <span class="nav-text">（4）成组链接法</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">文件系统结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%B8%83%E5%B1%80"><span class="nav-number">2.</span> <span class="nav-text">文件系统布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%9C%A8%E7%A3%81%E7%9B%98%E4%B8%AD%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">文件在磁盘中的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%BB%BA%E7%AB%8B"><span class="nav-number">2.1.1.</span> <span class="nav-text">文件系统的建立</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E7%89%B9%E6%AE%8A%E5%9D%97"><span class="nav-number">2.1.2.</span> <span class="nav-text">文件系统中的特殊块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">文件在内存中的结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9Fvfs"><span class="nav-number">3.</span> <span class="nav-text">虚拟文件系统（VFS）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">3.1.</span> <span class="nav-text">虚拟文件系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vfs%E6%89%80%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">VFS所定义的对象类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%8C%82%E8%BD%BD"><span class="nav-number">3.3.</span> <span class="nav-text">文件系统挂载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">文件的物理结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D"><span class="nav-number">4.1.</span> <span class="nav-text">连续分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E5%88%86%E9%85%8D"><span class="nav-number">4.2.</span> <span class="nav-text">链接分配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E9%93%BE%E6%8E%A5"><span class="nav-number">4.2.1.</span> <span class="nav-text">隐式链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E9%93%BE%E6%8E%A5"><span class="nav-number">4.2.2.</span> <span class="nav-text">显式链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%88%86%E9%85%8D"><span class="nav-number">4.3.</span> <span class="nav-text">索引分配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E6%96%B9%E6%A1%88"><span class="nav-number">4.3.1.</span> <span class="nav-text">链接方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E5%B1%82%E7%B4%A2%E5%BC%95"><span class="nav-number">4.3.2.</span> <span class="nav-text">多层索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-number">4.3.3.</span> <span class="nav-text">混合索引</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">文件的存储空间管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%9A%84%E5%88%92%E5%88%86%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">5.1.</span> <span class="nav-text">存储空间的划分与初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%9A%84%E7%AE%A1%E7%90%86"><span class="nav-number">5.2.</span> <span class="nav-text">存储空间的管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E8%A1%A8%E6%B3%95"><span class="nav-number">5.2.1.</span> <span class="nav-text">空闲表法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E9%93%BE%E8%A1%A8%E6%B3%95"><span class="nav-number">5.2.2.</span> <span class="nav-text">空闲链表法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%8D%E7%A4%BA%E5%9B%BE%E6%B3%95"><span class="nav-number">5.2.3.</span> <span class="nav-text">位示图法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%90%E7%BB%84%E9%93%BE%E6%8E%A5%E6%B3%95"><span class="nav-number">5.2.4.</span> <span class="nav-text">成组链接法</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -656,14 +663,14 @@ alt="img" />
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">58</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -717,13 +724,13 @@ alt="img" />
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">389k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

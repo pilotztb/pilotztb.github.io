@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="硬布线控制器 硬布线控制器单元图 根据指令操作码、当前的机器周期、节拍信号、机器状态条件即可确定当前节拍下应发出什么微命令。  硬布线控制器  通过判断取值周期、节拍数和具体指令操作码，写出逻辑表达式 将逻辑表达式以电路实现  硬布线控制器的设计 分析每个阶段的微操作序列  会用到哪些指令 在什么阶段用到 在什么条件下用到  选择CPU控制方式  定长周期 &amp;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5.4_控制器的工作原理和功能">
+<meta property="og:url" content="http://example.com/posts/93874b86.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="硬布线控制器 硬布线控制器单元图 根据指令操作码、当前的机器周期、节拍信号、机器状态条件即可确定当前节拍下应发出什么微命令。  硬布线控制器  通过判断取值周期、节拍数和具体指令操作码，写出逻辑表达式 将逻辑表达式以电路实现  硬布线控制器的设计 分析每个阶段的微操作序列  会用到哪些指令 在什么阶段用到 在什么条件下用到  选择CPU控制方式  定长周期 &amp;a">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-21T08:08:38.000Z">
+<meta property="article:modified_time" content="2024-05-21T08:16:46.734Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/posts/93874b86.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>5.4_控制器的工作原理和功能 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/93874b86.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          5.4_控制器的工作原理和功能
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-05-21 16:08:38 / 修改时间：16:16:46" itemprop="dateCreated datePublished" datetime="2024-05-21T16:08:38+08:00">2024-05-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">计组</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%BB%84/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/93874b86.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/93874b86.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="硬布线控制器">硬布线控制器</h2>
+<h3 id="硬布线控制器单元图">硬布线控制器单元图</h3>
+<p>根据<strong>指令操作码</strong>、<strong>当前的机器周期</strong>、<strong>节拍信号</strong>、<strong>机器状态条件</strong>即可确定当前节拍下应发出什么<strong>微命令</strong>。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/af0b4152bc4a16926eb0dbeb3004ca8.png" /></p>
+<p>硬布线控制器</p>
+<ul>
+<li>通过判断取值周期、节拍数和具体指令操作码，写出逻辑表达式</li>
+<li>将逻辑表达式以电路实现</li>
+</ul>
+<h3 id="硬布线控制器的设计">硬布线控制器的设计</h3>
+<p>分析每个阶段的微操作序列</p>
+<ul>
+<li>会用到哪些指令</li>
+<li>在什么阶段用到</li>
+<li>在什么条件下用到</li>
+</ul>
+<p>选择CPU控制方式</p>
+<ul>
+<li>定长周期 &amp; 不定长周期</li>
+<li>每个机器周期几个节拍</li>
+</ul>
+<p>安排微操作时序</p>
+<ul>
+<li>哪些微操作在前，那些在后</li>
+<li>每个节拍内安排多少指令</li>
+</ul>
+<p>电路设计</p>
+<ol type="1">
+<li>列出操作时间表</li>
+<li>写出微操作命令的最简表达式</li>
+<li>画出逻辑图</li>
+</ol>
+<h3 id="排微操作时序的原则">排微操作时序的原则</h3>
+<ul>
+<li>微操作的<strong>先后顺序</strong>不得随意更改
+<ul>
+<li>先分析指令的依赖顺序</li>
+</ul></li>
+<li>被控对象<strong>不同</strong>的微操作尽量安排在<strong>一个节拍内</strong>完成</li>
+<li><strong>占用时间较短</strong>的微操作尽量安排在一个节拍内完成，并允许有先后顺序
+<ul>
+<li>同样在CPU内部的寄存器之间的数据流可以安排在一个周期内</li>
+<li>主存和内部寄存器之间的数据操作不能在一个节拍内</li>
+</ul></li>
+</ul>
+<h3 id="硬布线控制器的特点">硬布线控制器的特点</h3>
+<ul>
+<li>一般用于RISC （精简指令集系统）</li>
+<li>扩充指令较困难</li>
+<li>执行速度很快，微操作控制信号由组合逻辑电路即时产生</li>
+</ul>
+<h2 id="微程序控制器">微程序控制器</h2>
+<h3 id="微程序控制器的设计思路">微程序控制器的设计思路</h3>
+<p>采用<strong>存储程序</strong>思想，出厂前将所有指令的<strong>微程序</strong>存入<strong>控制器存储器</strong>中</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ee1c8ebf262900782bb4a2edead53dc.png" /></p>
+<p>微程序控制器设计思路</p>
+<ul>
+<li><strong>程序</strong>：由指令序列组成</li>
+<li><strong>指令</strong>：对程序执行步骤的描述</li>
+<li><strong>微操作</strong>：每一条指令包含若干微操作，<strong>微命令与微操作一一对应</strong></li>
+<li><strong>微指令</strong>：对指令执行步骤的描述，<strong>可能包含多个微命令</strong></li>
+<li><strong>微程序</strong>：由微指令序列组成，<strong>指令与微程序一一对应</strong></li>
+</ul>
+<h3 id="微程序控制器的基本结构">微程序控制器的基本结构</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/841caf604fd58be32e42a22d27b7573.png" /></p>
+<p>微指令执行原理</p>
+<ul>
+<li><strong>控制存储器CM</strong>：存放微程序，由<strong>ROM</strong>构成
+<ul>
+<li>容量为：微指令数量×微指令字长微指令数量×微指令字长</li>
+</ul></li>
+<li><strong>CMAR（μPC）</strong>：微地址寄存器，相当于PC和MAR的作用</li>
+<li><strong>地址译码</strong>：处理微地址，转化为CM控制信号</li>
+<li><strong>CMDR（μIR）</strong>：存储从CM中取出的微指令，位数与微指令字长相等</li>
+<li><strong>微地址形成部件</strong>：通过IR中指定的操作码确定该指令对应的微指令序列的首微地址</li>
+<li><strong>顺序逻辑</strong>：控制微指令的执行顺序
+<ul>
+<li>可以通过机器指令的寻址特征判断寻址方式，决定是否要跳过间址周期</li>
+</ul></li>
+<li>一个微程序理论上包括寻址周期微程序、间址周期微程序、执行周期微程序和中断周期微程序四个微程序段</li>
+<li>取值周期、间址周期和中断周期的微程序通常是共用的</li>
+<li>若有n条指令，则最少有n+1条微程序段（可能会没有间址周期和中断周期）</li>
+</ul>
+<h3 id="微指令的格式">微指令的格式</h3>
+<h4 id="水平型微指令">水平型微指令</h4>
+<p>一条微指令能定义<strong>多个</strong>可并行的微命令。</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b34e52d20c16970b18a40a637fb2609.png"
+alt="水平型微指令" />
+<figcaption aria-hidden="true">水平型微指令</figcaption>
+</figure>
+<ul>
+<li>优点
+<ul>
+<li>微程序短</li>
+<li>执行速度快</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>微指令长</li>
+<li>编写麻烦</li>
+</ul></li>
+</ul>
+<h4 id="垂直型微指令">垂直型微指令</h4>
+<p>一条微指令只能定义<strong>一个</strong>微命令，由微操作码字段规定具体功能</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f9b6459eb4226fe00fcf865af45e39b.png"
+alt="垂直型微指令" />
+<figcaption aria-hidden="true">垂直型微指令</figcaption>
+</figure>
+<ul>
+<li>优点
+<ul>
+<li>微指令短</li>
+<li>简单规整，便于编写</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>微程序长</li>
+<li>执行速度慢，工作效率低</li>
+</ul></li>
+</ul>
+<h4 id="混合型微指令">混合型微指令</h4>
+<p>在垂直型的基础上增加一些不太复杂的并行操作。</p>
+<ul>
+<li>微指令较短，仍便于编写</li>
+<li>微程序也不长，执行速度加快</li>
+</ul>
+<h3 id="微指令的编码方式">微指令的编码方式</h3>
+<p>讨论水平型微指令中操作控制部分如何编码表示微指令</p>
+<h4 id="直接编码">直接编码</h4>
+<ul>
+<li>在微指令的操作控制字段中，每一位代表一个微操作命令。</li>
+<li>某位为“1”表示该控制信号有效</li>
+</ul>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bf55aedf0c8d83f7cae6b7dfa1709db.png"
+alt="直接编码" />
+<figcaption aria-hidden="true">直接编码</figcaption>
+</figure>
+<ul>
+<li>优点
+<ul>
+<li>简单直观</li>
+<li>执行速度快</li>
+<li>操作并行性好</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>微指令字长过长，导致CM容量需求极大S</li>
+</ul></li>
+</ul>
+<h4 id="字段直接编码方式">字段直接编码方式</h4>
+<ul>
+<li>将微指令的控制字段分成若干“段” ，每段经译码后发出控制信号</li>
+<li>分段原则
+<ul>
+<li><strong>互斥性微命令</strong>分在<strong>同一段内</strong>，<strong>相容性微命令</strong>分在<strong>不同段内</strong></li>
+<li>每个小段中包含的信息位不能太多，否则将增加译码线路的复杂性和译码时间</li>
+<li>一般每个小段还要留出一个状态，表示本字段不发出任何微命令
+<ul>
+<li>当某字段的长度为3位时，最多只能表示7个互斥的微命令，通常用000表示不操作</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>互斥性微命令</strong>：不允许并行完成的微命令</p>
+<p><strong>相容性微命令</strong>：允许并行完成的微命令</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ff3a2b37767154a466596b46d8159c8.png"
+alt="字段直接编码方式" />
+<figcaption aria-hidden="true">字段直接编码方式</figcaption>
+</figure>
+<p>例：某计算机的控制器采用微程序控制方式，微指令中的操作控制字段采用字段直接编码法。共有33个微命令，构成5个互斥类，分别包含7、3、12、5和6个微命令，则操作控制字段至少有多少位?</p>
+<ul>
+<li><p>第一个互斥类：7+1=8≤237+1=8≤23</p></li>
+<li><p>第二个互斥类：3+1=4≤223+1=4≤22</p></li>
+<li><p>第三个互斥类：12+1=13≤2412+1=13≤24</p></li>
+<li><p>第四个互斥类：5+1=6≤235+1=6≤23</p></li>
+<li><p>第五个互斥类：6+1=7≤236+1=7≤23</p></li>
+<li><p>总字段数：3+2+4+3+3=15 位</p></li>
+<li><p>优点</p>
+<ul>
+<li>可以缩短指令字长</li>
+</ul></li>
+<li><p>缺点</p>
+<ul>
+<li>要通过译码电路后再发出微命令，因此比直接编码方式慢</li>
+</ul></li>
+</ul>
+<h4 id="字段间接编码">字段间接编码</h4>
+<p>一个字段的某些微命令需由另一个字段中的某些微命令来解释，由于不是靠子段直接译码发出的微命令，故称为字段间接编码，又称隐式编码。</p>
+<ul>
+<li>进一步缩短指令字长</li>
+<li>执行更慢</li>
+</ul>
+<h3 id="微指令的地址形成方式">微指令的地址形成方式</h3>
+<ul>
+<li>通过微指令的<strong>下地址字段</strong>指出</li>
+<li>依据机器指令的<strong>操作码</strong>形成
+<ul>
+<li>机器指令放入IR</li>
+<li>微地址形成部件通过机器指令的操作码部分形成微指令的地址</li>
+</ul></li>
+<li><strong>增量计数器法</strong>：（CMAR）+1 → CMAR，类似PC</li>
+<li>分支转移
+<ul>
+<li>转移方式：指明判别条件</li>
+<li>转移地址：指明转移成功后的去向</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/9f030e9854caac6ba7761a96df85b1f.png"
+alt="分支转移" />
+<figcaption aria-hidden="true">分支转移</figcaption>
+</figure>
+<ul>
+<li>通过测试网络</li>
+<li>由硬件产生微程序入口地址
+<ul>
+<li>取值周期的第一条微指令的地址由硬件自动给出</li>
+</ul></li>
+</ul>
+<h3 id="微程序控制单元的设计">微程序控制单元的设计</h3>
+<h4 id="设计步骤">设计步骤</h4>
+<ol type="1">
+<li><p>分析每个阶段的微操作序列</p></li>
+<li><p>写出对应机器指令的微操作命令及节拍安排</p>
+<ul>
+<li>写出每个周期所需要的微操作（与硬布线相同）</li>
+<li>添加微程序控制器特有的微操作
+<ul>
+<li>取值周期
+<ul>
+<li>每条微指令执行结束之后：Ad(CMDR)→CMAR，指明下地址</li>
+<li>最后一条执行结束后：OP(IR)→微地址形成部件→CMAR，确定执行周期的微程序首地址</li>
+</ul></li>
+<li>执行周期
+<ul>
+<li>指明下地址：Ad(CMDR)→CMAR</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>确定微指令格式</p>
+<ul>
+<li>根据操作码的编码方式确定<strong>操作控制字段</strong>的位数</li>
+<li>根据CM中的微指令总数确定<strong>顺序控制字段</strong>的位数</li>
+<li>根据操作控制字段和顺序控制字段的长度确定微指令字长</li>
+</ul></li>
+<li><p>编写微指令码点</p></li>
+</ol>
+<h4 id="微程序设计分类">微程序设计分类</h4>
+<ul>
+<li><strong>静态</strong>微程序设计：
+<ul>
+<li>微程序无需改变</li>
+<li>采用ROM</li>
+</ul></li>
+<li><strong>动态</strong>威程序设计
+<ul>
+<li>通过改变微指令和微程序改变机器指令</li>
+<li>有利于仿真</li>
+<li>采用EPROM</li>
+</ul></li>
+</ul>
+<p><strong>毫微程序设计</strong>：用毫微程序解释微程序（更进一步）</p>
+<h3 id="微程序控制器的特点">微程序控制器的特点</h3>
+<ul>
+<li>执行速度慢</li>
+<li>较规整，易于扩充修改</li>
+<li>适用于CISC（复杂指令集系统）</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/93874b86.html" title="5.4_控制器的工作原理和功能">http://example.com/posts/93874b86.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/b07fc105.html" rel="prev" title="5.2_指令执行过程">
+      <i class="fa fa-chevron-left"></i> 5.2_指令执行过程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E5%B8%83%E7%BA%BF%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">硬布线控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E5%B8%83%E7%BA%BF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%95%E5%85%83%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">硬布线控制器单元图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E5%B8%83%E7%BA%BF%E6%8E%A7%E5%88%B6%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.</span> <span class="nav-text">硬布线控制器的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BE%AE%E6%93%8D%E4%BD%9C%E6%97%B6%E5%BA%8F%E7%9A%84%E5%8E%9F%E5%88%99"><span class="nav-number">1.3.</span> <span class="nav-text">排微操作时序的原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E5%B8%83%E7%BA%BF%E6%8E%A7%E5%88%B6%E5%99%A8%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">硬布线控制器的特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">微程序控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-number">2.1.</span> <span class="nav-text">微程序控制器的设计思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">微程序控制器的基本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%8C%87%E4%BB%A4%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">微指令的格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E5%9E%8B%E5%BE%AE%E6%8C%87%E4%BB%A4"><span class="nav-number">2.3.1.</span> <span class="nav-text">水平型微指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E5%9E%8B%E5%BE%AE%E6%8C%87%E4%BB%A4"><span class="nav-number">2.3.2.</span> <span class="nav-text">垂直型微指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E5%9E%8B%E5%BE%AE%E6%8C%87%E4%BB%A4"><span class="nav-number">2.3.3.</span> <span class="nav-text">混合型微指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%8C%87%E4%BB%A4%E7%9A%84%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="nav-number">2.4.</span> <span class="nav-text">微指令的编码方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E7%BC%96%E7%A0%81"><span class="nav-number">2.4.1.</span> <span class="nav-text">直接编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E6%AE%B5%E7%9B%B4%E6%8E%A5%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="nav-number">2.4.2.</span> <span class="nav-text">字段直接编码方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E6%AE%B5%E9%97%B4%E6%8E%A5%E7%BC%96%E7%A0%81"><span class="nav-number">2.4.3.</span> <span class="nav-text">字段间接编码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%8C%87%E4%BB%A4%E7%9A%84%E5%9C%B0%E5%9D%80%E5%BD%A2%E6%88%90%E6%96%B9%E5%BC%8F"><span class="nav-number">2.5.</span> <span class="nav-text">微指令的地址形成方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E5%8D%95%E5%85%83%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.6.</span> <span class="nav-text">微程序控制单元的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.6.1.</span> <span class="nav-text">设计步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%88%86%E7%B1%BB"><span class="nav-number">2.6.2.</span> <span class="nav-text">微程序设计分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E5%99%A8%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">2.7.</span> <span class="nav-text">微程序控制器的特点</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">心有所向，无问西东</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">394k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

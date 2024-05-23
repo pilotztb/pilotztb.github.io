@@ -192,6 +192,940 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/93874b86.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/93874b86.html" class="post-title-link" itemprop="url">5.4_控制器的工作原理和功能</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-05-21 16:08:38 / 修改时间：16:16:46" itemprop="dateCreated datePublished" datetime="2024-05-21T16:08:38+08:00">2024-05-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">计组</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%BB%84/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/93874b86.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/93874b86.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="硬布线控制器">硬布线控制器</h2>
+<h3 id="硬布线控制器单元图">硬布线控制器单元图</h3>
+<p>根据<strong>指令操作码</strong>、<strong>当前的机器周期</strong>、<strong>节拍信号</strong>、<strong>机器状态条件</strong>即可确定当前节拍下应发出什么<strong>微命令</strong>。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/af0b4152bc4a16926eb0dbeb3004ca8.png" /></p>
+<p>硬布线控制器</p>
+<ul>
+<li>通过判断取值周期、节拍数和具体指令操作码，写出逻辑表达式</li>
+<li>将逻辑表达式以电路实现</li>
+</ul>
+<h3 id="硬布线控制器的设计">硬布线控制器的设计</h3>
+<p>分析每个阶段的微操作序列</p>
+<ul>
+<li>会用到哪些指令</li>
+<li>在什么阶段用到</li>
+<li>在什么条件下用到</li>
+</ul>
+<p>选择CPU控制方式</p>
+<ul>
+<li>定长周期 &amp; 不定长周期</li>
+<li>每个机器周期几个节拍</li>
+</ul>
+<p>安排微操作时序</p>
+<ul>
+<li>哪些微操作在前，那些在后</li>
+<li>每个节拍内安排多少指令</li>
+</ul>
+<p>电路设计</p>
+<ol type="1">
+<li>列出操作时间表</li>
+<li>写出微操作命令的最简表达式</li>
+<li>画出逻辑图</li>
+</ol>
+<h3 id="排微操作时序的原则">排微操作时序的原则</h3>
+<ul>
+<li>微操作的<strong>先后顺序</strong>不得随意更改
+<ul>
+<li>先分析指令的依赖顺序</li>
+</ul></li>
+<li>被控对象<strong>不同</strong>的微操作尽量安排在<strong>一个节拍内</strong>完成</li>
+<li><strong>占用时间较短</strong>的微操作尽量安排在一个节拍内完成，并允许有先后顺序
+<ul>
+<li>同样在CPU内部的寄存器之间的数据流可以安排在一个周期内</li>
+<li>主存和内部寄存器之间的数据操作不能在一个节拍内</li>
+</ul></li>
+</ul>
+<h3 id="硬布线控制器的特点">硬布线控制器的特点</h3>
+<ul>
+<li>一般用于RISC （精简指令集系统）</li>
+<li>扩充指令较困难</li>
+<li>执行速度很快，微操作控制信号由组合逻辑电路即时产生</li>
+</ul>
+<h2 id="微程序控制器">微程序控制器</h2>
+<h3 id="微程序控制器的设计思路">微程序控制器的设计思路</h3>
+<p>采用<strong>存储程序</strong>思想，出厂前将所有指令的<strong>微程序</strong>存入<strong>控制器存储器</strong>中</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ee1c8ebf262900782bb4a2edead53dc.png" /></p>
+<p>微程序控制器设计思路</p>
+<ul>
+<li><strong>程序</strong>：由指令序列组成</li>
+<li><strong>指令</strong>：对程序执行步骤的描述</li>
+<li><strong>微操作</strong>：每一条指令包含若干微操作，<strong>微命令与微操作一一对应</strong></li>
+<li><strong>微指令</strong>：对指令执行步骤的描述，<strong>可能包含多个微命令</strong></li>
+<li><strong>微程序</strong>：由微指令序列组成，<strong>指令与微程序一一对应</strong></li>
+</ul>
+<h3 id="微程序控制器的基本结构">微程序控制器的基本结构</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/841caf604fd58be32e42a22d27b7573.png" /></p>
+<p>微指令执行原理</p>
+<ul>
+<li><strong>控制存储器CM</strong>：存放微程序，由<strong>ROM</strong>构成
+<ul>
+<li>容量为：微指令数量×微指令字长微指令数量×微指令字长</li>
+</ul></li>
+<li><strong>CMAR（μPC）</strong>：微地址寄存器，相当于PC和MAR的作用</li>
+<li><strong>地址译码</strong>：处理微地址，转化为CM控制信号</li>
+<li><strong>CMDR（μIR）</strong>：存储从CM中取出的微指令，位数与微指令字长相等</li>
+<li><strong>微地址形成部件</strong>：通过IR中指定的操作码确定该指令对应的微指令序列的首微地址</li>
+<li><strong>顺序逻辑</strong>：控制微指令的执行顺序
+<ul>
+<li>可以通过机器指令的寻址特征判断寻址方式，决定是否要跳过间址周期</li>
+</ul></li>
+<li>一个微程序理论上包括寻址周期微程序、间址周期微程序、执行周期微程序和中断周期微程序四个微程序段</li>
+<li>取值周期、间址周期和中断周期的微程序通常是共用的</li>
+<li>若有n条指令，则最少有n+1条微程序段（可能会没有间址周期和中断周期）</li>
+</ul>
+<h3 id="微指令的格式">微指令的格式</h3>
+<h4 id="水平型微指令">水平型微指令</h4>
+<p>一条微指令能定义<strong>多个</strong>可并行的微命令。</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b34e52d20c16970b18a40a637fb2609.png"
+alt="水平型微指令" />
+<figcaption aria-hidden="true">水平型微指令</figcaption>
+</figure>
+<ul>
+<li>优点
+<ul>
+<li>微程序短</li>
+<li>执行速度快</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>微指令长</li>
+<li>编写麻烦</li>
+</ul></li>
+</ul>
+<h4 id="垂直型微指令">垂直型微指令</h4>
+<p>一条微指令只能定义<strong>一个</strong>微命令，由微操作码字段规定具体功能</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f9b6459eb4226fe00fcf865af45e39b.png"
+alt="垂直型微指令" />
+<figcaption aria-hidden="true">垂直型微指令</figcaption>
+</figure>
+<ul>
+<li>优点
+<ul>
+<li>微指令短</li>
+<li>简单规整，便于编写</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>微程序长</li>
+<li>执行速度慢，工作效率低</li>
+</ul></li>
+</ul>
+<h4 id="混合型微指令">混合型微指令</h4>
+<p>在垂直型的基础上增加一些不太复杂的并行操作。</p>
+<ul>
+<li>微指令较短，仍便于编写</li>
+<li>微程序也不长，执行速度加快</li>
+</ul>
+<h3 id="微指令的编码方式">微指令的编码方式</h3>
+<p>讨论水平型微指令中操作控制部分如何编码表示微指令</p>
+<h4 id="直接编码">直接编码</h4>
+<ul>
+<li>在微指令的操作控制字段中，每一位代表一个微操作命令。</li>
+<li>某位为“1”表示该控制信号有效</li>
+</ul>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bf55aedf0c8d83f7cae6b7dfa1709db.png"
+alt="直接编码" />
+<figcaption aria-hidden="true">直接编码</figcaption>
+</figure>
+<ul>
+<li>优点
+<ul>
+<li>简单直观</li>
+<li>执行速度快</li>
+<li>操作并行性好</li>
+</ul></li>
+<li>缺点
+<ul>
+<li>微指令字长过长，导致CM容量需求极大S</li>
+</ul></li>
+</ul>
+<h4 id="字段直接编码方式">字段直接编码方式</h4>
+<ul>
+<li>将微指令的控制字段分成若干“段” ，每段经译码后发出控制信号</li>
+<li>分段原则
+<ul>
+<li><strong>互斥性微命令</strong>分在<strong>同一段内</strong>，<strong>相容性微命令</strong>分在<strong>不同段内</strong></li>
+<li>每个小段中包含的信息位不能太多，否则将增加译码线路的复杂性和译码时间</li>
+<li>一般每个小段还要留出一个状态，表示本字段不发出任何微命令
+<ul>
+<li>当某字段的长度为3位时，最多只能表示7个互斥的微命令，通常用000表示不操作</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>互斥性微命令</strong>：不允许并行完成的微命令</p>
+<p><strong>相容性微命令</strong>：允许并行完成的微命令</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ff3a2b37767154a466596b46d8159c8.png"
+alt="字段直接编码方式" />
+<figcaption aria-hidden="true">字段直接编码方式</figcaption>
+</figure>
+<p>例：某计算机的控制器采用微程序控制方式，微指令中的操作控制字段采用字段直接编码法。共有33个微命令，构成5个互斥类，分别包含7、3、12、5和6个微命令，则操作控制字段至少有多少位?</p>
+<ul>
+<li><p>第一个互斥类：7+1=8≤237+1=8≤23</p></li>
+<li><p>第二个互斥类：3+1=4≤223+1=4≤22</p></li>
+<li><p>第三个互斥类：12+1=13≤2412+1=13≤24</p></li>
+<li><p>第四个互斥类：5+1=6≤235+1=6≤23</p></li>
+<li><p>第五个互斥类：6+1=7≤236+1=7≤23</p></li>
+<li><p>总字段数：3+2+4+3+3=15 位</p></li>
+<li><p>优点</p>
+<ul>
+<li>可以缩短指令字长</li>
+</ul></li>
+<li><p>缺点</p>
+<ul>
+<li>要通过译码电路后再发出微命令，因此比直接编码方式慢</li>
+</ul></li>
+</ul>
+<h4 id="字段间接编码">字段间接编码</h4>
+<p>一个字段的某些微命令需由另一个字段中的某些微命令来解释，由于不是靠子段直接译码发出的微命令，故称为字段间接编码，又称隐式编码。</p>
+<ul>
+<li>进一步缩短指令字长</li>
+<li>执行更慢</li>
+</ul>
+<h3 id="微指令的地址形成方式">微指令的地址形成方式</h3>
+<ul>
+<li>通过微指令的<strong>下地址字段</strong>指出</li>
+<li>依据机器指令的<strong>操作码</strong>形成
+<ul>
+<li>机器指令放入IR</li>
+<li>微地址形成部件通过机器指令的操作码部分形成微指令的地址</li>
+</ul></li>
+<li><strong>增量计数器法</strong>：（CMAR）+1 → CMAR，类似PC</li>
+<li>分支转移
+<ul>
+<li>转移方式：指明判别条件</li>
+<li>转移地址：指明转移成功后的去向</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/9f030e9854caac6ba7761a96df85b1f.png"
+alt="分支转移" />
+<figcaption aria-hidden="true">分支转移</figcaption>
+</figure>
+<ul>
+<li>通过测试网络</li>
+<li>由硬件产生微程序入口地址
+<ul>
+<li>取值周期的第一条微指令的地址由硬件自动给出</li>
+</ul></li>
+</ul>
+<h3 id="微程序控制单元的设计">微程序控制单元的设计</h3>
+<h4 id="设计步骤">设计步骤</h4>
+<ol type="1">
+<li><p>分析每个阶段的微操作序列</p></li>
+<li><p>写出对应机器指令的微操作命令及节拍安排</p>
+<ul>
+<li>写出每个周期所需要的微操作（与硬布线相同）</li>
+<li>添加微程序控制器特有的微操作
+<ul>
+<li>取值周期
+<ul>
+<li>每条微指令执行结束之后：Ad(CMDR)→CMAR，指明下地址</li>
+<li>最后一条执行结束后：OP(IR)→微地址形成部件→CMAR，确定执行周期的微程序首地址</li>
+</ul></li>
+<li>执行周期
+<ul>
+<li>指明下地址：Ad(CMDR)→CMAR</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>确定微指令格式</p>
+<ul>
+<li>根据操作码的编码方式确定<strong>操作控制字段</strong>的位数</li>
+<li>根据CM中的微指令总数确定<strong>顺序控制字段</strong>的位数</li>
+<li>根据操作控制字段和顺序控制字段的长度确定微指令字长</li>
+</ul></li>
+<li><p>编写微指令码点</p></li>
+</ol>
+<h4 id="微程序设计分类">微程序设计分类</h4>
+<ul>
+<li><strong>静态</strong>微程序设计：
+<ul>
+<li>微程序无需改变</li>
+<li>采用ROM</li>
+</ul></li>
+<li><strong>动态</strong>威程序设计
+<ul>
+<li>通过改变微指令和微程序改变机器指令</li>
+<li>有利于仿真</li>
+<li>采用EPROM</li>
+</ul></li>
+</ul>
+<p><strong>毫微程序设计</strong>：用毫微程序解释微程序（更进一步）</p>
+<h3 id="微程序控制器的特点">微程序控制器的特点</h3>
+<ul>
+<li>执行速度慢</li>
+<li>较规整，易于扩充修改</li>
+<li>适用于CISC（复杂指令集系统）</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b07fc105.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/b07fc105.html" class="post-title-link" itemprop="url">5.2_指令执行过程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-05-21 16:06:46 / 修改时间：16:22:54" itemprop="dateCreated datePublished" datetime="2024-05-21T16:06:46+08:00">2024-05-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">计组</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%BB%84/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/b07fc105.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/b07fc105.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>971</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="指令周期">指令周期</h2>
+<p>简化版</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240521162251601.png" /></p>
+<p>指令周期：CPU从主存中取出并执行一条指令的全部时间。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/82318d6200a829db53b4696517d38bb.png" /></p>
+<p>一个<strong>指令周期</strong>由若干<strong>机器周期</strong>表示，机器周期也叫<strong>CUP周期</strong>。</p>
+<p>一个<strong>机器周期</strong>包含若干<strong>时钟周期（节拍）</strong>，时钟周期是CPU操作的最基本单位。</p>
+<ul>
+<li>每个指令周期内机器周期可以不相等</li>
+<li>每个机器周期内节拍数也可以不相等</li>
+</ul>
+<p>完整的指令周期如下图所示：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/daf0acddc67712ae6a66090d425de80.png" /></p>
+<p>运行时，通过<strong>触发器</strong>来判断当前处于指令周期内的哪一个阶段。</p>
+<h2 id="指令周期的数据流">指令周期的数据流</h2>
+<h3 id="寻址周期">寻址周期</h3>
+<p>根据PC的内容从主存中取出指令并存入IR</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e7f5413e7482afcbbc48c51156a0411.png" /></p>
+<ol type="1">
+<li>将当前指令地址送到<strong>存储地址寄存器</strong>
+<ol type="1">
+<li>(PC)→MAR(PC)→MAR</li>
+</ol></li>
+<li>CU发出控制信号，由控制总线传到主存，标明是<strong>读信号</strong>
+<ol type="1">
+<li>1→R1→R</li>
+</ol></li>
+<li>将MAR指向的主存中的内容经<strong>数据总线</strong>传至MDR
+<ol type="1">
+<li>M(MAR)→MDRM(MAR)→MDR</li>
+</ol></li>
+<li>将MDR中的数据送入<strong>指令寄存器IR</strong>
+<ol type="1">
+<li>(MDR)→IR(MDR)→IR</li>
+</ol></li>
+<li>CU发出控制信号，形成下一条指令的地址
+<ol type="1">
+<li>(PC)+1→PC(PC)+1→PC</li>
+</ol></li>
+</ol>
+<h3 id="间址周期">间址周期</h3>
+<p>取操作数的有效地址</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/276576497acff1b4b71270020417281.png" /></p>
+<ol type="1">
+<li>将指令的地址码送入MAR
+<ol type="1">
+<li>Ad(IR)→MARAd(IR)→MAR</li>
+</ol></li>
+<li>CU发出控制信号，表示读操作
+<ol type="1">
+<li>1→R1→R</li>
+</ol></li>
+<li>将MAR所指主存中的内容传入MDR
+<ol type="1">
+<li>M(MAR)→MDRM(MAR)→MDR</li>
+</ol></li>
+<li>将得到的有效地址送入IR
+<ol type="1">
+<li>(MDR)→Ad(IR)(MDR)→Ad(IR)</li>
+</ol></li>
+</ol>
+<h3 id="执行周期">执行周期</h3>
+<p>取操作数，根据IR中的操作码进行相关运算</p>
+<p>执行周期的数据流向视不同指令而定，没有统一的数据流向。</p>
+<h3 id="中断周期">中断周期</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0ee27676498b3b60be12ba4d1b31073.png" /></p>
+<p>中断执行前需要保存当前程序的<strong>断点</strong>。</p>
+<p>断点一般采用堆栈保存，SP为栈顶指针，进栈的操作顺序为先修改指针，再存入数据。</p>
+<ol type="1">
+<li>CU控制SP减一，并将修改后的栈顶地址存入MAR
+<ol type="1">
+<li>(SP)-1→SP(SP)-1→SP</li>
+<li>(SP)→MAR(SP)→MAR</li>
+</ol></li>
+<li>CU发出控制信号，表明当前为写操作
+<ol type="1">
+<li>1→W1→W</li>
+</ol></li>
+<li>将断点内容（PC内容）存入MDR
+<ol type="1">
+<li>(PC)→MDR(PC)→MDR</li>
+</ol></li>
+<li>CU将中断程序的入口地址存入PC
+<ol type="1">
+<li>向量地址→PC向量地址→PC</li>
+</ol></li>
+</ol>
+<h2 id="指令执行方案">指令执行方案</h2>
+<h3 id="单指令周期">单指令周期</h3>
+<p>对所有指令都选<strong>用相同的执行时间来完成</strong>。
+指令之间<strong>串行执行</strong>，指令周期取决于执行时间最长的指令的执行时间。</p>
+<p>会降低整个系统的运行速度。</p>
+<h3 id="多指令周期">多指令周期</h3>
+<p>对不同类型的指令<strong>选用不同的执行步骤来完成</strong>。
+指令之间<strong>串行执行</strong>，可选用不同个数的时钟周期来完成不同指令的执行过程。</p>
+<p>需要更复杂的硬件设计。</p>
+<h3 id="流水线方案">流水线方案</h3>
+<p>在每一个时钟周期启动一条指令，尽量让多条指令<strong>同时运行</strong>，但各自处在<strong>不同的执行步骤</strong>中。
+指令之间<strong>并行执行</strong>。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/eeed506a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/eeed506a.html" class="post-title-link" itemprop="url">5.1_CPU的基本功能和结构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-05-21 14:19:29 / 修改时间：15:33:48" itemprop="dateCreated datePublished" datetime="2024-05-21T14:19:29+08:00">2024-05-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">计组</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%BB%84/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/eeed506a.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/eeed506a.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>951</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="cpu的功能">CPU的功能</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/eeed506a.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5d101fd4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/5d101fd4.html" class="post-title-link" itemprop="url">图像操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-05-20 11:05:12 / 修改时间：23:46:18" itemprop="dateCreated datePublished" datetime="2024-05-20T11:05:12+08:00">2024-05-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">实验</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/5d101fd4.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/5d101fd4.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>848</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="numpy数组">numpy数组</h1>
+<h2 id="查看形状">查看形状</h2>
+<h3 id="numpy">numpy</h3>
+<p>print(f"before transpose img_f shape is {img_f.shape}")</p>
+<p>一般PIL图像都是HWC，一般张量都是CHW，所以用 image = img.permute(2, 0,
+1)来调换通道</p>
+<h1 id="pil">PIL</h1>
+<h2 id="section"></h2>
+<p>print(Image.open(image_path))就可以查看一个图像的基本信息</p>
+<p>&lt;PIL.Image.Image image mode=RGB size=320x320 at
+0x7FA27DF10910&gt;</p>
+<h1 id="张量">张量</h1>
+<p>张量要求输入是四维，所以如果只有1张图片，要修改</p>
+<p>张量与PIL之间转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载图片并转换为张量</span></span><br><span class="line">image = Image.<span class="built_in">open</span>(<span class="string">&#x27;/home/ztb/alg_mini/computer_design/sbi数据集/faces/1.png&#x27;</span>)</span><br><span class="line">transform = torchvision.transforms.ToTensor()</span><br><span class="line">image_tensor = transform(image)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加批量维度并调整通道顺序</span></span><br><span class="line">image_tensor = image_tensor.unsqueeze(<span class="number">0</span>)  <span class="comment"># 添加批量维度</span></span><br><span class="line">image_tensor = image_tensor.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>)  <span class="comment"># 调整通道顺序</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将图片输入模型进行推理</span></span><br><span class="line">output = model(image_tensor)</span><br></pre></td></tr></table></figure>
+<p>输入模型的张量格式通常是一个四维张量，其形状为
+<code>[batch_size, channels, height, width]</code>，其中：</p>
+<ul>
+<li><code>batch_size</code> 表示每个批次中样本的数量。</li>
+<li><code>channels</code>
+表示图片的通道数，对于彩色图片通常为3（R、G、B），对于灰度图片通常为1。</li>
+<li><code>height</code> 表示图片的高度。</li>
+<li><code>width</code> 表示图片的宽度。</li>
+</ul>
+<p>这种格式通常称为 CHW 格式，因为通道在前，高度在中间，宽度在最后。</p>
+<h1 id="图像值的变换">图像值的变换</h1>
+<p>为什么一会float / 255，一会有int * 255</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240520234523830.png" /></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6fc55794.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/6fc55794.html" class="post-title-link" itemprop="url">常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-19 09:31:56" itemprop="dateCreated datePublished" datetime="2024-05-19T09:31:56+08:00">2024-05-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-20 19:41:30" itemprop="dateModified" datetime="2024-05-20T19:41:30+08:00">2024-05-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">实验</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/6fc55794.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/6fc55794.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>239</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="上传文件到远程服务器">上传文件到远程服务器</h1>
+<p>scp -r -P 12243 I:ztb@43.139.180.140:/home/ztb</p>
+<p>快速上传</p>
+<p>scp -r -P 22 -C I:ztb@10.154.24.17:/home/ztb</p>
+<h1 id="指定显卡">指定显卡</h1>
+<p>CUDA_VISIBLE_DEVICES=3</p>
+<h1
+id="发现无法使用包自己写的包无法导入">发现无法使用包，自己写的包无法导入</h1>
+<p>在需要使用导入包代码前写</p>
+<p>import sys sys.path.append('/home/ztb/experiment')</p>
+<p>然后from …… import ……</p>
+<p>其中append假第一个……组成被导入包的绝对路径</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/3fba63fc.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -217,7 +1151,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-05-14 15:13:18 / 修改时间：16:27:47" itemprop="dateCreated datePublished" datetime="2024-05-14T15:13:18+08:00">2024-05-14</time>
+              <time title="创建时间：2024-05-14 15:13:18 / 修改时间：20:57:29" itemprop="dateCreated datePublished" datetime="2024-05-14T15:13:18+08:00">2024-05-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,7 +1187,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -322,10 +1256,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-05-14 11:48:35 / 修改时间：11:58:47" itemprop="dateCreated datePublished" datetime="2024-05-14T11:48:35+08:00">2024-05-14</time>
+              <time title="创建时间：2024-05-14 11:48:35" itemprop="dateCreated datePublished" datetime="2024-05-14T11:48:35+08:00">2024-05-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-21 11:38:13" itemprop="dateModified" datetime="2024-05-21T11:38:13+08:00">2024-05-21</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -738,565 +1678,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c8d0992d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/c8d0992d.html" class="post-title-link" itemprop="url">4.1_文件系统基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-07 10:22:22" itemprop="dateCreated datePublished" datetime="2024-05-07T10:22:22+08:00">2024-05-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 11:33:52" itemprop="dateModified" datetime="2024-05-14T11:33:52+08:00">2024-05-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/c8d0992d.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/c8d0992d.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="文件的概念">文件的概念</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/c8d0992d.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2846ab22.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/2846ab22.html" class="post-title-link" itemprop="url">3.4_双端口RAM和多模块存储器.md</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-07 09:27:49" itemprop="dateCreated datePublished" datetime="2024-05-07T09:27:49+08:00">2024-05-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-12 20:11:30" itemprop="dateModified" datetime="2024-05-12T20:11:30+08:00">2024-05-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">计组</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%BB%84/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/2846ab22.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/2846ab22.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>785</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="双端口ram">双端口RAM</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/2846ab22.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/fc115c62.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/fc115c62.html" class="post-title-link" itemprop="url">第七章_二元关系</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-06 08:35:35" itemprop="dateCreated datePublished" datetime="2024-05-06T08:35:35+08:00">2024-05-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 11:46:58" itemprop="dateModified" datetime="2024-05-14T11:46:58+08:00">2024-05-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">离散数学</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%90%86%E9%80%BB%E8%BE%91%E4%B8%8E%E9%9B%86%E5%90%88%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">数理逻辑与集合论</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/fc115c62.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/fc115c62.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="有序对与笛卡儿积">有序对与笛卡儿积</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/fc115c62.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b9d479be.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/b9d479be.html" class="post-title-link" itemprop="url">3.2_虚拟内存</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-05-05 09:36:07 / 修改时间：15:53:08" itemprop="dateCreated datePublished" datetime="2024-05-05T09:36:07+08:00">2024-05-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/b9d479be.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/b9d479be.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="虚拟内存的概念">虚拟内存的概念</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/b9d479be.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/24954513.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/24954513.html" class="post-title-link" itemprop="url">3.1_内存管理概念</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-04 08:25:40" itemprop="dateCreated datePublished" datetime="2024-05-04T08:25:40+08:00">2024-05-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-05 09:27:33" itemprop="dateModified" datetime="2024-05-05T09:27:33+08:00">2024-05-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/24954513.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/24954513.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="内存相关概念">内存相关概念</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/24954513.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1368,14 +1749,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-count">148</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">58</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1429,13 +1810,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">389k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
