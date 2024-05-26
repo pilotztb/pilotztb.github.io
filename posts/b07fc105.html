@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="指令周期 简化版  指令周期：CPU从主存中取出并执行一条指令的全部时间。  一个指令周期由若干机器周期表示，机器周期也叫CUP周期。 一个机器周期包含若干时钟周期（节拍），时钟周期是CPU操作的最基本单位。  每个指令周期内机器周期可以不相等 每个机器周期内节拍数也可以不相等  完整的指令周期如下图所示：  运行时，通过触发器来判断当前处于指令周期内的哪一个阶段。 指">
+  <meta name="description" content="指令周期">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5.2_指令执行过程">
 <meta property="og:url" content="http://example.com/posts/b07fc105.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
-<meta property="og:description" content="指令周期 简化版  指令周期：CPU从主存中取出并执行一条指令的全部时间。  一个指令周期由若干机器周期表示，机器周期也叫CUP周期。 一个机器周期包含若干时钟周期（节拍），时钟周期是CPU操作的最基本单位。  每个指令周期内机器周期可以不相等 每个机器周期内节拍数也可以不相等  完整的指令周期如下图所示：  运行时，通过触发器来判断当前处于指令周期内的哪一个阶段。 指">
+<meta property="og:description" content="指令周期">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-21T08:06:46.000Z">
-<meta property="article:modified_time" content="2024-05-21T08:22:54.074Z">
+<meta property="article:modified_time" content="2024-05-24T11:59:32.244Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -217,10 +217,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-05-21 16:06:46 / 修改时间：16:22:54" itemprop="dateCreated datePublished" datetime="2024-05-21T16:06:46+08:00">2024-05-21</time>
+              <time title="创建时间：2024-05-21 16:06:46" itemprop="dateCreated datePublished" datetime="2024-05-21T16:06:46+08:00">2024-05-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-24 19:59:32" itemprop="dateModified" datetime="2024-05-24T19:59:32+08:00">2024-05-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -282,6 +288,7 @@
 
       
         <h2 id="指令周期">指令周期</h2>
+<span id="more"></span>
 <p>简化版</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240521162251601.png" /></p>
@@ -289,7 +296,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024052116225160
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/82318d6200a829db53b4696517d38bb.png" /></p>
 <p>一个<strong>指令周期</strong>由若干<strong>机器周期</strong>表示，机器周期也叫<strong>CUP周期</strong>。</p>
-<p>一个<strong>机器周期</strong>包含若干<strong>时钟周期（节拍）</strong>，时钟周期是CPU操作的最基本单位。</p>
+<p>一个<strong>机器周期</strong>包含若干<strong>时钟周期（节拍）</strong>，<font color = "red">时钟周期是CPU操作的最基本单位。</font></p>
 <ul>
 <li>每个指令周期内机器周期可以不相等</li>
 <li>每个机器周期内节拍数也可以不相等</li>
@@ -500,14 +507,14 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0ee27676498b3b60be12ba
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -561,13 +568,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0ee27676498b3b60be12ba
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">394k</span>
+    <span title="站点总字数">395k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:58</span>
+    <span title="站点阅读时长">5:59</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

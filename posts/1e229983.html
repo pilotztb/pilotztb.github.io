@@ -30,7 +30,7 @@
 <meta property="og:description" content="输出hello world">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-26T14:52:25.000Z">
-<meta property="article:modified_time" content="2024-05-10T21:56:22.560Z">
+<meta property="article:modified_time" content="2024-05-23T12:59:56.156Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-11 05:56:22" itemprop="dateModified" datetime="2024-05-11T05:56:22+08:00">2024-05-11</time>
+                <time title="修改时间：2024-05-23 20:59:56" itemprop="dateModified" datetime="2024-05-23T20:59:56+08:00">2024-05-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,7 +268,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -355,6 +355,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024050720235841
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    BUFFER DB 10H DUP(0)  ; 假设有一个10字节的缓冲区</span><br><span class="line">DATA ENDS</span><br><span class="line"></span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:</span><br><span class="line">    MOV AX, DATA           ; 将数据段地址加载到 AX 中</span><br><span class="line">    MOV DS, AX             ; 将 AX 中的数据段地址复制到 DS 中</span><br><span class="line">    MOV ES, AX             ; 将 AX 中的数据段地址复制到 ES 中</span><br><span class="line">    XOR DI, DI             ; 清零 DI 寄存器</span><br><span class="line">    </span><br><span class="line">    CLD</span><br><span class="line">    MOV CX, 10             ; 循环10次</span><br><span class="line">    MOV AL, &#x27;A&#x27;            ; 将 &#x27;A&#x27; 存储到 AL 中</span><br><span class="line"></span><br><span class="line">STORE_LOOP:</span><br><span class="line">    STOSB                  ; 将 AL 寄存器中的数据存储到 ES:DI 指定的内存地址中，并递增 DI 寄存器</span><br><span class="line">    LOOP STORE_LOOP        ; 循环</span><br><span class="line"></span><br><span class="line">    ; 这里可以继续添加其他代码</span><br><span class="line">    </span><br><span class="line">    MOV AH, 4Ch            ; 退出程序</span><br><span class="line">    INT 21h</span><br><span class="line"></span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
 <h2 id="movs">MOVS</h2>
 <p>CX中设置为多少就会遍历字符串中多少位</p>
+<h1 id="si">SI</h1>
+<p>SI是16位寄存器，也就是与AX,BX这类大小相同，所以移动SI要与AX等一个字相加</p>
+<p>SI可以指向一个字MOV AX, <a href="#si">SI</a>也可以指向一个字节MOV AL,
+<a href="#si">SI</a></p>
+<h1 id="寻址">寻址</h1>
+<p>内存寻址的时候必须是与AX这种16位寄存器搭配使用，不能与AL这类8位寄存器搭配使用</p>
+<p>ADD AL, RES_INT[BX]</p>
 
     </div>
 
@@ -453,7 +460,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024050720235841
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BAhello-world"><span class="nav-number">1.</span> <span class="nav-text">输出hello world</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">字符串大小写转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%82%E6%95%B0%E7%BB%84%E6%9C%80%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">求数组最值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84"><span class="nav-number">3.1.</span> <span class="nav-text">遍历数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%AD%A3%E8%B4%9F"><span class="nav-number">3.2.</span> <span class="nav-text">判断正负</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B0%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B0%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%90%8C%E8%B7%B3%E8%BD%AC"><span class="nav-number">3.2.1.</span> <span class="nav-text">注意有符号数和无符号数使用不同跳转</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E6%B1%87%E7%BC%96%E4%B8%AD%E5%86%99%E5%BF%AB%E6%8E%92%E8%A6%81%E7%94%A8%E5%88%B0%E9%80%92%E5%BD%92"><span class="nav-number">3.3.</span> <span class="nav-text">如何在汇编中写快排，要用到递归</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%B1%82%E5%92%8C"><span class="nav-number">4.</span> <span class="nav-text">数组求和</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%B5%8B%E5%80%BC"><span class="nav-number">5.</span> <span class="nav-text">数组赋值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%8F%8D%E8%BD%AC"><span class="nav-number">6.</span> <span class="nav-text">数组反转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">7.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E9%87%8D%E5%BE%AA%E7%8E%AF"><span class="nav-number">8.</span> <span class="nav-text">二重循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%B9%B6%E6%89%93%E5%8D%B0%E8%BE%93%E5%87%BA"><span class="nav-number">9.</span> <span class="nav-text">十进制转十六进制并打印输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0string%E7%B1%BB%E5%9E%8B%E8%BD%ACint%E7%B1%BB%E5%9E%8B%E8%87%AA%E5%8A%A8%E7%94%B1%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%AD%98%E6%94%BE%E5%9C%A8%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%AD"><span class="nav-number">9.1.</span> <span class="nav-text">实现string类型转int类型，自动由十进制转十六进制存放在寄存器中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E5%AD%97%E8%BD%ACstr%E7%B1%BB%E5%9E%8B%E5%B9%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%8A%E6%89%93%E5%8D%B0"><span class="nav-number">9.2.</span> <span class="nav-text">将十六进制数字转str类型并在屏幕上打印</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">10.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#stos"><span class="nav-number">10.1.</span> <span class="nav-text">STOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#movs"><span class="nav-number">10.2.</span> <span class="nav-text">MOVS</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BAhello-world"><span class="nav-number">1.</span> <span class="nav-text">输出hello world</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">字符串大小写转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%82%E6%95%B0%E7%BB%84%E6%9C%80%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">求数组最值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84"><span class="nav-number">3.1.</span> <span class="nav-text">遍历数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%AD%A3%E8%B4%9F"><span class="nav-number">3.2.</span> <span class="nav-text">判断正负</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B0%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B0%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%90%8C%E8%B7%B3%E8%BD%AC"><span class="nav-number">3.2.1.</span> <span class="nav-text">注意有符号数和无符号数使用不同跳转</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E6%B1%87%E7%BC%96%E4%B8%AD%E5%86%99%E5%BF%AB%E6%8E%92%E8%A6%81%E7%94%A8%E5%88%B0%E9%80%92%E5%BD%92"><span class="nav-number">3.3.</span> <span class="nav-text">如何在汇编中写快排，要用到递归</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%B1%82%E5%92%8C"><span class="nav-number">4.</span> <span class="nav-text">数组求和</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%B5%8B%E5%80%BC"><span class="nav-number">5.</span> <span class="nav-text">数组赋值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%8F%8D%E8%BD%AC"><span class="nav-number">6.</span> <span class="nav-text">数组反转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">7.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E9%87%8D%E5%BE%AA%E7%8E%AF"><span class="nav-number">8.</span> <span class="nav-text">二重循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%B9%B6%E6%89%93%E5%8D%B0%E8%BE%93%E5%87%BA"><span class="nav-number">9.</span> <span class="nav-text">十进制转十六进制并打印输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0string%E7%B1%BB%E5%9E%8B%E8%BD%ACint%E7%B1%BB%E5%9E%8B%E8%87%AA%E5%8A%A8%E7%94%B1%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%AD%98%E6%94%BE%E5%9C%A8%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%AD"><span class="nav-number">9.1.</span> <span class="nav-text">实现string类型转int类型，自动由十进制转十六进制存放在寄存器中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E5%AD%97%E8%BD%ACstr%E7%B1%BB%E5%9E%8B%E5%B9%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%8A%E6%89%93%E5%8D%B0"><span class="nav-number">9.2.</span> <span class="nav-text">将十六进制数字转str类型并在屏幕上打印</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">10.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#stos"><span class="nav-number">10.1.</span> <span class="nav-text">STOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#movs"><span class="nav-number">10.2.</span> <span class="nav-text">MOVS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#si"><span class="nav-number">11.</span> <span class="nav-text">SI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BB%E5%9D%80"><span class="nav-number">12.</span> <span class="nav-text">寻址</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -469,14 +476,14 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024050720235841
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">148</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -530,13 +537,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024050720235841
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">394k</span>
+    <span title="站点总字数">395k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:58</span>
+    <span title="站点阅读时长">5:59</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
