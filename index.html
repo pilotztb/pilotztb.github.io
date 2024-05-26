@@ -217,7 +217,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-05-26 11:08:55 / 修改时间：14:02:16" itemprop="dateCreated datePublished" datetime="2024-05-26T11:08:55+08:00">2024-05-26</time>
+              <time title="创建时间：2024-05-26 11:08:55 / 修改时间：20:10:05" itemprop="dateCreated datePublished" datetime="2024-05-26T11:08:55+08:00">2024-05-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>100</span>
+              <span>211</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -335,7 +335,7 @@ id="按字编址与按字节编址区别与计算">按字编址与按字节编�
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-23 09:10:32" itemprop="dateModified" datetime="2024-05-23T09:10:32+08:00">2024-05-23</time>
+                <time title="修改时间：2024-05-26 21:32:50" itemprop="dateModified" datetime="2024-05-26T21:32:50+08:00">2024-05-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -391,285 +391,14 @@ id="按字编址与按字节编址区别与计算">按字编址与按字节编�
 
       
           <h2 id="硬布线控制器">硬布线控制器</h2>
-<h3 id="硬布线控制器单元图">硬布线控制器单元图</h3>
-<p>根据<strong>指令操作码</strong>、<strong>当前的机器周期</strong>、<strong>节拍信号</strong>、<strong>机器状态条件</strong>即可确定当前节拍下应发出什么<strong>微命令</strong>。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/af0b4152bc4a16926eb0dbeb3004ca8.png" /></p>
-<p>硬布线控制器</p>
-<ul>
-<li>通过判断取值周期、节拍数和具体指令操作码，写出逻辑表达式</li>
-<li>将逻辑表达式以电路实现</li>
-</ul>
-<h3 id="硬布线控制器的设计">硬布线控制器的设计</h3>
-<p>分析每个阶段的微操作序列</p>
-<ul>
-<li>会用到哪些指令</li>
-<li>在什么阶段用到</li>
-<li>在什么条件下用到</li>
-</ul>
-<p>选择CPU控制方式</p>
-<ul>
-<li>定长周期 &amp; 不定长周期</li>
-<li>每个机器周期几个节拍</li>
-</ul>
-<p>安排微操作时序</p>
-<ul>
-<li>哪些微操作在前，那些在后</li>
-<li>每个节拍内安排多少指令</li>
-</ul>
-<p>电路设计</p>
-<ol type="1">
-<li>列出操作时间表</li>
-<li>写出微操作命令的最简表达式</li>
-<li>画出逻辑图</li>
-</ol>
-<h3 id="排微操作时序的原则">排微操作时序的原则</h3>
-<ul>
-<li>微操作的<strong>先后顺序</strong>不得随意更改
-<ul>
-<li>先分析指令的依赖顺序</li>
-</ul></li>
-<li>被控对象<strong>不同</strong>的微操作尽量安排在<strong>一个节拍内</strong>完成</li>
-<li><strong>占用时间较短</strong>的微操作尽量安排在一个节拍内完成，并允许有先后顺序
-<ul>
-<li>同样在CPU内部的寄存器之间的数据流可以安排在一个周期内</li>
-<li>主存和内部寄存器之间的数据操作不能在一个节拍内</li>
-</ul></li>
-</ul>
-<h3 id="硬布线控制器的特点">硬布线控制器的特点</h3>
-<ul>
-<li>一般用于RISC （精简指令集系统）</li>
-<li>扩充指令较困难</li>
-<li>执行速度很快，微操作控制信号由组合逻辑电路即时产生</li>
-</ul>
-<h2 id="微程序控制器">微程序控制器</h2>
-<h3 id="微程序控制器的设计思路">微程序控制器的设计思路</h3>
-<p>采用<strong>存储程序</strong>思想，出厂前将所有指令的<strong>微程序</strong>存入<strong>控制器存储器</strong>中</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ee1c8ebf262900782bb4a2edead53dc.png" /></p>
-<p>微程序控制器设计思路</p>
-<ul>
-<li><strong>程序</strong>：由指令序列组成</li>
-<li><strong>指令</strong>：对程序执行步骤的描述</li>
-<li><strong>微操作</strong>：每一条指令包含若干微操作，<strong>微命令与微操作一一对应</strong></li>
-<li><strong>微指令</strong>：对指令执行步骤的描述，<strong>可能包含多个微命令</strong></li>
-<li><strong>微程序</strong>：由微指令序列组成，<strong>指令与微程序一一对应</strong></li>
-</ul>
-<h3 id="微程序控制器的基本结构">微程序控制器的基本结构</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/841caf604fd58be32e42a22d27b7573.png" /></p>
-<p>微指令执行原理</p>
-<ul>
-<li><strong>控制存储器CM</strong>：存放微程序，由<strong>ROM</strong>构成
-<ul>
-<li>容量为：微指令数量×微指令字长微指令数量×微指令字长</li>
-</ul></li>
-<li><strong>CMAR（μPC）</strong>：微地址寄存器，相当于PC和MAR的作用</li>
-<li><strong>地址译码</strong>：处理微地址，转化为CM控制信号</li>
-<li><strong>CMDR（μIR）</strong>：存储从CM中取出的微指令，位数与微指令字长相等</li>
-<li><strong>微地址形成部件</strong>：通过IR中指定的操作码确定该指令对应的微指令序列的首微地址</li>
-<li><strong>顺序逻辑</strong>：控制微指令的执行顺序
-<ul>
-<li>可以通过机器指令的寻址特征判断寻址方式，决定是否要跳过间址周期</li>
-</ul></li>
-<li>一个微程序理论上包括寻址周期微程序、间址周期微程序、执行周期微程序和中断周期微程序四个微程序段</li>
-<li>取值周期、间址周期和中断周期的微程序通常是共用的</li>
-<li>若有n条指令，则最少有n+1条微程序段（可能会没有间址周期和中断周期）</li>
-</ul>
-<h3 id="微指令的格式">微指令的格式</h3>
-<h4 id="水平型微指令">水平型微指令</h4>
-<p>一条微指令能定义<strong>多个</strong>可并行的微命令。</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b34e52d20c16970b18a40a637fb2609.png"
-alt="水平型微指令" />
-<figcaption aria-hidden="true">水平型微指令</figcaption>
-</figure>
-<ul>
-<li>优点
-<ul>
-<li>微程序短</li>
-<li>执行速度快</li>
-</ul></li>
-<li>缺点
-<ul>
-<li>微指令长</li>
-<li>编写麻烦</li>
-</ul></li>
-</ul>
-<h4 id="垂直型微指令">垂直型微指令</h4>
-<p>一条微指令只能定义<strong>一个</strong>微命令，由微操作码字段规定具体功能</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f9b6459eb4226fe00fcf865af45e39b.png"
-alt="垂直型微指令" />
-<figcaption aria-hidden="true">垂直型微指令</figcaption>
-</figure>
-<ul>
-<li>优点
-<ul>
-<li>微指令短</li>
-<li>简单规整，便于编写</li>
-</ul></li>
-<li>缺点
-<ul>
-<li>微程序长</li>
-<li>执行速度慢，工作效率低</li>
-</ul></li>
-</ul>
-<h4 id="混合型微指令">混合型微指令</h4>
-<p>在垂直型的基础上增加一些不太复杂的并行操作。</p>
-<ul>
-<li>微指令较短，仍便于编写</li>
-<li>微程序也不长，执行速度加快</li>
-</ul>
-<h3 id="微指令的编码方式">微指令的编码方式</h3>
-<p>讨论水平型微指令中操作控制部分如何编码表示微指令</p>
-<h4 id="直接编码">直接编码</h4>
-<ul>
-<li>在微指令的操作控制字段中，每一位代表一个微操作命令。</li>
-<li>某位为“1”表示该控制信号有效</li>
-</ul>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bf55aedf0c8d83f7cae6b7dfa1709db.png"
-alt="直接编码" />
-<figcaption aria-hidden="true">直接编码</figcaption>
-</figure>
-<ul>
-<li>优点
-<ul>
-<li>简单直观</li>
-<li>执行速度快</li>
-<li>操作并行性好</li>
-</ul></li>
-<li>缺点
-<ul>
-<li>微指令字长过长，导致CM容量需求极大S</li>
-</ul></li>
-</ul>
-<h4 id="字段直接编码方式">字段直接编码方式</h4>
-<ul>
-<li>将微指令的控制字段分成若干“段” ，每段经译码后发出控制信号</li>
-<li>分段原则
-<ul>
-<li><strong>互斥性微命令</strong>分在<strong>同一段内</strong>，<strong>相容性微命令</strong>分在<strong>不同段内</strong></li>
-<li>每个小段中包含的信息位不能太多，否则将增加译码线路的复杂性和译码时间</li>
-<li>一般每个小段还要留出一个状态，表示本字段不发出任何微命令
-<ul>
-<li>当某字段的长度为3位时，最多只能表示7个互斥的微命令，通常用000表示不操作</li>
-</ul></li>
-</ul></li>
-</ul>
-<p><strong>互斥性微命令</strong>：不允许并行完成的微命令</p>
-<p><strong>相容性微命令</strong>：允许并行完成的微命令</p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ff3a2b37767154a466596b46d8159c8.png"
-alt="字段直接编码方式" />
-<figcaption aria-hidden="true">字段直接编码方式</figcaption>
-</figure>
-<p>例：某计算机的控制器采用微程序控制方式，微指令中的操作控制字段采用字段直接编码法。共有33个微命令，构成5个互斥类，分别包含7、3、12、5和6个微命令，则操作控制字段至少有多少位?</p>
-<ul>
-<li><p>第一个互斥类：7+1=8≤237+1=8≤23</p></li>
-<li><p>第二个互斥类：3+1=4≤223+1=4≤22</p></li>
-<li><p>第三个互斥类：12+1=13≤2412+1=13≤24</p></li>
-<li><p>第四个互斥类：5+1=6≤235+1=6≤23</p></li>
-<li><p>第五个互斥类：6+1=7≤236+1=7≤23</p></li>
-<li><p>总字段数：3+2+4+3+3=15 位</p></li>
-<li><p>优点</p>
-<ul>
-<li>可以缩短指令字长</li>
-</ul></li>
-<li><p>缺点</p>
-<ul>
-<li>要通过译码电路后再发出微命令，因此比直接编码方式慢</li>
-</ul></li>
-</ul>
-<h4 id="字段间接编码">字段间接编码</h4>
-<p>一个字段的某些微命令需由另一个字段中的某些微命令来解释，由于不是靠子段直接译码发出的微命令，故称为字段间接编码，又称隐式编码。</p>
-<ul>
-<li>进一步缩短指令字长</li>
-<li>执行更慢</li>
-</ul>
-<h3 id="微指令的地址形成方式">微指令的地址形成方式</h3>
-<ul>
-<li>通过微指令的<strong>下地址字段</strong>指出</li>
-<li>依据机器指令的<strong>操作码</strong>形成
-<ul>
-<li>机器指令放入IR</li>
-<li>微地址形成部件通过机器指令的操作码部分形成微指令的地址</li>
-</ul></li>
-<li><strong>增量计数器法</strong>：（CMAR）+1 → CMAR，类似PC</li>
-<li>分支转移
-<ul>
-<li>转移方式：指明判别条件</li>
-<li>转移地址：指明转移成功后的去向</li>
-</ul></li>
-</ul>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/9f030e9854caac6ba7761a96df85b1f.png"
-alt="分支转移" />
-<figcaption aria-hidden="true">分支转移</figcaption>
-</figure>
-<ul>
-<li>通过测试网络</li>
-<li>由硬件产生微程序入口地址
-<ul>
-<li>取值周期的第一条微指令的地址由硬件自动给出</li>
-</ul></li>
-</ul>
-<h3 id="微程序控制单元的设计">微程序控制单元的设计</h3>
-<h4 id="设计步骤">设计步骤</h4>
-<ol type="1">
-<li><p>分析每个阶段的微操作序列</p></li>
-<li><p>写出对应机器指令的微操作命令及节拍安排</p>
-<ul>
-<li>写出每个周期所需要的微操作（与硬布线相同）</li>
-<li>添加微程序控制器特有的微操作
-<ul>
-<li>取值周期
-<ul>
-<li>每条微指令执行结束之后：Ad(CMDR)→CMAR，指明下地址</li>
-<li>最后一条执行结束后：OP(IR)→微地址形成部件→CMAR，确定执行周期的微程序首地址</li>
-</ul></li>
-<li>执行周期
-<ul>
-<li>指明下地址：Ad(CMDR)→CMAR</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>确定微指令格式</p>
-<ul>
-<li>根据操作码的编码方式确定<strong>操作控制字段</strong>的位数</li>
-<li>根据CM中的微指令总数确定<strong>顺序控制字段</strong>的位数</li>
-<li>根据操作控制字段和顺序控制字段的长度确定微指令字长</li>
-</ul></li>
-<li><p>编写微指令码点</p></li>
-</ol>
-<h4 id="微程序设计分类">微程序设计分类</h4>
-<ul>
-<li><strong>静态</strong>微程序设计：
-<ul>
-<li>微程序无需改变</li>
-<li>采用ROM</li>
-</ul></li>
-<li><strong>动态</strong>威程序设计
-<ul>
-<li>通过改变微指令和微程序改变机器指令</li>
-<li>有利于仿真</li>
-<li>采用EPROM</li>
-</ul></li>
-</ul>
-<p><strong>毫微程序设计</strong>：用毫微程序解释微程序（更进一步）</p>
-<h3 id="微程序控制器的特点">微程序控制器的特点</h3>
-<ul>
-<li>执行速度慢</li>
-<li>较规整，易于扩充修改</li>
-<li>适用于CISC（复杂指令集系统）</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/93874b86.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1526,7 +1255,7 @@ id="发现无法使用包自己写的包无法导入">发现无法使用包，�
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-14 09:34:45" itemprop="dateModified" datetime="2024-05-14T09:34:45+08:00">2024-05-14</time>
+                <time title="修改时间：2024-05-26 19:00:20" itemprop="dateModified" datetime="2024-05-26T19:00:20+08:00">2024-05-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
