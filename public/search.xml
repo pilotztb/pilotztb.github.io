@@ -15497,16 +15497,16 @@ href="https://www.youtube.com/watch?v=w4itKhPjP8E">视频讲解：关系闭包�
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240513183754873.png" /></p>
 <h2 id="构造闭包">构造闭包</h2>
-<h3 id="自反闭包">自反闭包</h3>
+<h3 id="自反闭包r">自反闭包r</h3>
 <p><font color = "yellow">就是并上一个恒等关系</font></p>
 <p><a
 href="https://www.youtube.com/watch?v=7YTXzxuD4Cs">视频讲解：如何构造自反闭包</a></p>
 <p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/46c5f305326a4098e2c844acf701a1e.jpg" style="zoom:50%;" /></p>
-<h3 id="对称闭包">对称闭包</h3>
+<h3 id="对称闭包s">对称闭包s</h3>
 <p><font color = "yellow">就是并上一个逆关系</font></p>
 <p><a
 href="https://www.youtube.com/watch?v=WjGcEOMm_xw">视频讲解：如何构造对称闭包</a></p>
-<h3 id="传递闭包">传递闭包</h3>
+<h3 id="传递闭包t">传递闭包t</h3>
 <p><a href="">视频讲解：如何构造传递闭包</a></p>
 <p><font color = "yellow">传递闭包就是将所有独立的幂（就是有的幂最后循环是一样的）并起来</font></p>
 <p><img
