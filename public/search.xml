@@ -18306,10 +18306,52 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/56385f34e503ce5266efa7
     <url>/posts/de0cfddc.html</url>
     <content><![CDATA[<h1 id="又探0-1背包">又探0-1背包</h1>
 <span id="more"></span>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240601191017045.png" /></p>
+<!--more-->
 <h2 id="队列式分支限界法">队列式分支限界法</h2>
 <p>就是按照普通队列先进先出规则，然后要注意可行性剪枝，升级可以加上限界剪枝</p>
 <h2 id="优先队列分支限界法">优先队列分支限界法</h2>
 <p>要选择一个优先的标准，本题标准就是当前背包里价值，优先将背包里价值大的出列并且将其对应的儿子放入队列中</p>
+<h1 id="又探旅行收货商">又探旅行收货商</h1>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240601191037653.png" /></p>
+<p>和上面0-1背包一样</p>
+<h1 id="单源最短路">单源最短路</h1>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240601191248623.png" /></p>
+<h2 id="算法思想">算法思想</h2>
+<p>就是迪杰斯特拉算法</p>
+<p>这里的一种新型剪枝：如果优先队列中一个节点已经存在，又把这个节点放入优先队列，如果新放入的比原来的大，那么新放入的就被剪枝</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240601194652185.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/2c0269233c3f57f87f0c2326c95eb06.jpg" /></p>
+<h1 id="又探装载问题">又探装载问题</h1>
+<p><a
+href="https://pilotztb.github.io/posts/9457d29e.html">最早出现在第五章</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240601201345926.png" /></p>
+<h2 id="普通队列">普通队列</h2>
+<p>普通队列并且加上了限界剪枝，限界剪枝函数是如果舍弃一个货物，判断当前船上货物加上剩余货物是否大于之前搜索得到的最大，如果小，这条路剪去</p>
+<h2 id="优先队列">优先队列</h2>
+<h1 id="又探最大团">又探最大团</h1>
+<p><a
+href="https://pilotztb.github.io/posts/9457d29e.html">最早出现于第五章回溯</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240601204411562.png" /></p>
+<ol type="1">
+<li>先建树
+<ul>
+<li>建树的时候注意可行性剪枝，如果加入当前节点能否与原来节点构成最大团</li>
+<li>树枝上标注当前选择的节点，节点上记录当前已经选择的节点数量和没有选择的节点数量，其中每一层没有选择的节点数量相同</li>
+<li>画完树再给节点标A,B,C……</li>
+</ul></li>
+<li>再画优先队列
+<ul>
+<li>优先标准是已放入节点数量和未放入节点数量之和</li>
+</ul></li>
+</ol>
 ]]></content>
       <categories>
         <category>算法设计与分析</category>
