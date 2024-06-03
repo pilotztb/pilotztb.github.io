@@ -7737,8 +7737,10 @@ href="https://www.bilibili.com/video/BV1uT421C7rz/?spm_id_from=333.999.0.0">视�
   <entry>
     <title>第四部分_实战代码</title>
     <url>/posts/1e229983.html</url>
-    <content><![CDATA[<h1 id="输出hello-world">输出hello world</h1>
+    <content><![CDATA[<h1 id="通用启动模版">通用启动模版</h1>
 <span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    STR DB &#x27;Hello world&#x27;, &#x27;$&#x27;</span><br><span class="line">DATA ENDS</span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:                       </span><br><span class="line">    MOV AX, DATA</span><br><span class="line">    MOV DS, AX</span><br><span class="line"></span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
+<h1 id="输出hello-world">输出hello world</h1>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    STR DB &#x27;Hello world&#x27;, &#x27;$&#x27;	; &#x27;$&#x27;表示结尾</span><br><span class="line">DATA ENDS</span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:                       </span><br><span class="line">    MOV AX, DATA</span><br><span class="line">    MOV DS, AX</span><br><span class="line">    MOV DX, OFFSET STR	; 将要打印的东西的首地址的偏移地址移入寄存器DX</span><br><span class="line">    MOV AH, 9H</span><br><span class="line">    INT 21H</span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
 <h1 id="字符串大小写转换">字符串大小写转换</h1>
 <p>难点1：大小写转换</p>
@@ -7776,13 +7778,6 @@ Equal)：如果前一个操作数大于等于后一个操作数，则跳转。</
 <li>这些指令适用于有符号整数比较，因为它们考虑了数的符号</li>
 </ul></li>
 </ol>
-<h2
-id="如何在汇编中写快排要用到递归">如何在汇编中写快排，要用到递归</h2>
-<h1 id="数组求和">数组求和</h1>
-<h1 id="数组赋值">数组赋值</h1>
-<h1 id="数组反转">数组反转</h1>
-<h1 id="动态规划">动态规划</h1>
-<h1 id="二重循环">二重循环</h1>
 <h1 id="十进制转十六进制并打印输出">十进制转十六进制并打印输出</h1>
 <p>字符串表示的十进制“12345” --&gt; 十六进制并在寄存器中3039H --&gt;
 字符串表示的十六进制“3039”</p>
@@ -7812,6 +7807,18 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024050720235841
 <h1 id="寻址">寻址</h1>
 <p>内存寻址的时候必须是与AX这种16位寄存器搭配使用，不能与AL这类8位寄存器搭配使用</p>
 <p>ADD AL, RES_INT[BX]</p>
+<h1 id="字变量的原反补码转换">字变量的原，反，补码转换</h1>
+<h2 id="理论">理论</h2>
+<p>正数的原码 = 反码 = 补码</p>
+<p>负数的反码 = 原码符号位不变，其他取反</p>
+<p>负数的补码 = 原码符号位不变，其他位取反，末尾加1</p>
+<h2 id="设计">设计</h2>
+<ol type="1">
+<li>TEST指令是用来将target和source想与，结果存放在CF里，这里是将AH与80H想与</li>
+<li>这里符号位不变是在用NOT取反后加1</li>
+<li>补码的取反加1是对低位用ADD，高位考虑进位用ADC</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    BUF1 DW 0FF23H</span><br><span class="line">    BUF2 DW 0</span><br><span class="line">    BUF3 DW 0</span><br><span class="line">DATA ENDS</span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:                       </span><br><span class="line">    MOV AX, DATA</span><br><span class="line">    MOV DS, AX</span><br><span class="line">    </span><br><span class="line">    MOV AX, BUF1</span><br><span class="line">    TEST AH, 80H</span><br><span class="line">    MOV BX, AX</span><br><span class="line">    JZ POSTIVE</span><br><span class="line">    NOT AX   </span><br><span class="line">    ADD AH, 80H</span><br><span class="line">    ADD AL, 1</span><br><span class="line">    ADC AH, 0</span><br><span class="line">    NOT BX</span><br><span class="line">    ADD BH, 80H</span><br><span class="line">    POSTIVE:</span><br><span class="line">        MOV BUF2, AX</span><br><span class="line">        MOV BUF3, BX</span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>汇编语言</category>
@@ -18222,6 +18229,9 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7e1bbf8fa17786d5eabaf0
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/87b10ca46a9cb76d28cc125262fd2de.jpg" /></p>
 <hr style = "border:2px solid yellow">
+<h1 id="函数的复合与反函数">函数的复合与反函数</h1>
+<h2 id="函数的复合">函数的复合</h2>
+<h2 id="反函数">反函数</h2>
 ]]></content>
       <categories>
         <category>离散数学</category>
