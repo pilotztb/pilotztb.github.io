@@ -7792,7 +7792,8 @@ id="将int类型转str类型大写字母并在屏幕上打印">将int类型转st
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240507202358412.png" /></p>
 <p>十六进制0~9加30H得到对应ASCII码</p>
-<p>十六进制A~F加37H得到对应ASCII码</p>
+<p>十六进制A~z加37H得到对应ASCII码</p>
+<p>十六进制a~z加57H得到对应ASCII码</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; 将十六进制转ASCII码打印输出,当前结果保存在AX中</span><br><span class="line">FOR1:</span><br><span class="line">    ; 将AX中数保存到DX中         </span><br><span class="line">    MOV DX, AX </span><br><span class="line">    ; 将DX与0FH相与，那么前面都清0，就保留最后1位         </span><br><span class="line">    AND DX, 0FH</span><br><span class="line">    ; 将当前DX中的数先加上30H看得到的数与40H关系</span><br><span class="line">    ADD DX, 30H</span><br><span class="line">    CMP DX, 39H</span><br><span class="line">    ; 如果比40H小，说明目前得到的就是0~9的ASCII码，否则还要加7H才能得到A~F的ASCII码</span><br><span class="line">    JB DIGIT</span><br><span class="line">    ADD DX, 7H</span><br><span class="line">    DIGIT:    </span><br><span class="line">        ; 将DX中保存的ASCII码保存到内存中</span><br><span class="line">        MOV RES[BX], DL</span><br><span class="line">        DEC BX</span><br><span class="line">        ; 通过将AX右移1位，去掉AX中最后一个数</span><br><span class="line">        SHR AX, 4</span><br><span class="line">        LOOP FOR1</span><br><span class="line"></span><br><span class="line">MOV AH, 9H</span><br><span class="line">; 通过将RES字符串首地址赋给DX从而打印字符串</span><br><span class="line">MOV DX, OFFSET RES</span><br><span class="line">INT 21H</span><br></pre></td></tr></table></figure>
 <h1 id="含字母的ascii码转int类型">含字母的ASCII码转int类型</h1>
 <p>0 ~ 9对应的ASCII码：31H到39H</p>
@@ -7826,6 +7827,14 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024050720235841
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    BUF1 DW 0FF23H</span><br><span class="line">    BUF2 DW 0</span><br><span class="line">    BUF3 DW 0</span><br><span class="line">DATA ENDS</span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:                       </span><br><span class="line">    MOV AX, DATA</span><br><span class="line">    MOV DS, AX</span><br><span class="line">    </span><br><span class="line">    MOV AX, BUF1</span><br><span class="line">    TEST AH, 80H</span><br><span class="line">    MOV BX, AX</span><br><span class="line">    JZ POSTIVE</span><br><span class="line">    NOT AX   </span><br><span class="line">    ADD AH, 80H</span><br><span class="line">    ADD AL, 1</span><br><span class="line">    ADC AH, 0</span><br><span class="line">    NOT BX</span><br><span class="line">    ADD BH, 80H</span><br><span class="line">    POSTIVE:</span><br><span class="line">        MOV BUF2, AX</span><br><span class="line">        MOV BUF3, BX</span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
 <h1 id="用宏定义写的询问输入">用宏定义写的询问输入</h1>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ASK_INPUT MACRO STR_ADDRESS</span><br><span class="line">    LEA DX, STR_ADDRESS</span><br><span class="line">    MOV AH, 09H</span><br><span class="line">    INT 21H</span><br><span class="line">    LEA DX, NEW_LINE</span><br><span class="line">    INT 21H</span><br><span class="line">    XOR AX, AX</span><br><span class="line">    MOV AH, 01H</span><br><span class="line">    INT 21H</span><br><span class="line">    MOV TMPBUF, AL</span><br><span class="line">    LEA DX, NEW_LINE</span><br><span class="line">    MOV AH, 09H</span><br><span class="line">    INT 21H</span><br><span class="line">ENDM</span><br><span class="line">; 其中NEW_LINE是NEW_LINE DB 0AH, 0DH, &#x27;$&#x27;</span><br><span class="line">; STR_ADDRESS是询问输入的语句</span><br></pre></td></tr></table></figure>
+<h1 id="冒泡排序">冒泡排序</h1>
+<ol type="1">
+<li>用JCXZ防止一开始CX里面就是0陷入死循环</li>
+<li>如果MOV DX <a
+href="#si">SI</a>，那么从SI中取出的就是1个字，如果是MOV DL, <a
+href="#si">SI</a>，那么从SI中取出的就是1个字节</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">BUBBLE_SORT MACRO WAIT_SORT_ARRAY, ARRAY_LENGTH</span><br><span class="line">    LOCAL FOR, FOR2, END0, END1</span><br><span class="line">    PUSHF</span><br><span class="line">    PUSH CX</span><br><span class="line">    XOR CX, CX</span><br><span class="line">    MOV CL, ARRAY_LENGTH</span><br><span class="line">    FOR:</span><br><span class="line">        PUSH CX</span><br><span class="line">        DEC CX   </span><br><span class="line">        CMP CX, 0</span><br><span class="line">        JCXZ END0</span><br><span class="line">        LEA DI, WAIT_SORT_ARRAY</span><br><span class="line">        MOV AX, 0</span><br><span class="line">        FOR2:</span><br><span class="line">            MOV DL, [DI]</span><br><span class="line">            CMP DL, [DI + 1]</span><br><span class="line">            JL END1</span><br><span class="line">            XCHG DL, [DI + 1]</span><br><span class="line">            XCHG [DI], DL</span><br><span class="line">            MOV AX, 1</span><br><span class="line">            END1:</span><br><span class="line">                INC DI</span><br><span class="line">        LOOP FOR2</span><br><span class="line">        CMP AX, 0</span><br><span class="line">        JE END0</span><br><span class="line">        POP CX</span><br><span class="line">        LOOP FOR</span><br><span class="line">    END0:</span><br><span class="line">    POP CX </span><br><span class="line">    POPF    </span><br><span class="line">ENDM</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>汇编语言</category>
@@ -16443,87 +16452,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024051415315324
 <h3 id="跳跃寻址">跳跃寻址</h3>
 <p>即通过转移指令JMP直接修改PC的值，跳转到相应的指令。</p>
 <h2 id="数据寻址">数据寻址</h2>
-<p>明确<strong>本条指令</strong>的地址码指明的<strong>真实地址</strong>。</p>
-<p>一般来说，会通过在操作码前增加几位<strong>寻址特征</strong>，用于表明使用的哪种寻址方式。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240514160223613.png" /></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7dd579bbbf45a275cd0ed1c02652909.png" /></p>
-<h3 id="type1寻址">type1寻址</h3>
-<h4 id="直接寻址">直接寻址</h4>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240514160559094.png" /></p>
-<p>指令字中形式地址就是真实地址，直接访问即可。</p>
-<ul>
-<li>优点
-<ul>
-<li>实现简单</li>
-<li>仅需要一次访存，无需专门计算</li>
-</ul></li>
-<li>缺点
-<ul>
-<li>由于形式地址长度有限，寻址范围存在限制</li>
-<li>操作数的地址不易修改</li>
-</ul></li>
-</ul>
-<h4 id="间接寻址">间接寻址</h4>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240514161017445.png" /></p>
-<p>形式地址指向一个主存单元，在该主存单元中存放着操作数的真实地址。</p>
-<p>共需要<strong>三次访存</strong>：取指令，指向主存单元→访问主存单元，得到真实地址→访问真实地址，得到操作数</p>
-<p>还可以套娃，进行多次间接寻址。</p>
-<ul>
-<li>优点
-<ul>
-<li>可以扩大寻址范围</li>
-<li>便于编程</li>
-</ul></li>
-<li>缺点
-<ul>
-<li>需要多次访存</li>
-</ul></li>
-</ul>
-<h4 id="寄存器寻址">寄存器寻址</h4>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240514161331281.png" /></p>
-<p>地址码部分给出的不再是地址，而是<strong>寄存器编号</strong>。相应的寄存器中存放着真实地址。</p>
-<ul>
-<li>优点
-<ul>
-<li>仅需要一次访存（取指令）</li>
-<li>指令执行阶段无需访存，执行速度快</li>
-<li>支持向量、矩阵运算</li>
-</ul></li>
-<li>缺点
-<ul>
-<li>寄存器价格较高，计算机中寄存器的数量有限</li>
-</ul></li>
-</ul>
-<h4 id="寄存器间接寻址">寄存器间接寻址</h4>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240514161502949.png" /></p>
-<p>地址码部分给出寄存器序号。寄存器中存放着主存单元地址，该主存单元中存放着真实地址。</p>
-<p>需要两次访存：取指令→执行指令（访问真实地址）</p>
-<ul>
-<li>优点
-<ul>
-<li>相较于间接寻址，速度更快</li>
-</ul></li>
-</ul>
-<h4 id="隐含寻址">隐含寻址</h4>
-<p>指令中仅给明一个地址，而另一个地址默认位于某个寄存器中（如ACC）</p>
-<ul>
-<li>优点
-<ul>
-<li>有利于缩短指令字长</li>
-<li>简化地址结构</li>
-</ul></li>
-<li>缺点
-<ul>
-<li>需要增加相应的硬件</li>
-</ul></li>
-</ul>
-<h4 id="立即寻址">立即寻址</h4>
+<h3 id="立即寻址">立即寻址</h3>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240514161812377.png" /></p>
 <p>指令中存放的不是地址，而是<strong>直接存放的操作数</strong>。</p>
@@ -16539,78 +16468,51 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024051416181237
 <li>地址码的位数限制了立即数的范围</li>
 </ul></li>
 </ul>
-<p>上面几种寻址的一个小结</p>
+<h3 id="直接寻址">直接寻址</h3>
+<h4 id="存储器直接寻址">存储器直接寻址</h4>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240514161843546.png" /></p>
-<h3 id="type2偏移寻址">type2偏移寻址</h3>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605103458605.png" /></p>
+<h4 id="寄存器直接寻址">寄存器直接寻址</h4>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240514162742227.png" /></p>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605103553760.png" /></p>
+<h3 id="间接寻址">间接寻址</h3>
+<h4 id="存储器间接寻址">存储器间接寻址</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605103646529.png" /></p>
+<h4 id="寄存器间接寻址">寄存器间接寻址</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605104111587.png" /></p>
+<h4 id="堆栈寻址">堆栈寻址</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605104128026.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605104147513.png" /></p>
+<h3 id="变址基址寻址及其变化">变址、基址寻址及其变化</h3>
+<p>#### 变址寻址</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605104234641.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605104245730.png" /></p>
 <h4 id="基址寻址">基址寻址</h4>
-<p><a
-href="https://www.youtube.com/watch?v=Tm6d3TMolNw">视频讲解：基址寻址</a></p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e30f48ac2ee6aa98e10d704f76cee49.jpg" /></p>
-<p>将CPU中基址寄存器（BR）的值加上形式地址所表示的偏移量，得到真实地址。</p>
-<p>基址寄存器中存放的是<strong>当前程序起始的存放地址</strong>。</p>
-<p>操作系统中的“重定位寄存器”其实就是基址寄存器。</p>
-<p>当计算机中没有基址寄存器时，需要指明使用某个寄存器来充当基址寄存器。</p>
-<ul>
-<li>优点
-<ul>
-<li>便于程序“浮动”（可以存储在主存中的任何地方）</li>
-<li>方便多道程序并发运行</li>
-</ul></li>
-</ul>
-<p>在程序运行开始前，CPU会将PCB中的程序起始地址存放进BR中。</p>
-<p>用户无法修改BR的内容，只能指定某个寄存器充当BR。</p>
-<ul>
-<li>优点
-<ul>
-<li>可以扩大寻址范围</li>
-<li>用户不必考虑程序存储在主存的什么位置，便于浮动编程</li>
-<li>便于多道程序设计</li>
-</ul></li>
-</ul>
-<h4 id="变址寻址">变址寻址</h4>
-<p><a
-href="https://www.youtube.com/watch?v=AjZjfPWgITY">视频讲解：变址寻址</a></p>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605104319715.png" /></p>
 <blockquote>
-<p>注：下图加#表示立即数</p>
+<p>注：变址与基址的区别</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605104359223.png" /></p>
 </blockquote>
+<h4 id="基址变址">基址+变址</h4>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240514202929684.png" /></p>
-<p>与基址寻址类似，将变址寄存器（indexer
-register，IX）中所存放的值与形式地址中的偏移量相加，得到真实地址。</p>
-<p>不同的是，IX是面向用户的，<strong>用户可以修改IX中的值</strong>。</p>
-<p>例如，可以将<font color = "red">形式地址A设为数组的首地址</font>，之后通过不断对IX，<font color = "red">IX在这里作为偏移地址</font>，进行比较运算、加法运算改变IX的值，完成对数组的遍历。</p>
-<ul>
-<li>优点
-<ul>
-<li>适合循环程序的编写</li>
-<li>适合处理数组问题</li>
-</ul></li>
-</ul>
-<p>可以将变址寻址和基址寻址联合使用，对整段程序采用基址寻址，而对于循环体再次采用变址寻址。</p>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605104420578.png" /></p>
 <h4 id="相对寻址">相对寻址</h4>
-<p><a
-href="https://www.youtube.com/watch?v=W8pyqm8kLh8">视频讲解：相对寻址</a></p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f502d079b7c3567866c9362b3f8dee5.jpg" /></p>
-<p>将PC中存放的值与形式地址中的偏移量相加，得到真实地址。</p>
-<p><font color = "red">即A是对PC中地址的偏移量，一般采用补码表示</font>。</p>
-<p><font color = "red">PC中存放的是<strong>下一条指令</strong>的地址，因为程序执行PC会自动加1，所以在执行到跳转指令时PC已经是下一位了</font></p>
-<p>因此使用相对寻址来用于<strong>跳跃寻址</strong>之中，保证地址的正确，<font color = "yellow">主要就是汇编中JMP指令</font></p>
-<ul>
-<li>优点
-<ul>
-<li>循环时不用更改跳跃指令的地址码</li>
-<li>多道程序设计中，程序可能会在内存中浮动，需要用到</li>
-</ul></li>
-</ul>
-<h3 id="type3堆栈寻址">type3堆栈寻址</h3>
-<p>在堆栈数据结构中，存在堆栈指针（SP），当执行出入栈操作时，SP会自动+1（-1），指向新的栈顶元素。</p>
-<p>存在用寄存器实现的硬堆栈和存放在主存中的软堆栈。</p>
-<p>堆栈可用于函数调用时保存当前函数的相关信息。</p>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605104442446.png" /></p>
+<h4 id="页面寻址">页面寻址</h4>
+<h4 id="section"><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240605104507065.png" /></h4>
+<h2 id="寻址方式">寻址方式</h2>
+<p>00：RR型指令，寄存器-寄存器寻址 01：RX型指令，寄存器-变址寻址
+10：SI型指令，基址-立即寻址 11：SS型指令，基址-基址寻址</p>
 ]]></content>
       <categories>
         <category>操作系统</category>
@@ -17233,68 +17135,6 @@ alt="分支转移" />
       <categories>
         <category>计组</category>
         <category>理论</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>3.3_主存储器与CPU连接习题</title>
-    <url>/posts/7360f617.html</url>
-    <content><![CDATA[<h1
-id="按字编址与按字节编址区别与计算">按字编址与按字节编址区别与计算</h1>
-<span id="more"></span>
-<h2 id="数据线与地址线的计算">数据线与地址线的计算</h2>
-<p><a
-href="https://www.youtube.com/watch?v=vZdtBVFPPJQ">视频讲解</a></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526110414799.png" /></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526111410474.png" /></p>
-<h2 id="存储芯片数量的计算">存储芯片数量的计算</h2>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526112023556.png" /></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526112036854.png" /></p>
-<h2
-id="字拓展位拓展中地址线作用分析">字拓展、位拓展中地址线作用分析</h2>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/00edb790388dffc37466b5ea5137fd8.jpg" /></p>
-<figure>
-<img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526113212716.png"
-alt="image-20240526113212716" />
-<figcaption aria-hidden="true">image-20240526113212716</figcaption>
-</figure>
-<h1 id="画存储器与cpu连接逻辑图">画存储器与CPU连接逻辑图</h1>
-<p>类似题型：
-https://blog.csdn.net/weixin_45229936/article/details/111322553</p>
-<h2 id="位拓展">位拓展</h2>
-<p><a
-href="https://www.youtube.com/watch?v=m0ISbf5Vlbg">视频讲解</a></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526114329509.png" /></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/224d54ecb5ac21bc19ede7c81a4caff.jpg" /></p>
-<h2 id="字位拓展">字位拓展</h2>
-<h1 id="读周期与写周期的变化">读周期与写周期的变化</h1>
-<p><a
-href="https://www.bilibili.com/video/BV19b421v7LP/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/db30ebcfcad1c504310425c31d4d54e.jpg" /></p>
-<h1 id="带宽的计算">带宽的计算</h1>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/de5267e58b4fb6c6b7213ff9724e1b8.jpg" /></p>
-<h1 id="cache效率的计算">cache效率的计算</h1>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/68871fabc55bff3ba1cce3791a19516.jpg" /></p>
-<h1 id="cache组相联格式">cache组相联格式</h1>
-<p><a
-href="https://www.bilibili.com/video/BV1LD421G7Mx/?spm_id_from=333.999.0.0">视频讲解</a></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/481ddea93ebdb35ae23c2b244298858.jpg" /></p>
-]]></content>
-      <categories>
-        <category>计组</category>
-        <category>理论</category>
-        <category>习题</category>
       </categories>
   </entry>
   <entry>
@@ -17972,6 +17812,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3c4522e52c0bc2992f0bd9
 <p>每个主存块只能放在特定的位置。</p>
 <p>主存块在Cache中的位置=主存块号%Cache总块数</p>
 <p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7be6eb0322d5389ab2f0a2accc31b84.jpg" /></p>
+<p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/8e7186cab67b7d7fecd8588c7944c15.png" /></p>
 <ul>
 <li>本例中有8个Cache块，对8取余的实质是<strong>取二进制的后三位</strong></li>
@@ -18000,6 +17842,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/8e7186cab67b7d7fecd858
 <p><a href="">视频讲解：组相联映射</a></p>
 <p>将Cache块分组，每个主存块只能存放到特定的分组中。当分组中有空位时，就将该主存块中的内容存入。</p>
 <p>主存块在Cache中的位置=主存块号%Cache分组数主存块在Cache中的位置=主存块号%Cache分组数</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e79b4734e6bd5469453c17e7e2216bf.jpg" /></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7de5b501309eee16c3a408f215c7eff.png" /></p>
 <ul>
@@ -18671,6 +18515,126 @@ AH&lt;=（AH）+1，AL中高4位清0，AF和CF置1。</p>
       <categories>
         <category>汇编语言</category>
         <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>post</title>
+    <url>/posts/5a8a6c8d.html</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
+    <title>随机读写存储器RAM</title>
+    <url>/posts/7360f617.html</url>
+    <content><![CDATA[<h1
+id="按字编址与按字节编址区别与计算">按字编址与按字节编址区别与计算</h1>
+<span id="more"></span>
+<h2 id="数据线与地址线的计算">数据线与地址线的计算</h2>
+<p><a
+href="https://www.youtube.com/watch?v=vZdtBVFPPJQ">视频讲解</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526110414799.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526111410474.png" /></p>
+<h2 id="存储芯片数量的计算">存储芯片数量的计算</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526112023556.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526112036854.png" /></p>
+<h2
+id="字拓展位拓展中地址线作用分析">字拓展、位拓展中地址线作用分析</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/00edb790388dffc37466b5ea5137fd8.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526113212716.png" /></p>
+<h1
+id="芯片设计画存储器与cpu连接逻辑图">芯片设计，画存储器与CPU连接逻辑图</h1>
+<p>类似题型：
+https://blog.csdn.net/weixin_45229936/article/details/111322553</p>
+<h2 id="位拓展">位拓展</h2>
+<p><a
+href="https://www.youtube.com/watch?v=m0ISbf5Vlbg">视频讲解</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240526114329509.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/224d54ecb5ac21bc19ede7c81a4caff.jpg" /></p>
+<h2 id="字位扩展">字位扩展</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/d406d161c3803557fd32b7b176e9a90.jpg" /></p>
+<ol type="1">
+<li><p>分析芯片组成</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3aabd034e883d53532d7f9ff237d921.jpg" /></p></li>
+<li><p>分配地址总线，分为芯片内地址与片选</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/89815b922d301b22d55f1a350cdee79.jpg" /></p></li>
+<li><p>画图</p></li>
+</ol>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/3296ddce09aa91a92f9999b5c1aa59a.jpg" /></p>
+<blockquote>
+<p>注：类型题型扩展，虽然不是芯片设计，但有助于理解</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/05d1ffe9a5bac5bc74a6b8861dbeaf5.jpg" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/233a80dec7a07a0b1ff460a3b499493.jpg" style="zoom: 50%;" /></p>
+</blockquote>
+<h2 id="romram选择">ROM，RAM选择</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b0d464146734a6be6c33698732be552.jpg" /></p>
+<p><a
+href="https://www.bilibili.com/video/BV1DZ421H7YH/?spm_id_from=333.1007.top_right_bar_window_history.content.click&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解：CPU设计与连线题型，需要进行RAM和ROM的选择，涉及系统程序区和用户程序区的理解</a></p>
+<ol type="1">
+<li>ROM对应系统程序区，因为read
+only表示不可被修改，RAM对应用户程序区，因为random
+access表示可以修改</li>
+<li>先列“真值表”，其中真值表短的部分对应CPU中系统程序区，然后根据多余的设置对应译码器的部分</li>
+</ol>
+<h1 id="读周期与写周期的变化">读周期与写周期的变化</h1>
+<p><a
+href="https://www.bilibili.com/video/BV19b421v7LP/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/db30ebcfcad1c504310425c31d4d54e.jpg" /></p>
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+        <category>习题</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>多层存储层次</title>
+    <url>/posts/26876f43.html</url>
+    <content><![CDATA[<h1 id="带宽的计算">带宽的计算</h1>
+<span id="more"></span>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/de5267e58b4fb6c6b7213ff9724e1b8.jpg" /></p>
+<h1 id="cache效率的计算">cache效率的计算</h1>
+<h2 id="cache的命中率h">CACHE的命中率h</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/8e3b5e84effb51afbfd810b54cbd60e.jpg" /></p>
+<p>在一个程序执行期间，设Nc表示cache完成存取的总次数，Nm表示主存完成存取的总次数，h定义为命中率。则有：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240604153014756.png" /></p>
+<h2
+id="cache主存系统的平均访问时间ta">Cache/主存系统的平均访问时间ta</h2>
+<p>若tc表示命中时的Cache访问时间，tm表示未命中时的主存访问时间，1-h表示未命中率，则Cache/主存系统的平均访问时间ta为：</p>
+<p>ta=htc+(1-h)tm</p>
+<h2 id="访问效率e">访问效率e</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/be5b2b7be93630851a58352a04f9d95.jpg" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240604153218107.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240604155251905.png" /></p>
+<h1 id="cache组相联格式">cache组相联格式</h1>
+<p><a
+href="https://www.bilibili.com/video/BV1LD421G7Mx/?spm_id_from=333.999.0.0">视频讲解</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/481ddea93ebdb35ae23c2b244298858.jpg" /></p>
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>习题</category>
       </categories>
   </entry>
 </search>
