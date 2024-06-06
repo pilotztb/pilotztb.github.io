@@ -17205,6 +17205,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024060609302645
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7782132bc7489e5e03a7c109bf2fe88.png" /></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7f4ac9914f42df1566133a57fcb6a38.png" /></p>
+<p>第一题解答</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0d68ddd61e87f30739282adb5dd65b1.jpg" style="zoom:50%;" /></p>
+<p>第二题</p>
+<p>没什么好说的，0000H到FFFFH</p>
+<p>第三题</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c2482f29e1a3493e7ad754d639cd920.jpg" /></p>
 ]]></content>
       <categories>
         <category>计组</category>
@@ -17214,152 +17221,51 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7f4ac9914f42df1566133a
   <entry>
     <title>5.1_CPU的基本功能和结构</title>
     <url>/posts/eeed506a.html</url>
-    <content><![CDATA[<h2 id="cpu的功能">CPU的功能</h2>
+    <content><![CDATA[<h1 id="cpu的基本组成">CPU的基本组成</h1>
 <span id="more"></span>
-<ul>
-<li><strong>指令控制</strong>
-<ul>
-<li>完成取指令、分析指令和执行指令的操作</li>
-</ul></li>
-<li><strong>操作控制</strong>
-<ul>
-<li>一条指令的功能往往是由若干操作信号的组合来实现的</li>
-<li>CPU管理并产生由内存取出的每条指令的操作信号，把各种操作信号送往相应的部件，从而控制这些部件按指令的要求进行动作</li>
-</ul></li>
-<li><strong>时间控制</strong>
-<ul>
-<li>对各种操作加以时间上的控制</li>
-<li>时间控制要为每条指令按时间顺序提供应有的控制信号</li>
-</ul></li>
-<li><strong>数据加工</strong>
-<ul>
-<li>对数据进行算术和逻辑运算</li>
-</ul></li>
-<li><strong>中断处理</strong>
-<ul>
-<li>对计算机运行过程中出现的异常情况和特殊请求进行处理</li>
-</ul></li>
-</ul>
-<p>在具体的划分上，CPU包括<strong>运算器</strong>和<strong>控制器</strong>两部分，它们分别实现上述的这些功能。</p>
-<ul>
-<li>运算器
-<ul>
-<li>对数据进行加工</li>
-</ul></li>
-<li>控制器
-<ul>
-<li>取指令
-<ul>
-<li>自动形成指令地址</li>
-<li>自动发出取指令的命令</li>
-</ul></li>
-<li>分析指令
-<ul>
-<li>操作码译码（分析本条指令要完成什么操作）</li>
-<li>产生操作数的有效地址</li>
-</ul></li>
-<li>执行指令
-<ul>
-<li>根据分析指令得到的操作命令和操作数地址形成操作信号控制序列，控制运算器、存储器以及I/O设备完成相应的操作。</li>
-</ul></li>
-<li>中断处理
-<ul>
-<li>管理总线及输入输出</li>
-<li>处理异常情况（如掉电）和特殊请求</li>
-</ul></li>
-</ul></li>
-</ul>
-<h2 id="cpu的基本结构">CPU的基本结构</h2>
-<h3 id="运算器的基本结构">运算器的基本结构</h3>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/fb2bf244327af661a206b211507b940.jpg" /></p>
-<ul>
-<li><strong>算术逻辑单元</strong></li>
-<li><strong>通用寄存器组</strong>
-<ul>
-<li>X86架构下，通用寄存器的命名规则一般为AX、BX、CX…</li>
-<li>AH表示寄存器AX的高位地址，AL表示寄存器AX的低位地址</li>
-</ul></li>
-<li><strong>堆栈指针SP</strong>（特殊的寄存器）</li>
-<li><strong>暂存寄存器</strong>
-<ul>
-<li>存放总线上读来的数据</li>
-<li>存放ALU的运算结果</li>
-</ul></li>
-<li><strong>程序状态字寄存器（PSW）</strong>
-<ul>
-<li>溢出标志（OF）</li>
-<li>符号标志（SF）</li>
-<li>零标志（ZF）</li>
-<li>进位标志（CF）</li>
-</ul></li>
-<li>移位器</li>
-<li>计数器</li>
-</ul>
-<p>寄存器与ALU的连接方式</p>
-<p><strong>专用通路方式</strong></p>
-<p>将<strong>每一个</strong>寄存器与ALU直接通过数据线相联</p>
-<ul>
-<li>使用多路选择器，选择当前哪一个寄存器的信号有效</li>
-<li>使用三态门，分别控制每一路输出的通断</li>
-</ul>
-<p>优缺点：</p>
-<ul>
-<li>性能较高，不存在数据冲突的现象</li>
-<li>结构复杂，硬件量大，不易实现</li>
-</ul>
-<p><strong>CPU内部单总线方式</strong></p>
-<p>将所以的寄存器连接到<strong>一条内部总线</strong>上</p>
-<p>可以利用<strong>暂存寄存器</strong>存放总线上读来的数据</p>
-<p>优缺点</p>
-<ul>
-<li>结构简单，实现容易</li>
-<li>存在数据冲突，性能较低</li>
-</ul>
-<h3 id="控制器的基本结构">控制器的基本结构</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4d2fccb15ccd2936ced16875a633df9.jpg" /></p>
-<ul>
-<li><strong>程序计数器（PC）</strong></li>
-<li><strong>指令寄存器（IR）</strong></li>
-<li><strong>指令译码器</strong>
-<ul>
-<li>对<strong>操作码</strong>进行译码</li>
-</ul></li>
-<li><strong>微操作信号发生器</strong>
-<ul>
-<li>根据指令译码器的结果、PSW中的标志位及时序信号，发出各种控制信号</li>
-</ul></li>
-<li><strong>时序信号</strong>
-<ul>
-<li>由CLOCK分频得到不同的时序信号</li>
-</ul></li>
-<li><strong>存储器地址寄存器（MAR）</strong></li>
-<li><strong>存储器数据寄存器（MDR）</strong></li>
-</ul>
-<h3 id="寄存器对用户的可见性">寄存器对用户的可见性</h3>
-<ul>
-<li>用户可见的
-<ul>
-<li>PSW</li>
-<li>ACC</li>
-<li>通用寄存器</li>
-<li>PC</li>
-<li>基址寄存器</li>
-<li>中断字寄存器</li>
-</ul></li>
-<li>用户不可见的
-<ul>
-<li>暂存寄存器</li>
-<li>移位寄存器</li>
-<li>指令缓冲器</li>
-<li>乘法器</li>
-<li>先行进位链</li>
-<li>IR</li>
-<li>MAR</li>
-<li>MDR</li>
-</ul></li>
-</ul>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606201552117.png" /></p>
+<h2 id="寄存器组">寄存器组</h2>
+<p>寄存器：CPU在处理信息的过程中，用来暂时存放各种信息。</p>
+<h3 id="通用寄存器组">通用寄存器组</h3>
+<p>用户可通过编程访问的寄存器，在指令系统中为它们分配了相应的编号。指令中以寄存器号来指示。</p>
+<h3 id="暂存器">暂存器</h3>
+<p>暂存器对编程者来说是透明的，即在程序中不会出现。</p>
+<p>作用：暂时存放CPU处理过程中的临时信息，避免破坏通用寄存器的内容。</p>
+<p>例如，实现从内存的单元A传送数据到另一个单元B。从单元A读出的数据先送到CPU中的一个暂存器，然后再从暂存器送入单元B。</p>
+<h3 id="指令寄存器ir">指令寄存器IR</h3>
+<p>作用：用来存放当前正在执行的指令。控制器根据其内容（操作码以及地址信息）产生所需要的各种微命令。</p>
+<h3 id="程序计数器pc">程序计数器PC</h3>
+<p>作用：指示指令在存储器中的存放位置。</p>
+<p>程序顺序执行时，每当从主存中取出一条指令后，PC内容就自动增量计数，指向下一条指令。</p>
+<p>程序发生转移时，将转移地址送入PC，使其指向转移目的地的指令地址。</p>
+<h3 id="程序状态字寄存器psw">程序状态字寄存器PSW</h3>
+<p>作用：记录现行程序的运行状态和指示程序的工作方式。</p>
+<h4 id="特征位">特征位</h4>
+<p>进位位C、溢出位V、零值位Z、符号位S、奇偶位P等。</p>
+<h4 id="方式控制位">方式控制位</h4>
+<p>跟踪位T、中断允许位I、程序优先级字段、工作方式字段等。</p>
+<h3 id="地址寄存器mar">地址寄存器MAR</h3>
+<p>作用：用来保存当前CPU所访问的数据cache存储器中单元的地址。</p>
+<h3 id="数据缓冲寄存器mdr">数据缓冲寄存器MDR</h3>
+<p>存放CPU与主存之间交换的数据。</p>
+<p>由CPU写入主存的数据先送入MDR，主存地址译码找到指定单元后，再将数据从MDR送入到该单元。</p>
+<p>从主存中读出的数据，先送入MDR，然后再送到指定的CPU内部某寄存器。</p>
+<p>MAR和MDR是连接CPU与主存的桥梁，这两个寄存器不能编程访问，即对用户透明。</p>
+<h1 id="控制器">控制器</h1>
+<p>由程序计数器(PC)、指令寄存器(IR)、指令译码器、时序产生器和操作控制器组成，它是发布命令的“决策机</p>
+<p>构”，即完成协调和指挥整个计算机系统的操作。</p>
+<p>控制器的主要功能有：</p>
+<p>1、从内存中取出一条指令，并指出下一条指令在内存中的位置。</p>
+<p>2、对指令进行译码或测试，并产生相应的控制信号。</p>
+<p>3、输出相应的控制信号，指挥并控制CPU，内存和I/O之间的数据流动的方向。</p>
+<h1 id="运算器">运算器</h1>
+<p>由算术逻辑单位（ALU）、累加寄存器（AC）、数据缓冲寄存器(DR)和状态条件寄存器(PSW)组成，它是数</p>
+<p>据加工处理部件。
+运算器所进行的全部操作都是由控制器发出的控制信号来指挥的，所以它是执行部件。</p>
+<p>运算器的主要功能：</p>
+<p>1、执行所有的算术运算。</p>
+<p>2、执行所有的逻辑运算，并进行逻辑测试。</p>
 ]]></content>
       <categories>
         <category>计组</category>
@@ -17371,13 +17277,12 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4d2fccb15ccd2936ced168
     <url>/posts/b07fc105.html</url>
     <content><![CDATA[<h2 id="指令周期">指令周期</h2>
 <span id="more"></span>
-<p>简化版</p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240521162251601.png" /></p>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606203103631.png" /></p>
 <p>指令周期：CPU从主存中取出并执行一条指令的全部时间。</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/82318d6200a829db53b4696517d38bb.png" /></p>
-<p>一个<strong>指令周期</strong>由若干<strong>机器周期</strong>表示，机器周期也叫<strong>CUP周期</strong>。</p>
+<p>一个<strong>指令周期</strong>由若干<strong>机器周期</strong>表示，机器周期也叫<strong>CPU周期</strong>。</p>
 <p>一个<strong>机器周期</strong>包含若干<strong>时钟周期（节拍）</strong>，<font color = "red">时钟周期是CPU操作的最基本单位。</font></p>
 <ul>
 <li>每个指令周期内机器周期可以不相等</li>
@@ -17539,21 +17444,17 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/af0b4152bc4a16926eb0db
 </ul>
 <h2 id="微程序控制器">微程序控制器</h2>
 <h3 id="微程序控制器的设计思路">微程序控制器的设计思路</h3>
-<p>采用<strong>存储程序</strong>思想，出厂前将所有指令的<strong>微程序</strong>存入<strong>控制器存储器</strong>中</p>
+<ol type="1">
+<li>若干微命令编制成一条微指令，控制实现一步操作；</li>
+<li>若干微指令组成一段微程序，解释执行一条机器指令；</li>
+<li>采用<strong>存储程序</strong>思想，出厂前将所有指令的<strong>微程序</strong>存入<strong>控制器存储器</strong>中</li>
+</ol>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ee1c8ebf262900782bb4a2edead53dc.png" /></p>
-<p>微程序控制器设计思路</p>
-<ul>
-<li><strong>程序</strong>：由指令序列组成</li>
-<li><strong>指令</strong>：对程序执行步骤的描述</li>
-<li><strong>微操作</strong>：每一条指令包含若干微操作，<strong>微命令与微操作一一对应</strong></li>
-<li><strong>微指令</strong>：对指令执行步骤的描述，<strong>可能包含多个微命令</strong></li>
-<li><strong>微程序</strong>：由微指令序列组成，<strong>指令与微程序一一对应</strong></li>
-</ul>
 <h3 id="微程序控制器的基本结构">微程序控制器的基本结构</h3>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/841caf604fd58be32e42a22d27b7573.png" /></p>
-<p>微指令执行原理</p>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606205231119.png" /></p>
+<h4 id="微指令执行原理">微指令执行原理</h4>
 <ul>
 <li><strong>控制存储器CM</strong>：存放微程序，由<strong>ROM</strong>构成
 <ul>
@@ -17571,6 +17472,20 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/841caf604fd58be32e42a2
 <li>取值周期、间址周期和中断周期的微程序通常是共用的</li>
 <li>若有n条指令，则最少有n+1条微程序段（可能会没有间址周期和中断周期）</li>
 </ul>
+<h4 id="微指令工作过程">微指令工作过程</h4>
+<h5 id="取机器指令">取机器指令</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606205507992.png" /></p>
+<h5 id="转微程序入口">转微程序入口</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606205538794.png" /></p>
+<h5 id="执行首条微指令">执行首条微指令</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606205605374.png" /></p>
+<h5 id="取后续微指令">取后续微指令</h5>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606205629600.png" /></p>
+<h5 id="继续执行直到返回">继续执行直到返回</h5>
 <h3 id="微指令的格式">微指令的格式</h3>
 <h4 id="水平型微指令">水平型微指令</h4>
 <p>一条微指令能定义<strong>多个</strong>可并行的微命令。</p>
@@ -17664,23 +17579,19 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ff3a2b37767154a466596b
 alt="字段直接编码方式" />
 <figcaption aria-hidden="true">字段直接编码方式</figcaption>
 </figure>
+<hr style = "border:2px solid yellow">
 <p>例：某计算机的控制器采用微程序控制方式，微指令中的操作控制字段采用字段直接编码法。共有33个微命令，构成5个互斥类，分别包含7、3、12、5和6个微命令，则操作控制字段至少有多少位?</p>
 <ul>
-<li><p>第一个互斥类：7+1=8≤237+1=8≤23</p></li>
-<li><p>第二个互斥类：3+1=4≤223+1=4≤22</p></li>
-<li><p>第三个互斥类：12+1=13≤2412+1=13≤24</p></li>
-<li><p>第四个互斥类：5+1=6≤235+1=6≤23</p></li>
-<li><p>第五个互斥类：6+1=7≤236+1=7≤23</p></li>
-<li><p>总字段数：3+2+4+3+3=15 位</p></li>
-<li><p>优点</p>
-<ul>
-<li>可以缩短指令字长</li>
-</ul></li>
-<li><p>缺点</p>
-<ul>
-<li>要通过译码电路后再发出微命令，因此比直接编码方式慢</li>
-</ul></li>
+<li>第一个互斥类：7+1=8≤237+1=8≤23</li>
+<li>第二个互斥类：3+1=4≤223+1=4≤22</li>
+<li>第三个互斥类：12+1=13≤2412+1=13≤24</li>
+<li>第四个互斥类：5+1=6≤235+1=6≤23</li>
+<li>第五个互斥类：6+1=7≤236+1=7≤23</li>
+<li>总字段数：3+2+4+3+3=15 位</li>
 </ul>
+<hr style = "border:2px solid yellow">
+<p>优点 - 可以缩短指令字长</p>
+<p>缺点 - 要通过译码电路后再发出微命令，因此比直接编码方式慢</p>
 <h4 id="字段间接编码">字段间接编码</h4>
 <p>一个字段的某些微命令需由另一个字段中的某些微命令来解释，由于不是靠子段直接译码发出的微命令，故称为字段间接编码，又称隐式编码。</p>
 <ul>
@@ -18643,6 +18554,389 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e6ab0457d0c39a7bd02a16
 </ul></li>
 </ul>
 <p>其中，各级Cache之间一般采用<strong>全写法+非写分配法</strong>传递，而Cache-主存之间<strong>采用写回法+写分配法</strong>。</p>
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>5.3_数据通路的功能和基本结构</title>
+    <url>/posts/3e2d984d.html</url>
+    <content><![CDATA[<p><strong>数据通路</strong>：数据在功能部件之间传送的路径</p>
+<p>数据通路包括数据流经的组件，如ALU、寄存器等</p>
+<p><strong>内部总线</strong>：同一部件，如CP，内部各寄存器和运算部件之间的总线</p>
+<p><strong>系统总线</strong>：计算机系统各部件，如CP、内存、通道和I/O接口之间的总线</p>
+<span id="more"></span>
+<h1 id="cpu内部单总线方式">CPU内部单总线方式</h1>
+<p>系统结构图如下所示</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/22e18ec75fabe00e936f3af281bbc03.png" /></p>
+<p>1、寄存器之间的数据传送</p>
+<p>设将PC的内容传送至MAR</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606203805458.png" /></p>
+<p>2、主存和CPU之间的数据传输</p>
+<p>设CPU从主存读取指令</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606203816629.png" /></p>
+<p>3、执行算数或逻辑运算</p>
+<p>由于ALU两个输入端必须同时有效，而总线只能传输一路数据，因此先将一个输入数据存入暂存寄存器Y</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606203841110.png" /></p>
+<h1 id="专用数据通路方式">专用数据通路方式</h1>
+<p>相较于单总线方式，将数据通路的流通方向单独安排线路。</p>
+<p>优点是效率高，缺点是硬件量较大。</p>
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>5.5_指令流水线</title>
+    <url>/posts/815eda5e.html</url>
+    <content><![CDATA[<h1 id="流水线的概念">流水线的概念</h1>
+<p>1、指令流水的定义</p>
+<p>将指令执行过程划分为<strong>不同的阶段</strong>，占用<strong>不同的资源</strong>，使得多条指令<strong>同时执行</strong>。</p>
+<p>（1）顺序执行方式</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-c9bf99ccd7c918e7c184c9879904665ad1a54a95%2F%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=6a14914aba45f54cb3ae17811ef7b418f003b24a091809621409f94317823ace"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>顺序执行方式</p>
+<p>时间：�=3��<em>T</em>=3*n**t*</p>
+<p>传统冯诺依曼结构，又称<strong>串行执行方式</strong>。</p>
+<ul>
+<li><p>优点</p>
+<ul>
+<li>控制简单，硬件代价小</li>
+</ul></li>
+<li><p>缺点</p>
+<ul>
+<li><p>执行指令的速度较慢，</p></li>
+<li><p>各功能部件的利用率很低</p></li>
+</ul></li>
+</ul>
+<p>（2）一次重叠执行方式</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-02f9a944f44aa22bfe9642f375ef518652fe12d7%2F%E4%B8%80%E6%AC%A1%E9%87%8D%E5%8F%A0%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=e145395fb134a7f273f752ebb4aaa34b98809027d614fb838b51d77a1d9b6e3e"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>一次重叠执行方式</p>
+<p>时间：�=3�+(�−1)×2�=(1+2�)�<em>T</em>=3<em>t</em>+(<em>n</em>−1)×2<em>t</em>=(1+2<em>n</em>)<em>t</em></p>
+<ul>
+<li><p>优点</p>
+<ul>
+<li><p>程序的执行时间缩短了1/3</p></li>
+<li><p>各功能部件的利用率明显提高。</p></li>
+</ul></li>
+<li><p>缺点</p>
+<ul>
+<li><p>需要付出硬件上较大开销的代价</p></li>
+<li><p>控制过程比顺序执行复杂</p></li>
+</ul></li>
+</ul>
+<p>（3）二次重叠执行方式</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-f437956ea671991ee3ce6237fefc601b6210742c%2F%E4%BA%8C%E6%AC%A1%E9%87%8D%E5%8F%A0%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=cd441dde7c62629bd1ee528abbb1c83fc4fd59a2bebb03340d7b88c0a18064c0"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>二次重叠执行方式</p>
+<p>时间：�=3�+(�−1)�=(2+�)�<em>T</em>=3<em>t</em>+(<em>n</em>−1)<em>t</em>=(2+<em>n</em>)<em>t</em></p>
+<p>时间更短</p>
+<p>实际使用中也可以分成更多段，如4段甚至5段</p>
+<p>2、流水线的表示方法</p>
+<p>（1）指令执行过程图</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-f1cd95d3389b2849b3c53c535db07372bfb06ec3%2F%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%9B%BE.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=1630a29a930d484a97a91f158217bad27418f6c695a7ab2c0c7ef839a94ba7ad"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>指令执行过程图</p>
+<p>主要用于分析指令执行过程以及影响流水线的因素</p>
+<p>（2）时空图</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-31a1b4584a5f8cda4b94986fe862440f01da53c0%2F%E6%97%B6%E7%A9%BA%E5%9B%BE.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=9a606cae950ea210e1fa6bf654f197caa4f492e99e71c9d0e00174bca2162ed2"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>时空图</p>
+<p>主要用于分析流水线的性能</p>
+<p>5.5.2 流水线的性能指标</p>
+<p>1、吞吐率</p>
+<p>吞吐率是指在单位时间内流水线所<strong>完成的任务数量</strong>，或是输出结果的数量</p>
+<ul>
+<li><p>吞吐率：TP=���TP=<em>T<strong>k</strong>n</em></p>
+<ul>
+<li><p>�<em>n</em>：任务数量</p></li>
+<li><p>��*T**k*：完成n个任务的总时间</p></li>
+</ul></li>
+<li><p>理想状态下的流水线时空图</p></li>
+</ul>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-a64b88fd6c1a45ab315cbbd2dc784b29d9a558db%2F%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%9A%84%E5%90%9E%E5%90%90%E7%8E%87.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=3cb55bc4142f179b59a7dd9fd5d2c2a0a4410762be30b9582178fc48c3c23612"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>流水线的吞吐率</p>
+<ul>
+<li><p>一条指令的执行分为k个阶段</p></li>
+<li><p>每个阶段耗时Δ�Δ<em>t</em></p></li>
+</ul>
+<p>��=[�+(�−1)]Δ�TP=��+�−1Δ�TP���=lim⁡�→∞TP=1Δ�<em>T<strong>k<em>=[<em>k</em>+(<em>n</em>−1)]Δ</em>t<em>TP=</em>k<em>+</em>n<em>−1</em>n<em>Δ</em>t<em>TP</em>ma</strong>x</em>=<em>n</em>→∞limTP=Δ<em>t</em>1</p>
+<p>2、加速比</p>
+<p><strong>不使用</strong>流水线所用的时间与<strong>使用</strong>流水线所用的时间之比。</p>
+<p>S���=lim⁡�→∞S=�S*ma**x<em>=</em>n<em>→∞limS=</em>k*</p>
+<p>3、效率</p>
+<p>流水线的<strong>设备利用率</strong>称为流水线的效率。</p>
+<p>流水线效率=任务占用了的时空区域总的时空区域 E���=lim⁡�→∞E=1
+流水线效率=总的时空区域任务占用了的时空区域E*ma**x<em>=</em>n*→∞limE=1</p>
+<p>5.5.3 影响流水线的因素</p>
+<p>1、结构相关（资源冲突）</p>
+<p><strong>结构相关</strong>：由于多条指令在同一时刻<strong>争用同一资源</strong>（主存、寄存器等）而形成的冲突</p>
+<p>解决方案</p>
+<ul>
+<li><p>后一相关指令暂停一周期</p></li>
+<li><p><strong>资源重复配置</strong>：数据存储器+指令存储器分开存储</p></li>
+</ul>
+<p>2、数据相关（数据冲突）</p>
+<p>在一个程序中，存在必须<strong>等待</strong>前一条指令执行完才能执行后一条指令的情况，则这两条指令即为<strong>数据相关</strong>。</p>
+<p>解决方案</p>
+<ul>
+<li><p>把遇到数据相关的指令及其后续指令都暂停一至几个时钟周期，直到数据相关问题消失后再继续执行</p>
+<ul>
+<li><p>硬件阻塞（stall）</p></li>
+<li><p>软件插入<strong>空操作NOP</strong></p></li>
+</ul></li>
+<li><p><strong>数据旁路</strong>技术：通过数据旁路直接将ALU的运算结果接回为下一条操作的输入</p></li>
+<li><p><strong>编译优化</strong>：通过编译器调整指令顺序来解决数据相关</p></li>
+</ul>
+<p>3、控制相关（控制冲突）</p>
+<p>当流水线遇到<strong>转移指令</strong>和其他<strong>改变PC值</strong>的指令而造成断流时，会引起控制相关</p>
+<p>解决方案</p>
+<ul>
+<li><p>转移指令分支预测</p>
+<ul>
+<li><p>简单预测</p></li>
+<li><p>动态预测</p></li>
+</ul></li>
+<li><p>预取转移成功和不成功两个控制流方向上的目标指令</p></li>
+<li><p>加快和提前形成条件码</p></li>
+<li><p>提高转移方向的猜准率</p></li>
+<li><p>在分支指令插入空操作</p></li>
+</ul>
+<p>5.5.4 流水线的分类</p>
+<p>1、根据流水线使用的级别</p>
+<ul>
+<li><p><strong>部件功能级流水线</strong>：将复杂的<strong>算术逻辑运算</strong>组成流水线工作方式</p></li>
+<li><p><strong>处理机级流水线</strong>：把一条<strong>指令</strong>解释过程分成多个子过程</p></li>
+<li><p><strong>处理机间级流水线</strong>：协调不同处理机间的不同任务</p></li>
+</ul>
+<p>2、根据流水线可以完成的功能</p>
+<ul>
+<li><p><strong>单功能流水线</strong>：只能实现一种固定的专门功能</p></li>
+<li><p><strong>多功能流水线</strong>：通过各段间的不同连接方式可以同时或不同时地实现多种功能</p></li>
+</ul>
+<p>3、根据同一时间内各段之间的连接方式</p>
+<ul>
+<li><p><strong>静态流水线</strong>：在同一时间内，流水线的各段只能按同一种功能的连接方式工作</p></li>
+<li><p><strong>动态流水线</strong>：在同一时间内，当某些段正在实现某种运算时，另一些段可以进行另一种运算</p></li>
+</ul>
+<p>4、根据各个功能段之间是否有反馈信号</p>
+<ul>
+<li><p><strong>线性流水线</strong>：从输入到输出，每个功能段<strong>只允许经过一次</strong>，
+不存在反馈回路</p></li>
+<li><p><strong>非线性流水线</strong>：存在反馈回路，从输入到输出过程中，某些功能段将数次通过流水线，这种流水线适合进行线性递归的运算</p></li>
+</ul>
+<p>5.5.5 流水线的多发技术</p>
+<p>1、超标量技术</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-787f3515c5b536ebeb67ecc6ba8b34122012704a%2F%E8%B6%85%E6%A0%87%E9%87%8F%E6%8A%80%E6%9C%AF.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=814c6a5ce9d9662cad1ad4045405626f4fe42500679245d0c58fcb04ff84719b"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>超标量技术</p>
+<p>每个时钟周期内可<strong>并发多条独立指令</strong>，通过编译优化技术，把可并行执行的指令搭配起来。属于<strong>空分复用技术</strong>。</p>
+<ul>
+<li><p>要配置多个功能部件</p></li>
+<li><p>不能调整指令的执行顺序</p></li>
+<li><p>如上图中，称为处理机的<strong>度为3</strong></p>
+<ul>
+<li>传统指令流水线度为1</li>
+</ul></li>
+</ul>
+<p>2、超流水技术</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-0ce4a9926f577b961ee5c5c81a1e2ce9df71b71b%2F%E8%B6%85%E6%B5%81%E6%B0%B4%E6%8A%80%E6%9C%AF.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=5812153aa738c84bf35f2de9cbdd6f8333e4efa6358fa4cbe33f35fb850054ae"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>超流水技术</p>
+<p>在一个时钟周期内<strong>再分段</strong>，一个功能部件使用多次。属于<strong>时分复用技术</strong>。</p>
+<ul>
+<li><p>流水线速度为原来的多倍</p></li>
+<li><p>不能调整指令的执行顺序</p></li>
+<li><p>靠编译程序解决优化问题</p></li>
+</ul>
+<p>3、超长指令字</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-de900f6cdaff4cabea057286dd5503f98c37a3d2%2F%E8%B6%85%E9%95%BF%E6%8C%87%E4%BB%A4%E5%AD%97.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=cf15f93833f63bd181b0153d1ded3f2ddf7de066831339324878c45040e1b354"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>超长指令字</p>
+<p>由编译程序挖掘出指令间潜在的并行性，将多条能并行操作的指令组合成一条</p>
+<ul>
+<li>具有多个操作码字段的超长指令字（可达几百位）</li>
+</ul>
+<p>5.5.6 5段式指令流水线</p>
+<figure>
+<img
+src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-cf1c5b1314ad22dfa7c9008c720f128da29c743c%2F5%E6%AE%B5%E5%BC%8F%E6%B5%81%E6%B0%B4%E7%BA%BF.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=4733d023f226654eae4935f10df6187e32584fbf7e60ea7444e64678cf82e238"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>5段式流水线</p>
+<ul>
+<li><p><strong>取指IF</strong>（instruction
+fetch）：将指令从Cache中取出，放入寄存器</p></li>
+<li><p><strong>指令译码ID</strong>（instruction decode）</p>
+<ul>
+<li><p>指令译码</p></li>
+<li><p>将操作数从通用寄存器中取出，放入锁存器</p></li>
+</ul></li>
+<li><p><strong>执行EX</strong>（execute）</p></li>
+<li><p><strong>访存M</strong>（memory）</p></li>
+<li><p><strong>写回WB</strong>（write
+back）：将运算结果写回主存/寄存器</p></li>
+</ul>
+<p>指令和数据分开存储在两个Cache中，可以使得取指与访存同时执行</p>
+<p>Cache未命中会造成流水线断流</p>
+<p>RISC中只有LOAD和STORE指令才能访问主存</p>
+<p>令每个阶段时间耗时一样，取最长耗时为准</p>
+<p><strong>缓冲寄存器（锁存器）</strong>：位于流水线每一段之后，其作用是<strong>保存本流水段的执行结果</strong>，提供给下一流水段使用</p>
+<p>1、运算类指令</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add Rs,Rd</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>IF：根据PC从指令Cache取指令到IF段锁存</p></li>
+<li><p>ID：取出操作数到ID段锁存</p></li>
+<li><p>EX：运算，将结果存入EX段锁存</p></li>
+<li><p>M：空段</p></li>
+<li><p>WB：将运算结果写回指定寄存器</p></li>
+</ul>
+<p>2、LOAD指令</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LOAD Rd,114(Rs)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>IF：根据PC从指令Cache取指令到IF段锁存</p></li>
+<li><p>ID</p>
+<ul>
+<li><p>将<strong>基址寄存器</strong>的值存到段锁存器中</p></li>
+<li><p>将<strong>偏移量</strong>的值（立即数）存到Imm中</p></li>
+</ul></li>
+<li><p>EX：运算，得到有效地址，将结果存入EX段锁存</p></li>
+<li><p>M：根据有效地址从Cache中取数，放入M段锁存器中</p></li>
+<li><p>WB：将取出的数写回指定寄存器</p></li>
+</ul>
+<p>3、STORE指令</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">STORE Rs,114(Rd)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>IF：根据PC从指令Cache取指令到IF段锁存</p></li>
+<li><p>ID</p>
+<ul>
+<li><p>将<strong>基址寄存器</strong>的值存到ID段锁存器中</p></li>
+<li><p>将<strong>偏移量</strong>的值（立即数）存到Imm中</p></li>
+<li><p>将要存的数放到ID段锁存器中</p></li>
+</ul></li>
+<li><p>EX：</p>
+<ul>
+<li><p>运算，得到有效地址，将结果存入EX段锁存</p></li>
+<li><p>将要存的数从ID段锁存器转移到EX段锁存</p></li>
+</ul></li>
+<li><p>M：将数据写入Cache</p></li>
+<li><p>WB：空段</p></li>
+</ul>
+<p>4、转移类指令</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">beq Rs,Rt,114 //若(Rs)==(Rt),则(PC)+指令字长+(偏移量X指令字长)→PC</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>IF：根据PC从指令Cache取指令到IF段锁存</p></li>
+<li><p>ID</p>
+<ul>
+<li><p>将要进行比较的两个数存到段锁存器中</p></li>
+<li><p>将<strong>偏移量</strong>的值（立即数）存到Imm中</p></li>
+</ul></li>
+<li><p>EX：运算，比较两个数</p></li>
+<li><p>M：将目标PC的值写回PC</p></li>
+<li><p>WB：空段</p></li>
+</ul>
+<p>5、无条件转移指令</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jmp 114</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>IF：根据PC从指令Cache取指令到IF段锁存</p></li>
+<li><p>ID：将<strong>偏移量</strong>的值（立即数）存到Imm中</p></li>
+<li><p>EX：将目标PC的值写回PC</p></li>
+<li><p>M：空段</p></li>
+<li><p>WB：空段</p></li>
+</ul>
+<p>修改PC的硬件实际上是与5段式流水线的硬件独立的</p>
+<p>需要尽早的完成对PC的修改</p>
+]]></content>
+      <categories>
+        <category>计组</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>第五章习题</title>
+    <url>/posts/64b49ef8.html</url>
+    <content><![CDATA[<h1 id="用方框图语言表示指令周期">用方框图语言表示指令周期</h1>
+<span id="more"></span>
+<h2 id="题目1双线直接寻址"><strong>题目1：双线，直接寻址</strong></h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/040c2fd3d2c72b8814cc99a719c7213.jpg" /></p>
+<p>解答：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606153105869.png" style="zoom: 67%;" /></p>
+<p>小结</p>
+<ol type="1">
+<li>一般都是三个部分：取址，译码（不用管），执行</li>
+<li>取址一般注意三点
+<ul>
+<li>一定要有PC，特别是PC + 1</li>
+<li>一定要经过MAR和MDR，且先MAR再MDR</li>
+<li>结尾一定是IR</li>
+</ul></li>
+<li>从一个寄存器经过线到达另一个寄存器，中途经过的信号写在方框右边</li>
+</ol>
+<h2 id="题目2多线间接寻址"><strong>题目2：多线，间接寻址</strong></h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5de6ea5a9489beb21b88c54ffb7f4ce.jpg" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e0e8580ee18231007641cb1ad694f68.jpg"  /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e7c5de2e295ce8e5505c708b7626cfc.jpg" style="zoom: 67%;" /></p>
+<p>解答</p>
+<p>小结</p>
+<h1 id="微地址指令的书写">微地址指令的书写</h1>
+<h1 id="流水线中数据冲突的判断">流水线中数据冲突的判断</h1>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606212830930.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240606212843250.png" /></p>
 ]]></content>
       <categories>
         <category>计组</category>
