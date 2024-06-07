@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="流水线的概念 1、指令流水的定义 将指令执行过程划分为不同的阶段，占用不同的资源，使得多条指令同时执行。 （1）顺序执行方式   img  顺序执行方式 时间：�&#x3D;3��T&#x3D;3*n**t* 传统冯诺依曼结构，又称串行执行方式。  优点  控制简单，硬件代价小  缺点  执行指令的速度较慢， 各功能部件的利用率很低   （2）一次重叠执行方式   i">
+  <meta name="description" content="流水线的概念">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5.5_指令流水线">
 <meta property="og:url" content="http://example.com/posts/815eda5e.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
-<meta property="og:description" content="流水线的概念 1、指令流水的定义 将指令执行过程划分为不同的阶段，占用不同的资源，使得多条指令同时执行。 （1）顺序执行方式   img  顺序执行方式 时间：�&#x3D;3��T&#x3D;3*n**t* 传统冯诺依曼结构，又称串行执行方式。  优点  控制简单，硬件代价小  缺点  执行指令的速度较慢， 各功能部件的利用率很低   （2）一次重叠执行方式   i">
+<meta property="og:description" content="流水线的概念">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-06T13:24:33.000Z">
-<meta property="article:modified_time" content="2024-06-06T13:26:11.200Z">
+<meta property="article:modified_time" content="2024-06-07T00:16:39.806Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -217,10 +217,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-06-06 21:24:33 / 修改时间：21:26:11" itemprop="dateCreated datePublished" datetime="2024-06-06T21:24:33+08:00">2024-06-06</time>
+              <time title="创建时间：2024-06-06 21:24:33" itemprop="dateCreated datePublished" datetime="2024-06-06T21:24:33+08:00">2024-06-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-07 08:16:39" itemprop="dateModified" datetime="2024-06-07T08:16:39+08:00">2024-06-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -282,6 +288,7 @@
 
       
         <h1 id="流水线的概念">流水线的概念</h1>
+<span id="more"></span>
 <p>1、指令流水的定义</p>
 <p>将指令执行过程划分为<strong>不同的阶段</strong>，占用<strong>不同的资源</strong>，使得多条指令<strong>同时执行</strong>。</p>
 <p>（1）顺序执行方式</p>

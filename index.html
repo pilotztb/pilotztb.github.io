@@ -215,10 +215,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-06-06 21:24:33 / 修改时间：21:26:11" itemprop="dateCreated datePublished" datetime="2024-06-06T21:24:33+08:00">2024-06-06</time>
+              <time title="创建时间：2024-06-06 21:24:33" itemprop="dateCreated datePublished" datetime="2024-06-06T21:24:33+08:00">2024-06-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-07 08:16:39" itemprop="dateModified" datetime="2024-06-07T08:16:39+08:00">2024-06-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -273,307 +279,14 @@
 
       
           <h1 id="流水线的概念">流水线的概念</h1>
-<p>1、指令流水的定义</p>
-<p>将指令执行过程划分为<strong>不同的阶段</strong>，占用<strong>不同的资源</strong>，使得多条指令<strong>同时执行</strong>。</p>
-<p>（1）顺序执行方式</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-c9bf99ccd7c918e7c184c9879904665ad1a54a95%2F%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=6a14914aba45f54cb3ae17811ef7b418f003b24a091809621409f94317823ace"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>顺序执行方式</p>
-<p>时间：�=3��<em>T</em>=3*n**t*</p>
-<p>传统冯诺依曼结构，又称<strong>串行执行方式</strong>。</p>
-<ul>
-<li><p>优点</p>
-<ul>
-<li>控制简单，硬件代价小</li>
-</ul></li>
-<li><p>缺点</p>
-<ul>
-<li><p>执行指令的速度较慢，</p></li>
-<li><p>各功能部件的利用率很低</p></li>
-</ul></li>
-</ul>
-<p>（2）一次重叠执行方式</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-02f9a944f44aa22bfe9642f375ef518652fe12d7%2F%E4%B8%80%E6%AC%A1%E9%87%8D%E5%8F%A0%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=e145395fb134a7f273f752ebb4aaa34b98809027d614fb838b51d77a1d9b6e3e"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>一次重叠执行方式</p>
-<p>时间：�=3�+(�−1)×2�=(1+2�)�<em>T</em>=3<em>t</em>+(<em>n</em>−1)×2<em>t</em>=(1+2<em>n</em>)<em>t</em></p>
-<ul>
-<li><p>优点</p>
-<ul>
-<li><p>程序的执行时间缩短了1/3</p></li>
-<li><p>各功能部件的利用率明显提高。</p></li>
-</ul></li>
-<li><p>缺点</p>
-<ul>
-<li><p>需要付出硬件上较大开销的代价</p></li>
-<li><p>控制过程比顺序执行复杂</p></li>
-</ul></li>
-</ul>
-<p>（3）二次重叠执行方式</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-f437956ea671991ee3ce6237fefc601b6210742c%2F%E4%BA%8C%E6%AC%A1%E9%87%8D%E5%8F%A0%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=cd441dde7c62629bd1ee528abbb1c83fc4fd59a2bebb03340d7b88c0a18064c0"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>二次重叠执行方式</p>
-<p>时间：�=3�+(�−1)�=(2+�)�<em>T</em>=3<em>t</em>+(<em>n</em>−1)<em>t</em>=(2+<em>n</em>)<em>t</em></p>
-<p>时间更短</p>
-<p>实际使用中也可以分成更多段，如4段甚至5段</p>
-<p>2、流水线的表示方法</p>
-<p>（1）指令执行过程图</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-f1cd95d3389b2849b3c53c535db07372bfb06ec3%2F%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%9B%BE.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=1630a29a930d484a97a91f158217bad27418f6c695a7ab2c0c7ef839a94ba7ad"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>指令执行过程图</p>
-<p>主要用于分析指令执行过程以及影响流水线的因素</p>
-<p>（2）时空图</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-31a1b4584a5f8cda4b94986fe862440f01da53c0%2F%E6%97%B6%E7%A9%BA%E5%9B%BE.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=9a606cae950ea210e1fa6bf654f197caa4f492e99e71c9d0e00174bca2162ed2"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>时空图</p>
-<p>主要用于分析流水线的性能</p>
-<p>5.5.2 流水线的性能指标</p>
-<p>1、吞吐率</p>
-<p>吞吐率是指在单位时间内流水线所<strong>完成的任务数量</strong>，或是输出结果的数量</p>
-<ul>
-<li><p>吞吐率：TP=���TP=<em>T<strong>k</strong>n</em></p>
-<ul>
-<li><p>�<em>n</em>：任务数量</p></li>
-<li><p>��*T**k*：完成n个任务的总时间</p></li>
-</ul></li>
-<li><p>理想状态下的流水线时空图</p></li>
-</ul>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-a64b88fd6c1a45ab315cbbd2dc784b29d9a558db%2F%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%9A%84%E5%90%9E%E5%90%90%E7%8E%87.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=3cb55bc4142f179b59a7dd9fd5d2c2a0a4410762be30b9582178fc48c3c23612"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>流水线的吞吐率</p>
-<ul>
-<li><p>一条指令的执行分为k个阶段</p></li>
-<li><p>每个阶段耗时Δ�Δ<em>t</em></p></li>
-</ul>
-<p>��=[�+(�−1)]Δ�TP=��+�−1Δ�TP���=lim⁡�→∞TP=1Δ�<em>T<strong>k<em>=[<em>k</em>+(<em>n</em>−1)]Δ</em>t<em>TP=</em>k<em>+</em>n<em>−1</em>n<em>Δ</em>t<em>TP</em>ma</strong>x</em>=<em>n</em>→∞limTP=Δ<em>t</em>1</p>
-<p>2、加速比</p>
-<p><strong>不使用</strong>流水线所用的时间与<strong>使用</strong>流水线所用的时间之比。</p>
-<p>S���=lim⁡�→∞S=�S*ma**x<em>=</em>n<em>→∞limS=</em>k*</p>
-<p>3、效率</p>
-<p>流水线的<strong>设备利用率</strong>称为流水线的效率。</p>
-<p>流水线效率=任务占用了的时空区域总的时空区域 E���=lim⁡�→∞E=1
-流水线效率=总的时空区域任务占用了的时空区域E*ma**x<em>=</em>n*→∞limE=1</p>
-<p>5.5.3 影响流水线的因素</p>
-<p>1、结构相关（资源冲突）</p>
-<p><strong>结构相关</strong>：由于多条指令在同一时刻<strong>争用同一资源</strong>（主存、寄存器等）而形成的冲突</p>
-<p>解决方案</p>
-<ul>
-<li><p>后一相关指令暂停一周期</p></li>
-<li><p><strong>资源重复配置</strong>：数据存储器+指令存储器分开存储</p></li>
-</ul>
-<p>2、数据相关（数据冲突）</p>
-<p>在一个程序中，存在必须<strong>等待</strong>前一条指令执行完才能执行后一条指令的情况，则这两条指令即为<strong>数据相关</strong>。</p>
-<p>解决方案</p>
-<ul>
-<li><p>把遇到数据相关的指令及其后续指令都暂停一至几个时钟周期，直到数据相关问题消失后再继续执行</p>
-<ul>
-<li><p>硬件阻塞（stall）</p></li>
-<li><p>软件插入<strong>空操作NOP</strong></p></li>
-</ul></li>
-<li><p><strong>数据旁路</strong>技术：通过数据旁路直接将ALU的运算结果接回为下一条操作的输入</p></li>
-<li><p><strong>编译优化</strong>：通过编译器调整指令顺序来解决数据相关</p></li>
-</ul>
-<p>3、控制相关（控制冲突）</p>
-<p>当流水线遇到<strong>转移指令</strong>和其他<strong>改变PC值</strong>的指令而造成断流时，会引起控制相关</p>
-<p>解决方案</p>
-<ul>
-<li><p>转移指令分支预测</p>
-<ul>
-<li><p>简单预测</p></li>
-<li><p>动态预测</p></li>
-</ul></li>
-<li><p>预取转移成功和不成功两个控制流方向上的目标指令</p></li>
-<li><p>加快和提前形成条件码</p></li>
-<li><p>提高转移方向的猜准率</p></li>
-<li><p>在分支指令插入空操作</p></li>
-</ul>
-<p>5.5.4 流水线的分类</p>
-<p>1、根据流水线使用的级别</p>
-<ul>
-<li><p><strong>部件功能级流水线</strong>：将复杂的<strong>算术逻辑运算</strong>组成流水线工作方式</p></li>
-<li><p><strong>处理机级流水线</strong>：把一条<strong>指令</strong>解释过程分成多个子过程</p></li>
-<li><p><strong>处理机间级流水线</strong>：协调不同处理机间的不同任务</p></li>
-</ul>
-<p>2、根据流水线可以完成的功能</p>
-<ul>
-<li><p><strong>单功能流水线</strong>：只能实现一种固定的专门功能</p></li>
-<li><p><strong>多功能流水线</strong>：通过各段间的不同连接方式可以同时或不同时地实现多种功能</p></li>
-</ul>
-<p>3、根据同一时间内各段之间的连接方式</p>
-<ul>
-<li><p><strong>静态流水线</strong>：在同一时间内，流水线的各段只能按同一种功能的连接方式工作</p></li>
-<li><p><strong>动态流水线</strong>：在同一时间内，当某些段正在实现某种运算时，另一些段可以进行另一种运算</p></li>
-</ul>
-<p>4、根据各个功能段之间是否有反馈信号</p>
-<ul>
-<li><p><strong>线性流水线</strong>：从输入到输出，每个功能段<strong>只允许经过一次</strong>，
-不存在反馈回路</p></li>
-<li><p><strong>非线性流水线</strong>：存在反馈回路，从输入到输出过程中，某些功能段将数次通过流水线，这种流水线适合进行线性递归的运算</p></li>
-</ul>
-<p>5.5.5 流水线的多发技术</p>
-<p>1、超标量技术</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-787f3515c5b536ebeb67ecc6ba8b34122012704a%2F%E8%B6%85%E6%A0%87%E9%87%8F%E6%8A%80%E6%9C%AF.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=814c6a5ce9d9662cad1ad4045405626f4fe42500679245d0c58fcb04ff84719b"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>超标量技术</p>
-<p>每个时钟周期内可<strong>并发多条独立指令</strong>，通过编译优化技术，把可并行执行的指令搭配起来。属于<strong>空分复用技术</strong>。</p>
-<ul>
-<li><p>要配置多个功能部件</p></li>
-<li><p>不能调整指令的执行顺序</p></li>
-<li><p>如上图中，称为处理机的<strong>度为3</strong></p>
-<ul>
-<li>传统指令流水线度为1</li>
-</ul></li>
-</ul>
-<p>2、超流水技术</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-0ce4a9926f577b961ee5c5c81a1e2ce9df71b71b%2F%E8%B6%85%E6%B5%81%E6%B0%B4%E6%8A%80%E6%9C%AF.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=5812153aa738c84bf35f2de9cbdd6f8333e4efa6358fa4cbe33f35fb850054ae"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>超流水技术</p>
-<p>在一个时钟周期内<strong>再分段</strong>，一个功能部件使用多次。属于<strong>时分复用技术</strong>。</p>
-<ul>
-<li><p>流水线速度为原来的多倍</p></li>
-<li><p>不能调整指令的执行顺序</p></li>
-<li><p>靠编译程序解决优化问题</p></li>
-</ul>
-<p>3、超长指令字</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-de900f6cdaff4cabea057286dd5503f98c37a3d2%2F%E8%B6%85%E9%95%BF%E6%8C%87%E4%BB%A4%E5%AD%97.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=cf15f93833f63bd181b0153d1ded3f2ddf7de066831339324878c45040e1b354"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>超长指令字</p>
-<p>由编译程序挖掘出指令间潜在的并行性，将多条能并行操作的指令组合成一条</p>
-<ul>
-<li>具有多个操作码字段的超长指令字（可达几百位）</li>
-</ul>
-<p>5.5.6 5段式指令流水线</p>
-<figure>
-<img
-src="https://aye10032.gitbook.io/~gitbook/image?url=https%3A%2F%2F263180029-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-MgTVRt7hyq7APa35yqR%2Fuploads%2Fgit-blob-cf1c5b1314ad22dfa7c9008c720f128da29c743c%2F5%E6%AE%B5%E5%BC%8F%E6%B5%81%E6%B0%B4%E7%BA%BF.png%3Falt%3Dmedia&amp;width=768&amp;dpr=4&amp;quality=100&amp;sign=4733d023f226654eae4935f10df6187e32584fbf7e60ea7444e64678cf82e238"
-alt="img" />
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>5段式流水线</p>
-<ul>
-<li><p><strong>取指IF</strong>（instruction
-fetch）：将指令从Cache中取出，放入寄存器</p></li>
-<li><p><strong>指令译码ID</strong>（instruction decode）</p>
-<ul>
-<li><p>指令译码</p></li>
-<li><p>将操作数从通用寄存器中取出，放入锁存器</p></li>
-</ul></li>
-<li><p><strong>执行EX</strong>（execute）</p></li>
-<li><p><strong>访存M</strong>（memory）</p></li>
-<li><p><strong>写回WB</strong>（write
-back）：将运算结果写回主存/寄存器</p></li>
-</ul>
-<p>指令和数据分开存储在两个Cache中，可以使得取指与访存同时执行</p>
-<p>Cache未命中会造成流水线断流</p>
-<p>RISC中只有LOAD和STORE指令才能访问主存</p>
-<p>令每个阶段时间耗时一样，取最长耗时为准</p>
-<p><strong>缓冲寄存器（锁存器）</strong>：位于流水线每一段之后，其作用是<strong>保存本流水段的执行结果</strong>，提供给下一流水段使用</p>
-<p>1、运算类指令</p>
-<p>复制</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add Rs,Rd</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>IF：根据PC从指令Cache取指令到IF段锁存</p></li>
-<li><p>ID：取出操作数到ID段锁存</p></li>
-<li><p>EX：运算，将结果存入EX段锁存</p></li>
-<li><p>M：空段</p></li>
-<li><p>WB：将运算结果写回指定寄存器</p></li>
-</ul>
-<p>2、LOAD指令</p>
-<p>复制</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOAD Rd,114(Rs)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>IF：根据PC从指令Cache取指令到IF段锁存</p></li>
-<li><p>ID</p>
-<ul>
-<li><p>将<strong>基址寄存器</strong>的值存到段锁存器中</p></li>
-<li><p>将<strong>偏移量</strong>的值（立即数）存到Imm中</p></li>
-</ul></li>
-<li><p>EX：运算，得到有效地址，将结果存入EX段锁存</p></li>
-<li><p>M：根据有效地址从Cache中取数，放入M段锁存器中</p></li>
-<li><p>WB：将取出的数写回指定寄存器</p></li>
-</ul>
-<p>3、STORE指令</p>
-<p>复制</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STORE Rs,114(Rd)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>IF：根据PC从指令Cache取指令到IF段锁存</p></li>
-<li><p>ID</p>
-<ul>
-<li><p>将<strong>基址寄存器</strong>的值存到ID段锁存器中</p></li>
-<li><p>将<strong>偏移量</strong>的值（立即数）存到Imm中</p></li>
-<li><p>将要存的数放到ID段锁存器中</p></li>
-</ul></li>
-<li><p>EX：</p>
-<ul>
-<li><p>运算，得到有效地址，将结果存入EX段锁存</p></li>
-<li><p>将要存的数从ID段锁存器转移到EX段锁存</p></li>
-</ul></li>
-<li><p>M：将数据写入Cache</p></li>
-<li><p>WB：空段</p></li>
-</ul>
-<p>4、转移类指令</p>
-<p>复制</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">beq Rs,Rt,114 //若(Rs)==(Rt),则(PC)+指令字长+(偏移量X指令字长)→PC</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>IF：根据PC从指令Cache取指令到IF段锁存</p></li>
-<li><p>ID</p>
-<ul>
-<li><p>将要进行比较的两个数存到段锁存器中</p></li>
-<li><p>将<strong>偏移量</strong>的值（立即数）存到Imm中</p></li>
-</ul></li>
-<li><p>EX：运算，比较两个数</p></li>
-<li><p>M：将目标PC的值写回PC</p></li>
-<li><p>WB：空段</p></li>
-</ul>
-<p>5、无条件转移指令</p>
-<p>复制</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jmp 114</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>IF：根据PC从指令Cache取指令到IF段锁存</p></li>
-<li><p>ID：将<strong>偏移量</strong>的值（立即数）存到Imm中</p></li>
-<li><p>EX：将目标PC的值写回PC</p></li>
-<li><p>M：空段</p></li>
-<li><p>WB：空段</p></li>
-</ul>
-<p>修改PC的硬件实际上是与5段式流水线的硬件独立的</p>
-<p>需要尽早的完成对PC的修改</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/815eda5e.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -617,7 +330,7 @@ back）：将运算结果写回主存/寄存器</p></li>
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-06-06 20:34:54 / 修改时间：21:25:20" itemprop="dateCreated datePublished" datetime="2024-06-06T20:34:54+08:00">2024-06-06</time>
+              <time title="创建时间：2024-06-06 20:34:54 / 修改时间：21:29:13" itemprop="dateCreated datePublished" datetime="2024-06-06T20:34:54+08:00">2024-06-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -727,7 +440,7 @@ back）：将运算结果写回主存/寄存器</p></li>
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-06-06 14:53:57 / 修改时间：21:28:47" itemprop="dateCreated datePublished" datetime="2024-06-06T14:53:57+08:00">2024-06-06</time>
+              <time title="创建时间：2024-06-06 14:53:57 / 修改时间：21:29:13" itemprop="dateCreated datePublished" datetime="2024-06-06T14:53:57+08:00">2024-06-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
