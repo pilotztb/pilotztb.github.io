@@ -30,7 +30,7 @@
 <meta property="og:description" content="文件系统结构">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-14T03:48:35.000Z">
-<meta property="article:modified_time" content="2024-06-13T12:27:15.691Z">
+<meta property="article:modified_time" content="2024-06-13T13:46:23.676Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-13 20:27:15" itemprop="dateModified" datetime="2024-06-13T20:27:15+08:00">2024-06-13</time>
+                <time title="修改时间：2024-06-13 21:46:23" itemprop="dateModified" datetime="2024-06-13T21:46:23+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -393,6 +393,10 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024061320270199
 <p>链接分配采取离散分配的方式，可以为文件分配离散的磁盘块。</p>
 <p><strong>记录成组分解技术</strong>：存储时不可以跨越“块”存储记录</p>
 <h4 id="隐式链接">隐式链接</h4>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3B3zvnqH9yI">视频讲解：隐式链接</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240613213113291.png" /></p>
 <p>目录中记录了文件存放的<strong>起始块号</strong>和<strong>结束块号</strong>。除了文件的最后一个磁盘块之外，每个磁盘块中都会保存指向下一个盘块的指针，这些指针对用户是透明的。同时，在文件目录中包含了第一块和最后一块的指针。</p>
 <p>要访问某个磁盘块，需要顺序的访问它前面的所有磁盘块来指向它。</p>
 <ul>
@@ -408,9 +412,15 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024061320270199
 </ul></li>
 </ul>
 <h4 id="显式链接">显式链接</h4>
+<p><a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WpQfRebGC2s">视频讲解：显式链接</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240613213353511.png" /></p>
 <p>把用于链接文件各物理块的指针<strong>显式地</strong>存放在一张表中。即文<strong>件分配表</strong>（FAT，File
 Allocation Table）。</p>
 <p><strong>FAT中存放了物理块号和这个物理块指向的下一个物理块号</strong>。一个磁盘仅设一张FAT，开机时读入并在之后常驻内存。其各个表项在物理上连续存储（即实际硬盘中的依次各物理块），表长相同，因此物理块号是隐含的。</p>
+<p>给出逻辑地址，如何找到对应的物理地址：</p>
+<p>首先从FCB中找到第0项，然后根据FAT依次往下找</p>
 <ul>
 <li><p>优点</p>
 <ul>
@@ -430,6 +440,8 @@ Allocation Table）。</p>
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Xq_cNRUVOAU">视频讲解：索引分配</a></p>
 <p><a
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=epIOk25c3yc">视频讲解：索引分配基础介绍</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240613214232316.png" /></p>
 <p>索引分配允许文件离散地分配在各个磁盘块中，系统会为<strong>每个文件建立一张索引表</strong>，索引表中记录了文件的各个逻辑块对应的物理块（类似于内存管理中的页表，建立逻辑页面到物理页之间的映射关系)。</p>
 <p>索引表存放的磁盘块称为<strong>索引块</strong>。文件数据存放的磁盘块称为<strong>数据块</strong>。</p>
 <p>访问时，先通过FCB找到文件的索引块地址，再根据逻辑地址查找索引块得到实际磁盘块。</p>
@@ -469,6 +481,8 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=I0uX0qogqok
 <h4 id="混合索引">混合索引</h4>
 <p><a
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WK0OxCl7log">视频讲解：混合索引</a></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240613214618070.png" /></p>
 <p>多种索引分配方式的结合。例如，一个文件的顶级索引表中，既包含直接地址索引（直接指向数据块），又包含一级间接索引（指向单层索引表），还包含两级间接索引（指向两层索引表）
 。</p>
 <p>解决了小文件读磁盘次数过多的问题。</p>
