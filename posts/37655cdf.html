@@ -22,17 +22,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="心有所向，无问西东">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Pilot&#39;s Blog">
-<meta property="og:url" content="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E8%B7%B5/index.html">
+  <meta name="description" content="随机数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="\第七章_随机化算法">
+<meta property="og:url" content="http://example.com/posts/37655cdf.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
-<meta property="og:description" content="心有所向，无问西东">
+<meta property="og:description" content="随机数">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-15T01:13:45.000Z">
+<meta property="article:modified_time" content="2024-06-15T01:51:52.735Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E8%B7%B5/">
+<link rel="canonical" href="http://example.com/posts/37655cdf.html">
 
 
 <script id="page-configurations">
@@ -40,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: 实践 | Pilot's Blog</title>
+  <title>\第七章_随机化算法 | Pilot's Blog</title>
   
 
 
@@ -186,137 +188,182 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/37655cdf.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          \第七章_随机化算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-06-15 09:13:45 / 修改时间：09:51:52" itemprop="dateCreated datePublished" datetime="2024-06-15T09:13:45+08:00">2024-06-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">算法设计与分析</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">实践
-          <small>分类</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/37655cdf.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/37655cdf.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>920</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-03-05T19:52:57+08:00"
-              content="2024-03-05">
-          03-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/5b87369e.html" itemprop="url">
-            <span itemprop="name">配置带参数的远程调试</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-01-26T11:40:53+08:00"
-              content="2024-01-26">
-          01-26
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/c2a0da7c.html" itemprop="url">
-            <span itemprop="name">图像增广</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-01-22T17:08:10+08:00"
-              content="2024-01-22">
-          01-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/8ed365e4.html" itemprop="url">
-            <span itemprop="name">自动编码器</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-01-17T00:00:00+08:00"
-              content="2024-01-17">
-          01-17
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/9ffa7954.html" itemprop="url">
-            <span itemprop="name">手写数字识别LeNet的实现</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-01-17T00:00:00+08:00"
-              content="2024-01-17">
-          01-17
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/8f9c7cbf.html" itemprop="url">
-            <span itemprop="name">自建数据集完成二分类任务</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <h1 id="随机数">随机数</h1>
+<span id="more"></span>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240615091622842.png" /></p>
+<h1 id="随机算法">随机算法</h1>
+<h2 id="数值随机">数值随机</h2>
+<h3 id="计算π">计算π</h3>
+<p>设有一半径为r的圆及其外切四边形，向正方形随机投掷n个点。设落入圆内的点数为k。若所投入的点在正方形上均匀分布，
+则所投入的点落入圆内的概率为：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240615092234592.png" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">double Darts(int n)</span><br><span class="line">&#123; // 用随机投点法计算值</span><br><span class="line">    static RandomNumber dart;</span><br><span class="line">    int k=0;</span><br><span class="line">    for (int i=1;i &lt;=n;i++) </span><br><span class="line">    &#123;   double x=dart.fRandom();</span><br><span class="line">         double y=dart.fRandom();</span><br><span class="line">         if ((x*x+y*y)&lt;=1) k++;</span><br><span class="line">     &#125;</span><br><span class="line">    return 4 * k / double(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="计算定积分">计算定积分</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240615092607038.png" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">double Darts(int n) &#123; </span><br><span class="line">    // 用随机投点法计算定积分 </span><br><span class="line">    static RandomNumber dart; </span><br><span class="line">    int k = 0; </span><br><span class="line">    for (int i = 1; i &lt;= n; i++) &#123;</span><br><span class="line">        double x = dart.fRandom(); </span><br><span class="line">        double y = dart.fRandom(); </span><br><span class="line">        if (y &lt; f(x)) &#123;</span><br><span class="line">            k++; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    return k / double(n); </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：上面两题本质上都是投点，限制点在目标区域，计算目标区域中点在整个区域中个数</p>
+</blockquote>
+<h2 id="舍伍德sher-wood">舍伍德（Sher wood)</h2>
+<h3 id="随机洗牌">随机洗牌</h3>
+<h4 id="算法思想">算法思想</h4>
+<p>从位置1取到位置n，每个对应位置随机选一个位置，将两个位置的牌对调</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">template&lt;class Type&gt;</span><br><span class="line">void Shuffle(Type a[], int n) // 随机洗牌算法</span><br><span class="line">&#123;  </span><br><span class="line">    static RandomNumber rnd;</span><br><span class="line">    for (int i=1;i&lt;n;i++) </span><br><span class="line">    &#123;    int j=rnd.Random(n-i)+i; // 产生[i, n-1]随机数</span><br><span class="line">         Swap(a[i-1], a[j]);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="拉斯维加斯las-vegas">拉斯维加斯（Las Vegas)</h2>
+<h3 id="标记重复元素">标记重复元素</h3>
+<p>设有n个元素保存在一维数组a中，其中有n/2个元素各不相同，而另外n/2个元素有相同值。也就是说，总共有(n/2)+1种不同的元素值。现要求找出其中那个重复元素。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/fcb7e39eb22bc0d47957b4e23ed7f45.jpg" /></p>
+<h2 id="蒙特卡洛monte-carlo">蒙特卡洛（Monte Carlo)</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240615095120809.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240615095142731.png" /></p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/37655cdf.html" title="\第七章_随机化算法">http://example.com/posts/37655cdf.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/50cd5fe4.html" rel="prev" title="第二章习题">
+      <i class="fa fa-chevron-left"></i> 第二章习题
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -363,6 +410,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">随机数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">随机算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E9%9A%8F%E6%9C%BA"><span class="nav-number">2.1.</span> <span class="nav-text">数值随机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%CF%80"><span class="nav-number">2.1.1.</span> <span class="nav-text">计算π</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%AE%9A%E7%A7%AF%E5%88%86"><span class="nav-number">2.1.2.</span> <span class="nav-text">计算定积分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%88%8D%E4%BC%8D%E5%BE%B7sher-wood"><span class="nav-number">2.2.</span> <span class="nav-text">舍伍德（Sher wood)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%B4%97%E7%89%8C"><span class="nav-number">2.2.1.</span> <span class="nav-text">随机洗牌</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">算法思想</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%89%E6%96%AF%E7%BB%B4%E5%8A%A0%E6%96%AFlas-vegas"><span class="nav-number">2.3.</span> <span class="nav-text">拉斯维加斯（Las Vegas)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0"><span class="nav-number">2.3.1.</span> <span class="nav-text">标记重复元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9Bmonte-carlo"><span class="nav-number">2.4.</span> <span class="nav-text">蒙特卡洛（Monte Carlo)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
