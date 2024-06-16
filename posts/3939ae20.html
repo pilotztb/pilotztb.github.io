@@ -22,22 +22,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="多道程序技术 什么是多道程序技术，有什么好处？ 答：多道程序技术是在内存只能够同时存放多个作业，使他们共享系统资源且同时运行 好处：  提高CPU利用率。当正在运行的程序因I&#x2F;O暂停执行，可以让另一道程序上CPU使CPU一直处于忙状态 提高内存和I&#x2F;O利用率。内存容量较大，单道程序容易造成较大浪费。多道程序并发执行能提高内存和I&#x2F;O利用率 增加系统吞吐量。保持CPU、I&#x2F;O等设备忙碌">
+  <meta name="description" content="I&#x2F;O指令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第一章习题">
-<meta property="og:url" content="http://example.com/posts/129d06ab.html">
+<meta property="og:title" content="输入输出和中断程序设计">
+<meta property="og:url" content="http://example.com/posts/3939ae20.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
-<meta property="og:description" content="多道程序技术 什么是多道程序技术，有什么好处？ 答：多道程序技术是在内存只能够同时存放多个作业，使他们共享系统资源且同时运行 好处：  提高CPU利用率。当正在运行的程序因I&#x2F;O暂停执行，可以让另一道程序上CPU使CPU一直处于忙状态 提高内存和I&#x2F;O利用率。内存容量较大，单道程序容易造成较大浪费。多道程序并发执行能提高内存和I&#x2F;O利用率 增加系统吞吐量。保持CPU、I&#x2F;O等设备忙碌">
+<meta property="og:description" content="I&#x2F;O指令">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f1a895b965c137c4c5ee7bc95b57b16.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c48c84d6f8bc5e727403621feaa6da3.jpg">
-<meta property="article:published_time" content="2024-06-10T00:38:26.000Z">
-<meta property="article:modified_time" content="2024-06-11T10:03:11.181Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133422337.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133445960.png">
+<meta property="article:published_time" content="2024-06-16T03:13:49.000Z">
+<meta property="article:modified_time" content="2024-06-16T06:42:38.929Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f1a895b965c137c4c5ee7bc95b57b16.jpg">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133422337.png">
 
-<link rel="canonical" href="http://example.com/posts/129d06ab.html">
+<link rel="canonical" href="http://example.com/posts/3939ae20.html">
 
 
 <script id="page-configurations">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>第一章习题 | Pilot's Blog</title>
+  <title>输入输出和中断程序设计 | Pilot's Blog</title>
   
 
 
@@ -198,7 +198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/129d06ab.html">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3939ae20.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -211,7 +211,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          第一章习题
+          输入输出和中断程序设计
         </h1>
 
         <div class="post-meta">
@@ -220,27 +220,21 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-06-10 08:38:26" itemprop="dateCreated datePublished" datetime="2024-06-10T08:38:26+08:00">2024-06-10</time>
+              <time title="创建时间：2024-06-16 11:13:49 / 修改时间：14:42:38" itemprop="dateCreated datePublished" datetime="2024-06-16T11:13:49+08:00">2024-06-16</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-11 18:03:11" itemprop="dateModified" datetime="2024-06-11T18:03:11+08:00">2024-06-11</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+                  <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">汇编语言</span></a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                  <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
                 </span>
             </span>
 
@@ -260,8 +254,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/129d06ab.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/129d06ab.html" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/3939ae20.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/3939ae20.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -271,7 +265,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>450</span>
+              <span>378</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -290,35 +284,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="多道程序技术">多道程序技术</h1>
-<p>什么是多道程序技术，有什么好处？</p>
-<p>答：多道程序技术是在内存只能够同时存放多个作业，使他们共享系统资源且同时运行</p>
-<p>好处：</p>
-<ol type="1">
-<li>提高CPU利用率。当正在运行的程序因I/O暂停执行，可以让另一道程序上CPU使CPU一直处于忙状态</li>
-<li>提高内存和I/O利用率。内存容量较大，单道程序容易造成较大浪费。多道程序并发执行能提高内存和I/O利用率</li>
-<li>增加系统吞吐量。保持CPU、I/O等设备忙碌会大幅提高系统吞吐量</li>
-</ol>
-<h1 id="程序运行时间图">程序运行时间图</h1>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f1a895b965c137c4c5ee7bc95b57b16.jpg" style="zoom: 33%;" /></p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c48c84d6f8bc5e727403621feaa6da3.jpg" style="zoom:50%;" /></p>
-<h1 id="分时系统">分时系统</h1>
-<p>实现分时系统的关键问题是什么，如何解决？</p>
-<p>答：关键问题是用户能与自己作业交互</p>
-<ol type="1">
-<li>用户作业提交后立刻进入内存</li>
-<li>设置时间片，每个程序每次最长只能连续运行一个时间片，如果用完就必须让给下一个作业。</li>
-</ol>
-<h1 id="操作系统特征与之间关系">操作系统特征与之间关系</h1>
+        <h1 id="io指令">I/O指令</h1>
+<span id="more"></span>
+<h2 id="输入输出指令">输入输出指令</h2>
+<p><font color = "red">只能使用AL或AX寄存器</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133422337.png" style="zoom:50%;" /></p>
+<h2 id="间接输入输出指令">间接输入输出指令</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133445960.png" style="zoom:50%;" /></p>
+<p><font color = "yellow">AL是8位，DX是16位，那么是不是觉得很奇怪为什么DX能送入AL？其实DX里面是一个地址，是将DX这个地址里指向的内容放入AL中</font></p>
+<blockquote>
+<p>注：由于DX位外设端口地址，范围从0000H~0FFFFH，允许有65536个端口地址</p>
+</blockquote>
+<p>举例1：把一个字从端口地址0028和0029传送到存储器的DATA
+WORD单元中。</p>
 <p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4da223cc0b74322820ac7655e866ec4.jpg" /></p>
-<h1 id="微内核结构优点">微内核结构优点</h1>
-<ol type="1">
-<li>提高系统可拓展性。OS大部分功能由相对独立服务器实现</li>
-<li>增强OS的可靠性。所有服务器都运行在用户态，即使出问题也只会影响自己，不会影响其他</li>
-<li>可移植性更好。所有与特定CPU和I/O设备硬件相关代码均放在内核和内核之下，其他绝大部分如各种服务器均与硬件平台无关</li>
-<li>适用于分布式系统。</li>
-</ol>
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616143739926.png" /></p>
+<p>举例2：测试某状态寄存器（端口地址为27H）的第2位是否为1，若为1，则转移到ERROR进行处理。其指令序列为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IN AL, 27H</span><br><span class="line">TEST AL, 00000100B</span><br><span class="line">JNZ ERROR</span><br></pre></td></tr></table></figure>
+<p>举例3：将某接口的命令寄存器（端口地址为126H）的第7位控制成组数据传送</p>
+<p><font color = "red">因为一个字节能表示的无符号数范围是从0~255，126H
+&gt; 255，所以无法直接使用立即数，而是要将126H先放到寄存器里</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133651924.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133746308.png" /></p>
+<h1 id="中断传送">中断传送</h1>
+<h2 id="中断分类">中断分类</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133855191.png" /></p>
 
     </div>
 
@@ -334,7 +327,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4da223cc0b74322820ac76
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/posts/129d06ab.html" title="第一章习题">http://example.com/posts/129d06ab.html</a>
+    <a href="http://example.com/posts/3939ae20.html" title="输入输出和中断程序设计">http://example.com/posts/3939ae20.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -351,13 +344,10 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4da223cc0b74322820ac76
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/dd7bb4f8.html" rel="prev" title="第八章习题">
-      <i class="fa fa-chevron-left"></i> 第八章习题
+    <a href="/posts/7a7853ba.html" rel="prev" title="BIOS和DOS中断调用">
+      <i class="fa fa-chevron-left"></i> BIOS和DOS中断调用
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/50cd5fe4.html" rel="next" title="第二章习题">
-      第二章习题 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -417,7 +407,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4da223cc0b74322820ac76
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E9%81%93%E7%A8%8B%E5%BA%8F%E6%8A%80%E6%9C%AF"><span class="nav-number">1.</span> <span class="nav-text">多道程序技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">程序运行时间图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%97%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.</span> <span class="nav-text">分时系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%89%B9%E5%BE%81%E4%B8%8E%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">操作系统特征与之间关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8%E7%BB%93%E6%9E%84%E4%BC%98%E7%82%B9"><span class="nav-number">5.</span> <span class="nav-text">微内核结构优点</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#io%E6%8C%87%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">I&#x2F;O指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%8C%87%E4%BB%A4"><span class="nav-number">1.1.</span> <span class="nav-text">输入输出指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%B4%E6%8E%A5%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">间接输入输出指令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E4%BC%A0%E9%80%81"><span class="nav-number">2.</span> <span class="nav-text">中断传送</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">中断分类</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -494,7 +484,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4da223cc0b74322820ac76
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">416k</span>
+    <span title="站点总字数">415k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
