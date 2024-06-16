@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="BIOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BIOS和DOS中断调用">
+<meta property="og:url" content="http://example.com/posts/7a7853ba.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="BIOS">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616102229352.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616102828628.png">
+<meta property="article:published_time" content="2024-06-15T22:10:54.000Z">
+<meta property="article:modified_time" content="2024-06-16T03:09:13.841Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616102229352.png">
+
+<link rel="canonical" href="http://example.com/posts/7a7853ba.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>BIOS和DOS中断调用 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/7a7853ba.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          BIOS和DOS中断调用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-06-16 06:10:54 / 修改时间：11:09:13" itemprop="dateCreated datePublished" datetime="2024-06-16T06:10:54+08:00">2024-06-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">汇编语言</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/7a7853ba.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/7a7853ba.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="bios">BIOS</h1>
+<span id="more"></span>
+<h2 id="键盘输入功能调用int-16h">键盘输入功能调用(INT 16H)</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616104811672.png" /></p>
+<p>举例：从键盘读入0～9中任一数，根据不同数显示不同的字符串。要求用BIOS中断来接收键盘输入。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">	STACK SEGMENT PARA STACK                         ；堆栈段定义</span><br><span class="line">	DB	256	DUP（？）</span><br><span class="line">	STACK	ENDS</span><br><span class="line">	</span><br><span class="line">	DATA SEGMENT	PARA PUBLIC&#x27;DATA&#x27;	   ；数据段定义</span><br><span class="line">	THIRTY	DB	30	                  ；设每字符串长30</span><br><span class="line">      PARM	DB	128	DUP（0）</span><br><span class="line">	MSG0	DB	&#x27;I LIKE IBM PC…&#x27;</span><br><span class="line">	MSG1	DB	&#x27;8080   PROGRAMMING   IS   RUN…&#x27;</span><br><span class="line">	MSG2	DB	&#x27;TIME TO BUY MANY DISKETTES…&#x27;</span><br><span class="line">	MSG3	DB	&#x27;THIS PROGRAM WORKS…&#x27;</span><br><span class="line">&#x27;	MSG4	DB	&#x27;TURN OFF THAT PRINTER！…&#x27;</span><br><span class="line">	MSG5	DB	&#x27;I HAVE MANY…&#x27;</span><br><span class="line">	MSG6	DB	&#x27;THE PSP CAN BE USEFUL…&#x27;</span><br><span class="line">	MSG7	DB	&#x27;BASIC WAS EASIER THEN THIS…&#x27;</span><br><span class="line">	MSG8	DB	&#x27;DOS IS INDISPESABLE…‘</span><br><span class="line">     MSG9	DB	&#x27;LAST MESSAGE OF THE DAY..&#x27;</span><br><span class="line">	ERRMSG	DB	&#x27;ERROR！ INVALID PARAMETER！&#x27;</span><br><span class="line">	DATA	ENDS</span><br><span class="line">	</span><br><span class="line">	CODE SEGMENT	PARA	PUBLIC  &#x27;CODE        ；代码段</span><br><span class="line">	START PROC FAR</span><br><span class="line">		ASSUME	CS: CODE, DS:DATA</span><br><span class="line">		PUSH	DS                  ；采用段前缀方式返回DOS</span><br><span class="line">		MOV	AX，0</span><br><span class="line">		PUSH	AX</span><br><span class="line">		MOV	AX，DATA</span><br><span class="line">         MOV ES，AX</span><br><span class="line">		ASSUME ES：DATA</span><br><span class="line">		MOV	DX，AX</span><br><span class="line">		ASSUME DS:DATA</span><br><span class="line">		MOV	AH，0		；功能号为0</span><br><span class="line">		INT	16H		；键盘输入，字符在AL中</span><br><span class="line">		SUB	AL，&#x27;0&#x27;	；减去字符‘0’的ASCII码</span><br><span class="line">		JC	ERROR	；键入字符编码小于30H转</span><br><span class="line">            CMP	AL，9		；是9吗</span><br><span class="line">		JA	ERROR           ；大于9转，否则顺序执行</span><br><span class="line">		MOV	BX，OFFSET MSG0	      ；MSG0位移送BX</span><br><span class="line">		MUL	THIRTY	；(AL)×30</span><br><span class="line">		ADD	BX，AX        ；计算输入信息在信息表中的位移</span><br><span class="line">		CALL	DISPLAY	；转子显示信息</span><br><span class="line">		RET			；返回</span><br><span class="line"></span><br><span class="line">   ERROR：</span><br><span class="line">           MOV BX， OFFSET ERRMSG ；出错显示信息位移送BX                                                   </span><br><span class="line">		CALL	DISPLAY          ；转子显示信息</span><br><span class="line">		RET	                            ；返回</span><br><span class="line">	DISPLAY	PROC	NEAR</span><br><span class="line">		MOV	CX，30	；显示字符个数</span><br><span class="line">	        DISP1：	</span><br><span class="line">            MOV	AL，［BX］</span><br><span class="line">		CALL	DISPCHAR	；转显示字符子程序</span><br><span class="line">		INC	BX</span><br><span class="line"></span><br><span class="line">            LOOP	DISP1</span><br><span class="line">		MOV	DL，0DH		；显示回车符</span><br><span class="line">		CALL	DISPCHAR</span><br><span class="line">		MOV	DL，0AH		；显示换行符</span><br><span class="line">		CALL	DISPCHAR</span><br><span class="line">		RET</span><br><span class="line">	DISPLAY	ENDP</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line"> DISPCHAR RPOC	NEAR	    ；显示AL中字符号程序</span><br><span class="line">            PUSH	BX</span><br><span class="line">		MOV	BX，0</span><br><span class="line">		MOV	AH，14            ；14号功能调用为BIOS输出字符</span><br><span class="line">		INT	10H</span><br><span class="line">		POP	BX</span><br><span class="line">		RET</span><br><span class="line">	DISPCHAR	ENDP</span><br><span class="line">	CODE	ENDS</span><br><span class="line">		END	START</span><br></pre></td></tr></table></figure>
+<h2 id="bios显示功能调用int-10h">BIOS显示功能调用(INT 10H)</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616065552927.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616065542151.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616065611892.png" /></p>
+<h3 id="光标的设置">光标的设置</h3>
+<h4 id="int-10h的1号功能是设置光标的大小和状态">INT
+10H的1号功能是设置光标的大小和状态</h4>
+<ol type="1">
+<li><p>光标起始行值放在CH的低4位，结束行值放在CL的低4位。</p></li>
+<li><p>CH的D4位为光标禁止位，用来表示光标的状态。当该位为1时，光标不显示。</p></li>
+<li><p>单色显示器的光标大小的范围从0~13。光标的默认方式是宽度为2列的闪烁的下划线。</p></li>
+</ol>
+<h3 id="int-10h的2号功能是设置光标位置">INT
+10H的2号功能是设置光标位置</h3>
+<ol type="1">
+<li><p>光标位置的行号设在DH寄存器中，列号设在DL中。</p></li>
+<li><p>在25×80的显示方式中，坐标设在（0，0）是屏幕的左上角，（24，79）是屏幕的右下角。</p></li>
+<li><p>BH中必须包含被输出的页号，对单色显示器来说，页号总是0。</p></li>
+</ol>
+<p><font color = "red">所以设置光标一半就是设置行（DH)，列(DL)，页(BH)</p>
+<p>举例：置光标开始行为5，，并把它设置到第5行第6列</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">; 设置光标的大小</span><br><span class="line">MOV	CH，5	；开始行为5</span><br><span class="line">MOV	CL，7		；结束行为7</span><br><span class="line">MOV	AH，1	；设置光标大小</span><br><span class="line">INT 	10H		；调用BIOS</span><br><span class="line">; 设置光标的位置</span><br><span class="line">MOV	DH，4		；第5行</span><br><span class="line">MOV	DL，5		；第6列</span><br><span class="line">MOV	BH，0		；0页</span><br><span class="line">MOV	AH，2	；设置光标位置</span><br><span class="line">INT 	10H		；调用BIOS</span><br></pre></td></tr></table></figure>
+<h4 id="读光标位置int-10h的3号功能">读光标位置，INT 10H的3号功能</h4>
+<ol type="1">
+<li><p>页号必须在BH中指定。</p></li>
+<li><p>此功能把光标位置的行号回送给DH，列号回送给DL。光标大小的参数填入CH和CL中，也就是说，在CH和CL中回送的是用功能1设置的光标参数。</p></li>
+</ol>
+<p>举例 读0页的当前光标位置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV	AH，3</span><br><span class="line">MOV	BH，0</span><br><span class="line">INT	10H</span><br></pre></td></tr></table></figure>
+<h3 id="选择显示页int-10h的5号功能">选择显示页，INT 10H的5号功能</h3>
+<p>INT 10H的功能5可由程序确定显存中的显示区域。</p>
+<p>ROM
+BIOS将CGA的显存分为4页，每页25×80个字符，或分为8页，每页25×40个字符。每一页的起始地址在</p>
+<p>1
+KB的边界。这4页的起始地址分别为B800:0000、B800:1000、B800:2000和B800:3000</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV	AL，VPAGE		；AL=显示页数</span><br><span class="line">MOV	AH，5			；AH=功能号</span><br><span class="line">INT	10H</span><br></pre></td></tr></table></figure>
+<h3 id="卷屏int-10h的6号和7号功能">卷屏，INT 10H的6号和7号功能</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616100738761.png" /></p>
+<h4 id="清屏">清屏</h4>
+<p>举例1：清除整个屏幕，设置AH为6，AL为0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">CLEAR	PROC</span><br><span class="line">	   PUSH	AX</span><br><span class="line">	   PUSH	BX</span><br><span class="line">	   PUSH	CX</span><br><span class="line">	   PUSH	DX</span><br><span class="line">        </span><br><span class="line">        MOV	AH，6	；屏幕上卷功能号</span><br><span class="line">        MOV	AL，0		；AL=0时，为清屏</span><br><span class="line">	    MOV	CH，0	；CH：屏幕左上角坐标的行号</span><br><span class="line">	    MOV	CL，0		；CL：屏幕左上角坐标的列号</span><br><span class="line">	    MOV	DH，24	；DH：屏幕右下角坐标的行号</span><br><span class="line">	    MOV	DL，79	；DL：屏幕右下角坐标的列号</span><br><span class="line">	    MOV	BH，7		   ；上卷行属性正常（即黑底白字）</span><br><span class="line">        INT	10H</span><br><span class="line">        </span><br><span class="line">			POP		DX</span><br><span class="line">			POP		CX</span><br><span class="line">			POP		BX</span><br><span class="line">			POP		AX</span><br><span class="line">			RET</span><br><span class="line">	CLEAR	ENDP</span><br></pre></td></tr></table></figure>
+<p>举例2：将一半的屏幕从黑底白字改为白底黑子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    STR DB &#x27;Hello world&#x27;, &#x27;$&#x27;</span><br><span class="line">DATA ENDS</span><br><span class="line"></span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line"></span><br><span class="line">START:</span><br><span class="line">    MOV AX, DATA</span><br><span class="line">    MOV DS, AX</span><br><span class="line">    </span><br><span class="line">    ; 设置屏幕显示属性和区域</span><br><span class="line">    MOV AH, 07h    ; 功能号为07h，选择屏幕下卷功能</span><br><span class="line">    MOV AL, 0      ; AL = 0，表示向下滚动0行</span><br><span class="line"></span><br><span class="line">    MOV BH, 70h    ; 设置显示属性，BH = 70h（白色文本，黑色背景）</span><br><span class="line">    MOV CH, 0      ; 设置左上角行值，CH = 0</span><br><span class="line">    MOV CL, 0      ; 设置左上角列值，CL = 0</span><br><span class="line">    MOV DH, 24     ; 设置右下角行值，DH = 24</span><br><span class="line">    MOV DL, 39     ; 设置右下角列值，DL = 39</span><br><span class="line">    INT 10h        ; 调用BIOS中断，功能号由AH寄存器指定，这里为07h</span><br><span class="line"></span><br><span class="line">    ; 打印字符串</span><br><span class="line">    MOV SI, OFFSET STR  ; SI 指向字符串 STR</span><br><span class="line">    MOV AH, 0Eh         ; BIOS功能号：显示字符，AL为字符，BH为页号（颜色）</span><br><span class="line">    MOV BL, 07h         ; 文本颜色，白色文本，黑色背景</span><br><span class="line">    PRINT_LOOP:</span><br><span class="line">        LODSB            ; 加载SI指向的字节到AL，同时SI递增</span><br><span class="line">        CMP AL, &#x27;$&#x27;      ; 判断是否字符串结束标志</span><br><span class="line">        JE PRINT_DONE    ; 如果是结束标志，退出循环</span><br><span class="line">        INT 10h          ; 调用BIOS中断显示字符</span><br><span class="line">        JMP PRINT_LOOP   ; 继续循环打印下一个字符</span><br><span class="line"></span><br><span class="line">    PRINT_DONE:</span><br><span class="line">    </span><br><span class="line">    ; 退出程序</span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line"></span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>效果如下所示</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616083056535.png" /></p>
+<p>举例3：在屏幕中心的小窗口显示字符</p>
+<p>举例4：编写一个完整的程序(例5-11)在PC机上运行。此程序在屏幕的中间建立一个20列宽和9行高的窗口，</p>
+<p>然后把键盘输入的内容在这个窗口上显示出来。键入的字符将被显示在窗口的最下面一行，每当输入20个字</p>
+<p>符，该行就向上卷动，9行字符输入完后，顶端行的内容消失。</p>
+<h3 id="字符的显示9号和10号功能">字符的显示：9号和10号功能</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616101019128.png" /></p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616101027227.png" /></p>
+<p>使用INT
+10H的9、10两功能，这两个功能的共同点是：都能在光标处显示一个字符，且显示后，光标不动</p>
+<p>这就是说，当显示下一个字符前，一定要用2号功能将光标移至下一个字符位置。这两种功能的区别在于用9</p>
+<p>号功能显示的字符的属性是用户规定的，用10号功能显示的字符的属性是该位置上已有的属性(以前规定的)。</p>
+<h4 id="单色字符显示">单色字符显示</h4>
+<p>举例：从屏幕(40，15)位置开始，用反显示法连续显示5个闪烁的“*”</p>
+<p>解释：什么叫反显：正常终端背景是黑色，字体是白色，现在调整终端背景白色，字体是黑色。设置如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616102229352.png" style="zoom:50%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    ; 无需数据段定义</span><br><span class="line">DATA ENDS</span><br><span class="line"></span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE, DS:DATA</span><br><span class="line">START:</span><br><span class="line">    MOV AX, DATA</span><br><span class="line">    MOV DS, AX</span><br><span class="line"></span><br><span class="line">    ; 设置光标位置到 (15, 40)</span><br><span class="line">    MOV AH, 02H          ; AH = 02H，设置光标位置</span><br><span class="line">    MOV BH, 0            ; 单色显示器，显示页永远为0</span><br><span class="line">    MOV DH, 15           ; 行号</span><br><span class="line">    MOV DL, 40           ; 列号</span><br><span class="line">    INT 10H              ; 将光标设置在 (15, 40) 处</span><br><span class="line"></span><br><span class="line">    ; 显示反显和闪烁的 &#x27;*&#x27; 字符</span><br><span class="line">    MOV AH, 09H          ; 显示字符及属性功能</span><br><span class="line">    MOV AL, &#x27;*&#x27;          ; 欲显示 &#x27;*&#x27;</span><br><span class="line">    MOV BL, 11110000B         ; 属性 1111 0000 (反显和闪烁)</span><br><span class="line">    MOV CX, 5            ; 重复显示字符的个数</span><br><span class="line">    INT 10H</span><br><span class="line"></span><br><span class="line">    ; 退出程序</span><br><span class="line">    MOV AH, 4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616102828628.png" style="zoom: 33%;" /></p>
+<h4 id="彩色字符显示">彩色字符显示</h4>
+<p>修改BL为 MOV BL, 0DAH 即可</p>
+<h4 id="彩色文本方式下外框颜色的设置">彩色文本方式下外框颜色的设置</h4>
+<h1 id="dos">DOS</h1>
+<h2 id="磁盘管理">磁盘管理</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616110346406.png" /></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/7a7853ba.html" title="BIOS和DOS中断调用">http://example.com/posts/7a7853ba.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/37655cdf.html" rel="prev" title="第七章_随机化算法">
+      <i class="fa fa-chevron-left"></i> 第七章_随机化算法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#bios"><span class="nav-number">1.</span> <span class="nav-text">BIOS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5%E5%8A%9F%E8%83%BD%E8%B0%83%E7%94%A8int-16h"><span class="nav-number">1.1.</span> <span class="nav-text">键盘输入功能调用(INT 16H)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bios%E6%98%BE%E7%A4%BA%E5%8A%9F%E8%83%BD%E8%B0%83%E7%94%A8int-10h"><span class="nav-number">1.2.</span> <span class="nav-text">BIOS显示功能调用(INT 10H)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%89%E6%A0%87%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.2.1.</span> <span class="nav-text">光标的设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#int-10h%E7%9A%841%E5%8F%B7%E5%8A%9F%E8%83%BD%E6%98%AF%E8%AE%BE%E7%BD%AE%E5%85%89%E6%A0%87%E7%9A%84%E5%A4%A7%E5%B0%8F%E5%92%8C%E7%8A%B6%E6%80%81"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">INT
+10H的1号功能是设置光标的大小和状态</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-10h%E7%9A%842%E5%8F%B7%E5%8A%9F%E8%83%BD%E6%98%AF%E8%AE%BE%E7%BD%AE%E5%85%89%E6%A0%87%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.2.2.</span> <span class="nav-text">INT
+10H的2号功能是设置光标位置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%85%89%E6%A0%87%E4%BD%8D%E7%BD%AEint-10h%E7%9A%843%E5%8F%B7%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">读光标位置，INT 10H的3号功能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%98%BE%E7%A4%BA%E9%A1%B5int-10h%E7%9A%845%E5%8F%B7%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.3.</span> <span class="nav-text">选择显示页，INT 10H的5号功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B7%E5%B1%8Fint-10h%E7%9A%846%E5%8F%B7%E5%92%8C7%E5%8F%B7%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.4.</span> <span class="nav-text">卷屏，INT 10H的6号和7号功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E5%B1%8F"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">清屏</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E7%9A%84%E6%98%BE%E7%A4%BA9%E5%8F%B7%E5%92%8C10%E5%8F%B7%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.5.</span> <span class="nav-text">字符的显示：9号和10号功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%89%B2%E5%AD%97%E7%AC%A6%E6%98%BE%E7%A4%BA"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">单色字符显示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%A9%E8%89%B2%E5%AD%97%E7%AC%A6%E6%98%BE%E7%A4%BA"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">彩色字符显示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%A9%E8%89%B2%E6%96%87%E6%9C%AC%E6%96%B9%E5%BC%8F%E4%B8%8B%E5%A4%96%E6%A1%86%E9%A2%9C%E8%89%B2%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.2.5.3.</span> <span class="nav-text">彩色文本方式下外框颜色的设置</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dos"><span class="nav-number">2.</span> <span class="nav-text">DOS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">磁盘管理</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">心有所向，无问西东</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">416k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:18</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
