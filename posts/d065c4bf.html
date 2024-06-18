@@ -22,17 +22,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="计算带宽">
+  <meta name="description" content="定义题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第六章习题">
+<meta property="og:title" content="第六章总线习题">
 <meta property="og:url" content="http://example.com/posts/d065c4bf.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
-<meta property="og:description" content="计算带宽">
+<meta property="og:description" content="定义题">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240618065039304.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240618065135092.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240618083856820.png">
 <meta property="article:published_time" content="2024-06-08T00:48:05.000Z">
-<meta property="article:modified_time" content="2024-06-08T08:30:31.621Z">
+<meta property="article:modified_time" content="2024-06-18T00:41:54.043Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240618065039304.png">
 
 <link rel="canonical" href="http://example.com/posts/d065c4bf.html">
 
@@ -47,7 +51,7 @@
   };
 </script>
 
-  <title>第六章习题 | Pilot's Blog</title>
+  <title>第六章总线习题 | Pilot's Blog</title>
   
 
 
@@ -208,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          第六章习题
+          第六章总线习题
         </h1>
 
         <div class="post-meta">
@@ -217,10 +221,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-06-08 08:48:05 / 修改时间：16:30:31" itemprop="dateCreated datePublished" datetime="2024-06-08T08:48:05+08:00">2024-06-08</time>
+              <time title="创建时间：2024-06-08 08:48:05" itemprop="dateCreated datePublished" datetime="2024-06-08T08:48:05+08:00">2024-06-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-18 08:41:54" itemprop="dateModified" datetime="2024-06-18T08:41:54+08:00">2024-06-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -262,7 +272,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -281,8 +291,65 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="计算带宽">计算带宽</h1>
+        <h1 id="定义题">定义题</h1>
 <span id="more"></span>
+<h2 id="总线仲裁">总线仲裁</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240618064435523.png" /></p>
+<p>解析：独立查询相应时间最快，链式查询对故障最敏感</p>
+<h3 id="集中式">集中式</h3>
+<h4 id="链式查询">链式查询</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240618065039304.png" style="zoom: 67%;" /></p>
+<ol type="1">
+<li>越靠近控制器的模块，优先级越高；</li>
+<li>链形优先级存在传播延迟，这种延迟与模块数成正比，所以判优速度较慢，一般只接少量（几个）模块；</li>
+<li>链形结构，一个故障，链失效；</li>
+</ol>
+<h4 id="计数器查询">计数器查询</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240618065135092.png" style="zoom:67%;" /></p>
+<ol type="1">
+<li><p>总线控制器收到总线请求信号，判断总线空闲，计数器开始计数</p></li>
+<li><p>总线计数器从初始值开始增加，并通过地址线发送出去</p></li>
+<li><p>当地址线上的计数值与请求使用总线的设备一致时，停止计数，分配总线</p></li>
+</ol>
+<p>特点</p>
+<ol type="1">
+<li><strong>计数方式与优先次序直接相关</strong>。</li>
+</ol>
+<ul>
+<li><p><strong>计数可以从“0”开始，此时设备的优先次序是固定的</strong></p>
+<p>解释：比如有三个设备分别为设备0，1，2。计数从0开始进行查询。如果此时设备0，1，2都发送请求，此时计数是0，与设备0相吻合，于是对设备0的请求进行相应。在完成设备0的响应后，计数器再次从0开始计数进行查询，如果此时设备0不再请求，设备1和2仍然请求，经过一轮查询后没有发现对应请求，于是计数器递增为1进行查询，发现1的请求并满足，<font color = "yellow">然后计数器重新置为0再进行查询</font>；如果在完成设备0的响应后，计数器再次从0开始计数进行查询，如果此时设备0又发出请求，那么此时会继续满足设备0的请求，如果一直继续下去那么设备1和2的请求就会一直得不到满足</p></li>
+<li><p><strong>计数也可以从终止点开始，即是一种循环方法，此时设备使用总线的优先级相等；</strong></p>
+<p>解释：与上面的区别在于当计数器满足1的请求后，<font color = "yellow">计数器不会重新置为0进行查询，而是从1递增为2继续查询</font></p></li>
+<li><p><strong>计数的初始值还可由程序设置，故优先次序可以改变。</strong></p>
+<p>解释：比如如果将计数器的值设置为2，那么就会从2开始查询，优先级也跟着变化</p></li>
+</ul>
+<ol start="2" type="1">
+<li>对电路故障不如链式查询方式敏感，但增加了主控制线（设备地址），控制也较复杂。</li>
+</ol>
+<h4 id="独立请求">独立请求</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240618083856820.png" style="zoom: 67%;" /></p>
+<ol type="1">
+<li><p>独立请求方式的工作原理：</p>
+<ul>
+<li>每个模块有一组独立的“总线请求”和“总线允许”信号线，每对信号线有其相应的优先级；</li>
+<li>控制器中有一个优先级编码器和优先级译码器，用以选择优先级最高的请求，并产生出相应的“总线许”信号；</li>
+<li>当“总线忙”信号有效时，表示有的模块正在使用总线，因此请求使用总线的模块必须等待；直至“总忙”信号变为无效时，所有需要使用总线的模块都可以发出“总线请求”信号，总线仲裁器仅向优先级最高模块发出“总线允许”信号。</li>
+</ul></li>
+<li><p>独立请求方式的主要特点：</p>
+<ul>
+<li>判优速度快，且与模块数无关；</li>
+<li>所需“请求线”和“允许线”较多，N个模块需要2N条。</li>
+</ul></li>
+</ol>
+<h3 id="分布式">分布式</h3>
+<p>不需要中央仲裁器，每个潜在的主模块都有自己的仲裁器和仲裁号（表示优先级），多个仲裁器竞争使用总线</p>
+<p>当设备有总线请求时，它们就把各自唯一的仲裁号发送到共享的仲裁总线上</p>
+<p>每个仲裁器将从仲裁总线上得到的仲裁号与自己的仲裁号进行比较</p>
+<p>如果仲裁总线上的号优先级高，则它的总线请求不予响应，并撤销它的仲裁号</p>
+<p>最后，获胜者的仲裁号保留在仲裁总线上</p>
+<h1 id="计算题">计算题</h1>
+<h2 id="计算带宽">计算带宽</h2>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5335509e65e07037f332edcb6038a48.jpg" /></p>
 
@@ -300,7 +367,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5335509e65e07037f332ed
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/posts/d065c4bf.html" title="第六章习题">http://example.com/posts/d065c4bf.html</a>
+    <a href="http://example.com/posts/d065c4bf.html" title="第六章总线习题">http://example.com/posts/d065c4bf.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -383,7 +450,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5335509e65e07037f332ed
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%B8%A6%E5%AE%BD"><span class="nav-number">1.</span> <span class="nav-text">计算带宽</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">定义题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BA%BF%E4%BB%B2%E8%A3%81"><span class="nav-number">1.1.</span> <span class="nav-text">总线仲裁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E4%B8%AD%E5%BC%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">集中式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E5%BC%8F%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">链式查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E6%95%B0%E5%99%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">计数器查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E8%AF%B7%E6%B1%82"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">独立请求</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">分布式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">计算题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%B8%A6%E5%AE%BD"><span class="nav-number">2.1.</span> <span class="nav-text">计算带宽</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -399,7 +466,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5335509e65e07037f332ed
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -460,13 +527,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5335509e65e07037f332ed
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">417k</span>
+    <span title="站点总字数">421k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:19</span>
+    <span title="站点阅读时长">6:23</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

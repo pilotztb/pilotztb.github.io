@@ -22,19 +22,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="指令集的构成分析">
+  <meta name="description" content="定义类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第四章题目">
+<meta property="og:title" content="第四章指令系统题目">
 <meta property="og:url" content="http://example.com/posts/1c998927.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
-<meta property="og:description" content="指令集的构成分析">
+<meta property="og:description" content="定义类">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/82a695fe7bb5282a3d541747a6f53bd.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0d68ddd61e87f30739282adb5dd65b1.jpg">
 <meta property="article:published_time" content="2024-06-06T01:13:03.000Z">
-<meta property="article:modified_time" content="2024-06-06T02:29:53.484Z">
+<meta property="article:modified_time" content="2024-06-18T01:16:09.706Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/0d68ddd61e87f30739282adb5dd65b1.jpg">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/82a695fe7bb5282a3d541747a6f53bd.jpg">
 
 <link rel="canonical" href="http://example.com/posts/1c998927.html">
 
@@ -49,7 +50,7 @@
   };
 </script>
 
-  <title>第四章题目 | Pilot's Blog</title>
+  <title>第四章指令系统题目 | Pilot's Blog</title>
   
 
 
@@ -210,7 +211,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          第四章题目
+          第四章指令系统题目
         </h1>
 
         <div class="post-meta">
@@ -219,10 +220,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-06-06 09:13:03 / 修改时间：10:29:53" itemprop="dateCreated datePublished" datetime="2024-06-06T09:13:03+08:00">2024-06-06</time>
+              <time title="创建时间：2024-06-06 09:13:03" itemprop="dateCreated datePublished" datetime="2024-06-06T09:13:03+08:00">2024-06-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-18 09:16:09" itemprop="dateModified" datetime="2024-06-18T09:16:09+08:00">2024-06-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -264,7 +271,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>37</span>
+              <span>266</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -283,8 +290,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="指令集的构成分析">指令集的构成分析</h1>
+        <h1 id="定义类">定义类</h1>
 <span id="more"></span>
+<h2 id="指令寻址">指令寻址</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/06cb914687df325fcef40b86d0b6f40.jpg" /></p>
+<h3 id="顺序寻址">顺序寻址</h3>
+<p>(PC) + "1" -&gt; PC</p>
+<p>这里的+1并不是直接+1，而是<strong>取决于指令字长与存储字长</strong>。</p>
+<p>例如：系统采用定长指令字结构，指令字长=存储字长=2B，主存按照字节（1B）编址，则实际上PC每次是+2</p>
+<p>而若采用不定长指令字结构，则每次加的值取决于正在执行的指令的长度。</p>
+<h3 id="跳跃寻址">跳跃寻址</h3>
+<p>即通过转移指令JMP直接修改PC的值，跳转到相应的指令。下条指令的地址不是通过程序计数器PC加1获得的，而是由指令本身给出。</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240617215258580.png" /></p>
+<h2 id="数据寻址方式">数据寻址方式</h2>
+<h3 id="堆栈寻址">堆栈寻址</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240617221719723.png" /></p>
+<h1 id="计算类">计算类</h1>
+<h2 id="指令格式相关的指令范围">指令格式相关的指令范围</h2>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240617205958444.png" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/82a695fe7bb5282a3d541747a6f53bd.jpg" style="zoom:50%;" /></p>
+<h1 id="指令集的构成分析">指令集的构成分析</h1>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/7782132bc7489e5e03a7c109bf2fe88.png" /></p>
 <p><img
@@ -311,7 +340,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c2482f29e1a3493e7ad754
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/posts/1c998927.html" title="第四章题目">http://example.com/posts/1c998927.html</a>
+    <a href="http://example.com/posts/1c998927.html" title="第四章指令系统题目">http://example.com/posts/1c998927.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -332,8 +361,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c2482f29e1a3493e7ad754
       <i class="fa fa-chevron-left"></i> 高级汇编程序设计
     </a></div>
       <div class="post-nav-item">
-    <a href="/posts/ee882d61.html" rel="next" title="第三章习题">
-      第三章习题 <i class="fa fa-chevron-right"></i>
+    <a href="/posts/ee882d61.html" rel="next" title="第三章存储器习题">
+      第三章存储器习题 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -394,7 +423,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c2482f29e1a3493e7ad754
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%84%E6%9E%84%E6%88%90%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">指令集的构成分析</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">定义类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E5%AF%BB%E5%9D%80"><span class="nav-number">1.1.</span> <span class="nav-text">指令寻址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E5%AF%BB%E5%9D%80"><span class="nav-number">1.1.1.</span> <span class="nav-text">顺序寻址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%B3%E8%B7%83%E5%AF%BB%E5%9D%80"><span class="nav-number">1.1.2.</span> <span class="nav-text">跳跃寻址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">数据寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E5%AF%BB%E5%9D%80"><span class="nav-number">1.2.1.</span> <span class="nav-text">堆栈寻址</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">计算类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%E7%9B%B8%E5%85%B3%E7%9A%84%E6%8C%87%E4%BB%A4%E8%8C%83%E5%9B%B4"><span class="nav-number">2.1.</span> <span class="nav-text">指令格式相关的指令范围</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%84%E6%9E%84%E6%88%90%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">指令集的构成分析</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -410,7 +439,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c2482f29e1a3493e7ad754
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -471,13 +500,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c2482f29e1a3493e7ad754
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">417k</span>
+    <span title="站点总字数">421k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:19</span>
+    <span title="站点阅读时长">6:23</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
