@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/03f493df12425a437a96474f4b87f76.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/dcbfdae860609c8c4d86d02be95762b.jpg">
 <meta property="article:published_time" content="2024-06-16T23:43:28.000Z">
-<meta property="article:modified_time" content="2024-06-18T01:17:22.340Z">
+<meta property="article:modified_time" content="2024-06-18T22:25:06.201Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/fcb65ac4469bf109695347da5f7ecfe.jpg">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-18 09:17:22" itemprop="dateModified" datetime="2024-06-18T09:17:22+08:00">2024-06-18</time>
+                <time title="修改时间：2024-06-19 06:25:06" itemprop="dateModified" datetime="2024-06-19T06:25:06+08:00">2024-06-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,7 +272,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>331</span>
+              <span>881</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -300,7 +300,6 @@
 <li>补码是反码加1，或者原码符号位不变，其他取反后加1</li>
 </ol>
 <h3 id="最值问题">最值问题</h3>
-<h4 id="整数">整数</h4>
 <h4 id="浮点数">浮点数</h4>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/9723be52639d6de00c8336dc3cf9664.jpg" /></p>
@@ -321,20 +320,54 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024042307100868
 </ol>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240423065106995.png" /></p>
-<h4 id="十进制小数转二进制浮点数">十进制小数转二进制浮点数</h4>
+<h4 id="十进制数转二进制浮点数">十进制数转二进制浮点数</h4>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240618204719517.png" /></p>
+<ol type="1">
+<li>转为二进制科学计数法所表示的数，注意是1.M *
+2^k的一个形式，不要忘记整数1！！！</li>
+<li>然后确定符号，将k作为阶码，将M作为尾数</li>
+</ol>
 <h4 id="十六进制浮点数转十进制小数">十六进制浮点数转十进制小数</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/03f493df12425a437a96474f4b87f76.jpg" style="zoom: 67%;" /></p>
 <ol type="1">
 <li>转换为二进制</li>
 <li>根据第一位符号位确定正负</li>
 <li>取阶码，将阶码当做无符号整数减127（二进制01111111）得到真值</li>
 <li>剩下作为尾数小数点之后的数M，尾数实际上是1.M</li>
 </ol>
-<p>举例：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/03f493df12425a437a96474f4b87f76.jpg" style="zoom: 67%;" /></p>
 <p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/dcbfdae860609c8c4d86d02be95762b.jpg" style="zoom:50%;" /></p>
-<h2 id="定点数的乘法运算">定点数的乘法运算</h2>
-<h3 id="原码">原码</h3>
-<h3 id="补码">补码</h3>
+<h2 id="定点数的除法运算">定点数的除法运算</h2>
+<p>由于<strong>定点小数绝对值&lt;1</strong>，因此，在定点机器中，进行除法运算之前，必须先判断结果是否会溢出，即<strong>判断|被除数|是否大于或者等于
+|除数|</strong> 。</p>
+<h3 id="原码恢复余数法">原码恢复余数法</h3>
+<ol type="1">
+<li>先求出被除数x的绝对值的补码<span
+class="math inline">\([|x|]_{补}\)</span>，再求出除数y的绝对值的补码<span
+class="math inline">\([|y|]_{补}\)</span>和除数y的绝对值的相反数的补码<span
+class="math inline">\([-|y|]_{补}\)</span></li>
+<li>每次先商1，加<span
+class="math inline">\([-|y|]_{补}\)</span>，如果结果小于0（这里的结果就是余数小于0），那修改商为0并且加上<span
+class="math inline">\([|y|]_{补}\)</span></li>
+<li>将得到的余数左移1位，从第2步开始循环</li>
+<li>最终计算得到的商的位数和被除数位数一样</li>
+</ol>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1am421s74C/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解：手工模拟原码恢复余数法</a></p>
+<h3 id="原码加减交替法">原码加减交替法</h3>
+<ol type="1">
+<li>先求出被除数x的绝对值的补码<span
+class="math inline">\([|x|]_{补}\)</span>，再求出除数y的绝对值的补码<span
+class="math inline">\([|y|]_{补}\)</span>和除数y的绝对值的相反数的补码<span
+class="math inline">\([-|y|]_{补}\)</span></li>
+<li>每次先商1，加<span
+class="math inline">\([-|y|]_{补}\)</span>，如果余数是负的，就左移商0下一步加正的<span
+class="math inline">\([|y|]_{补}\)</span>；如果余数是正的，就左移商1下一步加负的<span
+class="math inline">\([-|y|]_{补}\)</span>，重复第2步</li>
+<li>最终计算得到的商的位数和被除数位数一样</li>
+</ol>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fZ421J7Sc/?spm_id_from=333.999.0.0">视频讲解：手工模拟原码加减交替法</a></p>
 
     </div>
 
@@ -370,7 +403,10 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024042306510699
     <a href="/posts/3939ae20.html" rel="prev" title="输入输出和中断程序设计">
       <i class="fa fa-chevron-left"></i> 输入输出和中断程序设计
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/posts/4fd4813c.html" rel="next" title="CPU与存储器的连接专项练习题">
+      CPU与存储器的连接专项练习题 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -430,7 +466,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024042306510699
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">计算题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">原码、反码、补码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%80%BC%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">最值问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B4%E6%95%B0"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">整数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">浮点数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.2.</span> <span class="nav-text">浮点数的表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ieee754"><span class="nav-number">1.2.1.</span> <span class="nav-text">IEEE754</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E5%B0%8F%E6%95%B0%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">十进制小数转二进制浮点数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BD%AC%E5%8D%81%E8%BF%9B%E5%88%B6%E5%B0%8F%E6%95%B0"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">十六进制浮点数转十进制小数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E6%95%B0%E7%9A%84%E4%B9%98%E6%B3%95%E8%BF%90%E7%AE%97"><span class="nav-number">1.3.</span> <span class="nav-text">定点数的乘法运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81"><span class="nav-number">1.3.1.</span> <span class="nav-text">原码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81"><span class="nav-number">1.3.2.</span> <span class="nav-text">补码</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">计算题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">原码、反码、补码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%80%BC%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">最值问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">浮点数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.2.</span> <span class="nav-text">浮点数的表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ieee754"><span class="nav-number">1.2.1.</span> <span class="nav-text">IEEE754</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E6%95%B0%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">十进制数转二进制浮点数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BD%AC%E5%8D%81%E8%BF%9B%E5%88%B6%E5%B0%8F%E6%95%B0"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">十六进制浮点数转十进制小数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E6%95%B0%E7%9A%84%E9%99%A4%E6%B3%95%E8%BF%90%E7%AE%97"><span class="nav-number">1.3.</span> <span class="nav-text">定点数的除法运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81%E6%81%A2%E5%A4%8D%E4%BD%99%E6%95%B0%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">原码恢复余数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81%E5%8A%A0%E5%87%8F%E4%BA%A4%E6%9B%BF%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">原码加减交替法</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -446,7 +482,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024042306510699
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">171</span>
+          <span class="site-state-item-count">172</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -507,13 +543,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024042306510699
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">421k</span>
+    <span title="站点总字数">423k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:23</span>
+    <span title="站点阅读时长">6:24</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

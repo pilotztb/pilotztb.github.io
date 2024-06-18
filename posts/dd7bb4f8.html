@@ -30,10 +30,12 @@
 <meta property="og:description" content="定义类">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/79bdb2f6524e52a90de1a24e3c5717a.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/2dc4b984bece07a4a4c42cd70e01707.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240608154458319.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5117632fe69f6a0f8d59e4f2cc79a12.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/2acff98f7edbb06f301a887cdb72de4.jpg">
 <meta property="article:published_time" content="2024-06-08T07:09:43.000Z">
-<meta property="article:modified_time" content="2024-06-17T22:16:23.066Z">
+<meta property="article:modified_time" content="2024-06-18T22:56:36.587Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/79bdb2f6524e52a90de1a24e3c5717a.jpg">
@@ -229,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-18 06:16:23" itemprop="dateModified" datetime="2024-06-18T06:16:23+08:00">2024-06-18</time>
+                <time title="修改时间：2024-06-19 06:56:36" itemprop="dateModified" datetime="2024-06-19T06:56:36+08:00">2024-06-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -426,25 +428,23 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024061721075012
 <li><strong>中断返回</strong>：弹出栈顶存储的程序断点信息（原PC值），返回到原程序的断点处</li>
 <li><strong>开中断</strong></li>
 </ol>
-<h1 id="多级中断屏蔽字">多级中断屏蔽字</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/2dc4b984bece07a4a4c42cd70e01707.png" style="zoom:50%;" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240608154458319.png" style="zoom:50%;" /></p>
+<p>注意中断服务程序和硬件区别，关中断和保存断点是硬件做的</p>
+<h3 id="多级中断屏蔽字">多级中断屏蔽字</h3>
 <p>置“1”（关闭）本级和低级的中断屏蔽触发器；
 清“0”（开放）更高级的中断屏蔽触发器；</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240608152237481.png" /></p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/f642d6351a2e85f777f6af734fe5c92.jpg" /></p>
-<h1 id="中断占cpu时间的计算">中断占CPU时间的计算</h1>
+<h1 id="计算题">计算题</h1>
+<h2 id="中断占cpu时间的计算">中断占CPU时间的计算</h2>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/93d1bb8a48e7eec94e45a6ea4930e3a.png" /></p>
 <p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5117632fe69f6a0f8d59e4f2cc79a12.jpg" style="zoom: 67%;" /></p>
 <p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/2acff98f7edbb06f301a887cdb72de4.jpg" style="zoom:67%;" /></p>
 <p>首先计算1秒钟需要多少次中断（一般根据需要传输多少数据来计算），然后根据一次中断需要多少个时钟周期计算1秒钟总共需要的时钟周期，再除以CPU主频</p>
-<h1 id="中断程序执行过程">中断程序执行过程</h1>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/2dc4b984bece07a4a4c42cd70e01707.png" /></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240608154458319.png" /></p>
-<p>注意中断服务程序和硬件区别，关中断和保存断点是硬件做的</p>
 
     </div>
 
@@ -543,7 +543,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024060815445831
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">定义类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#io%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E7%9A%84%E6%8E%A7%E5%88%B6%E6%96%B9%E5%BC%8F%E6%88%96%E8%80%85%E5%8F%AB%E5%A4%96%E8%AE%BE%E4%BF%A1%E6%81%AF%E4%BA%A4%E6%8D%A2%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">I&#x2F;O数据传送的控制方式（或者叫外设信息交换方式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.1.</span> <span class="nav-text">程序查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E4%B8%AD%E6%96%AD"><span class="nav-number">1.1.2.</span> <span class="nav-text">程序中断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dma%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">DMA方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#io%E7%AB%AF%E5%8F%A3%E8%AE%BE%E5%A4%87%E7%BC%96%E5%9D%80"><span class="nav-number">1.2.</span> <span class="nav-text">I&#x2F;O端口设备编址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E7%BC%96%E5%9D%80"><span class="nav-number">1.2.1.</span> <span class="nav-text">统一编址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E7%BC%96%E5%9D%80"><span class="nav-number">1.2.2.</span> <span class="nav-text">独立编址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD"><span class="nav-number">1.3.</span> <span class="nav-text">中断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">中断类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%B1%8F%E8%94%BD%E4%B8%AD%E6%96%ADnmi"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">不可屏蔽中断NMI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E5%B1%8F%E8%94%BD%E4%B8%AD%E6%96%ADintr"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">可屏蔽中断INTR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E4%B8%AD%E6%96%ADint-n"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">指令中断INT n</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E4%B8%AD%E6%96%AD"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">异常中断</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E4%B8%AD%E6%96%AD%E9%87%8C%E9%9D%A2%E7%9A%84%E4%B8%AD%E6%96%AD%E6%9C%8D%E5%8A%A1%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">程序中断里面的中断服务程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E4%B8%AD%E6%96%AD%E5%B1%8F%E8%94%BD%E5%AD%97"><span class="nav-number">2.</span> <span class="nav-text">多级中断屏蔽字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%8D%A0cpu%E6%97%B6%E9%97%B4%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">中断占CPU时间的计算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">中断程序执行过程</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">定义类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#io%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E7%9A%84%E6%8E%A7%E5%88%B6%E6%96%B9%E5%BC%8F%E6%88%96%E8%80%85%E5%8F%AB%E5%A4%96%E8%AE%BE%E4%BF%A1%E6%81%AF%E4%BA%A4%E6%8D%A2%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">I&#x2F;O数据传送的控制方式（或者叫外设信息交换方式）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.1.</span> <span class="nav-text">程序查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E4%B8%AD%E6%96%AD"><span class="nav-number">1.1.2.</span> <span class="nav-text">程序中断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dma%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">DMA方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#io%E7%AB%AF%E5%8F%A3%E8%AE%BE%E5%A4%87%E7%BC%96%E5%9D%80"><span class="nav-number">1.2.</span> <span class="nav-text">I&#x2F;O端口设备编址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E7%BC%96%E5%9D%80"><span class="nav-number">1.2.1.</span> <span class="nav-text">统一编址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E7%BC%96%E5%9D%80"><span class="nav-number">1.2.2.</span> <span class="nav-text">独立编址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD"><span class="nav-number">1.3.</span> <span class="nav-text">中断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">中断类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%B1%8F%E8%94%BD%E4%B8%AD%E6%96%ADnmi"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">不可屏蔽中断NMI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E5%B1%8F%E8%94%BD%E4%B8%AD%E6%96%ADintr"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">可屏蔽中断INTR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E4%B8%AD%E6%96%ADint-n"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">指令中断INT n</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E4%B8%AD%E6%96%AD"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">异常中断</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E4%B8%AD%E6%96%AD%E9%87%8C%E9%9D%A2%E7%9A%84%E4%B8%AD%E6%96%AD%E6%9C%8D%E5%8A%A1%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">程序中断里面的中断服务程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E4%B8%AD%E6%96%AD%E5%B1%8F%E8%94%BD%E5%AD%97"><span class="nav-number">1.3.3.</span> <span class="nav-text">多级中断屏蔽字</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">计算题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%8D%A0cpu%E6%97%B6%E9%97%B4%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="nav-number">2.1.</span> <span class="nav-text">中断占CPU时间的计算</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -559,7 +559,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024060815445831
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">171</span>
+          <span class="site-state-item-count">172</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -620,13 +620,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024060815445831
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">421k</span>
+    <span title="站点总字数">423k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:23</span>
+    <span title="站点阅读时长">6:24</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
