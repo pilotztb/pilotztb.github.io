@@ -22,17 +22,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
   </script>
 
-  <meta name="description" content="所有指令都有1个共同特点，就是如果有2个操作数的话，两个操作数不能同时在内存 数据传送类指令">
+  <meta name="description" content="所有指令都有1个共同特点，就是如果有2个操作数的话，两个操作数不能同时在内存 数据传送类指令 数据传送指令都不影响标志位">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第二章_8086的指令系统">
 <meta property="og:url" content="http://example.com/posts/f42d18b1.html">
 <meta property="og:site_name" content="Pilot&#39;s Blog">
-<meta property="og:description" content="所有指令都有1个共同特点，就是如果有2个操作数的话，两个操作数不能同时在内存 数据传送类指令">
+<meta property="og:description" content="所有指令都有1个共同特点，就是如果有2个操作数的话，两个操作数不能同时在内存 数据传送类指令 数据传送指令都不影响标志位">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240322195241486.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240322201903196.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240324091424121.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240329151725488.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c03ade250a8aee923bb78f4b37da18e.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/18be2878e728fe3e3735fb3320f8686.jpg">
 <meta property="article:published_time" content="2024-03-21T15:09:42.000Z">
-<meta property="article:modified_time" content="2024-04-25T11:10:34.366Z">
+<meta property="article:modified_time" content="2024-06-20T07:39:59.638Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240322195241486.png">
 
 <link rel="canonical" href="http://example.com/posts/f42d18b1.html">
 
@@ -225,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-25 19:10:34" itemprop="dateModified" datetime="2024-04-25T19:10:34+08:00">2024-04-25</time>
+                <time title="修改时间：2024-06-20 15:39:59" itemprop="dateModified" datetime="2024-06-20T15:39:59+08:00">2024-06-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,14 +275,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.1k</span>
+              <span>8.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -289,12 +296,16 @@
       
         <p><font color = "red">所有指令都有1个共同特点，就是如果有2个操作数的话，两个操作数不能同时在内存</font></p>
 <h1 id="数据传送类指令">数据传送类指令</h1>
+<p><font color = "red">数据传送指令都不影响标志位</font></p>
 <span id="more"></span>
 <h2 id="通用数据传送指令">通用数据传送指令</h2>
 <h3 id="传送指令mov">传送指令MOV</h3>
-<p>定义</p>
-<p>把一个字节或字的操作数从源地址传送至目的地址</p>
-<p>举例</p>
+<p>定义：</p>
+<ol type="1">
+<li>把一个字节或字的操作数从源地址传送至目的地址</li>
+<li>MOV不影响标志位</li>
+</ol>
+<p>举例：</p>
 <p>例1：立即数传送</p>
 <ul>
 <li>mov al,4
@@ -306,8 +317,9 @@
 说明是字节操作，将立即数0x0A（十六进制）移动到以SI寄存器作为基址的内存位置。这里的<font color = "red"><code>byte ptr</code>指定了操作数的大小为一个字节，</font><code>[si]</code>表示SI寄存器中的地址处。因此，这条指令<font color = "red">将0x0A写入到SI寄存器指向的内存地址中。</font></li>
 <li>mov word ptr [si+2],0bh ；word ptr 说明是字操作</li>
 </ul>
-<p>注：</p>
-<p>注意立即数是字节量还是字量 明确指令是字节操作还是字操作</p>
+<blockquote>
+<p>注： 注意立即数是字节量还是字量,明确指令是字节操作还是字操作</p>
+</blockquote>
 <p>例2：寄存器传送</p>
 <p>mov ax,bx ；ax←bx，字传送 mov ah,al ；ah←al，字节传送 mov ds,ax
 ；ds←ax，字传送 mov [bx],al ；[bx]←al，字节传送</p>
@@ -315,8 +327,7 @@
 <p>mov al,[bx] mov dx,[bp] ；dx←ss:[bp] mov es,[si] ；es←ds:[si]</p>
 <p><font color = "red"> 不存在存储器向存储器的传送指令</font></p>
 <p>小结</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240322195241486.png" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240322195241486.png" style="zoom:50%;" /></p>
 <p>非法传送</p>
 <ul>
 <li><p>两个操作数的类型不一致
@@ -337,6 +348,7 @@ ptr指示字节类型，word ptr指示字类型</p>
 </ol></li>
 </ul>
 <h3 id="交换指令xchg">交换指令XCHG</h3>
+<p>XCHG不影响标志位</p>
 <h4 id="寄存器与寄存器之间对换数据">寄存器与寄存器之间对换数据</h4>
 <p>mov ax,1234h ；ax=1234h mov bx,5678h ；bx=5678h xchg ax,bx
 ；ax=5678h，bx=1234h xchg ah,al ；ax=7856h</p>
@@ -347,10 +359,12 @@ ptr指示字节类型，word ptr指示字类型</p>
 id="不能在存储器与存储器之间对换数据">不能在存储器与存储器之间对换数据</h4>
 <h3 id="换码指令xlat">换码指令XLAT</h3>
 <p>定义</p>
-<p>将BX指定的缓冲区中、AL指定的位移处的一个字节数据取出赋给AL</p>
+<ol type="1">
+<li>将BX指定的缓冲区中、AL指定的位移处的一个字节数据取出赋给AL</li>
+<li>XLAT不影响标志位</li>
+</ol>
 <h2 id="堆栈操作指令">堆栈操作指令</h2>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240322201903196.png" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240322201903196.png" style="zoom:50%;" /></p>
 <p><font color = "red">SS指向的基准量，SP指向的是“偏移量”，计算SP指向的物理地址需要加上SS*
 10H</font></p>
 <h3 id="堆栈的操作">堆栈的操作</h3>
@@ -425,40 +439,19 @@ SF/ZF/AF/PF/CF状态标志位分别送入AH的第7/6/4/2/0位，而AH的第5/3/1
 <li>可以实现计算功能</li>
 </ul>
 <h1 id="算术运算类指令">算术运算类指令</h1>
-<ul>
-<li>掌握：</li>
-</ul>
-<p>​ ADD</p>
-<p>​ ADC(带进位的加)</p>
-<p>​ INC(加1)</p>
-<p>​ SUB</p>
-<p>​ SBB(带进位的减)</p>
-<p>​ DEC（减1）</p>
-<p>​ NEG（变补，没有正负之分）</p>
-<p>​ CMP</p>
-<ul>
-<li>熟悉：</li>
-</ul>
-<p>​ MUL</p>
-<p>​ IMUL（有符号乘）</p>
-<p>​ DIV</p>
-<p>IDIV（有符号除）</p>
-<ul>
-<li><p>理解：</p>
-<p>CBW/CWD</p>
-<p>DAA/DAS</p>
-<p>AAA/ AAS/AAM/AAD</p></li>
-</ul>
-<h3 id="状态标志">状态标志</h3>
+<h2 id="状态标志">状态标志</h2>
 <p>常用状态标志： 进位标志CF、溢出标志OF 零位标志ZF、符号标志SF
 奇偶标志PF</p>
-<h4 id="进位标志cfcarry-flag">进位标志CF（Carry Flag）</h4>
+<h3 id="进位标志cfcarry-flag">进位标志CF（Carry Flag）</h3>
 <p>定义：</p>
 <p>当运算结果的<font color = "red">最高有效位有进位（加法）或借位（减法）</font>时，进位标志置1，即CF
 = 1；否则CF = 0。</p>
+<blockquote>
+<p>注：最高有效位不一定非要是16位寄存器AX等的最高位</p>
+</blockquote>
 <p>举例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3AH + 7CH＝B6H	;没有进位：CF = 0</span><br><span class="line">AAH + 7CH＝（1）26H	;有进位：CF = 1</span><br></pre></td></tr></table></figure>
-<h4 id="溢出标志ofoverflow-flag">溢出标志OF（Overflow Flag）</h4>
+<h3 id="溢出标志ofoverflow-flag">溢出标志OF（Overflow Flag）</h3>
 <p>若算术运算的结果有溢出，则OF＝1； 否则 OF＝0</p>
 <p><font color = "red">溢出和进位的区别</font></p>
 <p>首先什么是溢出</p>
@@ -490,60 +483,63 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/dbcdf8d7466a93840c23d3
 <p>认为是有符号数，则要注意是否溢出</p>
 <p><font color = "red">溢出的判断</font></p>
 <p>当两个相同符号数相加（包括不同符号数相减），而运算结果的符号与原数据符号相反时，产生溢出</p>
-<h4 id="零标志zfzero-flag">零标志ZF（Zero Flag）</h4>
+<h3 id="零标志zfzero-flag">零标志ZF（Zero Flag）</h3>
 <p>若运算结果为0，则ZF = 1； 否则ZF = 0</p>
-<h4 id="符号标志sfsign-flag">符号标志SF（Sign Flag）</h4>
+<h3 id="符号标志sfsign-flag">符号标志SF（Sign Flag）</h3>
 <p>运算结果最高位为1，则SF = 1；否则SF = 0</p>
-<h4 id="奇偶标志pfparity-flag">奇偶标志PF（Parity Flag）</h4>
+<h3 id="奇偶标志pfparity-flag">奇偶标志PF（Parity Flag）</h3>
 <p>当运算结果最低字节中“1”的个数为零或偶数时，PF = 1；否则PF = 0</p>
-<h4 id="辅助进位标志afauxiliary-carry-flag">辅助进位标志AF（Auxiliary
-Carry Flag）</h4>
+<h3 id="辅助进位标志afauxiliary-carry-flag">辅助进位标志AF（Auxiliary
+Carry Flag）</h3>
 <p>运算时<font color = "red">第3位（低半字节）</font>有进位或借位时，AF
 = 1；否则AF = 0。</p>
-<h3 id="加法">加法</h3>
-<h4 id="加法指令add">加法指令ADD</h4>
+<h2 id="加法">加法</h2>
+<h3 id="加法指令add">加法指令ADD</h3>
 <p>定义：</p>
 <p>ADD指令将源与目的操作数相加，结果送到目的操作数</p>
 <p>举例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov al,0fbh	；al=0fbh</span><br><span class="line">add al,07h	；00FB + 0007 = 0102H, AL = 02H</span><br><span class="line">mov word ptr [200h],4652h	；[200h]=4652h(重复就是重要，涉及到内存的时候必须要告知是wordptr还是byteptr)</span><br><span class="line">mov bx,1feh	；bx=1feh</span><br><span class="line">add al,bl	；al=00h</span><br><span class="line">add word ptr [bx+2],0f0f0h	；[200h]=3742h</span><br></pre></td></tr></table></figure>
-<h4 id="带进位加法指令adc">带进位加法指令ADC</h4>
+<h3 id="带进位加法指令adc">带进位加法指令ADC</h3>
 <p>定义：</p>
 <ul>
 <li><p>ADC指令将源与目的操作数相加，再加上进位CF标志，结果送到目的操作数</p></li>
 <li><p>ADC指令主要与ADD配合，实现多精度加法运算</p></li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov ax,4652h	；ax=4652h</span><br><span class="line">add ax,0f0f0h	；ax=3742h，CF=1</span><br><span class="line">mov dx,0234h	；dx=0234h</span><br><span class="line">adc dx,0f0f0h	；dx=f324h，CF=0</span><br><span class="line">；DX.AX＝ 0234 4652H</span><br><span class="line">	   ＋F0F0 F0F0H</span><br><span class="line">	   ＝F325 3742H</span><br></pre></td></tr></table></figure>
-<h4 id="增量指令incincrement">增量指令INC（increment）</h4>
-<p>INC指令对操作数加1（增量）
-INC指令不影响进位CF标志，按定义设置其他状态标志</p>
-<h3 id="减法">减法</h3>
-<h4 id="减法指令subsubtract">减法指令SUB（subtract）</h4>
+<h3 id="增量指令incincrement">增量指令INC（increment）</h3>
+<ol type="1">
+<li>INC指令对操作数加1（增量）</li>
+<li>INC指令不影响进位CF标志，按定义设置其他状态标志</li>
+</ol>
+<h2 id="减法">减法</h2>
+<h3 id="减法指令subsubtract">减法指令SUB（subtract）</h3>
 <p>定义：</p>
 <p>SUB指令将目的操作数减去源操作数，结果送到目的操作数</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov al,0fbh	；al=0fbh</span><br><span class="line">sub al,07h	；al=0f4h，CF＝0</span><br><span class="line">mov word ptr [200h],4652h	；[200h]=4652h</span><br><span class="line">mov bx,1feh	；bx=1feh</span><br><span class="line">sub al,bl	；al=0f6h</span><br><span class="line">sub word ptr [bx+2],0f0f0h</span><br><span class="line">；[200h]=5562h，CF＝1</span><br></pre></td></tr></table></figure>
-<h4 id="带借位减法指令sbb">带借位减法指令SBB</h4>
+<h3 id="带借位减法指令sbb">带借位减法指令SBB</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov ax,4652h	；ax=4652h</span><br><span class="line">sub ax,0f0f0h	；ax=5562h，CF=1</span><br><span class="line">mov dx,0234h	；dx=0234h</span><br><span class="line">sbb dx,0f0f0h	；dx=1143h，CF=1</span><br><span class="line">；DX.AX＝  0234 4652H</span><br><span class="line">		－F0F0 F0F0H</span><br><span class="line">		＝1143 5562H</span><br></pre></td></tr></table></figure>
-<h4 id="减量指令decdecrement">减量指令DEC（decrement）</h4>
+<h3 id="减量指令decdecrement">减量指令DEC（decrement）</h3>
 <p>定义</p>
 <ul>
 <li>DEC指令对操作数减1（减量）</li>
 <li>DEC指令不影响进位CF标志，按定义设置其他状态标志</li>
 </ul>
-<h3 id="求补指令negnegative">求补指令NEG（negative）</h3>
+<h2 id="求补指令negnegative">求补指令NEG（negative）</h2>
 <p>定义：</p>
 <ul>
-<li>NEG指令对操作数执行求补运算：用零减去操作数，然后结果返回操作数</li>
-<li>求补运算也可以表达成：将</li>
-<li>NEG指令对标志的影响与用零作减法的SUB指令一样</li>
+<li><p>NEG指令对操作数执行求补运算：用零减去操作数，然后结果返回操作数</p></li>
+<li><p>求补运算也可以表达成：将操作数按位取反后加1</p></li>
+<li><p>NEG指令对标志的影响与用零作减法的SUB指令一样</p>
+<p><font color = "red">NEG对CF和OF的影响</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240324091424121.png" style="zoom:50%;" /></p>
+<p><font color = "red">根本原因：虽然人在计算的时候是求反加1，但CPU运算是用0-操作数</font></p></li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0ff64h</span><br><span class="line">neg al	；ax=ff9ch，OF=0、SF=1、ZF=0、PF=1、CF=1</span><br><span class="line">sub al,9dh	；ax=ffffh，OF=0、SF=1、ZF=0、PF=1、CF=1</span><br><span class="line">neg ax	；ax=0001h，OF=0、SF=0、ZF=0、PF=0、CF=1</span><br><span class="line">dec al	；ax=0000h，OF=0、SF=0、ZF=1、PF=1、CF=1</span><br><span class="line">neg ax	；ax=0000h，OF=0、SF=0、ZF=1、PF=1、CF=0</span><br></pre></td></tr></table></figure>
-<p><font color = "red">NEG对CF/OF的影响</font></p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240324091424121.png" /></p>
-<p><font color = "red">根本原因：虽然人在计算的时候是求反加1，但CPU运算是用0-操作数</font></p>
-<h3 id="比较指令cmpcompare">比较指令CMP（compare）</h3>
-<p>CMP指令将目的操作数减去源操作数，按照定义相应设置状态标志
-CMP指令执行的功能与SUB指令，但结果不回送目的操作数</p>
+<h2 id="比较指令cmpcompare">比较指令CMP（compare）</h2>
+<ol type="1">
+<li>CMP指令将目的操作数减去源操作数，按照定义相应设置状态标志</li>
+<li>CMP指令执行的功能与SUB指令相同，但结果不回送目的操作数</li>
+</ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">	cmp al,100	；al-100</span><br><span class="line">	jb below	；al&lt;100，跳转到below执行</span><br><span class="line">	sub al,100	；al≥100，al←al-100</span><br><span class="line">	inc ah	；ah←ah+1</span><br><span class="line">below:	...</span><br></pre></td></tr></table></figure>
 <p><font color = "red">经典例题</font></p>
 <p>题1：</p>
@@ -556,17 +552,43 @@ CMP指令执行的功能与SUB指令，但结果不回送目的操作数</p>
 <p><font color = "red">3.
 先用非进位运算低位，再用进位运算高位</font></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MOV   AX，X       ；用DX，AX来表示双精度数</span><br><span class="line">MOV   DX，X+2     ；低位用AX，高位用DX</span><br><span class="line">ADD    AX，Y       ；先低位运算</span><br><span class="line">ADC    DX，Y+2    ；完成X+Y </span><br><span class="line">ADD    AX，24      ；低位运算</span><br><span class="line">ADC    DX，0       ；高位运算，该语句不能少</span><br><span class="line">SUB     AX，Z      ；先低位减法</span><br><span class="line">SBB      DX，Z+2   ；完成运算</span><br><span class="line">MOV    W，AX      ；存储结果</span><br><span class="line">MOV    W+2，DX</span><br></pre></td></tr></table></figure>
-<h3 id="乘法指令">乘法指令</h3>
-<p>MUL：无符号乘法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MUL r8/m8	；AX←AL×r8/m8</span><br><span class="line">MUL r16/m16	；DX.AX←AX×r16/m16</span><br></pre></td></tr></table></figure>
-<p>IMUL：有符号乘法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IMUL r8/m8	；AX←AL×r8/m8</span><br><span class="line">IMUL r16/m16	；DX.AX←AX×r16/m16</span><br></pre></td></tr></table></figure>
-<p><font color = "red">乘法指令的源操作数显式给出，隐含使用另一个操作数AX和DX</font></p>
+<h2 id="乘法指令mulimul">乘法指令(MUL/IMUL)</h2>
+<ol type="1">
+<li><p><strong>乘法指令的源操作数显式给出，隐含使用另一个操作数AX和DX</strong></p>
+<ul>
+<li>字节量相乘：AL与r8/m8相乘，得到16位的结果，存入AX</li>
+<li>字量相乘：AX与r16/m16相乘，得到32位的结果，其高字存入DX，低字存入AX</li>
+</ul></li>
+<li><p><strong>乘法指令如下影响OF和CF标志</strong>：</p>
+<ul>
+<li><p>MUL指令——若乘积的高一半（AH或DX）为0，则OF=CF=0；否则OF=CF=1</p>
+<p>解释：</p>
+<ol type="1">
+<li><p>OF =
+1表示溢出，因为原来是8（或者16位），高一半不为0说明现在的乘积超过8位（或者16位）。原来是8位现在就是16位，原来是16位现在就是32位</p></li>
+<li><p>CF =
+1表示进位，因为原来是8位（或者16位），高一半不为0说明原来的8位（或者16位）的有效位的最高位发生进位</p></li>
+</ol></li>
+<li><p>IMUL指令——若乘积的高一半是低一半的符号扩展，则OF=CF=0；否则均为1</p></li>
+</ul></li>
+</ol>
 <p>举例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mov al,0b4h	；al=b4h=180</span><br><span class="line">mov bl,11h	；bl=11h=17</span><br><span class="line">mul bl	；ax=Obf4h=3060</span><br><span class="line">；OF=CF=1，AX高8位不为0</span><br><span class="line">mov al,0b4h	；al=b4h=－76</span><br><span class="line">mov bl,11h	；bl=11h=17</span><br><span class="line">imul bl	；ax=faf4h=－1292</span><br><span class="line">；OF=CF=1，AX高8位含有效数字</span><br></pre></td></tr></table></figure>
-<h3 id="除法指令">除法指令</h3>
-<p><font color = "red">除法指令的除数显式给出，隐含使用另一个操作数AX和DX作为被除数</font></p>
-<p><font color = "red">被除数位数至少是除数1倍</font></p>
+<h2 id="除法指令dividiv">除法指令(DIV/IDIV)</h2>
+<ol type="1">
+<li><p>除法指令的除数显式给出，隐含使用另一个操作数AX和DX作为被除数</p>
+<ul>
+<li><p>字节量除法：AX除以r8/m8，8位商存入AL，8位余数存入AH</p></li>
+<li><p>字量除法：DX.AX除以r16/m16，16位商存入AX，16位余数存入DX</p></li>
+</ul></li>
+<li><p><font color = "red">被除数位数至少是除数1倍</font></p></li>
+<li><p>被除数远大于除数时，所得的商就有可能超出它所能表达的范围。如果存放商的寄存器AL/AX不能表达</p>
+<p>便产生溢出，8086CPU中就产生编号为0的内部中断——除法错中断</p>
+<ul>
+<li>对DIV指令，除数为0，或者在字除时商超过8位，或者在字除时商超过16位</li>
+<li>对IDIV指令，除数为0，或者在字节除时商不在-128～127范围内，或者在字除时商不在-32768～32767范围内</li>
+</ul></li>
+</ol>
 <p>举例</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0400h	；ax=400h=1024</span><br><span class="line">mov bl,0b4h	；bl=b4h=180</span><br><span class="line">div bl	；商al＝05h＝5</span><br><span class="line">	；余数ah＝7ch＝124</span><br><span class="line">mov ax,0400h	；ax=400h=1024</span><br><span class="line">mov bl,0b4h	；bl=b4h=－76</span><br><span class="line">idiv bl	；商al＝f3h＝－13</span><br><span class="line">	；余数ah＝24h＝36</span><br></pre></td></tr></table></figure>
 <p><font color = "red">对进位标志CF的影响</font></p>
@@ -587,7 +609,7 @@ CMP指令执行的功能与SUB指令，但结果不回送目的操作数</p>
 <li>DIV/IDIV</li>
 </ol></li>
 </ul>
-<h3 id="符号扩展指令">符号扩展指令</h3>
+<h2 id="符号扩展指令cbwcwd">符号扩展指令(CBW/CWD)</h2>
 <p>定义：</p>
 <p>符号扩展是指用一个操作数的符号位（即最高位）形成另一个操作数，后一个操作数的各位是全0（正数）或全1（负数）。符号扩展不改变数据大小</p>
 <p>种类：</p>
@@ -599,45 +621,41 @@ CMP指令执行的功能与SUB指令，但结果不回送目的操作数</p>
 其中X、Y、Z、V均为16位带符号数，已分别装入X、Y、Z、V单元中，要求计算结果把商存入AX，余数存入DX。</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/54e90db558c32af218213452a594db0.jpg" /></p>
-<h3 id="十进制算术运算指令">十进制算术运算指令</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240329151725488.png" /></p>
+<h2 id="十进制算术运算指令">十进制算术运算指令</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240329151725488.png" style="zoom:50%;" /></p>
 <p>十进制数的运算步骤： 1.对BCD码进行二进制运算
 2.用十进制调整指令进行调整</p>
-<h4
-id="非压缩的bcd码调整指令无操作数默认对放在al的数据操作">非压缩的BCD码调整指令(无操作数，默认对放在AL的数据操作)</h4>
-<h5 id="daadevimal-adjust-for-addition加法">DAA(Devimal Adjust for
-Addition)(加法)</h5>
+<h3
+id="非压缩的bcd码调整指令无操作数默认对放在al的数据操作">非压缩的BCD码调整指令(无操作数，默认对放在AL的数据操作)</h3>
+<p><strong>BCD码的运算逻辑还是十进制，只不过是用二进制表示</strong></p>
+<h4 id="daa加法">DAA（加法）</h4>
 <p>①AF=1或AL低四位为A到F，则AL+06H→AL，1→AF</p>
 <p>②CF=1或AL高四位为A到F，则AL+60H→AL，1→CF</p>
-<p>解释：为什么第②点是加60H：因为只要BCD码超了都要加6，但是是AL中高四位超过，直接加6会误解，所以就要加60H，6分配给高4位，0分配给低4位。如果高低一起超过就加66H</p>
-<h5 id="dasdevimal-adjust-for-subdition减法">DAS(Devimal Adjust for
-Subdition)(减法)</h5>
+<p>解释：为什么第②点是加60H：因为只要当前位表示的数大于等于10都要加6，但是当AL中高四位超过时，直接加6会误解，所以就要加60H，6分配给高4位，0分配给低4位。如果高低一起超过就加66H</p>
+<h4 id="das减法">DAS（减法）</h4>
 <p>①AF=1或AL低四位为A到F，则AL-06H→AL，1→AF</p>
 <p>②CF=1或AL高四位为A到F，则AL-60H→AL，1→CF</p>
-<h5 id="aam乘法">AAM(乘法)</h5>
+<h4 id="aam乘法">AAM(乘法)</h4>
 <p>将二进制乘法的结构调整成十进制非压缩的形式，<font color = "red">所以跟在乘法操作后面</font></p>
 <p>举例：</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c03ade250a8aee923bb78f4b37da18e.jpg" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c03ade250a8aee923bb78f4b37da18e.jpg" style="zoom:50%;" /></p>
 <p><a
 target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1wm421n7as/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
-<h5 id="aad除法">AAD(除法)</h5>
+<h4 id="aad除法">AAD(除法)</h4>
 <p>先将十进制表示调整成二进制形式，再做除法，<font color = "red">所以放在除法前面</font></p>
 <p>举例：</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/18be2878e728fe3e3735fb3320f8686.jpg" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/18be2878e728fe3e3735fb3320f8686.jpg" style="zoom:50%;" /></p>
 <p><a
 target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1JA4m1N7t9/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
-<h4 id="压缩的bcd码调整指令">压缩的BCD码调整指令</h4>
-<h5 id="aaa加法">AAA(加法)</h5>
+<h3 id="压缩的bcd码调整指令">压缩的BCD码调整指令</h3>
+<h4 id="aaa加法">AAA(加法)</h4>
 <p>①AL低4位在0~9之间且AF=0则转③</p>
 <p>②AL低4位在A~F之间或AF=1，</p>
 <p>则AL+06H→AL，</p>
 <p>AH+1→AH，</p>
 <p>AF=1</p>
 <p>③清除AL寄存器的高四位</p>
-<h5 id="aas减法">AAS(减法)</h5>
+<h4 id="aas减法">AAS(减法)</h4>
 <p>①AL低4位在0~9之间且AF=0则转③</p>
 <p>②AL低4位在A~F之间或AF=1，则AL-06H→AL，AH-1→AH，AF=1</p>
 <p>③清除AL寄存器的高四位</p>
@@ -648,6 +666,7 @@ target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1JA4m1N7t9
 <li>非压缩和压缩的不同点在于非压缩不需要给AH加1，压缩要给AH加1</li>
 </ol>
 <h1 id="位操作类指令">位操作类指令</h1>
+<p><font color = "red">位操作指令都是将CF和OF设置为0，因为位操作不会产生进位，不会溢出</font></p>
 <h2 id="逻辑与指令and">逻辑与指令AND</h2>
 <p>AND指令设置CF = OF = 0，根据结果设置SF、ZF和PF状态，而对AF未定义</p>
 <h2 id="逻辑或指令or">逻辑或指令OR</h2>
@@ -658,29 +677,39 @@ target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1JA4m1N7t9
 <h2 id="逻辑非指令not">逻辑非指令NOT</h2>
 <p>NOT指令是一个单操作数指令 NOT指令不影响标志位</p>
 <h2 id="测试指令test">测试指令TEST</h2>
-<p>对两个操作数<font color = "red">执行逻辑与运算，结果不回送到目的操作数</font></p>
-<h2 id="移位指令shift">移位指令（shift）</h2>
-<h3 id="移位指令的种类">移位指令的种类</h3>
+<ol type="1">
+<li>对两个操作数<font color = "red">执行逻辑与运算，结果不回送到目的操作数</font></li>
+<li>TEST指令设置CF = OF =
+0，根据结果设置SF、ZF和PF状态，而对AF未定义</li>
+</ol>
+<h1 id="移位指令shift">移位指令（shift）</h1>
+<h2 id="逻辑左移shl">逻辑左移(SHL)</h2>
 <p><strong>SHL reg/mem,1/CL</strong>
 ；逻辑左移，最高位进入CF，最低位补0</p>
+<h2 id="算术左移sal">算术左移(SAL)</h2>
 <p><strong>SAL reg/mem,1/CL</strong>
 ；算术左移，最高位进入CF，最低位补0</p>
-<p>逻辑左移和算术左移没什么区别</p>
+<blockquote>
+<p>注：逻辑左移和算术左移没什么区别</p>
+</blockquote>
+<h2 id="逻辑右移shr">逻辑右移(SHR)</h2>
 <p><strong>SHR reg/mem,1/CL</strong>
 ；逻辑右移，最低位进入CF，<font color = "red">最高位补0</font></p>
 <p>举例</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/53c6c2518a3aac3e6f447378d2d625f.jpg" /></p>
+<h2 id="算术右移sar">算术右移(SAR)</h2>
 <p><strong>SAR reg/mem,1/CL</strong>
-；算术右移，最低位进入CF，<font color = "red">最高位(符号位)不变</font></p>
+；算术右移，最低位进入CF，<font color = "red">补符号位</font></p>
 <p>举例</p>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/5fd885e4eec0d58c9c1383423bb759d.jpg" /></p>
 <p><font color = "red">算术</font>左移和算术右移主要用来进行<font color = "red">有符号数</font>的倍增、减半；</p>
 <p><font color = "red">逻辑</font>左移和逻辑右移主要用来进行<font color = "red">无符号数</font>的倍增、减半。</p>
-<h3 id="移位指令的操作数">移位指令的操作数</h3>
-<p>移位指令的<font color = "red">第一个操作数是指定的被移位的操作数</font>，可以是寄存器或存储单元
+<blockquote>
+<p>注：移位指令的<font color = "red">第一个操作数是指定的被移位的操作数</font>，可以是寄存器或存储单元
 <font color = "red">后一个操作数表示移位位数</font>，该操作数为1，表示移动一位；<font color = "red">当移位位数大于1时，用且只能用CL寄存器值表示</font>，该操作数表达为CL</p>
+</blockquote>
 <h2 id="循环移位指令rotate">循环移位指令（rotate）</h2>
 <p>ROL reg/mem,1/CL ；不带进位循环左移</p>
 <p>ROR reg/mem,1/CL ；不带进位循环右移</p>
@@ -713,8 +742,6 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bc3e302c70e3c9e2f4481d
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	test al,80h	；测试最高位</span><br><span class="line">	jz next0	；D7＝0（ZF＝1），转移</span><br><span class="line">	mov ah,0ffh	；D7＝1，顺序执行</span><br><span class="line">	jmp done	；无条件转向</span><br><span class="line">next0:	mov ah,0</span><br><span class="line">done:	...</span><br><span class="line">	test al,80h	；测试最高位</span><br><span class="line">	jnz next1	；D7＝1（ZF＝0），转移</span><br><span class="line">	mov ah,0	；D7＝0，顺序执行</span><br><span class="line">	jmp done	；无条件转向</span><br><span class="line">next1:	mov ah,0ffh</span><br><span class="line">done:	...</span><br></pre></td></tr></table></figure>
 <p>题2：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">；计算|X－Y|（绝对值）</span><br><span class="line">；X和Y为存放于X单元和Y单元的16位操作数</span><br><span class="line">；结果存入result</span><br><span class="line">	mov ax,X</span><br><span class="line">	sub ax,Y</span><br><span class="line">	jns nonneg</span><br><span class="line">	neg ax	；neg是求补指令</span><br><span class="line">nonneg:	mov result,ax</span><br></pre></td></tr></table></figure>
-<h3 id="比较无符号数高低">比较无符号数高低</h3>
-<h3 id="比较有符号数大小">比较有符号数大小</h3>
 
     </div>
 
@@ -813,10 +840,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bc3e302c70e3c9e2f4481d
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">数据传送类指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.1.</span> <span class="nav-text">通用数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4mov"><span class="nav-number">1.1.1.</span> <span class="nav-text">传送指令MOV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%8C%87%E4%BB%A4xchg"><span class="nav-number">1.1.2.</span> <span class="nav-text">交换指令XCHG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%AF%84%E5%AD%98%E5%99%A8%E4%B9%8B%E9%97%B4%E5%AF%B9%E6%8D%A2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">寄存器与寄存器之间对换数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%AD%98%E5%82%A8%E5%99%A8%E4%B9%8B%E9%97%B4%E5%AF%B9%E6%8D%A2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">寄存器与存储器之间对换数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E8%83%BD%E5%9C%A8%E5%AD%98%E5%82%A8%E5%99%A8%E4%B8%8E%E5%AD%98%E5%82%A8%E5%99%A8%E4%B9%8B%E9%97%B4%E5%AF%B9%E6%8D%A2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">不能在存储器与存储器之间对换数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%A2%E7%A0%81%E6%8C%87%E4%BB%A4xlat"><span class="nav-number">1.1.3.</span> <span class="nav-text">换码指令XLAT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">堆栈操作指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.1.</span> <span class="nav-text">堆栈的操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">标志传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8%E4%BC%A0%E9%80%81"><span class="nav-number">1.3.2.</span> <span class="nav-text">标志寄存器传送</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BD%8E%E5%AD%97%E8%8A%82%E8%BF%9B%E5%87%BAah%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">标志低字节进出AH指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8%E8%BF%9B%E5%87%BA%E5%A0%86%E6%A0%88%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">标志寄存器进出堆栈指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BD%8D%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.3.</span> <span class="nav-text">标志位操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">进位标志操作指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%90%91%E6%A0%87%E5%BF%97%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">方向标志操作指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E6%A0%87%E5%BF%97%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">中断标志操作指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">地址传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E6%95%88%E5%9C%B0%E5%9D%80%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4leaload-ea"><span class="nav-number">1.4.1.</span> <span class="nav-text">有效地址传送指令LEA（load EA）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">算术运算类指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%A0%87%E5%BF%97"><span class="nav-number">2.0.1.</span> <span class="nav-text">状态标志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97cfcarry-flag"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">进位标志CF（Carry Flag）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%A2%E5%87%BA%E6%A0%87%E5%BF%97ofoverflow-flag"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">溢出标志OF（Overflow Flag）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%B6%E6%A0%87%E5%BF%97zfzero-flag"><span class="nav-number">2.0.1.3.</span> <span class="nav-text">零标志ZF（Zero Flag）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E6%A0%87%E5%BF%97sfsign-flag"><span class="nav-number">2.0.1.4.</span> <span class="nav-text">符号标志SF（Sign Flag）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A5%87%E5%81%B6%E6%A0%87%E5%BF%97pfparity-flag"><span class="nav-number">2.0.1.5.</span> <span class="nav-text">奇偶标志PF（Parity Flag）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97afauxiliary-carry-flag"><span class="nav-number">2.0.1.6.</span> <span class="nav-text">辅助进位标志AF（Auxiliary
-Carry Flag）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95"><span class="nav-number">2.0.2.</span> <span class="nav-text">加法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95%E6%8C%87%E4%BB%A4add"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">加法指令ADD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%A6%E8%BF%9B%E4%BD%8D%E5%8A%A0%E6%B3%95%E6%8C%87%E4%BB%A4adc"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">带进位加法指令ADC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E9%87%8F%E6%8C%87%E4%BB%A4incincrement"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">增量指令INC（increment）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%8F%E6%B3%95"><span class="nav-number">2.0.3.</span> <span class="nav-text">减法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E6%B3%95%E6%8C%87%E4%BB%A4subsubtract"><span class="nav-number">2.0.3.1.</span> <span class="nav-text">减法指令SUB（subtract）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%A6%E5%80%9F%E4%BD%8D%E5%87%8F%E6%B3%95%E6%8C%87%E4%BB%A4sbb"><span class="nav-number">2.0.3.2.</span> <span class="nav-text">带借位减法指令SBB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E9%87%8F%E6%8C%87%E4%BB%A4decdecrement"><span class="nav-number">2.0.3.3.</span> <span class="nav-text">减量指令DEC（decrement）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E8%A1%A5%E6%8C%87%E4%BB%A4negnegative"><span class="nav-number">2.0.4.</span> <span class="nav-text">求补指令NEG（negative）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E6%8C%87%E4%BB%A4cmpcompare"><span class="nav-number">2.0.5.</span> <span class="nav-text">比较指令CMP（compare）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%98%E6%B3%95%E6%8C%87%E4%BB%A4"><span class="nav-number">2.0.6.</span> <span class="nav-text">乘法指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%A4%E6%B3%95%E6%8C%87%E4%BB%A4"><span class="nav-number">2.0.7.</span> <span class="nav-text">除法指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E6%89%A9%E5%B1%95%E6%8C%87%E4%BB%A4"><span class="nav-number">2.0.8.</span> <span class="nav-text">符号扩展指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4"><span class="nav-number">2.0.9.</span> <span class="nav-text">十进制算术运算指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E5%8E%8B%E7%BC%A9%E7%9A%84bcd%E7%A0%81%E8%B0%83%E6%95%B4%E6%8C%87%E4%BB%A4%E6%97%A0%E6%93%8D%E4%BD%9C%E6%95%B0%E9%BB%98%E8%AE%A4%E5%AF%B9%E6%94%BE%E5%9C%A8al%E7%9A%84%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">2.0.9.1.</span> <span class="nav-text">非压缩的BCD码调整指令(无操作数，默认对放在AL的数据操作)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#daadevimal-adjust-for-addition%E5%8A%A0%E6%B3%95"><span class="nav-number">2.0.9.1.1.</span> <span class="nav-text">DAA(Devimal Adjust for
-Addition)(加法)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dasdevimal-adjust-for-subdition%E5%87%8F%E6%B3%95"><span class="nav-number">2.0.9.1.2.</span> <span class="nav-text">DAS(Devimal Adjust for
-Subdition)(减法)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#aam%E4%B9%98%E6%B3%95"><span class="nav-number">2.0.9.1.3.</span> <span class="nav-text">AAM(乘法)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#aad%E9%99%A4%E6%B3%95"><span class="nav-number">2.0.9.1.4.</span> <span class="nav-text">AAD(除法)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E7%9A%84bcd%E7%A0%81%E8%B0%83%E6%95%B4%E6%8C%87%E4%BB%A4"><span class="nav-number">2.0.9.2.</span> <span class="nav-text">压缩的BCD码调整指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#aaa%E5%8A%A0%E6%B3%95"><span class="nav-number">2.0.9.2.1.</span> <span class="nav-text">AAA(加法)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#aas%E5%87%8F%E6%B3%95"><span class="nav-number">2.0.9.2.2.</span> <span class="nav-text">AAS(减法)</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">位操作类指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E4%B8%8E%E6%8C%87%E4%BB%A4and"><span class="nav-number">3.1.</span> <span class="nav-text">逻辑与指令AND</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%88%96%E6%8C%87%E4%BB%A4or"><span class="nav-number">3.2.</span> <span class="nav-text">逻辑或指令OR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%BC%82%E6%88%96%E6%8C%87%E4%BB%A4xor"><span class="nav-number">3.3.</span> <span class="nav-text">逻辑异或指令XOR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E9%9D%9E%E6%8C%87%E4%BB%A4not"><span class="nav-number">3.4.</span> <span class="nav-text">逻辑非指令NOT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%8C%87%E4%BB%A4test"><span class="nav-number">3.5.</span> <span class="nav-text">测试指令TEST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4shift"><span class="nav-number">3.6.</span> <span class="nav-text">移位指令（shift）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-number">3.6.1.</span> <span class="nav-text">移位指令的种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4%E7%9A%84%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">3.6.2.</span> <span class="nav-text">移位指令的操作数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4rotate"><span class="nav-number">3.7.</span> <span class="nav-text">循环移位指令（rotate）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E8%BD%AC%E7%A7%BB%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">控制转移类指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%BD%AC%E7%A7%BB%E6%8C%87%E4%BB%A4"><span class="nav-number">4.1.</span> <span class="nav-text">条件转移指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%8D%95%E4%B8%AA%E6%A0%87%E5%BF%97%E4%BD%8D%E7%8A%B6%E6%80%81"><span class="nav-number">4.1.1.</span> <span class="nav-text">判断单个标志位状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B0%E9%AB%98%E4%BD%8E"><span class="nav-number">4.1.2.</span> <span class="nav-text">比较无符号数高低</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B0%E5%A4%A7%E5%B0%8F"><span class="nav-number">4.1.3.</span> <span class="nav-text">比较有符号数大小</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">数据传送类指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.1.</span> <span class="nav-text">通用数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4mov"><span class="nav-number">1.1.1.</span> <span class="nav-text">传送指令MOV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%8C%87%E4%BB%A4xchg"><span class="nav-number">1.1.2.</span> <span class="nav-text">交换指令XCHG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%AF%84%E5%AD%98%E5%99%A8%E4%B9%8B%E9%97%B4%E5%AF%B9%E6%8D%A2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">寄存器与寄存器之间对换数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%8E%E5%AD%98%E5%82%A8%E5%99%A8%E4%B9%8B%E9%97%B4%E5%AF%B9%E6%8D%A2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">寄存器与存储器之间对换数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E8%83%BD%E5%9C%A8%E5%AD%98%E5%82%A8%E5%99%A8%E4%B8%8E%E5%AD%98%E5%82%A8%E5%99%A8%E4%B9%8B%E9%97%B4%E5%AF%B9%E6%8D%A2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">不能在存储器与存储器之间对换数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%A2%E7%A0%81%E6%8C%87%E4%BB%A4xlat"><span class="nav-number">1.1.3.</span> <span class="nav-text">换码指令XLAT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">堆栈操作指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.1.</span> <span class="nav-text">堆栈的操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">标志传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8%E4%BC%A0%E9%80%81"><span class="nav-number">1.3.2.</span> <span class="nav-text">标志寄存器传送</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BD%8E%E5%AD%97%E8%8A%82%E8%BF%9B%E5%87%BAah%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">标志低字节进出AH指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8%E8%BF%9B%E5%87%BA%E5%A0%86%E6%A0%88%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">标志寄存器进出堆栈指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E4%BD%8D%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.3.</span> <span class="nav-text">标志位操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">进位标志操作指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%90%91%E6%A0%87%E5%BF%97%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">方向标志操作指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E6%A0%87%E5%BF%97%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">中断标志操作指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">地址传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E6%95%88%E5%9C%B0%E5%9D%80%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4leaload-ea"><span class="nav-number">1.4.1.</span> <span class="nav-text">有效地址传送指令LEA（load EA）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">算术运算类指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%A0%87%E5%BF%97"><span class="nav-number">2.1.</span> <span class="nav-text">状态标志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97cfcarry-flag"><span class="nav-number">2.1.1.</span> <span class="nav-text">进位标志CF（Carry Flag）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%A2%E5%87%BA%E6%A0%87%E5%BF%97ofoverflow-flag"><span class="nav-number">2.1.2.</span> <span class="nav-text">溢出标志OF（Overflow Flag）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%B6%E6%A0%87%E5%BF%97zfzero-flag"><span class="nav-number">2.1.3.</span> <span class="nav-text">零标志ZF（Zero Flag）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E6%A0%87%E5%BF%97sfsign-flag"><span class="nav-number">2.1.4.</span> <span class="nav-text">符号标志SF（Sign Flag）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%87%E5%81%B6%E6%A0%87%E5%BF%97pfparity-flag"><span class="nav-number">2.1.5.</span> <span class="nav-text">奇偶标志PF（Parity Flag）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E8%BF%9B%E4%BD%8D%E6%A0%87%E5%BF%97afauxiliary-carry-flag"><span class="nav-number">2.1.6.</span> <span class="nav-text">辅助进位标志AF（Auxiliary
+Carry Flag）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">加法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95%E6%8C%87%E4%BB%A4add"><span class="nav-number">2.2.1.</span> <span class="nav-text">加法指令ADD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E8%BF%9B%E4%BD%8D%E5%8A%A0%E6%B3%95%E6%8C%87%E4%BB%A4adc"><span class="nav-number">2.2.2.</span> <span class="nav-text">带进位加法指令ADC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E9%87%8F%E6%8C%87%E4%BB%A4incincrement"><span class="nav-number">2.2.3.</span> <span class="nav-text">增量指令INC（increment）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">减法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%8F%E6%B3%95%E6%8C%87%E4%BB%A4subsubtract"><span class="nav-number">2.3.1.</span> <span class="nav-text">减法指令SUB（subtract）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E5%80%9F%E4%BD%8D%E5%87%8F%E6%B3%95%E6%8C%87%E4%BB%A4sbb"><span class="nav-number">2.3.2.</span> <span class="nav-text">带借位减法指令SBB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%8F%E9%87%8F%E6%8C%87%E4%BB%A4decdecrement"><span class="nav-number">2.3.3.</span> <span class="nav-text">减量指令DEC（decrement）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%82%E8%A1%A5%E6%8C%87%E4%BB%A4negnegative"><span class="nav-number">2.4.</span> <span class="nav-text">求补指令NEG（negative）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E6%8C%87%E4%BB%A4cmpcompare"><span class="nav-number">2.5.</span> <span class="nav-text">比较指令CMP（compare）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%98%E6%B3%95%E6%8C%87%E4%BB%A4mulimul"><span class="nav-number">2.6.</span> <span class="nav-text">乘法指令(MUL&#x2F;IMUL)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%A4%E6%B3%95%E6%8C%87%E4%BB%A4dividiv"><span class="nav-number">2.7.</span> <span class="nav-text">除法指令(DIV&#x2F;IDIV)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E6%89%A9%E5%B1%95%E6%8C%87%E4%BB%A4cbwcwd"><span class="nav-number">2.8.</span> <span class="nav-text">符号扩展指令(CBW&#x2F;CWD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4"><span class="nav-number">2.9.</span> <span class="nav-text">十进制算术运算指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%8E%8B%E7%BC%A9%E7%9A%84bcd%E7%A0%81%E8%B0%83%E6%95%B4%E6%8C%87%E4%BB%A4%E6%97%A0%E6%93%8D%E4%BD%9C%E6%95%B0%E9%BB%98%E8%AE%A4%E5%AF%B9%E6%94%BE%E5%9C%A8al%E7%9A%84%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">2.9.1.</span> <span class="nav-text">非压缩的BCD码调整指令(无操作数，默认对放在AL的数据操作)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#daa%E5%8A%A0%E6%B3%95"><span class="nav-number">2.9.1.1.</span> <span class="nav-text">DAA（加法）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#das%E5%87%8F%E6%B3%95"><span class="nav-number">2.9.1.2.</span> <span class="nav-text">DAS（减法）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aam%E4%B9%98%E6%B3%95"><span class="nav-number">2.9.1.3.</span> <span class="nav-text">AAM(乘法)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aad%E9%99%A4%E6%B3%95"><span class="nav-number">2.9.1.4.</span> <span class="nav-text">AAD(除法)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E7%9A%84bcd%E7%A0%81%E8%B0%83%E6%95%B4%E6%8C%87%E4%BB%A4"><span class="nav-number">2.9.2.</span> <span class="nav-text">压缩的BCD码调整指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#aaa%E5%8A%A0%E6%B3%95"><span class="nav-number">2.9.2.1.</span> <span class="nav-text">AAA(加法)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aas%E5%87%8F%E6%B3%95"><span class="nav-number">2.9.2.2.</span> <span class="nav-text">AAS(减法)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">位操作类指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E4%B8%8E%E6%8C%87%E4%BB%A4and"><span class="nav-number">3.1.</span> <span class="nav-text">逻辑与指令AND</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%88%96%E6%8C%87%E4%BB%A4or"><span class="nav-number">3.2.</span> <span class="nav-text">逻辑或指令OR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%BC%82%E6%88%96%E6%8C%87%E4%BB%A4xor"><span class="nav-number">3.3.</span> <span class="nav-text">逻辑异或指令XOR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E9%9D%9E%E6%8C%87%E4%BB%A4not"><span class="nav-number">3.4.</span> <span class="nav-text">逻辑非指令NOT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%8C%87%E4%BB%A4test"><span class="nav-number">3.5.</span> <span class="nav-text">测试指令TEST</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4shift"><span class="nav-number">4.</span> <span class="nav-text">移位指令（shift）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%B7%A6%E7%A7%BBshl"><span class="nav-number">4.1.</span> <span class="nav-text">逻辑左移(SHL)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E5%B7%A6%E7%A7%BBsal"><span class="nav-number">4.2.</span> <span class="nav-text">算术左移(SAL)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%8F%B3%E7%A7%BBshr"><span class="nav-number">4.3.</span> <span class="nav-text">逻辑右移(SHR)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E5%8F%B3%E7%A7%BBsar"><span class="nav-number">4.4.</span> <span class="nav-text">算术右移(SAR)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4rotate"><span class="nav-number">4.5.</span> <span class="nav-text">循环移位指令（rotate）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E8%BD%AC%E7%A7%BB%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">控制转移类指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%BD%AC%E7%A7%BB%E6%8C%87%E4%BB%A4"><span class="nav-number">5.1.</span> <span class="nav-text">条件转移指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%8D%95%E4%B8%AA%E6%A0%87%E5%BF%97%E4%BD%8D%E7%8A%B6%E6%80%81"><span class="nav-number">5.1.1.</span> <span class="nav-text">判断单个标志位状态</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -832,7 +857,7 @@ Subdition)(减法)</span></a></li><li class="nav-item nav-level-5"><a class="nav
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -893,13 +918,13 @@ Subdition)(减法)</span></a></li><li class="nav-item nav-level-5"><a class="nav
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">416k</span>
+    <span title="站点总字数">417k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:18</span>
+    <span title="站点阅读时长">6:19</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
