@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133422337.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133445960.png">
 <meta property="article:published_time" content="2024-06-16T03:13:49.000Z">
-<meta property="article:modified_time" content="2024-06-20T13:08:17.866Z">
+<meta property="article:modified_time" content="2024-06-21T03:36:02.513Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240616133422337.png">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-20 21:08:17" itemprop="dateModified" datetime="2024-06-20T21:08:17+08:00">2024-06-20</time>
+                <time title="修改时间：2024-06-21 11:36:02" itemprop="dateModified" datetime="2024-06-21T11:36:02+08:00">2024-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,7 +271,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -375,32 +375,55 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024061615214545
 <p><font color = "red">共同点：设置中断向量的时候规定格式是DS:DX</font></p>
 <h3 id="手搓">手搓</h3>
 <ol type="1">
-<li>先关中断，最后开中断</li>
-<li>如果已知要将当前中断子程序作为第N号中断，那么它在中断向量表中的位置是4
-* N，设置BX = 4 * N</li>
-<li>然后将中断子程序的偏移地址赋给低的2个单元，段地址赋给高的2个单元</li>
+<li>先根据中断号计算在中断向量表中的偏移地址（如果已知要将当前中断子程序作为第N号中断，那么它在中断向量表中的位置是4
+* N，设置BX = 4 * N）</li>
+<li>关中断</li>
+<li>分别设置段地址和偏移地址</li>
+<li>开中断</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MOV	AX，0</span><br><span class="line">MOV	DS，AX</span><br><span class="line">   MOV	BX，N*4	     ;设置N号中断向量</span><br><span class="line">   CLI			     ;关中断</span><br><span class="line">MOV	WORD PTR[BX]，OFFSET INTHAND  ;置偏移</span><br><span class="line">   MOV	WORD PTR[BX+2]，SEG INTHAND      ;置段值</span><br><span class="line">   STI	            	   ;开中断</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MOV	AX，0</span><br><span class="line">MOV	DS，AX</span><br><span class="line">MOV	BX，N*4	     ;设置N号中断向量</span><br><span class="line">CLI			     ;关中断</span><br><span class="line">MOV	WORD PTR[BX]，OFFSET INTHAND  ;置偏移</span><br><span class="line">MOV	WORD PTR[BX+2]，SEG INTHAND      ;置段值</span><br><span class="line">STI	            	   ;开中断</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注：INTHAND表示被调用的中断处理程序</p>
 </blockquote>
 <h3 id="dos功能调用25号功能">DOS功能调用25号功能</h3>
-<p>利用一个内部中断来设置中断向量。入出口参数如下：</p>
-<p>功能号：AH=25H</p>
-<p>AL=中断类型号</p>
-<p>DS放中断处理子程序的段地址，DX放中断处理子程序的偏移地址</p>
-<p>执行：INT 21H</p>
-<p>功能：将指定的中断向量写入中断向量表。</p>
+<p><strong>入口参数：</strong></p>
+<ul>
+<li>AL ：中断号</li>
+<li>DS：中断子程序段地址</li>
+<li>DX：中断子程序偏移地址</li>
+</ul>
+<p><strong>调用过程</strong></p>
+<ol type="1">
+<li>将中断子程序的段地址通过AX赋给DS</li>
+<li>将中断子程序的偏移地址副歌DX</li>
+<li>调用25H号功能，设置AH=25H</li>
+<li>将这个中断子程序对应的中断号写入AL</li>
+<li>调用21H中断实现将中断向量写入中断向量表</li>
+</ol>
 <p>举例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">INTHAND：</span><br><span class="line">MOV AX，SEG  INTHAND	 ；中断处理程序的段地址</span><br><span class="line">MOV DS，AX</span><br><span class="line">MOV DX，OFFSET  INTHAND  ；中断处理程序的偏移地址</span><br><span class="line">MOV AH，25H</span><br><span class="line">MOV AL，N</span><br><span class="line">INT  21H</span><br></pre></td></tr></table></figure>
 <h2 id="获取中断向量">获取中断向量</h2>
 <p><font color = "red">获取中断向量的时候固定格式是ES:BX</font></p>
 <h3 id="手搓-1">手搓</h3>
+<ol type="1">
+<li>根据中断号计算在中断向量表中的偏移地址</li>
+<li>将ES:[中断向量表中的偏移地址]作为偏移地址，将ES:[中断向量表中的偏移地址作为偏移地址+2]作为段地址</li>
+</ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">【例5-5-3】利用直接读取法读取n号中断向量，并保存在双字变量OLDVECTOR中：</span><br><span class="line">      ……</span><br><span class="line">     XOR AX,AX</span><br><span class="line">     MOV ES,AX</span><br><span class="line">     MOV AX,ES:[n*4]               ；取偏移地址</span><br><span class="line">     MOV WORD PTR OLDVECTOR,AX     ；保存</span><br><span class="line">     MOV AX,ES:[n*4+2]             ；取段地址</span><br><span class="line">     MOV WORD PTR OLDVECTOR+2,AX   ；保存</span><br><span class="line">      ……</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h3 id="dos功能调用35号功能">DOS功能调用35号功能</h3>
-<p>出入口参数： 预置：AL=中断类型号 执行：INT 21H
-功能：读取指定中断的中断向量，其中： ES=中断处理程序的段地址
-BX=中断处理程序的偏移地址</p>
+<p><strong>入口参数</strong>： 中断号</p>
+<p><strong>出口参数</strong></p>
+<ul>
+<li>ES：中断子程序的段地址</li>
+<li>BX：中断子程序的偏移地址</li>
+</ul>
+<p><strong>调用过程</strong></p>
+<ol type="1">
+<li>调用35H号功能</li>
+<li>将AL设置为中断号n</li>
+<li>调用21H号中断</li>
+<li>从BX中取出中断子程序的偏移地址，从ES中取出中断子程序的段地址</li>
+</ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">【例5-5-4】使用DOS功能调用取得n号中断的中断向量</span><br><span class="line">     ……</span><br><span class="line">     MOV AH,35H</span><br><span class="line">     MOV AL,n		  ；中断类型号为n</span><br><span class="line">     INT 21H              ；中断向量在ES：BX中</span><br><span class="line">     MOV WORD PTR OLDVECTOR,BX</span><br><span class="line">     MOV WORD PTR OLDVECTOR+2,ES</span><br><span class="line">     </span><br><span class="line">     ……</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
     </div>
@@ -516,7 +539,7 @@ BX=中断处理程序的偏移地址</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">169</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -577,13 +600,13 @@ BX=中断处理程序的偏移地址</p>
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">418k</span>
+    <span title="站点总字数">420k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:20</span>
+    <span title="站点阅读时长">6:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

@@ -29,10 +29,12 @@
 <meta property="og:site_name" content="Pilot&#39;s Blog">
 <meta property="og:description" content="8086的组成">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a103b15867a55726948183c77d0a97b.jpg">
 <meta property="article:published_time" content="2024-06-20T01:31:13.000Z">
-<meta property="article:modified_time" content="2024-06-20T12:18:37.804Z">
+<meta property="article:modified_time" content="2024-06-21T08:51:45.363Z">
 <meta property="article:author" content="Pilot">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a103b15867a55726948183c77d0a97b.jpg">
 
 <link rel="canonical" href="http://example.com/posts/2327a50.html">
 
@@ -217,10 +219,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-06-20 09:31:13 / 修改时间：20:18:37" itemprop="dateCreated datePublished" datetime="2024-06-20T09:31:13+08:00">2024-06-20</time>
+              <time title="创建时间：2024-06-20 09:31:13" itemprop="dateCreated datePublished" datetime="2024-06-20T09:31:13+08:00">2024-06-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-21 16:51:45" itemprop="dateModified" datetime="2024-06-21T16:51:45+08:00">2024-06-21</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -262,7 +270,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -315,6 +323,35 @@
 <h2 id="题2">题2</h2>
 <p>MOV AX, ES:[1000H] 源操作数的寻址方式是（ A ）</p>
 <p>A.立即寻址 B.寄存器寻址 C. 直接寻址 D.基址寻址</p>
+<h2 id="题3bx和bp二选一">题3：BX和BP二选一</h2>
+<p>MOV AX
+,[BP+100H][SI]这种虽然同时出现BP(默认SS)和SI(默认DS)，但是以SS作为段地址</p>
+<p>基址寄存器2个：BP和BX二选一</p>
+<p>变址寄存器2个：SI和DI二选一</p>
+<h2 id="题4">题4</h2>
+<p>设 （DS）=2000H， （BX）=0200H， （SI）=0002H， （20200H）=12H，
+（20201H）=FFH，（20202H）= 56H，（20203H）= 78H， （21200H）= 2AH，
+（21201H）= 00H，（21202H）=B7H，（21203H）=65H，试说明下列各条指
+令执行完后AX 寄存器中的内容是多少？ （1）MOV AX，0400H
+（AX）=___________ （2）MOV AX，BX （AX）=___________ （3）MOV AX，[BX]
+（AX）=___________ （4）MOV AX，[BX+1000H] （AX）=___________ （5）MOV
+AX，[BX+SI] （AX）=___________</p>
+<p>解析：</p>
+<ol type="1">
+<li><font color = "yellow">注意段地址</font></li>
+<li><font color = "yellow">注意是传1个字节还是1个字</font></li>
+</ol>
+<ol type="1">
+<li><p>0400H</p></li>
+<li><p>0200H</p></li>
+</ol>
+<p>(3)、(4)、(5)有坑</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a103b15867a55726948183c77d0a97b.jpg" style="zoom:50%;" /></p>
+<ol start="3" type="1">
+<li><p>FF12H</p></li>
+<li><p>002AH</p></li>
+<li><p>7856H</p></li>
+</ol>
 <p>概念判断</p>
 <ol type="1">
 <li>汇编语言是用符号表示的面向机器的语言，因此它是机器语言。 （ ）</li>
@@ -469,7 +506,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-number">1.</span> <span class="nav-text">8086的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%981"><span class="nav-number">1.1.</span> <span class="nav-text">题1：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9A%84%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">8086的寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%981-1"><span class="nav-number">2.1.</span> <span class="nav-text">题1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%982"><span class="nav-number">2.2.</span> <span class="nav-text">题2</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-number">1.</span> <span class="nav-text">8086的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%981"><span class="nav-number">1.1.</span> <span class="nav-text">题1：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9A%84%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">8086的寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%981-1"><span class="nav-number">2.1.</span> <span class="nav-text">题1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%982"><span class="nav-number">2.2.</span> <span class="nav-text">题2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%983bx%E5%92%8Cbp%E4%BA%8C%E9%80%89%E4%B8%80"><span class="nav-number">2.3.</span> <span class="nav-text">题3：BX和BP二选一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%984"><span class="nav-number">2.4.</span> <span class="nav-text">题4</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -485,7 +522,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">169</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -546,13 +583,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">418k</span>
+    <span title="站点总字数">420k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:20</span>
+    <span title="站点阅读时长">6:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

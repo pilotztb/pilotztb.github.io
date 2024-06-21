@@ -9003,6 +9003,28 @@ href="https://www.bilibili.com/video/BV1vx421Q7Ft/?spm_id_from=333.999.0.0&amp;v
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bc3e302c70e3c9e2f4481d5e6b7b9d6.jpg" /></p>
 <h1 id="控制转移类指令">控制转移类指令</h1>
+<h2 id="非条件转移">非条件转移</h2>
+<h3 id="段内寻址">段内寻址</h3>
+<h4 id="相对寻址">相对寻址</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">JMP LABEL</span><br></pre></td></tr></table></figure>
+<p>效果就是将当前IP指针加上LABEL表示的位移量</p>
+<h4 id="间接寻址">间接寻址</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">JMP R16/M16</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：R16表示16进制寄存器，M16表示16进制内存</p>
+</blockquote>
+<p>效果就是将IP修改为R16/M16中内容</p>
+<h3 id="段间寻址">段间寻址</h3>
+<h4 id="直接寻址">直接寻址</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">JMP FAR PTR LABEL</span><br></pre></td></tr></table></figure>
+<p>效果是将IP修改为LABEL的偏移地址，CS修改为LABEL的段地址</p>
+<h4 id="间接寻址-1">间接寻址</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">JMP FAR PTR MEM</span><br></pre></td></tr></table></figure>
+<p>效果就是将IP修改为MEM的低2位字节[MEM]，将CS修改为LABEL的高2位字节[MEM+2](所以MEM是四个字节)</p>
+<blockquote>
+<p>注：段间间接寻址只能用内存，如果是寄存器的话是寄存器中保存的是对应内存中的地址，举例如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV WORD PTR [BX], 0</span><br><span class="line">MOV WORD PTR [BX + 2], 1500H</span><br><span class="line">JMP FAR PTR [BX]</span><br><span class="line">; 转移到1500H:0</span><br></pre></td></tr></table></figure>
+</blockquote>
 <h2 id="条件转移指令">条件转移指令</h2>
 <h3 id="判断单个标志位状态">判断单个标志位状态</h3>
 <p>⑴JZ/JE和JNZ/JNE：利用零标志ZF，判断结果是否为零（或相等）</p>
@@ -9016,6 +9038,9 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bc3e302c70e3c9e2f4481d
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">	test al,80h	；测试最高位</span><br><span class="line">	jz next0	；D7＝0（ZF＝1），转移</span><br><span class="line">	mov ah,0ffh	；D7＝1，顺序执行</span><br><span class="line">	jmp done	；无条件转向</span><br><span class="line">next0:	mov ah,0</span><br><span class="line">done:	...</span><br><span class="line">	test al,80h	；测试最高位</span><br><span class="line">	jnz next1	；D7＝1（ZF＝0），转移</span><br><span class="line">	mov ah,0	；D7＝0，顺序执行</span><br><span class="line">	jmp done	；无条件转向</span><br><span class="line">next1:	mov ah,0ffh</span><br><span class="line">done:	...</span><br></pre></td></tr></table></figure>
 <p>题2：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">；计算|X－Y|（绝对值）</span><br><span class="line">；X和Y为存放于X单元和Y单元的16位操作数</span><br><span class="line">；结果存入result</span><br><span class="line">	mov ax,X</span><br><span class="line">	sub ax,Y</span><br><span class="line">	jns nonneg</span><br><span class="line">	neg ax	；neg是求补指令</span><br><span class="line">nonneg:	mov result,ax</span><br></pre></td></tr></table></figure>
+<h3 id="条件转移指令大全">条件转移指令大全</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ec17839cba049c8cd0fd850358ccadf.jpg" /></p>
 ]]></content>
       <categories>
         <category>汇编语言</category>
@@ -15506,7 +15531,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024061606561189
 <li><p>在25×80的显示方式中，坐标设在（0，0）是屏幕的左上角，（24，79）是屏幕的右下角。</p></li>
 <li><p>BH中必须包含被输出的页号，对单色显示器来说，页号总是0。</p></li>
 </ol>
-<p><font color = "red">所以设置光标一半就是设置行（DH)，列(DL)，页(BH)</p>
+<p><font color = "red">所以设置光标一半就是设置行（DH)，列(DL)，页(BH)</font></p>
 <p>举例：置光标开始行为5，，并把它设置到第5行第6列</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; 设置光标的大小</span><br><span class="line">MOV	CH，5	；开始行为5</span><br><span class="line">MOV	CL，7		；结束行为7</span><br><span class="line">MOV	AH，1	；设置光标大小</span><br><span class="line">INT 	10H		；调用BIOS</span><br><span class="line">; 设置光标的位置</span><br><span class="line">MOV	DH，4		；第5行</span><br><span class="line">MOV	DL，5		；第6列</span><br><span class="line">MOV	BH，0		；0页</span><br><span class="line">MOV	AH，2	；设置光标位置</span><br><span class="line">INT 	10H		；调用BIOS</span><br></pre></td></tr></table></figure>
 <h4 id="读光标位置int-10h的3号功能">读光标位置，INT 10H的3号功能</h4>
@@ -15654,32 +15679,55 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024061615214545
 <p><font color = "red">共同点：设置中断向量的时候规定格式是DS:DX</font></p>
 <h3 id="手搓">手搓</h3>
 <ol type="1">
-<li>先关中断，最后开中断</li>
-<li>如果已知要将当前中断子程序作为第N号中断，那么它在中断向量表中的位置是4
-* N，设置BX = 4 * N</li>
-<li>然后将中断子程序的偏移地址赋给低的2个单元，段地址赋给高的2个单元</li>
+<li>先根据中断号计算在中断向量表中的偏移地址（如果已知要将当前中断子程序作为第N号中断，那么它在中断向量表中的位置是4
+* N，设置BX = 4 * N）</li>
+<li>关中断</li>
+<li>分别设置段地址和偏移地址</li>
+<li>开中断</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV	AX，0</span><br><span class="line">MOV	DS，AX</span><br><span class="line">   MOV	BX，N*4	     ;设置N号中断向量</span><br><span class="line">   CLI			     ;关中断</span><br><span class="line">MOV	WORD PTR[BX]，OFFSET INTHAND  ;置偏移</span><br><span class="line">   MOV	WORD PTR[BX+2]，SEG INTHAND      ;置段值</span><br><span class="line">   STI	            	   ;开中断</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV	AX，0</span><br><span class="line">MOV	DS，AX</span><br><span class="line">MOV	BX，N*4	     ;设置N号中断向量</span><br><span class="line">CLI			     ;关中断</span><br><span class="line">MOV	WORD PTR[BX]，OFFSET INTHAND  ;置偏移</span><br><span class="line">MOV	WORD PTR[BX+2]，SEG INTHAND      ;置段值</span><br><span class="line">STI	            	   ;开中断</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注：INTHAND表示被调用的中断处理程序</p>
 </blockquote>
 <h3 id="dos功能调用25号功能">DOS功能调用25号功能</h3>
-<p>利用一个内部中断来设置中断向量。入出口参数如下：</p>
-<p>功能号：AH=25H</p>
-<p>AL=中断类型号</p>
-<p>DS放中断处理子程序的段地址，DX放中断处理子程序的偏移地址</p>
-<p>执行：INT 21H</p>
-<p>功能：将指定的中断向量写入中断向量表。</p>
+<p><strong>入口参数：</strong></p>
+<ul>
+<li>AL ：中断号</li>
+<li>DS：中断子程序段地址</li>
+<li>DX：中断子程序偏移地址</li>
+</ul>
+<p><strong>调用过程</strong></p>
+<ol type="1">
+<li>将中断子程序的段地址通过AX赋给DS</li>
+<li>将中断子程序的偏移地址副歌DX</li>
+<li>调用25H号功能，设置AH=25H</li>
+<li>将这个中断子程序对应的中断号写入AL</li>
+<li>调用21H中断实现将中断向量写入中断向量表</li>
+</ol>
 <p>举例：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INTHAND：</span><br><span class="line">MOV AX，SEG  INTHAND	 ；中断处理程序的段地址</span><br><span class="line">MOV DS，AX</span><br><span class="line">MOV DX，OFFSET  INTHAND  ；中断处理程序的偏移地址</span><br><span class="line">MOV AH，25H</span><br><span class="line">MOV AL，N</span><br><span class="line">INT  21H</span><br></pre></td></tr></table></figure>
 <h2 id="获取中断向量">获取中断向量</h2>
 <p><font color = "red">获取中断向量的时候固定格式是ES:BX</font></p>
 <h3 id="手搓-1">手搓</h3>
+<ol type="1">
+<li>根据中断号计算在中断向量表中的偏移地址</li>
+<li>将ES:[中断向量表中的偏移地址]作为偏移地址，将ES:[中断向量表中的偏移地址作为偏移地址+2]作为段地址</li>
+</ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【例5-5-3】利用直接读取法读取n号中断向量，并保存在双字变量OLDVECTOR中：</span><br><span class="line">      ……</span><br><span class="line">     XOR AX,AX</span><br><span class="line">     MOV ES,AX</span><br><span class="line">     MOV AX,ES:[n*4]               ；取偏移地址</span><br><span class="line">     MOV WORD PTR OLDVECTOR,AX     ；保存</span><br><span class="line">     MOV AX,ES:[n*4+2]             ；取段地址</span><br><span class="line">     MOV WORD PTR OLDVECTOR+2,AX   ；保存</span><br><span class="line">      ……</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h3 id="dos功能调用35号功能">DOS功能调用35号功能</h3>
-<p>出入口参数： 预置：AL=中断类型号 执行：INT 21H
-功能：读取指定中断的中断向量，其中： ES=中断处理程序的段地址
-BX=中断处理程序的偏移地址</p>
+<p><strong>入口参数</strong>： 中断号</p>
+<p><strong>出口参数</strong></p>
+<ul>
+<li>ES：中断子程序的段地址</li>
+<li>BX：中断子程序的偏移地址</li>
+</ul>
+<p><strong>调用过程</strong></p>
+<ol type="1">
+<li>调用35H号功能</li>
+<li>将AL设置为中断号n</li>
+<li>调用21H号中断</li>
+<li>从BX中取出中断子程序的偏移地址，从ES中取出中断子程序的段地址</li>
+</ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【例5-5-4】使用DOS功能调用取得n号中断的中断向量</span><br><span class="line">     ……</span><br><span class="line">     MOV AH,35H</span><br><span class="line">     MOV AL,n		  ；中断类型号为n</span><br><span class="line">     INT 21H              ；中断向量在ES：BX中</span><br><span class="line">     MOV WORD PTR OLDVECTOR,BX</span><br><span class="line">     MOV WORD PTR OLDVECTOR+2,ES</span><br><span class="line">     </span><br><span class="line">     ……</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
@@ -18993,6 +19041,35 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024060609302645
 <h2 id="题2">题2</h2>
 <p>MOV AX, ES:[1000H] 源操作数的寻址方式是（ A ）</p>
 <p>A.立即寻址 B.寄存器寻址 C. 直接寻址 D.基址寻址</p>
+<h2 id="题3bx和bp二选一">题3：BX和BP二选一</h2>
+<p>MOV AX
+,[BP+100H][SI]这种虽然同时出现BP(默认SS)和SI(默认DS)，但是以SS作为段地址</p>
+<p>基址寄存器2个：BP和BX二选一</p>
+<p>变址寄存器2个：SI和DI二选一</p>
+<h2 id="题4">题4</h2>
+<p>设 （DS）=2000H， （BX）=0200H， （SI）=0002H， （20200H）=12H，
+（20201H）=FFH，（20202H）= 56H，（20203H）= 78H， （21200H）= 2AH，
+（21201H）= 00H，（21202H）=B7H，（21203H）=65H，试说明下列各条指
+令执行完后AX 寄存器中的内容是多少？ （1）MOV AX，0400H
+（AX）=___________ （2）MOV AX，BX （AX）=___________ （3）MOV AX，[BX]
+（AX）=___________ （4）MOV AX，[BX+1000H] （AX）=___________ （5）MOV
+AX，[BX+SI] （AX）=___________</p>
+<p>解析：</p>
+<ol type="1">
+<li><font color = "yellow">注意段地址</font></li>
+<li><font color = "yellow">注意是传1个字节还是1个字</font></li>
+</ol>
+<ol type="1">
+<li><p>0400H</p></li>
+<li><p>0200H</p></li>
+</ol>
+<p>(3)、(4)、(5)有坑</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a103b15867a55726948183c77d0a97b.jpg" style="zoom:50%;" /></p>
+<ol start="3" type="1">
+<li><p>FF12H</p></li>
+<li><p>002AH</p></li>
+<li><p>7856H</p></li>
+</ol>
 <p>概念判断</p>
 <ol type="1">
 <li>汇编语言是用符号表示的面向机器的语言，因此它是机器语言。 （ ）</li>
@@ -19084,7 +19161,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024060609302645
       </categories>
   </entry>
   <entry>
-    <title>第五章_1_输入输出和中断程序设计</title>
+    <title>第五章_1_输入输出和中断程序设计练习题</title>
     <url>/posts/b09ccb65.html</url>
     <content><![CDATA[<h1 id="端口寻址">端口寻址</h1>
 <span id="more"></span>
@@ -19237,7 +19314,7 @@ id="ascii码与int类型数之间的相互转换">ASCII码与int类型数之间�
       </categories>
   </entry>
   <entry>
-    <title>算术运算</title>
+    <title>第四章_算术运算</title>
     <url>/posts/60c662a5.html</url>
     <content><![CDATA[<h1 id="十进制加减运算">十进制加减运算</h1>
 <span id="more"></span>
@@ -19276,7 +19353,7 @@ AH&lt;=（AH）+1，AL中高4位清0，AF和CF置1。</p>
       </categories>
   </entry>
   <entry>
-    <title>第三章_汇编语言程序格式</title>
+    <title>第三章_汇编语言程序格式练习题</title>
     <url>/posts/10df1a2e.html</url>
     <content><![CDATA[<h1 id="求数据段中数组长度">求数据段中数组长度</h1>
 <span id="more"></span>
@@ -19289,6 +19366,53 @@ AH&lt;=（AH）+1，AL中高4位清0，AF和CF置1。</p>
 <p>A. 10H B. 04H C. 0AH D. 08H</p>
 <p>解析：</p>
 <p>因为数据段中定义的是DW，一个字等于两个字节，一共有5个字，$-DY1得到的偏移地址是10，即DY2的值是10</p>
+<h1 id="获取数组首地址和首单元的区别">获取数组首地址和首单元的区别</h1>
+<p>下面程序执行后，AL 的内容为ARRAY 数组中的最小数，请在空白处各填上
+一条指令。 ARRAY DB 3，5，-3，-2，4，5，-8，6 ┇ MOV CX，7 MOV DI，0 MOV
+AL，ARRAY A1： _____________ CMP AL, ARRAY[DI] JLE A2 MOV AL，ARRAY [DI]
+A2： _____________</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, ARRAY</span><br></pre></td></tr></table></figure>
+<p>上面在AL里面保存的是ARRAY中的第一个单元中的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AX, OFFSET ARRAY</span><br></pre></td></tr></table></figure>
+<p>上面里面保存的是ARRAY的第一个单元的偏移地址</p>
+]]></content>
+      <categories>
+        <category>汇编语言</category>
+        <category>理论</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>第四章_子程序设计练习题</title>
+    <url>/posts/e228f7fe.html</url>
+    <content><![CDATA[<h1 id="堆栈操作中堆栈的变化">堆栈操作中堆栈的变化</h1>
+<span id="more"></span>
+<h2 id="题1">题1</h2>
+<p>设（SP）=80H,（BX）=0FFH;（AX）=1    </p>
+<p>PUSH BX    </p>
+<p>ADD BX,AX    </p>
+<p>XOR BX,AX    </p>
+<p>PUSH BX    </p>
+<p>POP CX </p>
+<p>上述程序段运行后，（SP）＝( )，（CX）=( )。</p>
+<p>解析：</p>
+<p><font color = "red">低地址放低字节，高地址放高字节</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bffe9204cebfd2fed6ec84e4f7749c1.jpg" style="zoom:50%;" /></p>
+<h2 id="题2子程序中堆栈寻址">题2：子程序中堆栈寻址</h2>
+<p>下面的程序通过子程序调用，将数组ARRAY 的COUNT 个元素求和，并
+将结果送SUM 单元。请补充完整程序。（3 分） DATA SEGMENT SUM DW ? ARRAY
+DW 10,20,30,40,50,60,70,80,90,100 COUNT EQU ($-ARRAY)/2 DATA ENDS STACK
+SEGMENT PARA STACK 'Stack' DW 64 DUP (0) STACK ENDS CODE SEGMENT ASSUME
+CS: CODE; DS: DATA; SS: STACK START: MOV AX, DATA MOV DS, AX MOV BX,
+OFFSET SUM PUSH BX MOV BX, OFFSET ARRAY PUSH BX MOV BX, OFFSET COUNT
+PUSH BX CALL SUMPRO ………</p>
+<p>SUMPRO PROC FAR PUSH AX PUSH BX PUSH SI PUSH DI PUSH BP MOV BP, SP
+MOV SI, [BP+ _____ ] ;得到ARRAY 的地址 MOV DI, [BP+ _____ ] ;得到COUNT
+的地址 MOV CX, DI MOV DI, [BP+ _____ ] ;得到SUM 的地址 XOR AX, AX
+NEXT:ADD AX, [SI] INC SI INC SI LOOP NEXT MOV [DI], AX ;送求和结果 POP
+BP POP DI POP SI POP BX POP AX RET SUMPRO ENDP CODE ENDS END START</p>
+<p>解析：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/4f609d0d5cb9b011f8719c5d0441b18.jpg" style="zoom:50%;" /></p>
+<p>在子程序中使用堆栈传参的时候往往首先需要通过压栈保护一些寄存器中的值，然后通过将BP与SP指向同一位置，通过BP加上偏移地址获得之前压入栈的参数</p>
 ]]></content>
       <categories>
         <category>汇编语言</category>
