@@ -15475,7 +15475,7 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024060215234242
       </categories>
   </entry>
   <entry>
-    <title>BIOS和DOS中断调用</title>
+    <title>第五章_BIOS和DOS中断调用</title>
     <url>/posts/7a7853ba.html</url>
     <content><![CDATA[<h1 id="bios">BIOS</h1>
 <span id="more"></span>
@@ -15698,7 +15698,7 @@ BX=中断处理程序的偏移地址</p>
       </categories>
   </entry>
   <entry>
-    <title>高级汇编程序设计</title>
+    <title>第五章_高级汇编程序设计</title>
     <url>/posts/50d063bc.html</url>
     <content><![CDATA[<h1 id="宏汇编">宏汇编</h1>
 <span id="more"></span>
