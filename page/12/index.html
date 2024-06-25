@@ -192,734 +192,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/56b92135.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/56b92135.html" class="post-title-link" itemprop="url">动态规划基础-混境之地5</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-08 16:44:05" itemprop="dateCreated datePublished" datetime="2024-02-08T16:44:05+08:00">2024-02-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 19:07:58" itemprop="dateModified" datetime="2024-03-26T19:07:58+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="index"><span itemprop="name">动态规划</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%AE%80%E5%8D%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">简单题</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/56b92135.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/56b92135.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a
-target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/3820/learning/?page=1&amp;first_category_id=1&amp;problem_id=3820">题目</a></h1>
-<h1 id="分析">分析</h1>
-<p>这题最初的想法用dfs解决，但会超时，分析是因为每次递归计算的值没有利用，所以开一个dp[n][m][k]数组，表示从起点开始，在经过点(x,
-y)，并且在使用喷气背包的次数为t的情况下，能否到达终点</p>
-<p>另外要注意地图的边界是从1开始，不是从0开始</p>
-<h1 id="代码">代码</h1>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="comment">// 1:无需package</span></span><br><span class="line"><span class="comment">// 2: 类名必须Main, 不可修改</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">MAXSIZE</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">1e3</span> + <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[][][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[MAXSIZE][MAXSIZE][<span class="number">2</span>];</span><br><span class="line">    <span class="comment">// dp有三个值：-1表示没有遍历过，0表示从起点,经过点(x, y),在喷气背包使用t次的情况下无法抵达终点，1则相反，表示可以抵达</span></span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[][] map = <span class="keyword">new</span> <span class="title class_">int</span>[MAXSIZE][MAXSIZE];</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> sx, sy, fx, fy;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> k;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> n, m;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[] dx = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[] dy = &#123;<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isValid</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> x &gt;= <span class="number">1</span> &amp;&amp; x &lt;= n &amp;&amp; y &gt;= <span class="number">1</span> &amp;&amp; y &lt;= m;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> p)</span> &#123;</span><br><span class="line">    	<span class="comment">// 如果发现已经抵达终点</span></span><br><span class="line">    	<span class="keyword">if</span>(x == fx &amp;&amp; y == fy) &#123;</span><br><span class="line">    		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="comment">// 如果发现当前坐标位置已经遍历过，dp思想的核心体现</span></span><br><span class="line">    	<span class="keyword">if</span>(dp[x][y][p] != -<span class="number">1</span>) &#123;</span><br><span class="line">    		<span class="keyword">return</span> dp[x][y][p];</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="comment">// 上下左右依次遍历</span></span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">    		<span class="type">int</span> <span class="variable">nx</span> <span class="operator">=</span> x + dx[i];</span><br><span class="line">    		<span class="type">int</span> <span class="variable">ny</span> <span class="operator">=</span> y + dy[i];</span><br><span class="line">    		<span class="comment">// 判断移动后是否还在地图里</span></span><br><span class="line">    		<span class="keyword">if</span>(!isValid(nx, ny)) <span class="keyword">continue</span>;</span><br><span class="line">    		<span class="comment">// 如果当前喷气背包没有使用</span></span><br><span class="line">    		<span class="keyword">if</span>(p == <span class="number">0</span>) &#123;</span><br><span class="line">    			<span class="comment">// 当前高度比下一个高度高</span></span><br><span class="line">    			<span class="keyword">if</span>(map[x][y] &gt;= map[nx][ny]) &#123;</span><br><span class="line">    				<span class="type">int</span> <span class="variable">canReach</span> <span class="operator">=</span> dfs(nx, ny, <span class="number">0</span>);</span><br><span class="line">    				<span class="comment">// 如果经过当前点可以抵达终点</span></span><br><span class="line">    				<span class="keyword">if</span>(canReach == <span class="number">1</span>) &#123;</span><br><span class="line">    					<span class="comment">// 将dp[x][y][p]置为1并且返回1，向上一层传递</span></span><br><span class="line">    					dp[x][y][p] = <span class="number">1</span>;</span><br><span class="line">    					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    			<span class="comment">// 当前高度比下一个高度低但是使用喷气背包后可以抵达</span></span><br><span class="line">    			<span class="keyword">if</span>(map[x][y] &lt; map[nx][ny] &amp;&amp; map[x][y] + k &gt;= map[nx][ny]) &#123;</span><br><span class="line">    				<span class="type">int</span> <span class="variable">canReach</span> <span class="operator">=</span>dfs(nx, ny, <span class="number">1</span>);</span><br><span class="line">    				<span class="keyword">if</span>(canReach == <span class="number">1</span>) &#123;</span><br><span class="line">    					dp[x][y][p] = <span class="number">1</span>;</span><br><span class="line">    					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125; <span class="keyword">else</span> &#123;	<span class="comment">// 如果当前喷气背包已经使用</span></span><br><span class="line">    			<span class="keyword">if</span>(map[x][y] &gt;= map[nx][ny]) &#123;</span><br><span class="line">    				<span class="type">int</span> <span class="variable">canReach</span> <span class="operator">=</span> dfs(nx, ny, <span class="number">1</span>);</span><br><span class="line">    				<span class="keyword">if</span>(canReach == <span class="number">1</span>) &#123;</span><br><span class="line">    					dp[x][y][p] = <span class="number">1</span>;</span><br><span class="line">    					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	dp[x][y][p] = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">fillArrays</span><span class="params">()</span> &#123;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">    			<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; <span class="number">2</span>; k++) &#123;</span><br><span class="line">    				dp[i][j][k] = -<span class="number">1</span>;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="comment">//在此输入您的代码...</span></span><br><span class="line">        n = scan.nextInt();</span><br><span class="line">        m = scan.nextInt();</span><br><span class="line">        k = scan.nextInt();</span><br><span class="line">        sx = scan.nextInt();</span><br><span class="line">        sy = scan.nextInt();</span><br><span class="line">        fx = scan.nextInt();</span><br><span class="line">        fy = scan.nextInt();</span><br><span class="line">        fillArrays();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= m; j++) &#123;</span><br><span class="line">        		map[i][j] = scan.nextInt();</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dfs(sx, sy, <span class="number">0</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">        	System.out.println(<span class="string">&quot;Yes&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	System.out.println(<span class="string">&quot;No&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        scan.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/1370e9cf.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/1370e9cf.html" class="post-title-link" itemprop="url">DP动态规划入门</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-07 17:43:59" itemprop="dateCreated datePublished" datetime="2024-02-07T17:43:59+08:00">2024-02-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="index"><span itemprop="name">动态规划</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E7%AE%80%E5%8D%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">简单题</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/1370e9cf.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/1370e9cf.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="基本概念">基本概念</h1>
-<h2 id="核心思想">核心思想</h2>
-<p>为了解决一个“大”问题，将“大”问题分解成两个“小”问题</p>
-<p>举个例子：一次可以走一个台阶或者两个台阶，问走到第n个台阶时，一共有多少种走法？要走到第n级台阶，分成两种情况，一种是从n-1级台阶走一步过来，一种是从n-2级台阶走两步过来</p>
-<h2 id="状态">状态</h2>
-<p>形如dp[i][j] = val的取值，其中i,
-j为下标，用于描述、确定状态所需的变量，val为状态值</p>
-<h2 id="状态转移">状态转移</h2>
-<p>状态与状态之间的转移关系，转移方向决定了迭代或递归方向</p>
-<h2
-id="常见特征重叠子问题最优子结构">常见特征：重叠子问题，最优子结构</h2>
-<h3 id="重叠子问题">重叠子问题：</h3>
-<p>斐波那契数为例，用递归计算fib(5)，分解为图示的子问题，其中fib(3)计算了2次，其实只算1次就够了</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/95b4e7867af7488f8ce8837e23c3bfc1.png" /></p>
-<h3 id="最优子结构"><strong>最优子结构</strong></h3>
-<h2 id="两种编码方法">两种编码方法</h2>
-<h3 id="自顶向下与记忆化"><strong>自顶向下与记忆化</strong></h3>
-<p>先考虑大问题，再缩小到小问题，递归很直接地体现了这种思路。为避免递归时重复计算子问题，可以在子问题得到解决时，就保存结果，再次需要这个结果时，直接返回保存的结果就行了。这种存储已经解决的子问题的结果的技术称为“记忆化（Memoization）”。
-  以斐波那契数为例，记忆化代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> memoize[N];                                  <span class="comment">//保存结果</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">fib</span> <span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>)  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(memoize[n] != <span class="number">0</span>) <span class="keyword">return</span> memoize[n]; <span class="comment">//直接返回保存的结果，不再递归</span></span><br><span class="line">    memoize[n]= fib (n - <span class="number">1</span>) + fib (n - <span class="number">2</span>);       <span class="comment">//递归计算结果，并记忆</span></span><br><span class="line">    <span class="keyword">return</span> memoize[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="自下而上与制表递推"><strong>自下而上与制表递推</strong></h3>
-<p>先解决子问题，再递推到大问题。通常通过填写表格来完成，编码时用若干for循环语句填表。根据表中的结果，逐步计算出大问题的解决方案。</p>
-<p>用制表法计算斐波那契数，维护一个一维表dp[]，记录自下而上的计算结果，更大的数是前面两个数的和。</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/bb9b3fee28e94641a908121c07cec9c6.png" /></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> <span class="number">255</span>;</span><br><span class="line"><span class="type">int</span> dp[N];</span><br><span class="line"><span class="type">int</span> <span class="title function_">fib</span> <span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    dp[<span class="number">1</span>] = dp[<span class="number">2</span>] =<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">3</span>;i&lt;=n;i++)  dp[i] = dp[i-<span class="number">1</span>] +dp[i-<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="分析步骤">分析步骤</h1>
-<h2 id="确定状态">确定状态</h2>
-<p>一般为“到第i个为止，方案数/最小代价/最大价值</p>
-<h2 id="确定状态转移方程">确定状态转移方程</h2>
-<p>根据状态转移方向决定迭代还是递归</p>
-<h2 id="确定最终状态">确定最终状态</h2>
-<h1 id="题目一"><a
-target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/1536/learning/?page=1&amp;first_category_id=1&amp;problem_id=1536">题目一</a></h1>
-<h2 id="题干">题干</h2>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240227160907000.png" /></p>
-<h2 id="分析">分析</h2>
-<p>状态：dp[i][j]表示第i行，第j列的和的最大值</p>
-<p>状态迁移方程：方向从底向上，取当前位置的下一层的左边或右边的最大值与当前位置求和，作为当前位置dp值</p>
-<p>最终状态：dp[1][1]</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">MAXSIZE</span> <span class="operator">=</span> <span class="number">105</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[MAXSIZE][MAXSIZE];</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		<span class="comment">// 读入三角形里面的数据</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= i; j++) &#123;</span><br><span class="line">				 dp[i][j] = scan.nextInt();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n - <span class="number">1</span>; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= i; j++) &#123;</span><br><span class="line">				<span class="comment">// 状态转移方程，不过是从下往上</span></span><br><span class="line">				dp[i][j] += Math.max(dp[i + <span class="number">1</span>][j], dp[i + <span class="number">1</span>][j + <span class="number">1</span>]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(dp[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">		scan.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="题目二"><a
-target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/3367/learning/?page=1&amp;first_category_id=1&amp;problem_id=3367">题目二</a></h1>
-<h2 id="题干-1">题干</h2>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240228085943251.png" /></p>
-<h2 id="分析-1">分析</h2>
-<p>确定状态：dp[i]表示到第i级台阶有多少种方案</p>
-<p>确定状态转移方程：从后往前,dp[i] = dp[i - 1] + dp[i - 2]</p>
-<p>确定最终状态：dp[N]</p>
-<p>注意，题目中如果告诉你结果比较大，java一般需要开long</p>
-<h2 id="代码-1">代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">MAXSIZE</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">10e5</span> + <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">boolean</span>[] broken = <span class="keyword">new</span> <span class="title class_">boolean</span>[MAXSIZE];</span><br><span class="line">	<span class="keyword">static</span> <span class="type">long</span>[] dp = <span class="keyword">new</span> <span class="title class_">long</span>[MAXSIZE];</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		<span class="type">int</span> <span class="variable">M</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">worse</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">			broken[worse] = <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 第0级台阶</span></span><br><span class="line">		broken[<span class="number">0</span>] = <span class="literal">false</span>;</span><br><span class="line">		dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">		<span class="comment">// 第一级台阶比较特殊，如果第一级台阶没有坏，则只用一种可能，就是从第0级台阶上来</span></span><br><span class="line">		<span class="keyword">if</span>(broken[<span class="number">1</span>] == <span class="literal">false</span>) dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt;= N; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(broken[i] == <span class="literal">false</span>) &#123;</span><br><span class="line">				dp[i] = (dp[i - <span class="number">1</span>] + dp[i - <span class="number">2</span>]) % p;</span><br><span class="line">			&#125; </span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">//		for(int i = 1; i &lt;= N; i++) &#123;</span></span><br><span class="line"><span class="comment">//			System.out.print(dp[i] + &quot; &quot;);</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line"><span class="comment">//		System.out.println();</span></span><br><span class="line">		System.out.println(dp[N]);</span><br><span class="line">		scan.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="题目三"><a
-target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/3423/learning/?page=1&amp;first_category_id=1&amp;problem_id=3423">题目三</a></h1>
-<h2 id="题干-2">题干</h2>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240304094002984.png" /></p>
-<h2 id="分析-2">分析</h2>
-<h3 id="确定状态-1">确定状态</h3>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/4c5353de2efaf91f73998dca65bb934.jpg" /></p>
-<p>dp[i]:最后一个桶放在位置i的方案总数</p>
-<h3 id="状态转移方程">状态转移方程</h3>
-<p>因为dp[i]表示最后一个桶在位置i所具有的方案总数，而要求最近的相邻两个桶之间要相隔k个桶，所以dp[i]等于从最后一个桶在位置1的方案(dp[1])到最后一个桶在位置i
-- k - 1的方案数(dp[i - k - 1])的和，即<span class="math inline">\(dp[j]
-= \sum_{i = 1}^{j - k - 1}dp[i]\)</span></p>
-<h3 id="最终状态">最终状态</h3>
-<p>题目要求的是总方案数，由dp数列定义可知不是dp[N]，所以要对dp数组求前缀和，prefix[N]才是答案</p>
-<h2 id="代码-2">代码</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">N</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">1e6</span> + <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">long</span>[] dp = <span class="keyword">new</span> <span class="title class_">long</span>[N];</span><br><span class="line">	<span class="keyword">static</span> <span class="type">long</span>[] prefix = <span class="keyword">new</span> <span class="title class_">long</span>[N];</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		dp[<span class="number">0</span>] = prefix[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(i - k - <span class="number">1</span> &lt; <span class="number">1</span>) dp[i] = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">else</span> dp[i] =  prefix[i - k - <span class="number">1</span>];</span><br><span class="line">			prefix[i] = (prefix[i - <span class="number">1</span>] + dp[i]) % p;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(prefix[n]);</span><br><span class="line">		scan.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="入门一题"><a
-target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/3503/learning/">入门一题</a></h1>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/1cb8774b.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/1cb8774b.html" class="post-title-link" itemprop="url">第四周-作业</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-06 22:47:26" itemprop="dateCreated datePublished" datetime="2024-02-06T22:47:26+08:00">2024-02-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/1cb8774b.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/1cb8774b.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="exercise6装饰器的使用">exercise6:装饰器的使用</h1>
-<p>user-credentials.txt内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;name&quot;:&quot;xiaoming&quot;, &quot;password&quot;:&quot;123&quot;&#125;</span><br><span class="line">&#123;&quot;name&quot;:&quot;xiaowang&quot;, &quot;password&quot;:&quot;321&quot;&#125;</span><br><span class="line">&#123;&quot;name&quot;:&quot;xiaofang&quot;, &quot;password&quot;:&quot;432&quot;&#125;</span><br><span class="line">&#123;&quot;name&quot;:&quot;xiaobai&quot;, &quot;password&quot;:&quot;111&quot;&#125;</span><br></pre></td></tr></table></figure>
-<p>代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_user_credentials</span>(<span class="params">file_path</span>):</span><br><span class="line">    credentials = []</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> file:</span><br><span class="line">            user_info = json.loads(line.strip())</span><br><span class="line">            credentials.append(user_info)</span><br><span class="line">    <span class="keyword">return</span> credentials</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">authentication_required</span>(<span class="params">func</span>):</span><br><span class="line">    authenticated = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">nonlocal</span> authenticated</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> authenticated:</span><br><span class="line">            username = <span class="built_in">input</span>(<span class="string">&quot;Enter your username: &quot;</span>)</span><br><span class="line">            password = <span class="built_in">input</span>(<span class="string">&quot;Enter your password: &quot;</span>)</span><br><span class="line">            user_credentials = read_user_credentials(<span class="string">&quot;user_credentials.txt&quot;</span>)</span><br><span class="line">            <span class="keyword">for</span> user_info <span class="keyword">in</span> user_credentials:</span><br><span class="line">                <span class="keyword">if</span> user_info.get(<span class="string">&#x27;name&#x27;</span>) == username <span class="keyword">and</span> user_info.get(<span class="string">&#x27;password&#x27;</span>) == password:</span><br><span class="line">                    authenticated = <span class="literal">True</span></span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Authentication successful!&quot;</span>)</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;Authentication failed. Please try again.&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@authentication_required</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">function1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;This is function 1.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@authentication_required</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">function2</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;This is function 2.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    function1()</span><br><span class="line">    function1()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>output</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Enter your username: xiaoming</span><br><span class="line">Enter your password: 123</span><br><span class="line">Authentication successful!</span><br><span class="line">This is function 1.</span><br><span class="line">This is function 1.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/46a3c91c.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/46a3c91c.html" class="post-title-link" itemprop="url">Acwing99激光炸弹-前缀和</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-06 16:20:16" itemprop="dateCreated datePublished" datetime="2024-02-06T16:20:16+08:00">2024-02-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%89%8D%E7%BC%80%E5%92%8C/" itemprop="url" rel="index"><span itemprop="name">前缀和</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%89%8D%E7%BC%80%E5%92%8C/%E5%9F%BA%E7%A1%80%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">基础题</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/46a3c91c.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/46a3c91c.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a
-target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/101/">题目</a></h1>
-<p>地图上有 N 个目标，用整数 Xi,Yi ,
-表示目标在地图上的位置，每个目标都有一个价值 Wi 。</p>
-<p><strong>注意</strong>：不同目标可能在同一位置。</p>
-<p>现在有一种新型的激光炸弹，可以摧毁一个包含
-R×R个位置的正方形内的所有目标。</p>
-<p>激光炸弹的投放是通过卫星定位的，但其有一个缺点，就是其爆炸范围，即那个正方形的边必须和
-x，y 轴平行。</p>
-<p>求一颗炸弹最多能炸掉地图上总价值为多少的目标。</p>
-<p>## 输入格式</p>
-<p>第一行输入正整数 N 和 R
-，分别代表地图上的目标数目和正方形包含的横纵位置数量，数据用空格隔开。</p>
-<p>接下来 N 行，每行输入一组数据，每组数据包括三个整数 Xi,Yi,Wi , ,
-，分别代表目标的 x 坐标，y 坐标和价值，数据用空格隔开。</p>
-<p>## 输出格式</p>
-<p>输出一个正整数，代表一颗炸弹最多能炸掉地图上目标的总价值数目。</p>
-<p>## 数据范围</p>
-<p><span class="math inline">\(0≤R≤10^9\)</span> <span
-class="math inline">\(0&lt;N≤100000\)</span> <span
-class="math inline">\(0≤Xi,Yi≤50000\)</span> <span
-class="math inline">\(0≤Wi≤10000\)</span></p>
-<p>## 输入样例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2 1</span><br><span class="line">0 0 1</span><br><span class="line">1 1 1</span><br></pre></td></tr></table></figure>
-<p>## 输出样例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
-<h1 id="分析">分析</h1>
-<p>首先讲解下什么是二维前缀和</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/a1be24141cc56e2e06e0925e75b1802.jpg" /></p>
-<p>但是本题的特殊之处在于给的目标是在交叉点上，而上面给的是第几个矩阵</p>
-<p>解决方法：平移坐标系，原来在坐标轴上的目标就变成了在坐标轴内的目标，进一步就是变成了和原来一样的第几个小正方形</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/fa457b993c3966a8faa0491504cb5a3.jpg" /></p>
-<p>所以先将目标的value填充到对应的方格中，然后计算value的前缀和矩阵，最后利用计算出的前缀和矩阵，通过移动覆盖面积的小方形，以其右下角为基准遍历整个矩阵，计算覆盖面积的最大值</p>
-<p><strong>前缀和的灵魂就是将本来时间复杂度<span
-class="math inline">\(O(n)\)</span>甚至<span
-class="math inline">\(O(n^2)\)</span>的循环遍历求和变成<span
-class="math inline">\(O(1)\)</span></strong></p>
-<p>注意：</p>
-<p>1 题目中一个坐标处可能有多个目标</p>
-<p>2 如果火力覆盖面积比最大的5000还大，那就可以不用遍历直接得到答案</p>
-<h1 id="代码">代码</h1>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.chrono.MinguoChronology;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">MAXSIZE</span> <span class="operator">=</span> <span class="number">5010</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span>[][] matrix = <span class="keyword">new</span> <span class="title class_">int</span>[MAXSIZE][MAXSIZE];</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">		r = Math.min(r, <span class="number">5001</span>);</span><br><span class="line">		<span class="type">int</span> <span class="variable">max_x</span> <span class="operator">=</span> r;</span><br><span class="line">		<span class="type">int</span> <span class="variable">max_y</span> <span class="operator">=</span> r;</span><br><span class="line">		<span class="comment">// 填充一小格的价值</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">			<span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> scan.nextInt();</span><br><span class="line">			matrix[x + <span class="number">1</span>][y + <span class="number">1</span>] += scan.nextInt();</span><br><span class="line">			max_x = Math.max(x + <span class="number">1</span>, max_x);</span><br><span class="line">			max_y = Math.max(y + <span class="number">1</span>, max_y);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 计算价值的二维前缀和</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= max_x; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= max_y; j++) &#123;</span><br><span class="line">				matrix[i][j] += matrix[i - <span class="number">1</span>][j] + matrix[i][j - <span class="number">1</span>] - matrix[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> <span class="variable">maxValue</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 移动火力覆盖的小方形遍历整个矩阵</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> r; i &lt;= max_x; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> r; j &lt;= max_y; j++) &#123;</span><br><span class="line">				<span class="type">int</span> <span class="variable">value</span> <span class="operator">=</span> matrix[i][j] - matrix[i - r][j] - matrix[i][j - r] + matrix[i - r][j - r];</span><br><span class="line">				<span class="keyword">if</span>(value &gt; maxValue) &#123;</span><br><span class="line">					maxValue = value;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(maxValue);</span><br><span class="line">		scan.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2cc950a3.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Pilot">
-      <meta itemprop="description" content="心有所向，无问西东">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pilot's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/2cc950a3.html" class="post-title-link" itemprop="url">第四周-面向对象</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-05 21:44:42" itemprop="dateCreated datePublished" datetime="2024-02-05T21:44:42+08:00">2024-02-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/2cc950a3.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/2cc950a3.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="定义一个类">定义一个类</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):	<span class="comment">#objectobject 是所有类的基类，也称为顶级类或根类。在定义类时，如果没有明确指定继承的父类，则默认继承自 object 类，可以省略</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">eat</span>(<span class="params">self</span>):	<span class="comment"># self 是一个惯用的命名约定，用来表示对象自身。在类的方法定义中，self 参数指向类的实例，也就是调用该方法的对象本身。通过 self，可以在方法内部访问和操作对象的属性和方法。是 Python 中定义类方法的标准做法，不可省略</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">jump</span>(<span class="params">self</span>):</span><br></pre></td></tr></table></figure>
-<h1 id="类中几种常见方法">类中几种常见方法</h1>
-<h2
-id="init__方法类似与java类的构造函数">__init__方法（类似与java类的构造函数）</h2>
-<h2
-id="del方法删除对象时自动调用在对一个对象引用次数为0才算彻底删除">del()方法：删除对象时自动调用，在对一个对象引用次数为0才算彻底删除</h2>
-<p>举个例子</p>
-<p>定义一个动物的类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="comment">#定义初始化方法  创建对象时候自动调用</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name</span>):</span><br><span class="line">        <span class="comment"># print(&#x27;__init__方法被调用&#x27;)</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义普通方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">walk</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;动物会跑&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义一个析构方法  删除对象的时候自动调用</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__del__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># print(&#x27;__del__方法被调用&#x27;)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;%s对象被干掉&#x27;</span>%(self.name))</span><br></pre></td></tr></table></figure>
-<p>然后实例化一个猫的对象，并且多次引用</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat = Animal(<span class="string">&#x27;波斯猫&#x27;</span>)</span><br><span class="line">cat2 = cat</span><br><span class="line">cat3 = cat</span><br></pre></td></tr></table></figure>
-<p>发现创建了多个cat对象</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240220170553004.png" /></p>
-<p>如果只删除一个，另外两个还存在</p>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240220170715549.png" /></p>
-<h2
-id="魔法方法python中的一种特殊方法它们以双下划线开头和结尾例如-__init____str____add__-等这些方法在特定的情况下会被python解释器自动调用而不需要我们显式地调用它们">魔法方法：Python中的一种特殊方法，它们以双下划线开头和结尾，例如
-<code>__init__</code>、<code>__str__</code>、<code>__add__</code>
-等。这些方法在特定的情况下会被Python解释器自动调用，而不需要我们显式地调用它们。</h2>
-<p>举个例子</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义一个车类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Car</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="comment">#定义初始化方法  创建对象的时候被自动调用</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,newColor,newWheelNum</span>):</span><br><span class="line">        self.color = newColor</span><br><span class="line">        self.wheelNum = newWheelNum</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义一个析构方法  删除对象的时候被自动调用</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__del__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;%s对象被删除&#x27;</span>%(self.color))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义一个魔方方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># msg = &#x27;%s-%d&#x27;%(self.color,self.wheelNum)</span></span><br><span class="line">        <span class="comment"># return msg</span></span><br><span class="line">        <span class="keyword">return</span> self.color</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建一个对象laosi</span></span><br><span class="line">laosi = Car(<span class="string">&#x27;红色&#x27;</span>,<span class="number">4</span>)</span><br><span class="line"><span class="comment"># 通过print打印对象的时候,如果类中定义__str__方法,自动调用,一般方便查看类中属性值</span></span><br><span class="line"><span class="built_in">print</span>(laosi)</span><br><span class="line"><span class="comment"># 后面做开发的时候,想直接返回对象中属性值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#总结:如果类的属性比较多,可以重写__str__()方法打印属性,方便阅读,无需手动调用,当使用print打印对象的时候,自动调用</span></span><br></pre></td></tr></table></figure>
-<p>定义一个魔法方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">return</span> self.color</span><br></pre></td></tr></table></figure>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240220172039437.png" /></p>
-<p>如果类的属性比较多,可以重写__str__()方法打印属性,方便阅读,无需手动调用,当使用print打印对象的时候,自动调用</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">    msg = <span class="string">&#x27;%s-%d&#x27;</span>%(self.color,self.wheelNum)</span><br><span class="line">    <span class="keyword">return</span> msg</span><br></pre></td></tr></table></figure>
-<p><img
-src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@master/image-20240220172155163.png" /></p>
-<h2 id="str和repr">str()和repr()</h2>
-<h3
-id="str_用于将数值转化为人阅读的形式调用print的时候自动调用">_<strong>str</strong>_()用于将数值转化为人阅读的形式，调用print的时候自动调用</h3>
-<h3
-id="repr__用于转化为解释器读取的形式">__repr__()用于转化为解释器读取的形式</h3>
-<p>注：在没有__str__的时候，认为str == repr</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取当前的时间</span></span><br><span class="line">now = datetime.datetime.now()</span><br><span class="line"><span class="built_in">print</span>(now)</span><br><span class="line"><span class="comment"># output 2024-02-05 22:12:48.663497</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(now))</span><br><span class="line"><span class="comment"># output &lt;class &#x27;datetime.datetime&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(now))  <span class="comment">#转换成字符串</span></span><br><span class="line"><span class="comment"># output: 2024-02-05 22:12:48.663497</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="built_in">str</span>(now)))</span><br><span class="line"><span class="comment"># output: &lt;class &#x27;str&#x27;&gt;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">repr</span>(now))</span><br><span class="line"><span class="comment"># output: datetime.datetime(2024, 2, 5, 22, 12, 48, 663497)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">eval</span>(<span class="built_in">repr</span>(now)))  <span class="comment">#eval参数是字符串表达式 repr(now)当成整体作为参数执行 再返回repr之后的结果</span></span><br><span class="line"><span class="comment"># output: 2024-02-05 22:12:48.663497</span></span><br></pre></td></tr></table></figure>
-<p>总结: repr返回的是字符串,一般用来获取对象</p>
-<p>obj == eval(repr(obj)) 这个公式是成立的</p>
-<h1 id="继承">继承</h1>
-<h2 id="定义">定义</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    attribute1, attribute2</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">method1</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">method2</span>(<span class="params">self</span>):</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>(<span class="title class_ inherited__">A</span>):	<span class="comment"># 表示B继承A</span></span><br></pre></td></tr></table></figure>
-<p>如果有两个类,一个父类,一个子类,定义了同名的方法,如果实例化子类对象调用方法的时候先从子类查找
-，再一级一级往上查找</p>
-<h2 id="初始化">初始化</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="comment">#定义初始化方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,age,sex</span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">        self.sex = sex</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义普通方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">eat</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;人都需要吃饭&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义普通方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">speak</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;我会汉语&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#定义子类Student继承父类Person</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>(<span class="title class_ inherited__">Person</span>):</span><br><span class="line">    <span class="comment">#定义初始化方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,no,name,age,sex</span>):</span><br><span class="line">        self.no = no</span><br><span class="line">        <span class="comment"># 调用父类同名方法</span></span><br><span class="line">        <span class="comment"># 1.父类类名.父类方法</span></span><br><span class="line">        <span class="comment"># Person.__init__(self,name,age,sex)  直接调用父类的初始化方法，并将 self（当前实例）以及需要传递的参数传递给它。</span></span><br><span class="line">        <span class="comment"># 2.super()</span></span><br><span class="line">        <span class="comment"># super().__init__(name,age,sex) 使用 super() 函数获取父类的引用，并调用其初始化方法，无需手动传递 self，它会自动传递。</span></span><br><span class="line">        <span class="built_in">super</span>(Student, self).__init__(name,age,sex)</span><br><span class="line">        <span class="comment"># 调用父类 Person 的 __init__ 方法，以便在创建 Student 对象时对父类属性进行初始化。</span></span><br></pre></td></tr></table></figure>
-<h1 id="访问限制">访问限制</h1>
-<h2
-id="私有就是按java中私有属性的来理解">私有，就是按java中私有属性的来理解</h2>
-<p>__双下划线后面跟属性名</p>
-<p>举个例子</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="comment">#定义一个初始化方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,money</span>):</span><br><span class="line">        self.__name = name</span><br><span class="line">        self._money = money</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义普通方法对属性设置</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">setName</span>(<span class="params">self,value</span>):</span><br><span class="line">        <span class="comment">#数据过滤</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(value) &lt;= <span class="number">4</span>:</span><br><span class="line">            self.__name = value</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;名称的长度不能大于4个字符&#x27;</span>)</span><br><span class="line">    <span class="comment">#定义普通方法获取属性值</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">getName</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.__name</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义私有方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__sayHello</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;我的名字是:%s,我有%s存款&#x27;</span>%(self.__name,self._money))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#定义公有方法获取私有属性</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test</span>(<span class="params">self</span>):</span><br><span class="line">        self.__sayHello()</span><br></pre></td></tr></table></figure>
-<h2 id="半公开_单下划线后面跟属性名">半公开：_单下划线后面跟属性名</h2>
-<h2 id="公开直接属性名">公开：直接属性名</h2>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/d57017e8.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1545,6 +817,571 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/791/
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f19f614d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/f19f614d.html" class="post-title-link" itemprop="url">Acwing1208翻硬币</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-03 16:50:07" itemprop="dateCreated datePublished" datetime="2024-02-03T16:50:07+08:00">2024-02-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 19:07:05" itemprop="dateModified" datetime="2024-03-26T19:07:05+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/" itemprop="url" rel="index"><span itemprop="name">蓝桥杯</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E8%B4%AA%E5%BF%83/" itemprop="url" rel="index"><span itemprop="name">贪心</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E8%B4%AA%E5%BF%83/%E7%AE%80%E5%8D%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">简单题</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/f19f614d.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/f19f614d.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题目"><a
+target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1210/">题目</a></h1>
+<p>小明正在玩一个“翻硬币”的游戏。</p>
+<p>桌上放着排成一排的若干硬币。我们用 * 表示正面，用 o
+表示反面（是小写字母，不是零）。</p>
+<p>比如，可能情形是：<code>**oo***oooo</code></p>
+<p>如果同时翻转左边的两个硬币，则变为：<code>oooo***oooo</code></p>
+<p>现在小明的问题是：如果已知了初始状态和要达到的目标状态，每次只能同时翻转相邻的两个硬币,那么对特定的局面，最少要翻动多少次呢？</p>
+<p>我们约定：把翻动相邻的两个硬币叫做一步操作。</p>
+<h2 id="输入格式">输入格式</h2>
+<p>两行等长的字符串，分别表示初始状态和要达到的目标状态。</p>
+<h2 id="输出格式">输出格式</h2>
+<p>一个整数，表示最小操作步数</p>
+<h2 id="数据范围">数据范围</h2>
+<p>输入字符串的长度均不超过100。 数据保证答案一定有解。</p>
+<h2 id="输入样例1">输入样例1：</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**********</span><br><span class="line">o****o****</span><br></pre></td></tr></table></figure>
+<h2 id="输出样例1">输出样例1：</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5</span><br></pre></td></tr></table></figure>
+<h2 id="输入样例2">输入样例2：</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*o**o***o***</span><br><span class="line">*o***o**o***</span><br></pre></td></tr></table></figure>
+<h2 id="输出样例2">输出样例2：</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
+<h1 id="分析">分析</h1>
+<p>贪心：如果当前位置不同，那就要翻转当前位置和当前位置的下一位，而当前位置之前的所有位置已经都是调整到和目标一样了</p>
+<h1 id="代码">代码</h1>
+<h2 id="暴搜超时了">暴搜(超时了)</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">static</span> StringBuffer stringInitial;</span><br><span class="line">	<span class="keyword">static</span> String stringTarget;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">StringBuffer</span> <span class="variable">stringOperation</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> stringLen;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">LEFT</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">RIGHT</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">steps</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">int</span> <span class="variable">minSteps</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">reverse</span><span class="params">(<span class="type">int</span> count)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(stringInitial.charAt(count) == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">			stringInitial.setCharAt(count, <span class="string">&#x27;o&#x27;</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			stringInitial.setCharAt(count, <span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(<span class="type">int</span> count, <span class="type">int</span> direction)</span> &#123;</span><br><span class="line">		reverse(count);</span><br><span class="line">		reverse(count + direction);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">valid</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(stringInitial.toString().equals(stringTarget)) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">printString</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(stringInitial);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">static</span> <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> count)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(count == stringLen) &#123;</span><br><span class="line">			<span class="keyword">if</span>(valid() &amp;&amp; steps &lt; minSteps) &#123;</span><br><span class="line">				minSteps = steps;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 翻当前层</span></span><br><span class="line">		<span class="keyword">if</span>(count == <span class="number">0</span>) &#123;	<span class="comment">// 只能翻右边</span></span><br><span class="line">			change(count, RIGHT);</span><br><span class="line">			steps += <span class="number">1</span>;</span><br><span class="line">			dfs(count + <span class="number">1</span>);</span><br><span class="line">			<span class="comment">// 复位</span></span><br><span class="line">			change(count, RIGHT);</span><br><span class="line">			steps--;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span>(count == stringLen - <span class="number">1</span>) &#123;	<span class="comment">// 只能翻左边</span></span><br><span class="line">			change(count, LEFT);</span><br><span class="line">			steps++;</span><br><span class="line">			dfs(count + <span class="number">1</span>);</span><br><span class="line">			<span class="comment">// 复位</span></span><br><span class="line">			change(count, LEFT);</span><br><span class="line">			steps--;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;	<span class="comment">// 两边都可以翻</span></span><br><span class="line">			<span class="comment">// 翻右边</span></span><br><span class="line">			change(count, RIGHT);</span><br><span class="line">			steps++;</span><br><span class="line">			dfs(count + <span class="number">1</span>);</span><br><span class="line">			<span class="comment">// 复位</span></span><br><span class="line">			change(count, RIGHT);</span><br><span class="line">			steps--;</span><br><span class="line">			<span class="comment">// 翻左边</span></span><br><span class="line">			change(count, LEFT);</span><br><span class="line">			steps++;</span><br><span class="line">			dfs(count + <span class="number">1</span>);</span><br><span class="line">			<span class="comment">// 复位</span></span><br><span class="line">			change(count, LEFT);</span><br><span class="line">			steps--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 不翻当前层</span></span><br><span class="line">		dfs(count + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">String</span> <span class="variable">tmpString</span> <span class="operator">=</span> scan.nextLine();</span><br><span class="line">		stringInitial = <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(tmpString);</span><br><span class="line">		stringTarget = scan.nextLine();</span><br><span class="line">		stringLen = stringInitial.length();</span><br><span class="line">		dfs(<span class="number">0</span>);</span><br><span class="line">		System.out.println(minSteps);</span><br><span class="line">		scan.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="贪心">贪心</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="keyword">static</span> StringBuffer stringOperation;</span><br><span class="line">	<span class="keyword">static</span> String stringTarget;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(<span class="type">int</span> count)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(stringOperation.charAt(count) == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">			stringOperation.setCharAt(count, <span class="string">&#x27;o&#x27;</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			stringOperation.setCharAt(count, <span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scan</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">String</span> <span class="variable">tmpString</span> <span class="operator">=</span> scan.nextLine();</span><br><span class="line">		stringOperation = <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(tmpString);</span><br><span class="line">		stringTarget = scan.nextLine();</span><br><span class="line">		<span class="type">int</span> <span class="variable">steps</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; stringTarget.length(); i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(stringOperation.charAt(i) != stringTarget.charAt(i)) &#123;</span><br><span class="line">				change(i);</span><br><span class="line">				change(i + <span class="number">1</span>);</span><br><span class="line">				steps++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(steps);</span><br><span class="line">		scan.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/581bdacc.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/581bdacc.html" class="post-title-link" itemprop="url">第三周-作业</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-02 22:08:15" itemprop="dateCreated datePublished" datetime="2024-02-02T22:08:15+08:00">2024-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/581bdacc.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/581bdacc.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>365</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1
+id="exercise1写一个函数求三个数的平均值要求分别使用默认参数和不定长参数">exercise1:写一个函数求三个数的平均值(要求分别使用默认参数和不定长参数)</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用不定长参数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">*args</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(args) / <span class="built_in">len</span>(args)</span><br></pre></td></tr></table></figure>
+<h1 id="exercise2偏函数">exercise2：偏函数</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">键盘录入一个数字,使用偏函数计算这个数字表示n周（一周7天）的总天数</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># 从functools中导包</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"><span class="comment"># 定义原始函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">count</span>(<span class="params">days_per_week, n</span>):</span><br><span class="line">    <span class="keyword">return</span> n * days_per_week</span><br><span class="line"><span class="comment"># 利用partial装饰原始函数，就是新建了一个函数</span></span><br><span class="line">count_days = partial(count, <span class="number">7</span>)</span><br><span class="line">days = count_days(<span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(days)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/aaf56f78.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/aaf56f78.html" class="post-title-link" itemprop="url">调试</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-02 21:57:55" itemprop="dateCreated datePublished" datetime="2024-02-02T21:57:55+08:00">2024-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/aaf56f78.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/aaf56f78.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>708</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="调试">调试</h1>
+<h2 id="断言assert">断言assert</h2>
+<p>格式：assert expression 等价于： if not expression: raise
+AssertError</p>
+<h2 id="logging">logging</h2>
+<p>导入模块</p>
+<p>添加配置</p>
+<p>写入的信息的类别</p>
+<p>debug,info,warnning,error
+如果指定info,debug不再起作用,如果指定wranning,debug,info不起作用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">导入logging模块</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="comment">#添加一个配置</span></span><br><span class="line">logging.basicConfig(level=logging.DEBUG,<span class="comment">#控制台打印的日志级别</span></span><br><span class="line">                    filename=<span class="string">&#x27;./log/new.log&#x27;</span>,</span><br><span class="line">                    filemode=<span class="string">&#x27;a&#x27;</span>,<span class="comment">##模式，有w和a，w就是写模式，每次都会重新写日志，覆盖之前的日志</span></span><br><span class="line">                    <span class="comment">#a是追加模式，默认如果不写的话，就是追加模式</span></span><br><span class="line">                    <span class="built_in">format</span>=</span><br><span class="line">                    <span class="string">&#x27;%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s&#x27;</span></span><br><span class="line">                    <span class="comment">#日志格式</span></span><br><span class="line">                    )</span><br><span class="line">s = <span class="string">&#x27;0&#x27;</span></span><br><span class="line">n = <span class="built_in">int</span>(s)</span><br><span class="line">logging.info(<span class="string">&#x27;n=%d&#x27;</span>%n)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span>/n)</span><br></pre></td></tr></table></figure>
+<h2 id="pdb">pdb</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">命令           用途</span><br><span class="line"><span class="keyword">break</span> 或则 b  设置断点</span><br><span class="line"><span class="keyword">continue</span>/c    继续执行程序，或者跳到下一个断点</span><br><span class="line"><span class="built_in">next</span>/n       执行下一行</span><br><span class="line">step/s       进入函数</span><br><span class="line"><span class="built_in">list</span>/l      查看当前的代码段</span><br><span class="line"><span class="keyword">return</span>/r    执行代码直到从当前函数的返回</span><br><span class="line">exit/q       终止，退出</span><br><span class="line">p/!          打印变量的值    p c</span><br><span class="line"><span class="built_in">help</span>/h       帮助</span><br></pre></td></tr></table></figure>
+<h1 id="单元测试">单元测试</h1>
+<p>导入unittest模块</p>
+<h2 id="测试函数">测试函数</h2>
+<h2 id="测试类">测试类</h2>
+<h1 id="文档测试">文档测试</h1>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a8a6c8d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/5a8a6c8d.html" class="post-title-link" itemprop="url">post</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-30 19:19:38" itemprop="dateCreated datePublished" datetime="2024-01-30T19:19:38+08:00">2024-01-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/5a8a6c8d.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/5a8a6c8d.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/48543190.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/48543190.html" class="post-title-link" itemprop="url">虚拟环境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-26 22:02:01" itemprop="dateCreated datePublished" datetime="2024-01-26T22:02:01+08:00">2024-01-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-26 18:50:54" itemprop="dateModified" datetime="2024-03-26T18:50:54+08:00">2024-03-26</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/48543190.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/48543190.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>269</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>conda管理环境与vir管理环境</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/48543190.html">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1616,7 +1453,7 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/791/
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">164</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1677,13 +1514,13 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/791/
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">422k</span>
+    <span title="站点总字数">418k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:24</span>
+    <span title="站点阅读时长">6:20</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
