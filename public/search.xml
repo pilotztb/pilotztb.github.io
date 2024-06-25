@@ -8751,6 +8751,15 @@ SF/ZF/AF/PF/CF状态标志位分别送入AH的第7/6/4/2/0位，而AH的第5/3/1
 获得主存单元的有效地址；不是物理地址，也不是该单元的内容</font></li>
 <li>可以实现计算功能</li>
 </ul>
+<h3 id="lds">LDS</h3>
+<p><strong>格式</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LDS r16,mem</span><br><span class="line">;r16←mem</span><br><span class="line">;DS←mem+2</span><br></pre></td></tr></table></figure>
+<p>LDS指令将主存中mem指定的字送至r16，并将mem的下一个字，地址就是在MEM基础上加2送DS寄存器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">比如</span><br><span class="line">ADR DW 1234H, 5678H</span><br><span class="line">LDS BX, ADR</span><br><span class="line">;BX &lt;- [ADR] BX = 1234H</span><br><span class="line">;DS &lt;- [ADR + 2] DS = 5678H</span><br></pre></td></tr></table></figure>
+<h3 id="les">LES</h3>
+<p><strong>格式</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LES r16,mem</span><br><span class="line">; r16←mem</span><br><span class="line">; ES←mem+2</span><br></pre></td></tr></table></figure>
+<p>LES指令将主存中mem指定的字送至r16，并将mem的下一字送ES寄存器</p>
 <h1 id="算术运算类指令">算术运算类指令</h1>
 <h2 id="状态标志">状态标志</h2>
 <p>常用状态标志： 进位标志CF、溢出标志OF 零位标志ZF、符号标志SF
@@ -9064,13 +9073,8 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bc3e302c70e3c9e2f4481d
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV WORD PTR [BX], 0</span><br><span class="line">MOV WORD PTR [BX + 2], 1500H</span><br><span class="line">JMP FAR PTR [BX]</span><br><span class="line">; 转移到1500H:0</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h2 id="条件转移指令">条件转移指令</h2>
-<h3 id="判断单个标志位状态">判断单个标志位状态</h3>
-<p>⑴JZ/JE和JNZ/JNE：利用零标志ZF，判断结果是否为零（或相等）</p>
-<p>⑵JS和JNS：利用符号标志SF，判断结果是正是负</p>
-<p>⑶JO和JNO：利用溢出标志OF，判断结果是否产生溢出</p>
-<p>⑷JP/JPE和JNP/JPO：利用奇偶标志PF，判断结果中“1”的个数是偶是奇</p>
-<p>⑸JC/JB/JNAE和JNC/JNB/JAE：利用进位标志CF，判断结果是否进位或借位</p>
-<p>上面5种每种里面记1个就行</p>
+<p><font color = "red">条件转移指令的判断条件：PF, CF, OF, SF,
+ZF</font></p>
 <p>举例：</p>
 <p>题1：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">	test al,80h	；测试最高位</span><br><span class="line">	jz next0	；D7＝0（ZF＝1），转移</span><br><span class="line">	mov ah,0ffh	；D7＝1，顺序执行</span><br><span class="line">	jmp done	；无条件转向</span><br><span class="line">next0:	mov ah,0</span><br><span class="line">done:	...</span><br><span class="line">	test al,80h	；测试最高位</span><br><span class="line">	jnz next1	；D7＝1（ZF＝0），转移</span><br><span class="line">	mov ah,0	；D7＝0，顺序执行</span><br><span class="line">	jmp done	；无条件转向</span><br><span class="line">next1:	mov ah,0ffh</span><br><span class="line">done:	...</span><br></pre></td></tr></table></figure>
