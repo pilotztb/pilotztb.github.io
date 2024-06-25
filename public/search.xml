@@ -9079,6 +9079,13 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/bc3e302c70e3c9e2f4481d
 <h3 id="条件转移指令大全">条件转移指令大全</h3>
 <p><img
 src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/ec17839cba049c8cd0fd850358ccadf.jpg" /></p>
+<ol type="1">
+<li>A(above)/B(below)适用于无符号数</li>
+<li>G(greater)/L(lower)适用于有符号数</li>
+<li>比如JNBE：not below and not
+equal，非小于等于就是大于。然后是前操作数减后操作数，如果前比后大，那么就不用借位，CF
+= 0，ZF = 0</li>
+</ol>
 ]]></content>
       <categories>
         <category>汇编语言</category>
@@ -16305,8 +16312,9 @@ src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-2024060215234242
 <h3 id="带弹出值的返回">带弹出值的返回</h3>
 <p>汇编指令格式为：RET n<br />
 其中n为一个立即数，长度为2字节。并且是一个偶数。</p>
-<p>（1）从堆栈弹出1个字送IP（段内返回）或2个字送IP和CS； （2）执行
-SP&lt;=(SP)+n 。将堆栈中已经用过的参数(n个字节)弹出舍去.</p>
+<p>（1）从堆栈弹出1个字送IP（段内返回）或2个字送IP和CS；</p>
+<p>（2）执行 SP&lt;=(SP)+n
+。将堆栈中<strong>已经用过的参数(n个字节)弹出舍去</strong>.</p>
 <h2 id="参数的传递">参数的传递</h2>
 <h3 id="堆栈的使用">堆栈的使用</h3>
 <p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240603021333291.png" style="zoom:50%;" /></p>
