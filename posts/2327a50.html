@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="8086的组成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一章_汇编语言基础练习题">
+<meta property="og:url" content="http://example.com/posts/2327a50.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="8086的组成">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a103b15867a55726948183c77d0a97b.jpg">
+<meta property="article:published_time" content="2024-06-20T01:31:13.000Z">
+<meta property="article:modified_time" content="2024-06-27T09:08:38.426Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a103b15867a55726948183c77d0a97b.jpg">
+
+<link rel="canonical" href="http://example.com/posts/2327a50.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>第一章_汇编语言基础练习题 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2327a50.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第一章_汇编语言基础练习题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-20 09:31:13" itemprop="dateCreated datePublished" datetime="2024-06-20T09:31:13+08:00">2024-06-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-27 17:08:38" itemprop="dateModified" datetime="2024-06-27T17:08:38+08:00">2024-06-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">汇编语言</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/2327a50.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/2327a50.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="的组成">8086的组成</h1>
+<span id="more"></span>
+<h2 id="寄存器位数数据存储最小单位">寄存器位数，数据存储最小单位</h2>
+<p>关于 8086/8088 微机系列,下列说法哪个是正确的( D )</p>
+<p>A. 一个存储单元由 16 个二进制位组成,简称字。</p>
+<p>B. 当存储一个字数据时,低字节放高地址位,高字节放低地址位。</p>
+<p>C. 在内存中,可以无限分配段,且段的大小不受限制</p>
+<p>D. 段与段之间可以邻接,也可以重叠。</p>
+<p>解析：</p>
+<p>A.
+<strong>错误</strong>：8086/8088微处理器的<strong>存储单元是8位的，即一个字节，而不是16位</strong>。16位通常指的是数据总线宽度，即一次可以处理16位数据。</p>
+<ul>
+<li>8086中寄存器位数是16位，但是存储单元中的最小可寻址单元(也叫内存编址的最小单元)是一个字节，是8位，寄存器位数和最小可寻址存储单元位数不同</li>
+<li>8086中机器存储的最小单位是位，内存编址的最小单位是字节</li>
+</ul>
+<p>B. <strong>错误</strong>：低地址放低字节，高地址放高字节</p>
+<p>C.
+<strong>错误</strong>：在8086/8088微处理器的内存管理中，段的大小是有限制的。<strong>段的大小不能超过64KB，这是由于段寄存器（如CS、DS、ES、SS）是16位的，因此段内偏移量的最大值为0xFFFF</strong>，即64KB
+- 1。</p>
+<p>D.
+<strong>正确</strong>：在8086/8088微处理器的内存模型中，<strong>段与段之间可以邻接，也可以重叠</strong>。这是因为段的基地址和偏移量是独立的，段的基地址由段寄存器确定，而偏移量则是由指令或数据操作指定的。因此，不同的段可以设置不同的基地址，并且段内的偏移量可以是任意的，从而允许段与段之间的邻接或重叠。</p>
+<p>所以，正确答案是D。</p>
+<h2 id="寄存器的种类">寄存器的种类</h2>
+<p>IP指令指针寄存器是属于( ) a. 通用寄存器 b. 段寄存器 c. 变址寄存器 d.
+控制寄存器</p>
+<p>解析：</p>
+<p>D</p>
+<h1 id="的寻址方式">8086的寻址方式</h1>
+<h2 id="bp寄存器">BP寄存器</h2>
+<p><strong>题1</strong></p>
+<p>下列指令中段默认为堆栈段的是( C )</p>
+<p>A. MOV AX, [BX+SI+10] B. ADD AX,ES:[SI]</p>
+<p>C. SUB BX, [BP][DI] D. MOV DX,[1000H]</p>
+<p>A.
+<code>MOV AX, [BX+SI+10]</code>：这是一个使用基址加变址加偏移的寻址方式，但没有指定段寄存器，因此它使用的是默认的数据段寄存器（DS）。</p>
+<p>B.
+<code>ADD AX, ES:[SI]</code>：这条指令明确指定了段寄存器ES，因此它使用的是额外段寄存器ES。</p>
+<p>C.
+<code>SUB BX, [BP][DI]</code>：这条指令使用了BP和DI寄存器，并且没有明确指定段寄存器。在8086/8088中，当使用BP寄存器作为基址寄存器时，如果没有指定段寄存器，那么默认使用的是堆栈段寄存器（SS）。</p>
+<p>D.
+<code>MOV DX, [1000H]</code>：这条指令使用的是立即数寻址方式，直接访问物理地址1000H，没有使用段寄存器。</p>
+<p><strong>题2</strong></p>
+<p>MOV AX
+,[BP+100H][SI]这种虽然同时出现BP(默认SS)和SI(默认DS)，但是以SS作为段地址</p>
+<p>基址寄存器2个：BP和BX二选一</p>
+<p>变址寄存器2个：SI和DI二选一</p>
+<h2 id="不同寻址方式">不同寻址方式</h2>
+<p><strong>题1</strong></p>
+<p>MOV AX, ES:[1000H] 源操作数的寻址方式是（ C ）</p>
+<p>A.立即寻址 B.寄存器寻址 C. 直接寻址 D.基址寻址</p>
+<p>解析：</p>
+<p>注意汇编中寻址方式与计组中区分，汇编中是七种</p>
+<p><strong>题2</strong></p>
+<p>设 （DS）=2000H， （BX）=0200H， （SI）=0002H， （20200H）=12H，
+（20201H）=FFH，（20202H）= 56H，（20203H）= 78H， （21200H）= 2AH，
+（21201H）= 00H，（21202H）=B7H，（21203H）=65H，试说明下列各条指
+令执行完后AX 寄存器中的内容是多少？ （1）MOV AX，0400H
+（AX）=___________ （2）MOV AX，BX （AX）=___________ （3）MOV AX，[BX]
+（AX）=___________ （4）MOV AX，[BX+1000H] （AX）=___________ （5）MOV
+AX，[BX+SI] （AX）=___________</p>
+<p>解析：</p>
+<ol type="1">
+<li><font color = "yellow">注意段地址</font></li>
+<li><font color = "yellow">注意是传1个字节还是1个字</font></li>
+</ol>
+<ol type="1">
+<li><p>0400H</p></li>
+<li><p>0200H</p></li>
+</ol>
+<p>(3)、(4)、(5)有坑</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/a103b15867a55726948183c77d0a97b.jpg" style="zoom:50%;" /></p>
+<ol start="3" type="1">
+<li><p>FF12H</p></li>
+<li><p>002AH</p></li>
+<li><p>7856H</p></li>
+</ol>
+<p><strong>题3</strong></p>
+<p>15、写出把首地址为BLOCK的字数组的第6个字送到DX寄存器的指令。要求使用以下几种寻址方式：</p>
+<ol type="1">
+<li><p>寄存器间接寻址</p></li>
+<li><p>寄存器相对寻址</p></li>
+<li><p>基址变址寻址</p></li>
+</ol>
+<p>解析：</p>
+<p>寄存器间接寻址：寄存器中存放的就是偏移地址</p>
+<p>寄存器相对寻址：寄存器中存放的是一个数组的第一个元素的偏移地址，要获得这个数组其他元素需要加上相对偏移距离或者寄存器中存放这个数组其他元素相对于第一个元素的偏移距离，然后加上第一个表示</p>
+<p>基址变址寻址：以BX记录基址，DI/SI记录偏移地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(1) </span><br><span class="line">MOV  BX, OFFSET  BLOCK       </span><br><span class="line">ADD  BX, (6–1)*2       </span><br><span class="line">MOV  DX, [BX]</span><br><span class="line">(2) </span><br><span class="line">MOV  BX, OFFSET  BLOCK		</span><br><span class="line">MOV  DX, [BX+(6–1)*2]   或		</span><br><span class="line">MOV  BX, (6-1)*2</span><br><span class="line">MOV  DX, BLOCK[BX]</span><br><span class="line">(3) </span><br><span class="line">MOV  BX, OFFSET  BLOCK</span><br><span class="line">MOV  SI, (6–1)*2</span><br><span class="line">MOV  DX, [BX][SI]</span><br></pre></td></tr></table></figure>
+<h2 id="注意word-ptr">注意word ptr</h2>
+<p>用位移量为0524H的直接寻址方式把存储器中的一个字与数2A59H相加，并把结果送回存储单元中。</p>
+<p>解析：</p>
+<p>MOV WORD PTR [0524H], 2A59H</p>
+<h2 id="寻址中label的使用">寻址中label的使用</h2>
+<p>MOV AX, WORD PTR NAMES + 1</p>
+<p>比如NAMES DB 'HELLO WORLD'</p>
+<p>将NAMES汇编成NAMES这个数组的首地址，指令执行完会得到NAMES数组中的第二个元素E</p>
+<p>相当于下面两条指令</p>
+<p>LEA SI, NAMES</p>
+<p>MOV AX, [SI]</p>
+<h2 id="不同寄存器的限制">不同寄存器的限制</h2>
+<p>INC [AX] ()</p>
+<p>解析：</p>
+<p>错误，能在寻址的时候使用的寄存器只用两个基址寄存器BX/BP，两个变址寄存器DI/SI</p>
+<p>概念判断</p>
+<ol type="1">
+<li>汇编语言是用符号表示的面向机器的语言，因此它是机器语言。 （ ）</li>
+</ol>
+<p>错误</p>
+<p>汇编语言是一种低级别的编程语言，它使用助记符（例如，<code>MOV</code>、<code>ADD</code>）来表示机器指令，这些指令直接对应于计算机的操作码。机器语言是计算机硬件直接能够理解和执行的二进制指令。</p>
+<ol start="2" type="1">
+<li>汇编语言是一种高级语言,其程序源代码必须编译成目标代码,程序才能执行。</li>
+</ol>
+<p>错误</p>
+<p>这个说法是<strong>错误的</strong>。汇编语言实际上是一种<strong>低级别的编程语言</strong>，而不是高级语言。让我来解释一下：</p>
+<ol type="1">
+<li><strong>汇编语言</strong>：
+<ul>
+<li>汇编语言是一种<strong>符号化的</strong>机器语言。它使用助记符（例如，<code>MOV</code>、<code>ADD</code>）来表示机器指令，这些指令直接对应于计算机的操作码。</li>
+<li>程序员编写的汇编程序源代码需要经过<strong>汇编器</strong>的处理，将其转换为机器码（目标代码）。这个过程称为<strong>汇编</strong>。</li>
+<li>汇编语言程序不需要像高级语言那样进行完整的编译过程，因为它们已经接近于底层的机器指令。</li>
+</ul></li>
+<li><strong>高级语言</strong>：
+<ul>
+<li>高级语言（例如C、Java、Python）是相对于汇编语言的概念。它们更接近人类自然语言，具有更高的抽象级别。</li>
+<li>高级语言的程序源代码需要经过<strong>编译器</strong>的处理，将其转换为机器码。这个过程称为<strong>编译</strong>。</li>
+<li>高级语言程序的执行不需要直接生成机器码，而是通过解释器或虚拟机来执行。</li>
+</ul></li>
+</ol>
+<p>因此，汇编语言不是高级语言，它不需要完整的编译过程，而是通过汇编器将源代码转换为机器码。高级语言的编译过程更复杂，需要将源代码转换为目标代码，然后再执行。</p>
+<ol start="3" type="1">
+<li>汇编语言是最快最有效的计算机语言,在自动控制、通信与接口中是必不可少的。
+（ ）</li>
+</ol>
+<p>正确</p>
+<ol start="4" type="1">
+<li>汇编语言与机器低层关系不大,所以它具有很好的移植性。 ( )</li>
+</ol>
+<p>错误</p>
+<p>虽然汇编语言相对于高级语言来说较低级，但它与机器的关系非常密切，因此移植性并不总是很好</p>
+<ol start="5" type="1">
+<li>将汇编语言源代码转换成机器目标代码的过程称为编译。 ( )</li>
+</ol>
+<p>错误</p>
+<p><font color = "red">将汇编语言源代码转换成机器目标代码的过程称为<strong>汇编</strong>，而不是编译。</font>让我来解释一下：</p>
+<ul>
+<li><strong>编译</strong>：
+<ul>
+<li>编译是将高级语言（例如C、Java）源代码转换为机器目标代码的过程。</li>
+<li>编译器将高级语言源代码分析、优化，并生成与目标平台（计算机体系结构和操作系统）兼容的目标代码。</li>
+<li>目标代码可以直接在目标平台上执行，而不需要进一步的转换。</li>
+</ul></li>
+<li><strong>汇编</strong>：
+<ul>
+<li>汇编是将汇编语言源代码转换为机器目标代码的过程。</li>
+<li>汇编器将汇编语言源代码翻译成机器码（操作码），这些指令直接对应于计算机硬件的操作。</li>
+<li>汇编语言程序员编写的源代码需要经过汇编器处理，生成可执行的目标代码。</li>
+</ul></li>
+</ul>
+<p>因此，编译是高级语言到目标代码的过程，而汇编是汇编语言到目标代码的过程。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/2327a50.html" title="第一章_汇编语言基础练习题">http://example.com/posts/2327a50.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/4dfbfa3a.html" rel="prev" title="第二章计算机中编码习题">
+      <i class="fa fa-chevron-left"></i> 第二章计算机中编码习题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/8f276d43.html" rel="next" title="第二章_8086指令系统练习题">
+      第二章_8086指令系统练习题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-number">1.</span> <span class="nav-text">8086的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E4%BD%8D%E6%95%B0%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%9C%80%E5%B0%8F%E5%8D%95%E4%BD%8D"><span class="nav-number">1.1.</span> <span class="nav-text">寄存器位数，数据存储最小单位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">寄存器的种类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9A%84%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">8086的寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bp%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">BP寄存器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">不同寻址方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8Fword-ptr"><span class="nav-number">2.3.</span> <span class="nav-text">注意word ptr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E5%9D%80%E4%B8%ADlabel%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.4.</span> <span class="nav-text">寻址中label的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E9%99%90%E5%88%B6"><span class="nav-number">2.5.</span> <span class="nav-text">不同寄存器的限制</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">心有所向，无问西东</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">177</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">442k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:42</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

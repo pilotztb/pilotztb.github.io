@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="定义">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法设计与分析理论习题">
+<meta property="og:url" content="http://example.com/posts/8488270e.html">
+<meta property="og:site_name" content="Pilot&#39;s Blog">
+<meta property="og:description" content="定义">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e962ca28acc6ebca14afb5cd7444ee9.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/158e8cbe5dc72ea0db13f0d0e856ca3.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/8485ed74a149230e0853b6f4ce5dfba.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b03178941838a7237a1e829fc161476.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e62f0b09ac096958d835f9f934a3b91.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623221108036.png">
+<meta property="article:published_time" content="2024-06-22T13:39:03.000Z">
+<meta property="article:modified_time" content="2024-07-03T12:11:39.886Z">
+<meta property="article:author" content="Pilot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e962ca28acc6ebca14afb5cd7444ee9.jpg">
+
+<link rel="canonical" href="http://example.com/posts/8488270e.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>算法设计与分析理论习题 | Pilot's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pilot's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/8488270e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Pilot">
+      <meta itemprop="description" content="心有所向，无问西东">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pilot's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法设计与分析理论习题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-22 21:39:03" itemprop="dateCreated datePublished" datetime="2024-06-22T21:39:03+08:00">2024-06-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-07-03 20:11:39" itemprop="dateModified" datetime="2024-07-03T20:11:39+08:00">2024-07-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">算法设计与分析</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">理论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/8488270e.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/8488270e.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="定义">定义</h1>
+<span id="more"></span>
+<h2 id="第一章算法综述">第一章算法综述</h2>
+<h3 id="题1np问题npc问题">题1：NP问题，NPC问题</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623152609217.png" /></p>
+<p>解析：C</p>
+<ul>
+<li>NP问题：</li>
+</ul>
+<ol type="1">
+<li>无法在多项式时间内解决</li>
+<li>但是已知一个可能的答案的话可以在多项式时间内验证</li>
+</ol>
+<ul>
+<li><p>NPC问题：</p>
+<p>任何NP问题都可以规约成一个NPC问题</p></li>
+<li><p>NP难问题</p>
+<p>相对于NP问题不仅无法在多项式时间内解决，也无法在多项式时间内验证</p></li>
+</ul>
+<h3 id="题2npc问题举例">题2：NPC问题举例</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623163656624.png" /></p>
+<h2 id="第二章递归分支">第二章递归分支</h2>
+<h3 id="题1线性时间选择">题1：线性时间选择</h3>
+<p>线性时间选择问题采用拟中位数来作为划分的基准元素，可以在最坏情况下用<span
+class="math inline">\(O(n)\)</span>时间完成选择任务 (正确)</p>
+<p>解析：</p>
+<p>通过select算法</p>
+<h2 id="第三章动态规划">第三章动态规划</h2>
+<h3 id="题1动态规划与贪心区别">题1：动态规划与贪心区别</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623221352874.png" /></p>
+<h3 id="题2动态规划算法基本步骤">题2：动态规划算法基本步骤</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623221537015.png" /></p>
+<p>解析：</p>
+<p>ADCB</p>
+<h2 id="第四章贪心">第四章贪心</h2>
+<h3
+id="题1用贪心能找到最优解的和不能找到最优解">题1：用贪心能找到最优解的和不能找到最优解</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623153409238.png" /></p>
+<p>解析</p>
+<ul>
+<li>贪心：
+<ol type="1">
+<li>可以拆分的背包问题，如背包，最优装载</li>
+<li>图论中单源最短路（dijkstra和floyd），最小生成树（prim和krusal），哈夫曼编码</li>
+<li>活动安排</li>
+</ol></li>
+<li>非贪心
+<ol type="1">
+<li>不可拆分的背包问题，如0-1背包，完全背包，最少硬币找零</li>
+<li>多机调度</li>
+<li>凸多边形剖分</li>
+</ol></li>
+</ul>
+<h2 id="第六章分支限界">第六章分支限界</h2>
+<h3 id="题1">题1</h3>
+<p>分支限界法中，每个活节点有多次机会成为拓展节点 （错误）</p>
+<p>解析：分支限界法(BFS)每个活节点只有一次机会成为拓展节点，每次将所有孩子压入堆栈；回溯每个活节点有多次机会成为拓展节点，每次只将1个孩子压入堆栈</p>
+<h3 id="题2分支限界法和回溯法的异同">题2：分支限界法和回溯法的异同</h3>
+<ul>
+<li><p>异：</p>
+<ol type="1">
+<li><p>节点拓展</p>
+<p>分支限界法每个节点值拓展1次，一次生成所有节点入队；回溯法每个节点可能拓展多次，一次只生成1个节点入队</p></li>
+<li><p>存储结构：</p>
+<p>分支限界用的是队列，回溯用的是堆栈</p></li>
+<li><p>搜索策略</p>
+<p>分支限界是BFS，回溯是DFS</p></li>
+</ol></li>
+<li><p>同：</p>
+<ol type="1">
+<li>都可以求最优解和解向量</li>
+<li>都需要可行性剪枝，都可以通过限界函数优化</li>
+<li>时间复杂度都是指数级</li>
+</ol></li>
+</ul>
+<h2 id="第七章随机化过程">第七章随机化过程</h2>
+<p>题1：快速排序中引入随机化过程目的</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623154803326.png" /></p>
+<p>解析：C</p>
+<ol type="1">
+<li>改善的是最坏，平均就是<span
+class="math inline">\(O(nlogn)\)</span></li>
+</ol>
+<h1 id="计算">计算</h1>
+<h2 id="第三章动态规划-1">第三章动态规划</h2>
+<h3 id="题1如何快速计算0-1背包">题1：如何快速计算0-1背包</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623160030823.png" /></p>
+<ol type="1">
+<li>列三列，分别是物品，对应价值，对应重量</li>
+<li>再列最后一列表示背包的容量</li>
+<li>从上往下填充</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e962ca28acc6ebca14afb5cd7444ee9.jpg" style="zoom:50%;" /></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1HFgkegEx3/?spm_id_from=333.999.0.0&amp;vd_source=a46136aa644c81e751b3b0cc0e17dbe1">视频讲解</a></p>
+<h3 id="题2最长上升子序列">题2：最长上升子序列</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623160940023.png" /></p>
+<p>解析：</p>
+<ol type="1">
+<li><p>dp[i]：必须以i结尾的最长上升子序列的长度</p></li>
+<li><p>动归方程：</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/793e8774bcac64f6c6b7559dc762c7b.jpg" /></p>
+<p>对于当前以j结尾，从j往前扫描，选择比a[j]小的a[k]，且要满足前面条件中最大的</p></li>
+<li><p>dp数组</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/982b742631c7fa4206378d6c4e1dba7.jpg" /></p></li>
+</ol>
+<h3 id="题3最大子段和">题3：最大子段和</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623162340190.png" /></p>
+<p>解析：</p>
+<ul>
+<li><p>穷举</p>
+<p>子段长度从1到n，长度为1的子段有n个，长度为2的子段有n-1个，……长度为n的子段有1个，总共有<span
+class="math inline">\(\frac{(n + 1) * n}{2}\)</span>，时间复杂度是<span
+class="math inline">\(O(n^2)\)</span></p></li>
+<li><p>分支，类似快排，递归方程式<span class="math inline">\(T(n) =
+2T(n/2) + n\)</span>，时间复杂度是<span
+class="math inline">\(O(nlogn)\)</span></p></li>
+<li><p>动规，dp[i]表示以i结尾的子段的最大子段和，<span
+class="math inline">\(dp[i] = max(dp[j - 1], a[j])， 1 \leq j \leq
+n\)</span>，时间复杂度是<span
+class="math inline">\(O(n)\)</span></p></li>
+</ul>
+<blockquote>
+<p><strong>注：子序列和子段动规的区别在于，子序列是可以间断的，所以上一级的最优值可以从1~j-1里面取，子段是连续的，所以上一级只能取j-1</strong></p>
+</blockquote>
+<h3 id="题4单源最短路">题4：单源最短路</h3>
+<p>4.1</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/158e8cbe5dc72ea0db13f0d0e856ca3.jpg" style="zoom:50%;" /></p>
+<p>4.2</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/8485ed74a149230e0853b6f4ce5dfba.jpg" style="zoom:50%;" /></p>
+<p>解析：上面两道题其实是一种题，把第一个图片旋转90度就是第二张图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/b03178941838a7237a1e829fc161476.jpg" style="zoom:50%;" /></p>
+<p>图形特点是上一层节点与下一层每个节点都有关系</p>
+<h2 id="第七章随机化过程-1">第七章随机化过程</h2>
+<h3 id="题1蒙特卡洛算法计算调用次数">题1：蒙特卡洛算法计算调用次数</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623154933792.png" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/e62f0b09ac096958d835f9f934a3b91.jpg" style="zoom:50%;" /></p>
+<h1 id="编程">编程</h1>
+<h2 id="第二章分治">第二章分治</h2>
+<h3 id="二分查找">二分查找</h3>
+<p>主要思路：</p>
+<p>1 定好左端点与右端点</p>
+<p>2
+比较由左端点与右端点得出的中间值与目标值关系，根据此关系修改左端点或右端点，得出新的中间值，重复上述过程</p>
+<p>易错点：</p>
+<p>1
+<strong>区间的关系</strong>：如果是全闭区间，则在while中应该是left&lt;=right，因为[1,1]是合法区间，</p>
+<p>而如果是左闭右开区间，则在while中应该是left&lt;right,因为[1,1)是不合法区间</p>
+<p>2
+<strong>左右端点的修改</strong>：如果是全闭区间，修改左端点则是middle+1，修改右端点则是middle-1，因为已知middle不符合要求，则要在新区间中排除</p>
+<p>而如果是左开右闭区间，已知middle不是合法区间，所以左端点修改是middle+1，而右端点修改是middle</p>
+<p><strong>全闭区间代码实现：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">int search(int* nums, int numsSize, int target)&#123;</span><br><span class="line">    int left = 0, right = numsSize - 1;    //小技巧，用下标值，不用定义指针，与出入的数组首地址组成指针</span><br><span class="line">    int ret = -1;</span><br><span class="line">    while(left &lt;= right) &#123;                //易错一</span><br><span class="line">        int middle = (right + left) / 2;</span><br><span class="line">        if(nums[middle] &lt; target) &#123;</span><br><span class="line">            //printf(&quot;%d\n&quot;,nums[middle]);</span><br><span class="line">            left = middle + 1;            //易错二</span><br><span class="line">        &#125;</span><br><span class="line">        else if(nums[middle] &gt; target) &#123;</span><br><span class="line">            //printf(&quot;%d\n&quot;,nums[middle]);</span><br><span class="line">            right = middle - 1;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            //printf(&quot;%d\n&quot;,ret);</span><br><span class="line">            ret = middle;</span><br><span class="line">            break;                </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>左开右闭区间代码实现</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int search(int* nums, int numsSize, int target)&#123;</span><br><span class="line">    int left = 0, right = numsSize;</span><br><span class="line">    int ret = -1;</span><br><span class="line">    while(left &lt; right) &#123;        //易错一</span><br><span class="line">        int middle = (left + right) / 2;</span><br><span class="line">        if(nums[middle] &lt; target) &#123;</span><br><span class="line">            left = middle + 1;    </span><br><span class="line">        &#125;</span><br><span class="line">        else if(nums[middle] &gt; target) &#123;</span><br><span class="line">            right = middle;    //易错二</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            ret = middle;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="归并排序">归并排序</h3>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/1f5a1f9c8f25a8c03d5be566ea354c1.png" /></p>
+<p>解析：</p>
+<p>利用归并排序，当两个部分合并的时候，因为左右两个部分都已经排好序，所以如果右半部分的当前指针指向的数比左半部分当前指针指向的数小，那么左半部分当前位置到左半部分末尾的数都可以和右半部分当前指针指向的数组成逆序对</p>
+<p>代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span>[] data, <span class="type">int</span> start, <span class="type">int</span> end)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(start == end) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> (start + end) / <span class="number">2</span>;</span><br><span class="line">    backtrack(data, start, mid);</span><br><span class="line">    backtrack(data, mid + <span class="number">1</span>, end);</span><br><span class="line">    <span class="type">int</span>[] tmp = <span class="keyword">new</span> <span class="title class_">int</span>[end - start + <span class="number">1</span>];</span><br><span class="line">    <span class="type">int</span> <span class="variable">pl</span> <span class="operator">=</span> start;</span><br><span class="line">    <span class="type">int</span> <span class="variable">pr</span> <span class="operator">=</span> mid + <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">total</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">last</span> <span class="operator">=</span> end - start;</span><br><span class="line">    <span class="keyword">while</span>(pr &lt;= mid &amp;&amp; pr &lt;= end) &#123;</span><br><span class="line">        <span class="keyword">if</span>(left[pl] &lt; right[pr]) &#123;</span><br><span class="line">            tmp[total] = left[pl];</span><br><span class="line">            total++;</span><br><span class="line">            pl++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            tmp[total] = rigth[pr];</span><br><span class="line">            pr++;</span><br><span class="line">            count += (mid - pl + <span class="number">1</span>);	<span class="comment">//计算当前所有逆序对的数量</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(pl != mid) copy(left[pl, mid], tmp[total, last]);</span><br><span class="line">    <span class="keyword">if</span>(pr != end) copy(right[pr, mid], tmp[total, last]);</span><br><span class="line">    copy(tmp[<span class="number">0</span>, last], data[start, end]);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>归并排序原始代码</p>
+<p>记得先左右部分分别递归然后归并到一个tmp数组最后用这个tmp数组覆盖原数组对应部分就行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">mergeSort</span><span class="params">(<span class="type">int</span>[] data, <span class="type">int</span> start, <span class="type">int</span> end)</span> &#123;</span><br><span class="line">    <span class="comment">// 如果当前数组只有1个元素，直接返回</span></span><br><span class="line">    <span class="keyword">if</span>(start == end) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[] tmp = <span class="keyword">new</span> <span class="title class_">int</span>[start - end + <span class="number">1</span>];</span><br><span class="line">    <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> (start + end) / <span class="number">2</span>;</span><br><span class="line">    mergeSort(data, start, mid);	<span class="comment">// 对左半部分继续递归</span></span><br><span class="line">    mergeSort(data, mid + <span class="number">1</span>, end);	<span class="comment">// 对右半部分进行递归</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> start;	<span class="comment">//左半部分的第一个</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">q</span> <span class="operator">=</span> mid + <span class="number">1</span>; 	<span class="comment">//右半部分的第一个</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">last</span> <span class="operator">=</span> start - end;</span><br><span class="line">    <span class="comment">// 下面这个while是归并过程</span></span><br><span class="line">    <span class="keyword">while</span>(p &lt;= mid &amp;&amp; q &lt;= end) &#123;</span><br><span class="line">        <span class="keyword">if</span>(data[p] &lt; data[q]) &#123;</span><br><span class="line">            data[r++] = data[q++];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            data[r++] = data[p++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果左半部分还没有遍历完，将剩下的全部复制到tmp数组里</span></span><br><span class="line">    <span class="keyword">if</span>(p &lt; mid) &#123;</span><br><span class="line">        copy(data, p, mid, tmp, r, last);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">// 如果右半部分还没有遍历完，将剩下的全部复制到tmp数组里</span></span><br><span class="line">    <span class="keyword">if</span>(q &lt; end) &#123;</span><br><span class="line">        copy(data, q, end, tmp, r, last);</span><br><span class="line">    &#125;</span><br><span class="line">    copy(tmp, <span class="number">0</span>, last, data, start, end);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="第三章动态规划-2">第三章动态规划</h2>
+<h3 id="最长公共子序列">最长公共子序列</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/image-20240623221108036.png" style="zoom: 67%;" /></p>
+<p>计算出dp[word1.length][word2.length]后，修改次数就是word1.length +
+word2.length - 2 * dp[word1.length][word2.length]</p>
+<p>最长公共子序列原始代码</p>
+<ol type="1">
+<li><p>dp[i][j]表示字符串x以i结尾，字符串y以j结尾的时候最长公共子序列</p></li>
+<li><p>动规方程</p>
+<p><img
+src="https://cdn.jsdelivr.net/gh/pilotztb/myBlog_img@main/c2f7a9fa4b9a76331c2b73ef9c22c07.jpg" /></p></li>
+<li><p>动规矩阵中列表示字符串x，行表示字符串y</p></li>
+<li><p>先固定x的结尾，移动y的结尾，分为三种：相同，去掉x结尾更大，去掉y结尾更大</p></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">lcsLength</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n, <span class="type">char</span>[] x, <span class="type">char</span>[] y, <span class="type">int</span>[][] c, <span class="type">int</span>[][] b)</span> &#123;</span><br><span class="line">    <span class="comment">// Initialize DP tables</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= m; i++) &#123;	<span class="comment">//列代表字符串X</span></span><br><span class="line">        c[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n; i++) &#123;	<span class="comment">//行代表字符串Y</span></span><br><span class="line">        c[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 控制变量法，先固定x的结尾，移动y的结尾</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (x[i] == y[j]) &#123;	<span class="comment">// 如果末尾相同</span></span><br><span class="line">                c[i][j] = c[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;	</span><br><span class="line">                b[i][j] = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c[i - <span class="number">1</span>][j] &gt;= c[i][j - <span class="number">1</span>]) &#123;	<span class="comment">//如果末尾不同且去x尾更长</span></span><br><span class="line">                c[i][j] = c[i - <span class="number">1</span>][j];</span><br><span class="line">                b[i][j] = <span class="number">2</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;	<span class="comment">//如果末尾相同且去y尾更长</span></span><br><span class="line">                c[i][j] = c[i][j - <span class="number">1</span>];</span><br><span class="line">                b[i][j] = <span class="number">3</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="第四章贪心-1">第四章贪心</h2>
+<h3 id="背包">背包</h3>
+<p>原始背包代码</p>
+<ol type="1">
+<li>计算性价比，根据性价比重新排序</li>
+<li>循环遍历重新排序的物品，如果当前物品放不下就break，然后按比例放入；如果放得下就加上当前物品价值，背包容量也减去相应物品重量</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span> n, <span class="type">float</span>[] v, <span class="type">float</span>[] w)</span> &#123;</span><br><span class="line">       <span class="comment">// 假设已经实现排序算法</span></span><br><span class="line">       <span class="comment">// 这里使用Arrays.sort()进行排序</span></span><br><span class="line">       <span class="type">float</span>[][] items = <span class="keyword">new</span> <span class="title class_">float</span>[n][<span class="number">2</span>];</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">           items[i][<span class="number">0</span>] = v[i];</span><br><span class="line">           items[i][<span class="number">1</span>] = w[i];</span><br><span class="line">       &#125;</span><br><span class="line">       Arrays.sort(items, (a, b) -&gt; Float.compare(b[<span class="number">0</span>] / b[<span class="number">1</span>], a[<span class="number">0</span>] / a[<span class="number">1</span>]));</span><br><span class="line"></span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">           v[i] = items[i][<span class="number">0</span>];</span><br><span class="line">           w[i] = items[i][<span class="number">1</span>];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">knapsack</span><span class="params">(<span class="type">int</span> n, <span class="type">float</span> M, <span class="type">float</span>[] v, <span class="type">float</span>[] w, <span class="type">float</span>[] x)</span> &#123;</span><br><span class="line">       sort(n, v, w);</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">           x[i] = <span class="number">0</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="type">float</span> <span class="variable">c</span> <span class="operator">=</span> M;</span><br><span class="line">       <span class="type">int</span> i;</span><br><span class="line">       <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">           <span class="keyword">if</span> (w[i] &gt; c) &#123;</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           x[i] = <span class="number">1</span>;</span><br><span class="line">           c -= w[i];</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (i &lt; n) &#123;</span><br><span class="line">           x[i] = c / w[i]; <span class="comment">// 最后装入部分物品</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="第五章回溯">第五章回溯</h2>
+<h3 id="最大团">最大团</h3>
+<p>原始代码</p>
+<ol type="1">
+<li>递归终点是叶子节点，如果当前最优值值比之前的最优值更优，就用当前解向量与最优值覆盖之前的</li>
+<li>可行性剪枝的标准是将当前节点i与现在团里的每个元素是否都有关系</li>
+<li>限界剪枝的标准是如果放弃当前的元素，那么剩下的元素加上当前团里的元素是否大于等于最优值，如果还比最优值小就不用搜了</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> bestn;</span><br><span class="line"><span class="type">int</span>[] x = <span class="keyword">new</span> <span class="title class_">int</span>[max];</span><br><span class="line"><span class="type">int</span>[] bestx = <span class="keyword">new</span> <span class="title class_">int</span>[max];</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span> i)</span> &#123;	<span class="comment">//i表示当前是第几层</span></span><br><span class="line">    <span class="keyword">if</span>(i == n) &#123;</span><br><span class="line">        <span class="keyword">if</span>(n &gt; bestn) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) bestx[i] = x[i];</span><br><span class="line">            bestn = n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">boolean</span> <span class="variable">ok</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt; i; j++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(x[j] == <span class="number">1</span> &amp;&amp; a[j][i] == NOEDGE) &#123;	<span class="comment">//x[j] == 1表示当前节点在最大团中，a[j][i]表示在矩阵表示中i和j两个顶点没有联系</span></span><br><span class="line">            ok = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ok == <span class="literal">true</span>) &#123;</span><br><span class="line">        x[i] = <span class="number">1</span>;</span><br><span class="line">        n++;</span><br><span class="line">        backtrack(i + <span class="number">1</span>);</span><br><span class="line">        x[i] = <span class="number">0</span>;</span><br><span class="line">        n--;</span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(n + total - i &gt; bestn) &#123;</span><br><span class="line">        backtrack(i + <span class="number">1</span>);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>pilot
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/posts/8488270e.html" title="算法设计与分析理论习题">http://example.com/posts/8488270e.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/e228f7fe.html" rel="prev" title="第四章_子程序设计练习题">
+      <i class="fa fa-chevron-left"></i> 第四章_子程序设计练习题
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">第一章算法综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%981np%E9%97%AE%E9%A2%98npc%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">题1：NP问题，NPC问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%982npc%E9%97%AE%E9%A2%98%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">题2：NPC问题举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%E9%80%92%E5%BD%92%E5%88%86%E6%94%AF"><span class="nav-number">1.2.</span> <span class="nav-text">第二章递归分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%981%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E9%80%89%E6%8B%A9"><span class="nav-number">1.2.1.</span> <span class="nav-text">题1：线性时间选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">1.3.</span> <span class="nav-text">第三章动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%981%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%B8%8E%E8%B4%AA%E5%BF%83%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.1.</span> <span class="nav-text">题1：动态规划与贪心区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%982%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.3.2.</span> <span class="nav-text">题2：动态规划算法基本步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E8%B4%AA%E5%BF%83"><span class="nav-number">1.4.</span> <span class="nav-text">第四章贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%981%E7%94%A8%E8%B4%AA%E5%BF%83%E8%83%BD%E6%89%BE%E5%88%B0%E6%9C%80%E4%BC%98%E8%A7%A3%E7%9A%84%E5%92%8C%E4%B8%8D%E8%83%BD%E6%89%BE%E5%88%B0%E6%9C%80%E4%BC%98%E8%A7%A3"><span class="nav-number">1.4.1.</span> <span class="nav-text">题1：用贪心能找到最优解的和不能找到最优解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C"><span class="nav-number">1.5.</span> <span class="nav-text">第六章分支限界</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%981"><span class="nav-number">1.5.1.</span> <span class="nav-text">题1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%982%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C%E6%B3%95%E5%92%8C%E5%9B%9E%E6%BA%AF%E6%B3%95%E7%9A%84%E5%BC%82%E5%90%8C"><span class="nav-number">1.5.2.</span> <span class="nav-text">题2：分支限界法和回溯法的异同</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0%E9%9A%8F%E6%9C%BA%E5%8C%96%E8%BF%87%E7%A8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">第七章随机化过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-1"><span class="nav-number">2.1.</span> <span class="nav-text">第三章动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%981%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E8%AE%A1%E7%AE%970-1%E8%83%8C%E5%8C%85"><span class="nav-number">2.1.1.</span> <span class="nav-text">题1：如何快速计算0-1背包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%982%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">2.1.2.</span> <span class="nav-text">题2：最长上升子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%983%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C"><span class="nav-number">2.1.3.</span> <span class="nav-text">题3：最大子段和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%984%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF"><span class="nav-number">2.1.4.</span> <span class="nav-text">题4：单源最短路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0%E9%9A%8F%E6%9C%BA%E5%8C%96%E8%BF%87%E7%A8%8B-1"><span class="nav-number">2.2.</span> <span class="nav-text">第七章随机化过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%981%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E7%AE%97%E6%B3%95%E8%AE%A1%E7%AE%97%E8%B0%83%E7%94%A8%E6%AC%A1%E6%95%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">题1：蒙特卡洛算法计算调用次数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%88%86%E6%B2%BB"><span class="nav-number">3.1.</span> <span class="nav-text">第二章分治</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="nav-number">3.1.1.</span> <span class="nav-text">二分查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">3.1.2.</span> <span class="nav-text">归并排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-2"><span class="nav-number">3.2.</span> <span class="nav-text">第三章动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">3.2.1.</span> <span class="nav-text">最长公共子序列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E8%B4%AA%E5%BF%83-1"><span class="nav-number">3.3.</span> <span class="nav-text">第四章贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E5%8C%85"><span class="nav-number">3.3.1.</span> <span class="nav-text">背包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0%E5%9B%9E%E6%BA%AF"><span class="nav-number">3.4.</span> <span class="nav-text">第五章回溯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%9B%A2"><span class="nav-number">3.4.1.</span> <span class="nav-text">最大团</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Pilot"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Pilot</p>
+  <div class="site-description" itemprop="description">心有所向，无问西东</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">177</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pilotztb" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pilotztb" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/1718552614?spm_id_from=333.1007.0.0" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;1718552614?spm_id_from&#x3D;333.1007.0.0" rel="noopener" target="_blank"><i class="fa bilibili fa-fw"></i>Bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_72805195?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_72805195?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pilot</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">442k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:42</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BpqNyVDBrhcD8AxcdDnKI9m4-gzGzoHsz',
+      appKey     : 'J9GI6kVcrDKd8yf0UPS5k26C',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
